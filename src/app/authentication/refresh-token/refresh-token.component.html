@@ -1,0 +1,8 @@
+<div class="container" *ngIf="response;else noResponse">
+  <h1>{{response.accessToken}}</h1>
+  <h1>{{response.refreshToken}}</h1>
+</div>
+
+<ng-template #noResponse>
+  <h1>ERROR</h1>
+</ng-template>

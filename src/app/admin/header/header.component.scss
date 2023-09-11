@@ -1,0 +1,66 @@
+//.header{
+//  height: 70px;
+//  padding: 20px 50px;
+//  background-color: rgb(17, 60, 96);
+//  color: #fff;
+//  display: flex;
+//  justify-content: space-between;
+//  box-shadow: 5px 5px 5px #939393;
+//  .logo{
+//    font-weight: bold;
+//    font-size:20px;
+//  }
+//  .admin{
+//    display:flex;
+//    align-items: center;
+//    font-weight: bold;
+//    .admin-image{
+//      width:50px;
+//      height: 50px;
+//      border-radius: 50%;
+//      background-color: rebeccapurple;
+//      margin-left: 20px;
+//      display: flex;
+//      align-items: center;
+//      justify-content: center;
+//      font-weight: bold;
+//    }
+//  }
+//}
+
+.mat-toolbar{
+  z-index: 999999999;
+  background: #f7f7f7;
+}
+
+ul{
+  li{
+    list-style: none;
+  }
+}
+
+button{
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.admin{
+  font-size: 14px;
+}
+
+.admin-image{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.admin-image-icon{
+  height: 18px;
+  font-size: 16px;
+}
+::ng-deep{
+  .mat-menu-content{
+    width: 160px;
+  }
+}

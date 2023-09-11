@@ -1,0 +1,40 @@
+//.main-container{
+//  display: flex;
+//  .side-nav{
+//    width:350px;
+//    min-width: 230px;
+//    min-height: calc(100vh - 70px);
+//    background: blue;
+//    color: #fff;
+//    box-shadow: 5px 5px 5px #939393;
+//    @media only screen and (max-width: 1300px) {
+//      width: 100px;
+//      min-width: 100px;
+//    }
+//  }
+//  .main{
+//  }
+//}
+
+
+:host{
+  display:flex;
+  flex-direction: column;
+  height:100%;
+}
+//
+mat-drawer-container{
+  //position: absolute;
+  //top:0;
+  //width: 100%;
+  //bottom: 0;
+  //flex: 1 1 auto;
+  height: 100vh;
+}
+//
+.mat-drawer{
+  width: 260px;
+  background-color: #012645;
+}
+
+

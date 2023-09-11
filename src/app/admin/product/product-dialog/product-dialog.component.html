@@ -1,0 +1,66 @@
+<div class="" mat-dialog-title>
+  <h1>Thêm sản phẩm</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="content" mat-dialog-content>
+    <div class="row">
+      <div class="col justify-content-between">
+      <mat-form-field appearance="outline">
+        <mat-label>Tên sản phẩm</mat-label>
+        <input type="text" matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Số lượng</mat-label>
+        <input type="text" matInput formControlName="quantity">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Đã bán</mat-label>
+        <input type="text" matInput formControlName="sold">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Giá tiền</mat-label>
+        <input type="text" matInput formControlName="price">
+      </mat-form-field>
+      </div>
+      <div class="col">
+      <mat-form-field appearance="fill">
+        <mat-label>Hương vị</mat-label>
+        <mat-select formControlName="flavor">
+          <mat-option *ngFor="let f of flavors" [value]="f">{{f.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Sự kiện giảm giá</mat-label>
+        <mat-select formControlName="sale">
+          <mat-option *ngFor="let s of sales" [value]="s">{{s.name}} || {{s.discount}}% </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Danh mục</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Trạng thái</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="true">Mở</mat-option>
+          <mat-option [value]="false">Đóng</mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <mat-label>Hình ảnh</mat-label>
+        <input type="file" (change)="onFileChange($event)">
+      <mat-form-field appearance="outline">
+        <mat-label>Mô tả</mat-label>
+        <textarea type="text" matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="action" mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+  </div>
+</form>

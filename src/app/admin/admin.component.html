@@ -1,0 +1,25 @@
+<!--<div class="container-fullwidth">-->
+<!--  <div class="header">-->
+<!--    <app-header></app-header>-->
+<!--  </div>-->
+<!--  <div class="main-container">-->
+<!--    <div class="side-nav">-->
+<!--      <app-side-nav></app-side-nav>-->
+<!--    </div>-->
+<!--    <div class="main">-->
+<!--      <app-main></app-main>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<router-outlet></router-outlet>-->
+
+
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideNavOpen">
+    <app-side-nav></app-side-nav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header [name]="response.username" (onToggleSideNav)="sideNavToggle()" ></app-header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

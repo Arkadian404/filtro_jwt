@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: hidden;
+}
+
+td, th {
+  text-align: center !important;
+  vertical-align: middle !important;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+
+.mat-sort-header-container {
+  justify-content: center !important;
+
+}
+
+//mat-header-cell, mat-cell {
+//  justify-content: center;
+//}
+//
+//th.mat-header-cell {
+//  text-align: center !important;
+//}
+
+
+//.mat-sort-header-container {
+//  display:flex;
+//  justify-content:center;
+//}
+
+
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }

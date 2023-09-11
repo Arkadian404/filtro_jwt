@@ -1,0 +1,60 @@
+<!--<div class="container">-->
+<!--  <form action="" class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit()">-->
+<!--  <h2>Login Form</h2>-->
+<!--  <h1 *ngIf="errorMessage">{{errorMessage}}</h1>-->
+<!--  <div class="row-control">-->
+<!--    <mat-form-field appearance="outline">-->
+<!--      <mat-label>Username</mat-label>-->
+<!--      <input-->
+<!--        required-->
+<!--        matInput-->
+<!--        ngModel-->
+<!--        #username="ngModel"-->
+<!--        name="username"-->
+<!--        [(ngModel)]="authRequest.username"-->
+<!--        placeholder="Username"-->
+<!--      >-->
+<!--    </mat-form-field>-->
+<!--  </div>-->
+<!--   <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--      <mat-label>Password</mat-label>-->
+<!--      <input required-->
+<!--              matInput-->
+<!--              ngModel-->
+<!--        #password="ngModel"-->
+<!--        name="password"-->
+<!--        [(ngModel)]="authRequest.password"-->
+<!--        placeholder="Password"-->
+<!--        type="password"-->
+<!--      >-->
+<!--      </mat-form-field>-->
+<!--   </div>-->
+<!--   <div class="row-control row-actions">-->
+<!--      <button mat-raised-button color="primary" type="submit">Sign in</button>-->
+<!--   </div>-->
+<!--   <pre> {{username.errors | json}}</pre>-->
+<!--   <pre> {{password.errors | json}}</pre>-->
+<!--   <pre>-->
+<!--    {{loginForm.value | json}}-->
+<!--    </pre>-->
+<!--  </form>-->
+<!--</div>-->
+
+
+<div class="sign-in-form col-6 mx-auto">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
+    <div class="form-floating">
+      <input formControlName="username" class="form-control" type="text">
+      <label>Username</label>
+    </div>
+    <div class="form-floating">
+      <input formControlName="password" class="form-control" type="password">
+      <label>Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+  </form>
+</div>
+

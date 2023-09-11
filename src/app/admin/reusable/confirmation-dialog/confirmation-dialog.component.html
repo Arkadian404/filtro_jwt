@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Xác nhận xóa</h1>
+<div mat-dialog-content>Bạn có chắc chắn muốn xóa?</div>
+<div mat-dialog-actions class="action">
+  <button mat-button type="submit" color="warn" (click)="confirm()">Xác nhận</button>
+  <button mat-button type="button" color="primary" [mat-dialog-close]="false" (click)="cancel()">Hủy bỏ</button>
+</div>
