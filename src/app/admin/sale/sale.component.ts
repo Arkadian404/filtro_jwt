@@ -12,6 +12,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 
 import {Sale} from "../../shared/models/sale";
 import {SaleDialogComponent} from "./sale-dialog/sale-dialog.component";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-event',
@@ -46,7 +47,8 @@ export class SaleComponent implements OnInit{
           this.dataSource.paginator = this.paginator;
         },
         error:(err)=>{
-          console.log(err)
+          console.log(err);
+          this.utilService.openSnackBar(err, 'Đóng')
         }
       });
   }

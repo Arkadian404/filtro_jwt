@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (!tokenService.isLoggedIn()) {
     router.navigate(['/login']);
     return false;
-  }else if(tokenService.getRole()!== 'ADMIN'){
+  }else if(tokenService.getRole()!== 'ADMIN' && tokenService.getRole()!== 'EMPLOYEE'){
     router.navigate(['/home']);
     return false;
   }else{

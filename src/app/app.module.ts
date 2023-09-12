@@ -72,6 +72,7 @@ import {NgOptimizedImage} from "@angular/common";
 import { UserDialogComponent } from './admin/user/user-dialog/user-dialog.component';
 import { EmployeeComponent } from './admin/employee/employee.component';
 import { EmployeeDialogComponent } from './admin/employee/employee-dialog/employee-dialog.component';
+import {UserComponent} from "./admin/user/user.component";
 
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
@@ -103,6 +104,7 @@ firebase.initializeApp(environment.firebaseConfig)
     ProductDialogComponent,
     SaleComponent,
     SaleDialogComponent,
+    UserComponent,
     UserDialogComponent,
     EmployeeComponent,
     EmployeeDialogComponent

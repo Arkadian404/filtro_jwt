@@ -8,6 +8,6 @@ export interface User{
   dob:Date;
   address:string;
   phone:string;
-  role:string;
-  isEnabled:boolean;
+  role?:string;
+  enabled:boolean;
 }

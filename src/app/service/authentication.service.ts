@@ -19,12 +19,12 @@ export class AuthenticationService {
 
   public authenticate(request:AuthenticationRequest){
     return this.http.post<AuthenticationResponse>(`${AUTH_API}/auth/authenticate`, request)
-      .pipe(
-        catchError((err)=>{
-          console.log("Error handled by Service..." + err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      );
+      // .pipe(
+      //   catchError((err)=>{
+      //     console.log("Error handled by Service..." + err.status)
+      //     return throwError(()=> new Error(err.error.message));
+      //   })
+      // );
   }
 
   public register(request:Register){

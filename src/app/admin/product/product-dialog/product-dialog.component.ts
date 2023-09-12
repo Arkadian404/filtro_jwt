@@ -146,64 +146,50 @@ export class ProductDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
-        const imgName = this.getCurrentDateTime() + this.selectedImage.name;
-        const storageRef = ref(this.storage, `coffee/${imgName}`);
-        const uploadTask = uploadBytesResumable(storageRef, this.selectedImage);
-        uploadTask.on('state_changed', (snapshot)=>{
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-          },
-          (err)=>{
-            this.utilService.openSnackBar(err.message, 'Đóng');
-            console.log(err);
-          },
-          ()=>{
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-              console.log('File available at', downloadURL);
-              this.form.value.image = downloadURL;
-              this.productService.updateProduct(this.data.id, this.form.value).subscribe({
-                next:(data)=>{
-                  this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
-                  this.matDialog.close(true);
-                  console.log(this.form);
-                },
-                error:(err)=>{
-                  this.utilService.openSnackBar(err, 'Đóng');
-                }
-              })
-            })
-          })
+        if(!!this.selectedImage){
+          this.uploadProductWithImage();
+        }else{
+          this.updateProduct();
+        }
       }else{
-        const imgName = this.getCurrentDateTime() + this.selectedImage.name;
-        const storageRef = ref(this.storage, `coffee/${imgName}`);
-        const uploadTask = uploadBytesResumable(storageRef, this.selectedImage);
-        uploadTask.on('state_changed', (snapshot)=>{
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-        },
-          (err)=>{
-            this.utilService.openSnackBar(err.message, 'Đóng');
-            console.log(err);
-          },
-          ()=>{
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-              console.log('File available at', downloadURL);
-              this.form.value.image = downloadURL;
-              this.productService.createProduct(this.form.value).subscribe({
-                next:() => {
-                  this.utilService.openSnackBar('Thêm thành công', 'Đóng');
-                  this.matDialog.close(true);
-                  console.log(this.form)
-                },
-                error:(err) => {
-                  this.utilService.openSnackBar(err, 'Đóng');
-                }
-              })
-            })
-          })
+        this.uploadProductWithImage();
       }
     }
   }
 
+  updateProduct(){
+    this.productService.updateProduct(this.data.id, this.form.value).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+        this.matDialog.close(true);
+        console.log(this.form);
+      },
+      error:(err)=>{
+        this.utilService.openSnackBar(err, 'Đóng');
+      }
+    })
+  }
+
+
+  uploadProductWithImage(){
+    const imgName = this.getCurrentDateTime() + this.selectedImage.name;
+    const storageRef = ref(this.storage, `coffee/${imgName}`);
+    const uploadTask = uploadBytesResumable(storageRef, this.selectedImage);
+    uploadTask.on('state_changed', (snapshot)=>{
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (err)=>{
+        this.utilService.openSnackBar(err.message, 'Đóng');
+        console.log(err);
+      },
+      ()=>{
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
+          console.log('File available at', downloadURL);
+          this.form.value.image = downloadURL;
+          this.updateProduct();
+        })
+      })
+  }
 
 }

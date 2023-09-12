@@ -1,1 +1,64 @@
-<p>user-dialog works!</p>
+<div  mat-dialog-title>
+  <h1>Thêm nhân viên</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="content" mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Tài khoản</mat-label>
+          <input type="text" matInput formControlName="username">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Họ</mat-label>
+          <input type="text" matInput formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Tên</mat-label>
+          <input type="text" matInput formControlName="lastname">
+        </mat-form-field>
+        <mat-form-field appearance="outline" id="password">
+          <mat-label>Mật khẩu</mat-label>
+          <input type="text" matInput formControlName="password">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="mail" matInput formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Ngày sinh</mat-label>
+          <input [matDatepicker]="Picker" matInput formControlName="dob">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
+          <mat-datepicker #Picker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Hủy</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Địa chỉ</mat-label>
+          <input type="text" matInput formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Số điện thoại</mat-label>
+          <input type="text" matInput formControlName="phone">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Trạng thái</mat-label>
+          <mat-select formControlName="enabled">
+            <mat-option [value]="true">Mở</mat-option>
+            <mat-option [value]="false">Đóng</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="action mt-5" mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+  </div>
+</form>

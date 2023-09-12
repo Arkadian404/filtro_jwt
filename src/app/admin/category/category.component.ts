@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {Category} from "../../shared/models/category";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CategoryDialogComponent} from "./category-dialog/category-dialog.component";

@@ -13,41 +13,53 @@ export class SaleService {
   constructor(private http:HttpClient) { }
 
   getSaleList(){
-    return this.http.get<Sale[]>(`${EVENT_API}/getList`);
+    return this.http.get<Sale[]>(`${EVENT_API}/getList`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
   }
 
   getSaleById(id:number){
-    return this.http.get<Sale>(`${EVENT_API}/find/${id}`);
+    return this.http.get<Sale>(`${EVENT_API}/find/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );;
   }
 
   createSale(sale:Sale){
-    return this.http.post<Sale>(`${EVENT_API}/create`,sale, {responseType: 'text' as 'json'})
+    return this.http.post<Sale>(`${EVENT_API}/create`,sale)
       .pipe(
         catchError(err=>{
-          console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
         })
-      )
+      );
   }
 
   updateSale(id:number, sale:Sale){
-    return this.http.put<Sale>(`${EVENT_API}/update/${id}`,sale, {responseType: 'text' as 'json'})
+    return this.http.put<Sale>(`${EVENT_API}/update/${id}`,sale)
       .pipe(
         catchError(err=>{
-          console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
         })
-      )
+      );
   }
 
   deleteSale(id:number){
-    return this.http.delete<Sale>(`${EVENT_API}/delete/${id}`, {responseType: 'text' as 'json'})
+    return this.http.delete<Sale>(`${EVENT_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
-          console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
         })
-      )
+      );
   }
 
 }

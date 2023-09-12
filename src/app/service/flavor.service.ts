@@ -13,7 +13,13 @@ export class FlavorService {
   constructor(private http:HttpClient) { }
 
   getFlavorList(){
-    return this.http.get<Flavor[]>(`${FLAVOR_API}/getList`);
+    return this.http.get<Flavor[]>(`${FLAVOR_API}/getList`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
   }
 
   getFlavorById(id:number){
@@ -21,37 +27,37 @@ export class FlavorService {
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          return throwError(()=> new Error(err.error.message))
         })
-      )
+      );
   }
 
   createFlavor(flavor:Flavor){
-    return this.http.post<Flavor>(`${FLAVOR_API}/create`, flavor, {responseType: 'text' as 'json'})
+    return this.http.post<Flavor>(`${FLAVOR_API}/create`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          return throwError(()=> new Error(err.error.message))
         })
       )
   }
 
   updateFlavor(id:number, flavor:Flavor){
-    return this.http.put<Flavor>(`${FLAVOR_API}/update/${id}`, flavor, {responseType: 'text' as 'json'})
+    return this.http.put<Flavor>(`${FLAVOR_API}/update/${id}`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          return throwError(()=> new Error(err.error.message))
         })
       )
   }
 
   deleteFlavor(id:number){
-    return this.http.delete<Flavor>(`${FLAVOR_API}/delete/${id}`, {responseType: 'text' as 'json'})
+    return this.http.delete<Flavor>(`${FLAVOR_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
-          return throwError(()=> new Error(err.error))
+          return throwError(()=> new Error(err.error.message))
         })
       )
   }
