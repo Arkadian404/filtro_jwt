@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {AuthenticationService} from "../service/authentication.service";
 import {TokenService} from "../service/token.service";
 import {User} from "../shared/models/user";
+import {Employee} from "../shared/models/employee";
+import {Router} from "@angular/router";
+import {UtilService} from "../service/util.service";
 
 
 @Component({
@@ -9,38 +12,46 @@ import {User} from "../shared/models/user";
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit{
+export class AdminComponent implements DoCheck, OnInit {
 
   // @ts-ignore
-  response:User;
+  name: string;
   sideNavOpen = true;
+  isEmployee = false;
+  isAuthenticated = false;
 
-  constructor(private jwtService: AuthenticationService,
-              private tokenService:TokenService){
+  constructor(private authService: AuthenticationService,
+              private router: Router,
+              private utilService: UtilService,
+              private tokenService: TokenService) {
   }
 
-  ngOnInit(){
-    this.getAdmin();
+  ngOnInit() {
+    // this.isEmployee = this.tokenService.getRole() === 'EMPLOYEE';
+    // this.isAuthenticated = this.tokenService.isLoggedIn() && (this.tokenService.getRole() === 'ADMIN' || this.tokenService.getRole() === 'EMPLOYEE') ? this.isAuthenticated = true : this.isAuthenticated = false;
   }
 
-  sideNavToggle(){
+  ngDoCheck(): void {
+    this.isEmployee = this.tokenService.getRole() === 'EMPLOYEE';
+    this.isAuthenticated = this.tokenService.isLoggedIn() && (this.tokenService.getRole() === 'ADMIN' || this.tokenService.getRole() === 'EMPLOYEE') ? this.isAuthenticated = true : this.isAuthenticated = false;
+    this.name = this.tokenService.getUsername();
+  }
+
+  sideNavToggle() {
     this.sideNavOpen = !this.sideNavOpen;
   }
 
-  public getAdmin() {
-    let resp = this.jwtService
-      .adminAccess()
-  //     .pipe(
-  //       filter(data => {
-  //         return Date.now() > tokenExp;
-  //       }),
-  //       concatMap(() => this.jwtService.refreshToken()),
-  //       tap(data => this.tokenService.setAccessToken(data.accessToken))
-  // );
-    resp.subscribe(data => {
-      console.log(data);
-      this.response = data
+  logout() {
+    this.authService.logout().subscribe({
+      next: (data) => {
+        this.tokenService.clearToken();
+        this.utilService.openSnackBar('Đăng xuất thành công', 'Đóng');
+        this.router.navigate(['/admin/login']);
+      },
+      error: (err) => {
+        console.log(err);
+        this.utilService.openSnackBar(err, 'Đóng');
+      }
     });
   }
-
 }

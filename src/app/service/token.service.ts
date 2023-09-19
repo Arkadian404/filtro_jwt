@@ -27,9 +27,18 @@ export class TokenService {
     return exp*1000;
   }
 
+  getUsername(){
+    if(localStorage.getItem("accessToken") != null){
+      const {sub} = this.decodeJWT(this.getAccessToken());
+      return sub;
+    }
+  }
+
   getRole(){
-    const {role} = this.decodeJWT(this.getAccessToken());
-    return role.find((role: string)=> role.startsWith('ROLE_')).replace("ROLE_", "");
+    if(localStorage.getItem("accessToken") != null){
+      const {role} = this.decodeJWT(this.getAccessToken());
+      return role.find((role: string)=> role.startsWith('ROLE_')).replace("ROLE_", "");
+    }
   }
 
   isLoggedIn(){

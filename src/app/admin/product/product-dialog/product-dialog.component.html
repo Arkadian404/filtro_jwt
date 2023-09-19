@@ -25,19 +25,19 @@
       <div class="col">
       <mat-form-field appearance="fill">
         <mat-label>Hương vị</mat-label>
-        <mat-select formControlName="flavor">
+        <mat-select [compareWith]="compareObjectFunction"  formControlName="flavor">
           <mat-option *ngFor="let f of flavors" [value]="f">{{f.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Sự kiện giảm giá</mat-label>
-        <mat-select formControlName="sale">
+        <mat-select [compareWith]="compareObjectFunction" formControlName="sale">
           <mat-option *ngFor="let s of sales" [value]="s">{{s.name}} || {{s.discount}}% </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Danh mục</mat-label>
-        <mat-select formControlName="category">
+        <mat-select [compareWith]="compareObjectFunction" formControlName="category">
           <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -51,8 +51,6 @@
       </div>
     </div>
     <div class="row">
-        <mat-label>Hình ảnh</mat-label>
-        <input type="file" (change)="onFileChange($event)">
       <mat-form-field appearance="outline">
         <mat-label>Mô tả</mat-label>
         <textarea type="text" matInput formControlName="description"></textarea>

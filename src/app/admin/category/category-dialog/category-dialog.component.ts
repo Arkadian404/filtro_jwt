@@ -58,5 +58,4 @@ export class CategoryDialogComponent implements OnInit{
       }
     }
   }
-
 }

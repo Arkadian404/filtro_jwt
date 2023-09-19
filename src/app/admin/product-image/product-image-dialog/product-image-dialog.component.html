@@ -1,0 +1,28 @@
+<div class="" mat-dialog-title>
+  <h1>Thêm hình ảnh sản phẩm</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="content" mat-dialog-content>
+    <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Loại sản phẩm</mat-label>
+          <mat-select [compareWith]="compareObjectFn" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange($event)">
+            <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Sản phẩm</mat-label>
+          <mat-select [compareWith]="compareObjectFn" formControlName="product">
+            <mat-option *ngFor="let p of products" [value]="p">{{p.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-label>Hình ảnh</mat-label>
+      <input type="file" (change)="onFileChange($event)" multiple>
+    </div>
+  </div>
+
+  <div class="action" mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+  </div>
+</form>

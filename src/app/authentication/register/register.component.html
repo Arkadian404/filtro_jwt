@@ -1,102 +1,274 @@
-<div class="container">
-  <form action="" class="login-form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-    <h2>Login Form</h2>
-    <h1 *ngIf="errorMessage">{{errorMessage}}</h1>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Firstname</mat-label>
-        <input
-          required
-          matInput
-          ngModel
-          #username="ngModel"
-          name="firstname"
-          [(ngModel)]="register.firstname"
-          placeholder="Firstname"
-        >
-      </mat-form-field>
-    </div>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Lastname</mat-label>
-        <input
-          required
-          matInput
-          ngModel
-          #username="ngModel"
-          name="lastname"
-          [(ngModel)]="register.lastname"
-          placeholder="Lastname"
-        >
-      </mat-form-field>
-    </div>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input
-          required
-          matInput
-          ngModel
-          #username="ngModel"
-          name="username"
-          [(ngModel)]="register.username"
-          placeholder="Username"
-        >
-<!--        <mat-error *ngIf="username.touched && !username.valid">-->
-<!--        </mat-error>-->
-<!--        <mat-error *ngIf="errorMessage"><span>{{errorMessage}}</span></mat-error>-->
-      </mat-form-field>
-    </div>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input
-          required
-          matInput
-          ngModel
-          #username="ngModel"
-          name="email"
-          [(ngModel)]="register.email"
-          placeholder="Email"
-        >
-      </mat-form-field>
-    </div>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input required
-               matInput
-               ngModel
-               #password="ngModel"
-               name="password"
-               [(ngModel)]="register.password"
-               placeholder="Password"
-               type="password"
-        >
+<!--<div class="container">-->
+<!--  <form action="" class="login-form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">-->
+<!--    <h2>Login Form</h2>-->
+<!--    <h1 *ngIf="errorMessage">{{errorMessage}}</h1>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Firstname</mat-label>-->
+<!--        <input-->
+<!--          required-->
+<!--          matInput-->
+<!--          ngModel-->
+<!--          #username="ngModel"-->
+<!--          name="firstname"-->
+<!--          [(ngModel)]="register.firstname"-->
+<!--          placeholder="Firstname"-->
+<!--        >-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Lastname</mat-label>-->
+<!--        <input-->
+<!--          required-->
+<!--          matInput-->
+<!--          ngModel-->
+<!--          #username="ngModel"-->
+<!--          name="lastname"-->
+<!--          [(ngModel)]="register.lastname"-->
+<!--          placeholder="Lastname"-->
+<!--        >-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Username</mat-label>-->
+<!--        <input-->
+<!--          required-->
+<!--          matInput-->
+<!--          ngModel-->
+<!--          #username="ngModel"-->
+<!--          name="username"-->
+<!--          [(ngModel)]="register.username"-->
+<!--          placeholder="Username"-->
+<!--        >-->
+<!--&lt;!&ndash;        <mat-error *ngIf="username.touched && !username.valid">&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-error>&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-error *ngIf="errorMessage"><span>{{errorMessage}}</span></mat-error>&ndash;&gt;-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Email</mat-label>-->
+<!--        <input-->
+<!--          required-->
+<!--          matInput-->
+<!--          ngModel-->
+<!--          #username="ngModel"-->
+<!--          name="email"-->
+<!--          [(ngModel)]="register.email"-->
+<!--          placeholder="Email"-->
+<!--        >-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input required-->
+<!--               matInput-->
+<!--               ngModel-->
+<!--               #password="ngModel"-->
+<!--               name="password"-->
+<!--               [(ngModel)]="register.password"-->
+<!--               placeholder="Password"-->
+<!--               type="password"-->
+<!--        >-->
 
-      </mat-form-field>
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Confirm password</mat-label>-->
+<!--        <input required-->
+<!--               matInput-->
+<!--               ngModel-->
+<!--               #password="ngModel"-->
+<!--               name="confirmPassword"-->
+<!--               [(ngModel)]="register.confirmPassword"-->
+<!--               placeholder="Confirm your password"-->
+<!--               type="password"-->
+<!--        >-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--    <div class="row-control row-actions">-->
+<!--      <button mat-raised-button color="primary" type="submit">Sign in</button>-->
+<!--    </div>-->
+<!--    <pre> {{username.errors | json}}</pre>-->
+<!--    <pre> {{password.errors | json}}</pre>-->
+<!--    <pre>-->
+<!--    {{registerForm.value | json}}-->
+<!--    </pre>-->
+<!--  </form>-->
+<!--</div>-->
+
+
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="col-md-4 col-lg-6 bg-image order-lg-first order-md-first order-sm-last order-last">
+      <div class="policy-title">
+        <h1 class="text-center">Quyền lợi thành viên</h1>
+      </div>
+      <div class="text-center">
+        <p><i class="fa-solid fa-circle-check"></i>Mua hàng cực kì nhanh chóng và dễ dàng</p>
+        <p><i class="fa-solid fa-circle-check"></i>Theo dõi đơn hàng chi tiêt và thuận tiện</p>
+        <p><i class="fa-solid fa-circle-check"></i>Nhận được nhiều chương trình ưu đãi và khuyến mãi</p>
+      </div>
     </div>
-    <div class="row-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Confirm password</mat-label>
-        <input required
-               matInput
-               ngModel
-               #password="ngModel"
-               name="confirmPassword"
-               [(ngModel)]="register.confirmPassword"
-               placeholder="Confirm your password"
-               type="password"
-        >
-      </mat-form-field>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Xin chào</h3>
+
+              <!-- Sign In Form -->
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="text" id="floatingFirstname" placeholder="firstname" formControlName="firstname" class="form-control">-->
+<!--                  <mat-error *ngIf="form.controls.username.touched && !form.controls.username.valid">-->
+<!--                      <div *ngIf="form.controls.username.hasError('required')">Username is required</div>-->
+<!--                  </mat-error>-->
+<!--                  <label for="floatingFirstname">Họ</label>-->
+<!--                  <pre>{{form.controls.firstname.errors | json}}</pre>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Họ</mat-label>
+                    <input matInput type="text" placeholder="Họ" formControlName="firstname">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('firstname').touched && !form.get('firstname').valid">
+                    <p *ngIf="form.get('firstname').hasError('required')">Họ không được để trống</p>
+                    <p *ngIf="form.get('firstname').hasError('whitespace')">Không được nhập khoảng cách</p>
+                  </mat-error>
+                  <pre>{{form.controls.firstname.errors | json}}</pre>
+                </div>
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="text" id="floatingLastname" placeholder="lastname" formControlName="lastname" class="form-control">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.required">Email is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingLastname">Tên</label>-->
+<!--                  <pre>{{form.controls.lastname.errors | json}}</pre>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Tên</mat-label>
+                    <input matInput type="text" placeholder="Tên" formControlName="lastname">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('lastname').touched && !form.get('lastname').valid">
+                    <p *ngIf="form.get('lastname').hasError('required')">Tên không được để trống</p>
+                    <p *ngIf="form.get('lastname').hasError('whitespace')">Không được nhập khoảng cách</p>
+                  </mat-error>
+                  <pre>{{form.controls.lastname.errors | json}}</pre>
+                </div>
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="email" id="floatingEmail" placeholder="email" formControlName="email" class="form-control">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.required">Email is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingEmail">Email</label>-->
+<!--                  <pre>{{form.controls.email.errors | json}}</pre>-->
+<!--                </div>-->
+
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" placeholder="Email" formControlName="email">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('email').touched && !form.get('email').valid">
+                    <p *ngIf="form.get('email').hasError('required')">Email không được để trống</p>
+                    <p *ngIf="form.get('email').hasError('whitespace')">Không được nhập khoảng cách</p>
+                    <p *ngIf="form.get('email').hasError('email')">Email phải đúng format</p>
+                  </mat-error>
+                  <pre>{{form.controls.email.errors | json}}</pre>
+                </div>
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="text" id="floatingInput" placeholder="username" formControlName="username" class="form-control">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.required">Email is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingInput">Tên tài khoản</label>-->
+<!--                  <pre>{{form.controls.username.errors | json}}</pre>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Tài khoản</mat-label>
+                    <input matInput type="text" placeholder="Tài khoản" formControlName="username">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
+                    <p *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</p>
+                    <p *ngIf="form.get('username').hasError('whitespace')">Không được nhập khoảng cách</p>
+                  </mat-error>
+                  <pre>{{form.controls.username.errors | json}}</pre>
+                </div>
+
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.password.errors.required">Password is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingPassword">Mật khẩu</label>-->
+<!--                  <pre>{{form.controls.password.errors | json}}</pre>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput type="password" placeholder="Mật khẩu" formControlName="password">
+                    <mat-hint>Mật khẩu phải từ 6 đến 20 kí tự và có ít nhất 1 ký tự đặc biệt, chữ in hoa và số</mat-hint>
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
+                    <p *ngIf="form.get('password').hasError('required')">Mật khẩu không được để trống</p>
+                    <p *ngIf="form.get('password').hasError('pattern')">Sai format</p>
+                  </mat-error>
+                  <pre>{{form.controls.password.errors | json}}</pre>
+                </div>
+
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="password" id="floatingConfirmPassword" placeholder="username" formControlName="confirmPassword" class="form-control">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.required">Email is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingConfirmPassword">Nhập lại mật khẩu</label>-->
+<!--                  <pre>{{form.controls.confirmPassword.errors | json}}</pre>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Nhập lại mật khẩu</mat-label>
+                    <input matInput type="password" placeholder="Nhập lại mật khẩu" formControlName="confirmPassword">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('confirmPassword').touched && !form.get('confirmPassword').valid">
+                    <p *ngIf="form.get('confirmPassword').hasError('required')">Không được để trống</p>
+                    <p *ngIf="form.hasError('invalidConfirmPassword')">Mật khẩu không khớp</p>
+                  </mat-error>
+                  <pre>{{form.controls.confirmPassword.errors | json}}</pre>
+                </div>
+
+                <div class="d-grid">
+                  <button [disabled]="form.invalid" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Đăng ký</button>
+                  <div class="text-center">
+                    <a class="small" routerLink="/login">Đã có tài khoản? Đăng nhập</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="row-control row-actions">
-      <button mat-raised-button color="primary" type="submit">Sign in</button>
-    </div>
-    <pre> {{username.errors | json}}</pre>
-    <pre> {{password.errors | json}}</pre>
-    <pre>
-    {{registerForm.value | json}}
-    </pre>
-  </form>
+  </div>
 </div>

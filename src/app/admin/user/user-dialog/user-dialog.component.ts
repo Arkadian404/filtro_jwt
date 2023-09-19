@@ -5,7 +5,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../../../shared/models/category";
 import {UserService} from "../../../service/user.service";
 import {User} from "../../../shared/models/user";
-
+// @ts-ignore
+import * as data from "../../../shared/utils/data.json"
+import {Province} from "../../../shared/models/province";
+import {District} from "../../../shared/models/district";
+import {Ward} from "../../../shared/models/ward";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-user-dialog',
@@ -15,6 +20,11 @@ import {User} from "../../../shared/models/user";
 export class UserDialogComponent implements OnInit{
   // @ts-ignore
   form:FormGroup<any>;
+  provinces: Province[];
+  districts: District[];
+  wards: Ward[];
+  selectedDistrict: District | undefined;
+  selectedWard: Ward | undefined;
   constructor(private formBuilder:FormBuilder,
               private userService:UserService,
               private utilService:UtilService,
@@ -25,6 +35,7 @@ export class UserDialogComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.getProvinces();
     this.form = this.formBuilder.group<User>({
       firstname: '',
       lastname: '',
@@ -33,6 +44,9 @@ export class UserDialogComponent implements OnInit{
       password: '',
       dob: new Date(),
       address: '',
+      province: '',
+      district: '',
+      ward: '',
       phone: '',
       enabled: false
     });
@@ -42,8 +56,17 @@ export class UserDialogComponent implements OnInit{
       this.form.get('username')?.disable();
       this.form.get('email')?.disable();
       this.form.patchValue(this.data);
+      this.onProvinceChange({source:{_value:this.data.province}})
+      this.onDistrictChange({source:{_value:this.data.district}})
+      this.onWardChange({source:{_value:this.data.ward}})
+
       console.log(this.data);
     }
+
+  }
+
+  getProvinces(){
+    this.provinces = Object.values(<Province[]> data).slice(0,63);
   }
 
   onSubmit(){
@@ -74,5 +97,24 @@ export class UserDialogComponent implements OnInit{
     }
   }
 
+  onProvinceChange(event:any){
+    const province = event.source._value;
+    console.log(province);
+    this.districts = this.provinces.find( p=> p.name === province).districts || []
+  }
+
+  onDistrictChange(event:any){
+    this.selectedDistrict = event.source._value;
+    const district = event.source._value;
+    console.log(district);
+    this.wards = this.districts.find( d=> d.name === district).wards || []
+  }
+
+  onWardChange(event:any){
+    this.selectedWard = event.source._value;
+    const ward = event.source._value;
+    console.log(ward);
+
+  }
 
 }

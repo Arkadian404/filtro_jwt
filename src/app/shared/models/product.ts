@@ -7,10 +7,10 @@ export interface Product{
   name:string;
   quantity:number;
   sold:number;
-  image:string;
   description:string;
   price:number;
   createdAt:Date;
+  updatedAt:Date;
   status:boolean;
   category:Category;
   flavor:Flavor;

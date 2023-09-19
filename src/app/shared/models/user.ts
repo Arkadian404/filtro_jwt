@@ -7,6 +7,9 @@ export interface User{
   password:string;
   dob:Date;
   address:string;
+  province:string;
+  district:string;
+  ward:string;
   phone:string;
   role?:string;
   enabled:boolean;

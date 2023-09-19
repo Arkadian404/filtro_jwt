@@ -17,7 +17,7 @@
             <mat-icon class="admin-image-icon ml-1" fontIcon="keyboard_arrow_down"></mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button (click)="toggleLogout()" mat-menu-item>
               <mat-icon fontIcon="exit_to_app"></mat-icon> Logout
             </button>
           </mat-menu>

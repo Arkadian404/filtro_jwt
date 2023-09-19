@@ -8,11 +8,8 @@ import {
 import {
   BehaviorSubject,
   catchError,
-  concatMap,
   filter,
-  mergeMap,
   Observable,
-  retry,
   switchMap,
   take, tap,
   throwError
@@ -67,7 +64,6 @@ export class AuthInterceptor implements HttpInterceptor {
       if(!isLoggedIn){
         return next.handle(request);
       }
-      //why this.authenticationService.refreshToken() is not working?
       return this.authenticationService.refreshToken().pipe(
         switchMap((res)=>{
           this.isRefresh = false;

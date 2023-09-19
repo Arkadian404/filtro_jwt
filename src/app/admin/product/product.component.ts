@@ -20,7 +20,6 @@ export class ProductComponent implements OnInit{
 
   displayedColumns: string[] = ['id',
     'name',
-    'image',
     'quantity',
     'sold',
     'price',
@@ -29,6 +28,7 @@ export class ProductComponent implements OnInit{
     'category',
     'sale',
     'createdAt',
+    'updatedAt',
     'status',
     'action',
   ];
@@ -87,7 +87,7 @@ export class ProductComponent implements OnInit{
   private openDialog(dialog:ComponentType<any> ,data?:Product) {
     const dialogRef = this.dialog.open(dialog, {data,
       width: '850px',
-      height: '700px'});
+      height: '650px'});
     dialogRef.afterClosed().subscribe({
       next: (data) => {
         if (data) {

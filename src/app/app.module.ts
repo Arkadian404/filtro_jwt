@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './page/home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AdminComponent } from './admin/admin.component';
-import { ManagementComponent } from './management/management.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
@@ -73,6 +72,15 @@ import { UserDialogComponent } from './admin/user/user-dialog/user-dialog.compon
 import { EmployeeComponent } from './admin/employee/employee.component';
 import { EmployeeDialogComponent } from './admin/employee/employee-dialog/employee-dialog.component';
 import {UserComponent} from "./admin/user/user.component";
+import { ProductImageComponent } from './admin/product-image/product-image.component';
+import { ProductImageDialogComponent } from './admin/product-image/product-image-dialog/product-image-dialog.component';
+import { ProfileComponent } from './admin/profile/profile.component';
+import { ObjectToValuePipe } from './admin/object-to-value.pipe';
+import {AdminLoginComponent} from "./admin/admin-login/admin-login.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatTabsModule} from "@angular/material/tabs";
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
@@ -80,7 +88,6 @@ firebase.initializeApp(environment.firebaseConfig)
     AppComponent,
     HomeComponent,
     AdminComponent,
-    ManagementComponent,
     LoginComponent,
     LogoutComponent,
     RegisterComponent,
@@ -107,11 +114,18 @@ firebase.initializeApp(environment.firebaseConfig)
     UserComponent,
     UserDialogComponent,
     EmployeeComponent,
-    EmployeeDialogComponent
+    EmployeeDialogComponent,
+    ProductImageComponent,
+    ProductImageDialogComponent,
+    ProfileComponent,
+    ObjectToValuePipe,
+    AdminLoginComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
-    provideFirebaseApp(()=>initializeApp(environment.firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
@@ -143,6 +157,8 @@ firebase.initializeApp(environment.firebaseConfig)
     MatDatepickerModule,
     MatNativeDateModule,
     NgOptimizedImage,
+    MatCardModule,
+    MatTabsModule,
   ],
   providers: [
     // {
@@ -158,16 +174,21 @@ firebase.initializeApp(environment.firebaseConfig)
       useValue:{}
     },
     {
-      provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB'
     },
     // {
-    //   provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]
+    //   provide: DateAdapter,
+    //   useClass: MomentDateAdapter,
+    //   deps: [MAT_DATE_LOCALE]
     // },
     {
-      provide: DateAdapter, useClass: MomentUtcDateAdapter
+      provide: DateAdapter,
+      useClass: MomentUtcDateAdapter
     },
     {
-      provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT
+      provide: MAT_DATE_FORMATS,
+      useValue: MY_DATE_FORMAT
     },
     {
       provide:HTTP_INTERCEPTORS,

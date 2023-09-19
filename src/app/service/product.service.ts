@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../shared/models/product";
-import {catchError, throwError} from "rxjs";
+import {catchError, map, throwError} from "rxjs";
 
 const PRODUCT_API:string = 'http://localhost:8080/api/v1/admin/product';
 
@@ -30,6 +30,22 @@ export class ProductService {
           return throwError(()=> new Error(err.error.message));
         })
       );
+  }
+
+  getProductsByCategory(categoryId:number){
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListByCategory/${categoryId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+    // return this.http.get<Product[]>(`${PRODUCT_API}/getList`)
+    //   .pipe(
+    //     map((products)=>{
+    //       products.filter((product) => product.category.id === categoryId)
+    //     })
+    //   )
   }
 
   createProduct(product:Product){

@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "angular-highcharts": "^16.0.0",
     "firebase": "^10.3.1",
+    "hanhchinhvn": "^1.6.0",
     "highcharts": "^11.1.0",
     "moment": "^2.29.4",
     "rxjs": "~7.8.0",

@@ -11,7 +11,14 @@ export class HeaderComponent {
 
   @Output()
   onToggleSideNav: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  onLogout = new EventEmitter<any>();
   toggleSideNav(){
     this.onToggleSideNav.emit();
   }
+
+  toggleLogout(){
+    this.onLogout.emit();
+  }
+
 }

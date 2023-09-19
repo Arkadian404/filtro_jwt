@@ -24,6 +24,9 @@ export class UserComponent implements OnInit{
     'email',
     'dob',
     'address',
+    'province',
+    'district',
+    'ward',
     'phone',
     'role',
     'enabled',
@@ -80,9 +83,10 @@ export class UserComponent implements OnInit{
 
 
   private openDialog(dialog:ComponentType<any> ,data?:User) {
+
     const dialogRef = this.dialog.open(dialog, {data,
-      height:'650px',
-      width:'650px'});
+      height:'750px',
+      width:'850px'});
     dialogRef.afterClosed().subscribe({
       next: (data) => {
         if (data) {
@@ -96,6 +100,7 @@ export class UserComponent implements OnInit{
   }
 
   openUpdateDialog(data:User){
+    console.log(data);
     this.openDialog(UserDialogComponent, data);
   }
 

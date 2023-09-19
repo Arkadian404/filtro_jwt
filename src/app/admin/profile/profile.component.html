@@ -1,0 +1,118 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 ">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Hồ sơ cá nhân</h4>
+            <p class="card-category">Chỉnh sửa hồ sơ của bạn</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username" placeholder="Username">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Email address" type="email">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Họ</mat-label>
+                    <input matInput formControlName="firstname" placeholder="Fist Name" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Tên</mat-label>
+                    <input matInput formControlName="lastname" placeholder="Last Name" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Ngày sinh</mat-label>
+                    <input [matDatepicker]="Picker" matInput formControlName="dob">
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
+                    <mat-datepicker #Picker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Hủy</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" placeholder="Phone" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>Address</mat-label>
+                  <input matInput formControlName="address" placeholder="Adress" type="text">
+                </mat-form-field>
+                </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Thành phố/Tỉnh</mat-label>
+                    <mat-select (selectionChange)="onProvinceChange($event)" formControlName="province">
+                      <mat-option>Chọn thành phố/Tỉnh</mat-option>
+                      <mat-option  *ngFor="let p of provinces" [value]="p.name" >{{p.name}}</mat-option  >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label >Quận/Huyện</mat-label>
+                    <mat-select (selectionChange)="onDistrictChange($event)" formControlName="district">
+                      <mat-option>Chọn Quận/Huyện</mat-option>
+                      <mat-option *ngFor="let d of districts" [value]="d.name">{{d.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Xã/Phường</mat-label>
+                    <mat-select (selectionChange)="onWardChange($event)" formControlName="ward">
+                      <mat-option>Chọn Xã/Phường</mat-option>
+                      <mat-option *ngFor="let w of wards" [value]="w.name">{{w.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-stretch">
+        <div class="card card-profile">
+          <div class="d-flex card-avatar">
+              <img class="mx-auto" ngSrc="../../../assets/images/logoOnFull.svg" height="350" width="350"  alt=""/>
+          </div>
+          <div class="card-body">
+            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+            <h4 class="card-title">Alec Thompson</h4>
+            <p class="card-description">
+              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

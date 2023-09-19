@@ -42,19 +42,73 @@
 <!--</div>-->
 
 
-<div class="sign-in-form col-6 mx-auto">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
-    <div class="form-floating">
-      <input formControlName="username" class="form-control" type="text">
-      <label>Username</label>
-    </div>
-    <div class="form-floating">
-      <input formControlName="password" class="form-control" type="password">
-      <label>Password</label>
-    </div>
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Xin chào</h3>
 
-    <button class="btn btn-lg btn-primary" type="submit">Submit</button>
-  </form>
+              <!-- Sign In Form -->
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="text" id="floatingInput" placeholder="username" formControlName="username" class="form-control">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.required">Email is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingInput">Tên tài khoản</label>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Tài khoản</mat-label>
+                    <input matInput type="text" placeholder="Tài khoản" formControlName="username">
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
+                    <p *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</p>
+                  </mat-error>
+                  <pre>{{form.controls.username.errors | json}}</pre>
+                </div>
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">-->
+<!--                  &lt;!&ndash;                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <div *ngIf="f.password.errors.required">Password is required</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                  <label for="floatingPassword">Mật khẩu</label>-->
+<!--                </div>-->
+
+                <div class="form-floating mb-3">
+                  <mat-form-field>
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput [type]="passwordType ? 'text' : 'password'" placeholder="Mật khẩu" formControlName="password">
+                    <mat-icon  style="position: absolute; right: 10px ;cursor: pointer;" (click)="passwordType = !passwordType">
+                      {{ passwordType ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                  </mat-form-field>
+                  <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
+                    <p *ngIf="form.get('password').hasError('required')">Tên không được để trống</p>
+                  </mat-error>
+                  <pre>{{form.controls.password.errors | json}}</pre>
+                </div>
+
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                  <div class="d-flex">
+                    <a class="small" routerLink="/forgot-password">Quên mật khẩu?</a>
+                    <a class="small ms-auto" routerLink="/register">Tạo tài khoản</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

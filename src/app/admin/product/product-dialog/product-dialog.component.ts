@@ -1,20 +1,20 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProductService} from "../../../service/product.service";
-
 import {CategoryService} from "../../../service/category.service";
 import {FlavorService} from "../../../service/flavor.service";
 import {SaleService} from "../../../service/sale.service";
 import {Category} from "../../../shared/models/category";
 import {Flavor} from "../../../shared/models/flavor";
 import {Sale} from "../../../shared/models/sale";
-import {finalize} from "rxjs";
-import {ref, getDownloadURL, Storage, uploadBytes, uploadBytesResumable} from "@angular/fire/storage";
-import {formatDate} from "@angular/common";
-import firebase from "firebase/compat";
-import StorageErrorCode = firebase.storage.StorageErrorCode;
+import {Storage} from "@angular/fire/storage";
+
+
+import {ProductImage} from "../../../shared/models/product-image";
+import {Product} from "../../../shared/models/product";
+
 
 
 @Component({
@@ -28,8 +28,8 @@ export class ProductDialogComponent implements OnInit{
   categories:Category[] = [];
   flavors:Flavor[] = [];
   sales:Sale[] = [];
+  productImages:ProductImage[] = [];
   // @ts-ignore
-  selectedImage: File;
 
   constructor(private formBuilder:FormBuilder,
               private productService:ProductService,
@@ -38,43 +38,35 @@ export class ProductDialogComponent implements OnInit{
               private saleService:SaleService,
               private utilService:UtilService,
               private matDialog:MatDialogRef<ProductDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data:any,
-              private storage: Storage){
+              @Inject(MAT_DIALOG_DATA) public data:any
+  ){
   }
+
+
+
 
   ngOnInit(): void {
     this.getCategories();
     this.getFlavors();
     this.getSales();
     this.form = this.formBuilder.group({
-      name : '',
-      quantity: '',
-      sold: '',
-      price: '',
-      flavor:'',
-      description : '',
-      image: '',
+      name : ['', Validators.required],
+      quantity: ['', Validators.required],
+      sold: ['', Validators.required],
+      price: ['', Validators.required],
+      flavor:['', Validators.required],
+      description : ['', Validators.required],
       status: false,
-      sale: '',
-      category: ''
+      sale: ['', Validators.required],
+      category: ['', Validators.required]
     });
     if (this.data){
+      this.form.reset();
       this.form.patchValue(this.data);
       console.log(this.data);
     }
   }
 
-  getCurrentDateTime(){
-    // return new Date(Date.now()).toLocaleString().replace(',', ' -');
-    return formatDate(new Date(), 'dd-MM-yyyyTHH:MM:SSa', 'en-us');
-  }
-
-  onFileChange(event:any){
-    if(event.target.files && event.target.files.length){
-      this.selectedImage = event.target.files[0] as File;
-      console.log(this.selectedImage);
-    }
-  }
 
   getCategories(){
     return this.categoryService.getCategoryList()
@@ -115,6 +107,8 @@ export class ProductDialogComponent implements OnInit{
       });
   }
 
+
+
   // onSubmit(){
   //   if(this.form.valid){
   //     if(this.data){
@@ -146,15 +140,27 @@ export class ProductDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
-        if(!!this.selectedImage){
-          this.uploadProductWithImage();
-        }else{
           this.updateProduct();
-        }
       }else{
-        this.uploadProductWithImage();
+          console.log(this.form.value);
+          this.createProduct();
       }
     }
+  }
+
+
+
+  createProduct(){
+    this.productService.createProduct(this.form.value).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar('Tạo thành công', 'Đóng')
+        this.matDialog.close(true);
+        console.log(this.form);
+      },
+      error:(err)=>{
+        this.utilService.openSnackBar(err, 'Đóng');
+      }
+    })
   }
 
   updateProduct(){
@@ -170,26 +176,22 @@ export class ProductDialogComponent implements OnInit{
     })
   }
 
-
-  uploadProductWithImage(){
-    const imgName = this.getCurrentDateTime() + this.selectedImage.name;
-    const storageRef = ref(this.storage, `coffee/${imgName}`);
-    const uploadTask = uploadBytesResumable(storageRef, this.selectedImage);
-    uploadTask.on('state_changed', (snapshot)=>{
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-      },
-      (err)=>{
-        this.utilService.openSnackBar(err.message, 'Đóng');
-        console.log(err);
-      },
-      ()=>{
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-          console.log('File available at', downloadURL);
-          this.form.value.image = downloadURL;
-          this.updateProduct();
-        })
-      })
+  onFlavorChange(event:any){
+    const flavor = event.source._value;
+    console.log(flavor);
   }
 
+  onSaleChange(event:any){
+    const sale = event.source._value;
+    console.log(sale);
+  }
+
+  onCategoryChange(event:any){
+    const category = event.source._value;
+    console.log(category);
+  }
+
+  public compareObjectFunction = function (object, value):boolean{
+    return object.id === value.id;
+  }
 }

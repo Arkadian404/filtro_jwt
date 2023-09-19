@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {
   faDashboard,
   faLocation,
@@ -12,6 +12,7 @@ import {
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent {
+  @Input() isEmployee = false;
   faCoffee = faDashboard;
   faLocation = faLocation;
   faShop = faShop;

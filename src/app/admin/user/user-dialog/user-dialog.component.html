@@ -21,16 +21,12 @@
           <mat-label>Mật khẩu</mat-label>
           <input type="text" matInput formControlName="password">
         </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input type="mail" matInput formControlName="email">
-        </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field appearance="outline">
           <mat-label>Ngày sinh</mat-label>
           <input [matDatepicker]="Picker" matInput formControlName="dob">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
           <mat-datepicker #Picker>
             <mat-datepicker-actions>
@@ -40,8 +36,8 @@
           </mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Địa chỉ</mat-label>
-          <input type="text" matInput formControlName="address">
+          <mat-label>Email</mat-label>
+          <input type="mail" matInput formControlName="email">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Số điện thoại</mat-label>
@@ -52,6 +48,41 @@
           <mat-select formControlName="enabled">
             <mat-option [value]="true">Mở</mat-option>
             <mat-option [value]="false">Đóng</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Địa chỉ</mat-label>
+        <input type="text" matInput formControlName="address">
+      </mat-form-field>
+    </div>
+    <div class="row ">
+      <div class="col-sm">
+        <mat-form-field appearance="outline">
+          <mat-label>Thành phố/Tỉnh</mat-label>
+          <mat-select (selectionChange)="onProvinceChange($event)" formControlName="province">
+            <mat-option>Chọn thành phố/Tỉnh</mat-option>
+            <mat-option *ngFor="let p of provinces" [value]="p.name">{{p.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field appearance="outline">
+          <mat-label>Quận/Huyện</mat-label>
+          <mat-select (selectionChange)="onDistrictChange($event)" formControlName="district">
+            <mat-option>Chọn quận/huyện</mat-option>
+            <mat-option *ngFor="let d of districts" [value]="d.name">{{d.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field appearance="outline">
+          <mat-label>Xã/Phường</mat-label>
+          <mat-select (selectionChange)="onWardChange($event)" formControlName="ward">
+            <mat-option>Chọn xã/phường</mat-option>
+            <mat-option *ngFor="let w of wards" [value]="w.name">{{w.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

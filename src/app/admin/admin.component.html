@@ -14,12 +14,19 @@
 <!--<router-outlet></router-outlet>-->
 
 
-<mat-drawer-container>
-  <mat-drawer mode="side" [opened]="sideNavOpen">
-    <app-side-nav></app-side-nav>
+<mat-drawer-container *ngIf="isAuthenticated;else login" >
+  <mat-drawer mode="side" [opened]="sideNavOpen" >
+    <app-side-nav [isEmployee]="isEmployee"></app-side-nav>
   </mat-drawer>
   <mat-drawer-content>
-    <app-header [name]="response.username" (onToggleSideNav)="sideNavToggle()" ></app-header>
+    <app-header [name]="name"
+                (onToggleSideNav)="sideNavToggle()"
+                (onLogout)="logout()"
+    ></app-header>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+
+<ng-template #login>
+  <router-outlet></router-outlet>
+</ng-template>
