@@ -1,0 +1,91 @@
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--  <div class="container">-->
+<!--    &lt;!&ndash; Logo &ndash;&gt;-->
+<!--    <a class="navbar-brand" href="#">Filtro</a>-->
+
+<!--    &lt;!&ndash; Thanh tìm kiếm &ndash;&gt;-->
+<!--    <form class="form-inline my-2 my-lg-0 ml-auto">-->
+<!--      <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search">-->
+<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; Giỏ hàng &ndash;&gt;-->
+<!--    <div class="nav-item dropdown">-->
+<!--      <a class="nav-link dropdown-toggle" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--        <i class="fa fa-shopping-cart"></i> Giỏ hàng-->
+<!--      </a>-->
+<!--      <div class="dropdown-menu" aria-labelledby="cartDropdown">-->
+<!--        &lt;!&ndash; Hiển thị danh sách sản phẩm trong giỏ hàng &ndash;&gt;-->
+<!--        &lt;!&ndash; Đây là nơi bạn có thể sử dụng *ngFor để lặp qua các sản phẩm trong giỏ hàng &ndash;&gt;-->
+<!--        <a class="dropdown-item" href="#">Sản phẩm 1</a>-->
+<!--        <a class="dropdown-item" href="#">Sản phẩm 2</a>-->
+<!--        <a class="dropdown-item" href="#">Sản phẩm 3</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Phần người dùng &ndash;&gt;-->
+<!--    <div class="nav-item dropdown">-->
+<!--      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--        <i class="fa fa-user"></i> Tài khoản-->
+<!--      </a>-->
+<!--      <div class="dropdown-menu" aria-labelledby="userDropdown">-->
+<!--        &lt;!&ndash; Đây là nơi bạn có thể hiển thị tùy chọn như đăng nhập, đăng xuất, quản lý tài khoản, v.v. &ndash;&gt;-->
+<!--        <a class="dropdown-item" href="#">Đăng nhập</a>-->
+<!--        <a class="dropdown-item" href="#">Đăng xuất</a>-->
+<!--        <a class="dropdown-item" href="#">Quản lý tài khoản</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="home">FILTRO</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Link</a>
+        </li>
+      </ul>
+      <form [formGroup]="form" (ngSubmit)="onSearch()" class="d-flex" role="search">
+        <input matInput formControlName="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <button mat-icon-button [matMenuTriggerFor]="cart">
+        <mat-icon
+          [matBadge]="1"
+          matBadgeColor="warn"
+          fontIcon="shopping_cart"></mat-icon>
+      </button>
+      <mat-menu #cart="matMenu">
+        <div class="p-3 divide-y divide-solid">
+          <div class="pb-3 d-flex justify-between">
+            <span class="mr-16">1 items</span>
+            <a routerLink="cart">View Cart</a>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+</nav>

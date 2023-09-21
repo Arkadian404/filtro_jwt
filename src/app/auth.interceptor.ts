@@ -16,13 +16,15 @@ import {
 } from 'rxjs';
 import {TokenService} from "./service/token.service";
 import {AuthenticationService} from "./service/authentication.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private isRefresh = false;
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private tokenService:TokenService,
-              private authenticationService:AuthenticationService) {}
+              private authenticationService:AuthenticationService,
+              private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let accessToken = this.tokenService.getAccessToken();
@@ -54,6 +56,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private handleAuthorizationError(request:HttpRequest<any>, next:HttpHandler){
     console.log("CALLING HANDLE")
     console.log('1'+this.isRefresh)
+    if(this.tokenService.isRefreshTokenExpired()){
+      this.router.navigate(['/login']);
+    }
     if(!this.isRefresh){
       this.isRefresh = true;
       this.refreshTokenSubject.next(null);
