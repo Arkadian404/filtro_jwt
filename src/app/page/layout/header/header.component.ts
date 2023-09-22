@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchService} from "../../../service/search.service";
 import {Router} from "@angular/router";
+import {DropdownHoverDirective } from "../../dropdown-hover.directive";
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
+  isLogin = false;
   searchValue = '';
   form:FormGroup;
   constructor(private formBuilder:FormBuilder,

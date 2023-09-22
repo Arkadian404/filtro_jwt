@@ -27,7 +27,7 @@ import {AdminProductImageDialogComponent} from "./layout/content/admin-product-i
 import {AdminProfileComponent} from "./layout/content/admin-profile/admin-profile.component";
 import {ObjectToValuePipe} from "./pipe/object-to-value.pipe";
 import {AdminLoginComponent} from "./layout/content/admin-login/admin-login.component";
-import {AdminHeaderComponent} from "./layout/content/admin-header/admin-header.component";
+import {AdminHeaderComponent} from "./layout/header/admin-header.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatFormFieldModule} from "@angular/material/form-field";

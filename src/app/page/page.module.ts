@@ -41,10 +41,13 @@ import {ForgotPasswordComponent} from "./layout/content/forgot-password/forgot-p
 import {MatBadgeModule} from "@angular/material/badge";
 import { SearchComponent } from './layout/content/search/search.component';
 import {RouterModule} from "@angular/router";
+import {DropdownHoverDirective} from "./dropdown-hover.directive";
+import { TotoDirective } from './toto.directive';
 
 
 @NgModule({
   declarations: [
+    DropdownHoverDirective,
     PageComponent,
     LoginComponent,
     LogoutComponent,
@@ -55,7 +58,8 @@ import {RouterModule} from "@angular/router";
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    SearchComponent
+    SearchComponent,
+    TotoDirective
   ],
   imports: [
     CommonModule,
