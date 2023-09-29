@@ -42,9 +42,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import { SearchComponent } from './layout/content/search/search.component';
 import {RouterModule} from "@angular/router";
 import {DropdownHoverDirective} from "./dropdown-hover.directive";
-import { TotoDirective } from './toto.directive';
 import { register } from 'swiper/element/bundle';
-
 register();
 @NgModule({
   declarations: [
@@ -60,7 +58,6 @@ register();
     HeaderComponent,
     FooterComponent,
     SearchComponent,
-    TotoDirective
   ],
   imports: [
     CommonModule,
