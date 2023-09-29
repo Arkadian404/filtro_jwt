@@ -1,0 +1,33 @@
+footer{
+  //background: #efefef;
+  padding-top: 60px;
+  padding-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  .links{
+    font-size: 15px;
+    .support{
+      p{
+        a {
+          &:hover{
+            color:gray!important;
+          }
+        }
+      }
+    }
+  }
+
+    .policy{
+      p{
+        a {
+          &:hover{
+            color:gray!important;
+          }
+        }
+      }
+    }
+
+  }
+
+

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../../shared/models/user";
 import {AuthenticationService} from "../../../../service/authentication.service";
 // @ts-ignore
@@ -10,6 +10,9 @@ import {Ward} from "../../../../shared/models/ward";
 import {distinctUntilChanged, tap} from "rxjs";
 import {UserService} from "../../../../service/user.service";
 import {UtilService} from "../../../../service/util.service";
+import {validatePassword} from "../../../../shared/validators/validate-password.validator";
+
+const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
 
 @Component({
   selector: 'app-profile',
@@ -17,13 +20,14 @@ import {UtilService} from "../../../../service/util.service";
   styleUrls: ['./admin-profile.component.scss']
 })
 export class AdminProfileComponent implements OnInit{
-  form:FormGroup;
+  profileForm:FormGroup;
+  passwordForm:FormGroup;
   user: User;
   dataJson = data;
   provinces: Province[];
   districts: District[];
   wards: Ward[];
-
+  passwordType = true;
   constructor(private formBuilder:FormBuilder,
               private userService:UserService,
               private utilService: UtilService,
@@ -32,7 +36,7 @@ export class AdminProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProvinces();
-    this.form = this.formBuilder.group({
+    this.profileForm = this.formBuilder.group({
       firstname: '',
       lastname: '',
       username: '',
@@ -44,6 +48,13 @@ export class AdminProfileComponent implements OnInit{
       district: '',
       ward: '',
     })
+    this.passwordForm = this.formBuilder.group({
+      oldPassword: '',
+      newPassword: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]],
+      confirmPassword: ['', Validators.required]
+    },
+      {validators: validatePassword('newPassword', 'confirmPassword')}
+    )
     this.getUser();
      //this.form.patchValue(this.user);
   }
@@ -78,8 +89,8 @@ export class AdminProfileComponent implements OnInit{
       {
         next:(data)=>{
           if(data){
-            this.form.patchValue(data);
-            this.form.get('username').disable();
+            this.profileForm.patchValue(data);
+            this.profileForm.get('username').disable();
             this.onProvinceChange({source:{_value:data.province}});
             this.onDistrictChange({source:{_value:data.district}});
             this.onWardChange({source:{_value:data.ward}});
@@ -94,8 +105,8 @@ export class AdminProfileComponent implements OnInit{
   }
 
   onSubmit(){
-    if(this.form.valid){
-      this.userService.updateUser(this.user.id, this.form.value).subscribe({
+    if(this.profileForm.valid){
+      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
         next:(data)=>{
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
           console.log(data);
@@ -107,4 +118,28 @@ export class AdminProfileComponent implements OnInit{
     }
   }
 
+
+  onSubmitPassword(){
+    if(this.passwordForm.valid){
+      console.log(this.passwordForm.value);
+      console.log(this.user.id);
+      console.log(this.passwordForm.value.oldPassword);
+      console.log(this.passwordForm.value.newPassword);
+      this.userService.changePassword(this.user.id,
+        this.passwordForm.value.oldPassword,
+        this.passwordForm.value.newPassword)
+        .subscribe({
+        next:(data)=>{
+          this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+          console.log(data);
+          this.passwordForm.reset();
+          this.passwordForm.markAsPristine();
+        },
+        error:(err)=>{
+          this.utilService.openSnackBar(err, 'Đóng');
+          console.log(err);
+        }
+      })
+    }
+  }
 }

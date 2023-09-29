@@ -41,6 +41,18 @@ export class TokenService {
     }
   }
 
+  isAdmin(){
+    return this.getRole() == "ADMIN";
+  }
+
+  isEmployee(){
+    return this.getRole() == "EMPLOYEE";
+  }
+
+  isUser(){
+    return this.getRole() == "USER";
+  }
+
   isLoggedIn(){
     return !!this.getAccessToken();
   }

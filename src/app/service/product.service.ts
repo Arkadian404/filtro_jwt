@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../shared/models/product";
+import {Product} from "../shared/models/product/product";
 import {catchError, map, throwError} from "rxjs";
 
 const PRODUCT_API:string = 'http://localhost:8080/api/v1/admin/product';
@@ -40,12 +40,56 @@ export class ProductService {
           return throwError(()=> new Error(err.error.message));
         })
       );
-    // return this.http.get<Product[]>(`${PRODUCT_API}/getList`)
-    //   .pipe(
-    //     map((products)=>{
-    //       products.filter((product) => product.category.id === categoryId)
-    //     })
-    //   )
+  }
+
+  getProductsByVendor(vendorId:number){
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListByVendor/${vendorId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getProductsByOrigin(originId:number){
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListByOrigin/${originId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getProductsByIsSpecial(){
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListByIsSpecial`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getProductsByFlavor(flavorId:number){
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListByFlavor/${flavorId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getProductsBySale(saleId:number){
+return this.http.get<Product[]>(`${PRODUCT_API}/getListBySale/${saleId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
   }
 
   createProduct(product:Product){

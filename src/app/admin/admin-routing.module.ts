@@ -13,10 +13,15 @@ import {AdminFlavorComponent} from "./layout/content/admin-flavor/admin-flavor.c
 import {AdminProductComponent} from "./layout/content/admin-product/admin-product.component";
 import {AdminProductImageComponent} from "./layout/content/admin-product-image/admin-product-image.component";
 import {AdminSaleComponent} from "./layout/content/admin-sale/admin-sale.component";
+import {userLoginGuard} from "../guards/user-login.guard";
+import {adminLoginGuard} from "../guards/admin-login.guard";
+import {AdminVendorComponent} from "./layout/content/admin-vendor/admin-vendor.component";
+import {AdminProductOriginComponent} from "./layout/content/admin-product-origin/admin-product-origin.component";
+import {AdminProductDetailComponent} from "./layout/content/admin-product-detail/admin-product-detail.component";
 
 const routes: Routes = [
   {path: '', component: AdminComponent,  children:[
-      {path: 'login', component: AdminLoginComponent},
+      {path: 'login', component: AdminLoginComponent, canActivate: [adminLoginGuard]},
       {path: 'home', component: AdminHomeComponent,  canActivate:[authGuard]},
       {path:'', redirectTo:'home', pathMatch:'full'},
       {path: 'profile', component: AdminProfileComponent,  canActivate:[authGuard]},
@@ -27,6 +32,9 @@ const routes: Routes = [
       {path:'product', component: AdminProductComponent,  canActivate:[authGuard]},
       {path:'product-image', component: AdminProductImageComponent,  canActivate:[authGuard]},
       {path: 'sale', component: AdminSaleComponent,  canActivate:[authGuard]},
+      {path:'vendor', component:AdminVendorComponent, canActivate:[authGuard]},
+      {path: 'product-origin', component: AdminProductOriginComponent, canActivate:[authGuard]},
+      {path: 'product-detail', component: AdminProductDetailComponent, canActivate:[authGuard]}
     ]}
 ];
 

@@ -56,6 +56,12 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTabsModule} from "@angular/material/tabs";
 import {SideNavComponent} from "./layout/side-nav/side-nav.component";
 import {RouterModule} from "@angular/router";
+import { AdminProductDetailComponent } from './layout/content/admin-product-detail/admin-product-detail.component';
+import { AdminProductOriginComponent } from './layout/content/admin-product-origin/admin-product-origin.component';
+import { AdminVendorComponent } from './layout/content/admin-vendor/admin-vendor.component';
+import { AdminProductOriginDialogComponent } from './layout/content/admin-product-origin/admin-product-origin-dialog/admin-product-origin-dialog.component';
+import { AdminVendorDialogComponent } from './layout/content/admin-vendor/admin-vendor-dialog/admin-vendor-dialog.component';
+import { AdminProductDetailDialogComponent } from './layout/content/admin-product-detail/admin-product-detail-dialog/admin-product-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +92,13 @@ import {RouterModule} from "@angular/router";
     AdminProductImageDialogComponent,
     AdminProfileComponent,
     ObjectToValuePipe,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AdminProductDetailComponent,
+    AdminProductOriginComponent,
+    AdminVendorComponent,
+    AdminProductOriginDialogComponent,
+    AdminVendorDialogComponent,
+    AdminProductDetailDialogComponent
   ],
   exports: [
     AdminHeaderComponent

@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from "../../../../service/search.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -8,13 +9,9 @@ import {SearchService} from "../../../../service/search.service";
 })
 export class SearchComponent implements OnInit{
   searchValue = '';
-  constructor(private searchService:SearchService) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.searchService.currentSearchValue.subscribe(searchValue => {
-        this.searchValue = searchValue;
-    })
+    this.searchValue = this.activatedRoute.snapshot.queryParams.query;
   }
-
-
 }

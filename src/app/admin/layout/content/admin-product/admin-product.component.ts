@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ProductService} from "../../../../service/product.service";
 import {ComponentType} from "@angular/cdk/overlay";
-import {Product} from "../../../../shared/models/product";
+import {Product} from "../../../../shared/models/product/product";
 import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
@@ -20,15 +20,15 @@ export class AdminProductComponent implements OnInit{
 
   displayedColumns: string[] = ['id',
     'name',
-    'quantity',
-    'sold',
-    'price',
-    'flavor',
     'description',
+    'flavor',
     'category',
     'sale',
     'createdAt',
     'updatedAt',
+    'isSpecial',
+    'origin',
+    'vendor',
     'status',
     'action',
   ];

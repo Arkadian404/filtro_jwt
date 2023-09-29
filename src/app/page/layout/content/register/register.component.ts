@@ -27,6 +27,7 @@ const validatePassword = (firstControl: string, secondControl: string) => {
 export class RegisterComponent implements OnInit{
   form:FormGroup;
   submitted = false;
+  passwordType = true;
   constructor(private formBuilder:FormBuilder,
               private jwtService: AuthenticationService,
               private utilService:UtilService) {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
@@ -43,8 +43,9 @@ import { SearchComponent } from './layout/content/search/search.component';
 import {RouterModule} from "@angular/router";
 import {DropdownHoverDirective} from "./dropdown-hover.directive";
 import { TotoDirective } from './toto.directive';
+import { register } from 'swiper/element/bundle';
 
-
+register();
 @NgModule({
   declarations: [
     DropdownHoverDirective,
@@ -93,7 +94,8 @@ import { TotoDirective } from './toto.directive';
     NgOptimizedImage,
     MatCardModule,
     MatTabsModule,
-    MatBadgeModule
-  ]
+    MatBadgeModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PageModule { }

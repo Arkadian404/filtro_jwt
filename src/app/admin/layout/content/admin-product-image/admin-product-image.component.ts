@@ -6,7 +6,7 @@ import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
-import {ProductImage} from "../../../../shared/models/product-image";
+import {ProductImage} from "../../../../shared/models/product/product-image";
 import {ProductImageService} from "../../../../service/product-image.service";
 import {AdminProductImageDialogComponent} from "./admin-product-image-dialog/admin-product-image-dialog.component";
 

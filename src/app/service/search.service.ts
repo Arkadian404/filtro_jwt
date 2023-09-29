@@ -8,12 +8,6 @@ const API_URL = 'http://localhost:8080/api/v1/user';
   providedIn: 'root'
 })
 export class SearchService {
-  private searchValue = new BehaviorSubject(null);
-  currentSearchValue = this.searchValue.asObservable();
-  setSearchValue(searchValue:string){
-    this.searchValue.next(searchValue);
-  }
-
   constructor(private http:HttpClient) { }
 
   getSearchResult(searchValue:string){
@@ -25,6 +19,4 @@ export class SearchService {
         })
       )
   }
-
-
 }

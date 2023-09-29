@@ -9,11 +9,15 @@ import {SaleService} from "../../../../../service/sale.service";
 import {Category} from "../../../../../shared/models/category";
 import {Flavor} from "../../../../../shared/models/flavor";
 import {Sale} from "../../../../../shared/models/sale";
-import {Storage} from "@angular/fire/storage";
+import {VendorService} from "../../../../../service/vendor.service";
+import {ProductOriginService} from "../../../../../service/product-origin.service";
+import {ProductDetailService} from "../../../../../service/product-detail.service";
 
 
-import {ProductImage} from "../../../../../shared/models/product-image";
-import {Product} from "../../../../../shared/models/product";
+import {ProductImage} from "../../../../../shared/models/product/product-image";
+import {Vendor} from "../../../../../shared/models/vendor";
+import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
+
 
 
 
@@ -28,14 +32,16 @@ export class AdminProductDialogComponent implements OnInit{
   categories:Category[] = [];
   flavors:Flavor[] = [];
   sales:Sale[] = [];
-  productImages:ProductImage[] = [];
-  // @ts-ignore
+  vendors:Vendor[] = [];
+  origins:ProductOrigin[] = [];
 
   constructor(private formBuilder:FormBuilder,
               private productService:ProductService,
               private categoryService:CategoryService,
               private flavorService:FlavorService,
               private saleService:SaleService,
+              private vendorService:VendorService,
+              private productOriginService:ProductOriginService,
               private utilService:UtilService,
               private matDialog:MatDialogRef<AdminProductDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data:any
@@ -43,25 +49,24 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
 
-
-
   ngOnInit(): void {
     this.getCategories();
     this.getFlavors();
     this.getSales();
+    this.getOrigins();
+    this.getVendors();
     this.form = this.formBuilder.group({
-      name : ['', Validators.required],
-      quantity: ['', Validators.required],
-      sold: ['', Validators.required],
-      price: ['', Validators.required],
-      flavor:['', Validators.required],
-      description : ['', Validators.required],
+      name : [''],
+      flavor:[''],
+      description : [''],
+      isSpecial: false,
+      origin: [''],
       status: false,
-      sale: ['', Validators.required],
-      category: ['', Validators.required]
+      sale: [''],
+      category: [''],
+      vendor: ['']
     });
     if (this.data){
-      this.form.reset();
       this.form.patchValue(this.data);
       console.log(this.data);
     }
@@ -100,6 +105,32 @@ export class AdminProductDialogComponent implements OnInit{
         next:(data)=>{
           console.log(data);
           this.sales = data;
+        },
+        error:(err)=>{
+          console.log(err)
+        }
+      });
+  }
+
+  getVendors(){
+    return this.vendorService.getVendorList()
+      .subscribe({
+        next:(data)=>{
+          console.log(data);
+          this.vendors = data;
+        },
+        error:(err)=>{
+          console.log(err)
+        }
+      });
+  }
+
+  getOrigins(){
+    return this.productOriginService.getProductOriginList()
+      .subscribe({
+        next:(data)=>{
+          console.log(data);
+          this.origins = data;
         },
         error:(err)=>{
           console.log(err)
@@ -178,20 +209,43 @@ export class AdminProductDialogComponent implements OnInit{
 
   onFlavorChange(event:any){
     const flavor = event.source._value;
-    console.log(flavor);
+    if(flavor === "''" || flavor === ""){
+      this.form.patchValue({flavor: null});
+    }
   }
 
   onSaleChange(event:any){
     const sale = event.source._value;
-    console.log(sale);
+    if(sale == "''" || sale == ""){
+      this.form.patchValue({sale: null});
+    }
+  }
+
+  onOriginChange(event:any){
+    const origin = event.source._value;
+    if(origin == "''" || origin == ""){
+      this.form.patchValue({origin: null});
+    }
   }
 
   onCategoryChange(event:any){
     const category = event.source._value;
-    console.log(category);
+    if(category == "''"){
+      this.form.patchValue({category: null});
+    }
+  }
+
+  onVendorChange(event:any){
+    const vendor = event.source._value;
+    if(vendor == "''"){
+      this.form.patchValue({vendor: null});
+    }
   }
 
   public compareObjectFunction = function (object, value):boolean{
+    if (object == null || value == null){
+      return !!"''"
+    }
     return object.id === value.id;
   }
 }

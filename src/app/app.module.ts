@@ -1,20 +1,14 @@
 import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-// import { HomeComponent } from './page/layout/content/home/home.component';
-// import { AdminComponent } from './admin/admin.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
-
 import {AuthInterceptor} from "./auth.interceptor";
-
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {MY_DATE_FORMAT} from "./shared/utils/config"
 import {MomentUtcDateAdapter} from "./shared/utils/date-format";
 import {environment} from "../environments/environment"
-
 import {FirebaseAppModule, initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {getStorage, provideStorage, StorageModule} from "@angular/fire/storage";
 import {getAuth, provideAuth} from "@angular/fire/auth";
@@ -27,7 +21,7 @@ import {PageModule} from "./page/page.module";
 import {RouterModule} from "@angular/router";
 
 
-firebase.initializeApp(environment.firebaseConfig)
+firebase.initializeApp(environment.firebaseConfig) //firebase
 @NgModule({
   declarations: [
     AppComponent,

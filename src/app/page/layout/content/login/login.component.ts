@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
   passwordType= true;
 
   constructor(private formBuilder: FormBuilder
-              ,private jwtService:AuthenticationService,
+              ,private authService:AuthenticationService,
               private tokenService:TokenService,
               private utilService:UtilService,
               private router: Router) { }
@@ -29,12 +29,12 @@ export class LoginComponent implements OnInit{
   }
 
   public login(authRequest:AuthenticationRequest){
-    let resp = this.jwtService.authenticate(authRequest);
+    let resp = this.authService.authenticate(authRequest);
     resp.subscribe({
       next: (data) => {
         console.log(data);
-        this.tokenService.setAccessToken(data.accessToken);
-        this.tokenService.setRefreshToken(data.refreshToken);
+        // this.tokenService.setAccessToken(data.accessToken);
+        // this.tokenService.setRefreshToken(data.refreshToken);
         this.utilService.openSnackBar('Đăng nhập thành công', 'Đóng')
         this.router.navigate(['/home']);
       },

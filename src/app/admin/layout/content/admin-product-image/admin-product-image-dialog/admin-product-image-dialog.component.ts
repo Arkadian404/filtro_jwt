@@ -5,11 +5,11 @@ import {CategoryService} from "../../../../../service/category.service";
 import {ProductService} from "../../../../../service/product.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Category} from "../../../../../shared/models/category";
-import {Product} from "../../../../../shared/models/product";
+import {Product} from "../../../../../shared/models/product/product";
 import {formatDate} from "@angular/common";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
 import {ProductImageService} from "../../../../../service/product-image.service";
-import {ProductImage} from "../../../../../shared/models/product-image";
+import {ProductImage} from "../../../../../shared/models/product/product-image";
 
 @Component({
   selector: 'app-product-image-dialog',
@@ -49,22 +49,6 @@ export class AdminProductImageDialogComponent implements OnInit{
     }
   }
 
-
-  // products$ = this.categoryControl.valueChanges.pipe(
-  //   startWith(this.categoryControl.value),
-  //   switchMap((category)=>{
-  //     this.form.get('product').reset();
-  //     if(!category){
-  //       return of([]);
-  //     }else{
-  //       return this.productService.getProductsByCategory(category.id).pipe(
-  //         tap((products)=>{
-  //           console.log(products);
-  //         })
-  //       )
-  //     }
-  //   })
-  // )
 
   onCategoryChange(selectedCategory:Category){
     this.productService.getProductsByCategory(selectedCategory.id).subscribe(
@@ -106,6 +90,7 @@ export class AdminProductImageDialogComponent implements OnInit{
         if(!!this.selectedImages){
           for(let i =0 ;i <this.selectedImages.length; i++){
             const imagePath = this.form.value.product.name;
+
             this.uploadProductWithImage(this.selectedImages[i], imagePath);
           }
         }else{
@@ -115,6 +100,7 @@ export class AdminProductImageDialogComponent implements OnInit{
         if(!!this.selectedImages){
           for(let i =0 ;i <this.selectedImages.length; i++){
             const imagePath = this.form.value.product.name;
+            console.log('creatImage: '+ this.selectedImages[i].name);
             this.createProductImageWithImage(this.selectedImages[i], imagePath);
           }
         }else{
@@ -130,9 +116,9 @@ export class AdminProductImageDialogComponent implements OnInit{
   }
 
   uploadProductWithImage(image:File, pathName?:string){
-    const imgName = this.getCurrentDateTime() + image.name;
-    const storageRef = ref(this.storage, `coffee/${pathName}/${imgName}`);
-    const uploadTask = uploadBytesResumable(storageRef, image);
+    let imgName = this.getCurrentDateTime() + image.name;
+    let storageRef = ref(this.storage, `coffee/${pathName}/${imgName}`);
+    let uploadTask = uploadBytesResumable(storageRef, image);
     this.form.value.imageName = imgName;
     uploadTask.on('state_changed', (snapshot)=>{
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -146,6 +132,8 @@ export class AdminProductImageDialogComponent implements OnInit{
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
           console.log('File available at', downloadURL);
           this.form.value.url = downloadURL;
+          this.form.value.imageName = imgName;
+          console.log('upload imageName function: '+ this.form.value.imageName);
           this.updateProductImage(this.data.id, this.form.value);
         })
       })
@@ -166,10 +154,11 @@ export class AdminProductImageDialogComponent implements OnInit{
   }
 
   createProductImageWithImage(image:File, imagePath?:string){
-    const imgName = this.getCurrentDateTime() + image.name;
-    const storageRef = ref(this.storage, `coffee/${imagePath}/${imgName}`);
-    const uploadTask = uploadBytesResumable(storageRef, image);
+    let imgName = this.getCurrentDateTime() + image.name;
+    let storageRef = ref(this.storage, `coffee/${imagePath}/${imgName}`);
+    let  uploadTask = uploadBytesResumable(storageRef, image);
     this.form.value.imageName = imgName;
+    console.log('imageName from function() 1: '+ this.form.value.imageName);
     console.log(this.form.value)
     uploadTask.on('state_changed', (snapshot)=>{
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -183,9 +172,9 @@ export class AdminProductImageDialogComponent implements OnInit{
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
           console.log('File available at', downloadURL);
           this.form.value.url = downloadURL;
+          this.form.value.imageName = imgName;
+          console.log('imageName from function() 2: '+ this.form.value.imageName);
           this.createProductImage(this.form.value);
-          console.log(this.form.value)
-          console.log(this.form.get('product').getRawValue())
         })
       })
   }
@@ -203,8 +192,6 @@ export class AdminProductImageDialogComponent implements OnInit{
       }
     })
   }
-
-
   public compareObjectFn = function (object, value){
     return object.id === value.id;
   }

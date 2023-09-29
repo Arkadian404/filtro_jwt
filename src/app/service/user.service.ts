@@ -62,5 +62,16 @@ export class UserService {
       );
   }
 
-
+  changePassword(id:number, oldPassword:string, newPassword:string){
+    return this.http.post(`${USER_API}/change-password/${id}`, {
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    })
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
 }

@@ -1,105 +1,4 @@
-<!--<div class="container">-->
-<!--  <form action="" class="login-form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">-->
-<!--    <h2>Login Form</h2>-->
-<!--    <h1 *ngIf="errorMessage">{{errorMessage}}</h1>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Firstname</mat-label>-->
-<!--        <input-->
-<!--          required-->
-<!--          matInput-->
-<!--          ngModel-->
-<!--          #username="ngModel"-->
-<!--          name="firstname"-->
-<!--          [(ngModel)]="register.firstname"-->
-<!--          placeholder="Firstname"-->
-<!--        >-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Lastname</mat-label>-->
-<!--        <input-->
-<!--          required-->
-<!--          matInput-->
-<!--          ngModel-->
-<!--          #username="ngModel"-->
-<!--          name="lastname"-->
-<!--          [(ngModel)]="register.lastname"-->
-<!--          placeholder="Lastname"-->
-<!--        >-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Username</mat-label>-->
-<!--        <input-->
-<!--          required-->
-<!--          matInput-->
-<!--          ngModel-->
-<!--          #username="ngModel"-->
-<!--          name="username"-->
-<!--          [(ngModel)]="register.username"-->
-<!--          placeholder="Username"-->
-<!--        >-->
-<!--&lt;!&ndash;        <mat-error *ngIf="username.touched && !username.valid">&ndash;&gt;-->
-<!--&lt;!&ndash;        </mat-error>&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-error *ngIf="errorMessage"><span>{{errorMessage}}</span></mat-error>&ndash;&gt;-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Email</mat-label>-->
-<!--        <input-->
-<!--          required-->
-<!--          matInput-->
-<!--          ngModel-->
-<!--          #username="ngModel"-->
-<!--          name="email"-->
-<!--          [(ngModel)]="register.email"-->
-<!--          placeholder="Email"-->
-<!--        >-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Password</mat-label>-->
-<!--        <input required-->
-<!--               matInput-->
-<!--               ngModel-->
-<!--               #password="ngModel"-->
-<!--               name="password"-->
-<!--               [(ngModel)]="register.password"-->
-<!--               placeholder="Password"-->
-<!--               type="password"-->
-<!--        >-->
 
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control">-->
-<!--      <mat-form-field appearance="outline">-->
-<!--        <mat-label>Confirm password</mat-label>-->
-<!--        <input required-->
-<!--               matInput-->
-<!--               ngModel-->
-<!--               #password="ngModel"-->
-<!--               name="confirmPassword"-->
-<!--               [(ngModel)]="register.confirmPassword"-->
-<!--               placeholder="Confirm your password"-->
-<!--               type="password"-->
-<!--        >-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="row-control row-actions">-->
-<!--      <button mat-raised-button color="primary" type="submit">Sign in</button>-->
-<!--    </div>-->
-<!--    <pre> {{username.errors | json}}</pre>-->
-<!--    <pre> {{password.errors | json}}</pre>-->
-<!--    <pre>-->
-<!--    {{registerForm.value | json}}-->
-<!--    </pre>-->
-<!--  </form>-->
-<!--</div>-->
 
 
 <div class="container-fluid ps-md-0">
@@ -225,7 +124,10 @@
                 <div class="form-floating mb-3">
                   <mat-form-field>
                     <mat-label>Mật khẩu</mat-label>
-                    <input matInput type="password" placeholder="Mật khẩu" formControlName="password">
+                    <input matInput [type]="passwordType ? 'text' : 'password'" placeholder="Mật khẩu" formControlName="password">
+                    <mat-icon  style="position: absolute; right: 10px ;cursor: pointer;" (click)="passwordType = !passwordType">
+                      {{ passwordType ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
                     <mat-hint>Mật khẩu phải từ 6 đến 20 kí tự và có ít nhất 1 ký tự đặc biệt, chữ in hoa và số</mat-hint>
                   </mat-form-field>
                   <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">

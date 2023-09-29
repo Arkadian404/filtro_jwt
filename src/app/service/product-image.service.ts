@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, throwError} from "rxjs";
-import {ProductImage} from "../shared/models/product-image";
+import {ProductImage} from "../shared/models/product/product-image";
 
 const PRODUCT_IMAGE_API:string = 'http://localhost:8080/api/v1/admin/product-image';
 
