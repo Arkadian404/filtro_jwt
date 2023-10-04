@@ -39,7 +39,7 @@ export class AdminBrandComponent implements OnInit{
   }
 
   getBrands(){
-    return this.brandService.getBrandList().subscribe(
+    return this.brandService.getAdminBrandList().subscribe(
       {
         next:data=>{
           console.log(data);

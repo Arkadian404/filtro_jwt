@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit{
     resp.subscribe({
       next: (data) => {
         console.log(data);
-        // this.tokenService.setAccessToken(data.accessToken);
-        // this.tokenService.setRefreshToken(data.refreshToken);
+        this.tokenService.setAccessToken(data.accessToken);
+        this.tokenService.setRefreshToken(data.refreshToken);
         this.utilService.openSnackBar('Đăng nhập thành công', 'Đóng')
         this.router.navigate(['/home']);
       },

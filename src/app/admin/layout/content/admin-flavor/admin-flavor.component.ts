@@ -31,13 +31,16 @@ export class AdminFlavorComponent implements OnInit{
   }
 
   getFlavors(){
-    return this.flavorService.getFlavorList()
+    return this.flavorService.getAdminFlavorList()
       .subscribe({
         next:(data)=>{
           console.log(data);
           this.dataSource = new MatTableDataSource<Flavor>(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) =>{
+            return data.name.toLowerCase().includes(filter)
+          }
         },
         error:(err)=>{
           console.log(err);

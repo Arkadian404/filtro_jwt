@@ -3,7 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Flavor} from "../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
 
-const FLAVOR_API:string ="http://localhost:8080/api/v1/admin/flavor"
+const ADMIN_API:string ="http://localhost:8080/api/v1/admin/flavor"
+const USER_API:string ="http://localhost:8080/api/v1/user/flavor"
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class FlavorService {
 
   constructor(private http:HttpClient) { }
 
-  getFlavorList(){
-    return this.http.get<Flavor[]>(`${FLAVOR_API}/getList`)
+  getAdminFlavorList(){
+    return this.http.get<Flavor[]>(`${ADMIN_API}/getList`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -22,8 +23,28 @@ export class FlavorService {
       );
   }
 
+  getFlavorList(){
+    return this.http.get<Flavor[]>(`${USER_API}/getList`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getAdminFlavorById(id:number){
+    return this.http.get<Flavor>(`${ADMIN_API}/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log('Error handled by Service...' + err.status);
+          return throwError(()=> new Error(err.error.message))
+        })
+      );
+  }
+
   getFlavorById(id:number){
-    return this.http.get<Flavor>(`${FLAVOR_API}/${id}`)
+    return this.http.get<Flavor>(`${USER_API}/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -33,7 +54,7 @@ export class FlavorService {
   }
 
   createFlavor(flavor:Flavor){
-    return this.http.post<Flavor>(`${FLAVOR_API}/create`, flavor)
+    return this.http.post<Flavor>(`${ADMIN_API}/create`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -43,7 +64,7 @@ export class FlavorService {
   }
 
   updateFlavor(id:number, flavor:Flavor){
-    return this.http.put<Flavor>(`${FLAVOR_API}/update/${id}`, flavor)
+    return this.http.put<Flavor>(`${ADMIN_API}/update/${id}`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -53,7 +74,7 @@ export class FlavorService {
   }
 
   deleteFlavor(id:number){
-    return this.http.delete<Flavor>(`${FLAVOR_API}/delete/${id}`)
+    return this.http.delete<Flavor>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);

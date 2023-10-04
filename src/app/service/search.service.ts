@@ -4,7 +4,7 @@ import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {Product} from "../shared/models/product/product";
 import {ProductDto} from "../shared/dto/product-dto";
 
-const API_URL = 'http://localhost:8080/api/v1/user';
+const API_URL = 'http://localhost:8080/api/v1/user/search';
 
 @Injectable({
   providedIn: 'root'

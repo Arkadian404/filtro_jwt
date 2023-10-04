@@ -28,7 +28,15 @@
           </div>
           <div class="col d-flex justify-content-end align-items-center">
             <ng-container *ngIf="username;else login">
-              <span>Xin chào {{username}}</span>
+              <button mat-button [matMenuTriggerFor]="menu" class="admin d-flex align-items-center">
+                <span> {{username}} </span>
+                <mat-icon class="admin-image-icon ml-1" fontIcon="keyboard_arrow_down"></mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button (click)="toggleLogout()" mat-menu-item>
+                  <mat-icon fontIcon="exit_to_app"></mat-icon> Logout
+                </button>
+              </mat-menu>
             </ng-container>
             <ng-template #login>
               <button mat-icon-button [matMenuTriggerFor]="user">

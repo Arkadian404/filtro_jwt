@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchService} from "../../../service/search.service";
 import {Router} from "@angular/router";
@@ -19,6 +19,7 @@ import {ProductService} from "../../../service/product.service";
 })
 export class HeaderComponent implements OnInit{
   @Input() username = '';
+  @Output() onLogout = new EventEmitter();
   searchValue = '';
   form:FormGroup;
   categories: Category[] = [];
@@ -97,6 +98,11 @@ export class HeaderComponent implements OnInit{
         }
       });
   }
+
+  toggleLogout(){
+    this.onLogout.emit();
+  }
+
 
   onSearch(){
     this.searchValue = this.form.value.search;

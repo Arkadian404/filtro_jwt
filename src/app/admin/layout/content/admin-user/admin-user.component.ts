@@ -53,6 +53,9 @@ export class AdminUserComponent implements OnInit{
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) =>{
+            return data.username.toLowerCase().includes(filter)
+          }
         },
         error:(err)=>{
           console.log(err)

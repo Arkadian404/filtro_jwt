@@ -5,10 +5,10 @@
   <div class="content" mat-dialog-content>
     <div class="row">
       <div class="col justify-content-between">
-      <mat-form-field appearance="outline">
-        <mat-label>Tên sản phẩm</mat-label>
-        <input type="text" matInput formControlName="name">
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Tên sản phẩm</mat-label>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Nguồn gốc</mat-label>
           <mat-select
@@ -30,11 +30,21 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Sự kiện giảm giá</mat-label>
+          <mat-label>Thương hiệu</mat-label>
           <mat-select
             [compareWith]="compareObjectFunction"
-            formControlName="sale"
-            (selectionChange)="onSaleChange($event)">
+            formControlName="brand"
+            (selectionChange)="onBrandChange($event)">
+            <mat-option [value]="''">Không</mat-option>
+            <mat-option *ngFor="let b of brands" [value]="b">{{b.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Sự kiện giảm giá</mat-label>
+          <mat-select
+                  [compareWith]="compareObjectFunction"
+                  formControlName="sale"
+                  (selectionChange)="onSaleChange($event)">
             <mat-option [value]="''">Không</mat-option>
             <mat-option *ngFor="let s of sales" [value]="s">{{s.name}} || {{s.discount}}% </mat-option>
           </mat-select>
@@ -61,9 +71,16 @@
           <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
         </mat-select>
       </mat-form-field>
-        <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill">
           <mat-label>Đặc biệt</mat-label>
           <mat-select formControlName="isSpecial">
+            <mat-option [value]="true">Đúng</mat-option>
+            <mat-option [value]="false">Không</mat-option>
+          </mat-select>
+      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Giới hạn</mat-label>
+          <mat-select formControlName="isLimited">
             <mat-option [value]="true">Đúng</mat-option>
             <mat-option [value]="false">Không</mat-option>
           </mat-select>

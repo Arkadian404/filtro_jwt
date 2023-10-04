@@ -3,7 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {ProductOrigin} from "../shared/models/product/product-origin";
 import {catchError, throwError} from "rxjs";
 
-const API = 'http://localhost:8080/api/v1/admin/product-origin';
+const ADMIN_API = 'http://localhost:8080/api/v1/admin/product-origin';
+const USER_API = 'http://localhost:8080/api/v1/user/product-origin';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,18 @@ export class ProductOriginService {
 
   constructor(private http:HttpClient) { }
 
+  getAdminProductOriginList(){
+    return this.http.get<ProductOrigin[]>(`${ADMIN_API}/getList`)
+      .pipe(
+        catchError(err => {
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
   getProductOriginList(){
-    return this.http.get<ProductOrigin[]>(`${API}/getList`)
+    return this.http.get<ProductOrigin[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -23,7 +34,7 @@ export class ProductOriginService {
   }
 
   getById(id:number){
-    return this.http.get<ProductOrigin>(`${API}/find/${id}`)
+    return this.http.get<ProductOrigin>(`${ADMIN_API}/find/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -33,7 +44,7 @@ export class ProductOriginService {
   }
 
   create(productOrigin:ProductOrigin) {
-    return this.http.post<ProductOrigin>(`${API}/create`, productOrigin)
+    return this.http.post<ProductOrigin>(`${ADMIN_API}/create`, productOrigin)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -43,7 +54,7 @@ export class ProductOriginService {
   }
 
   update(id:number, productOrigin:ProductOrigin) {
-    return this.http.put<ProductOrigin>(`${API}/update/${id}`, productOrigin)
+    return this.http.put<ProductOrigin>(`${ADMIN_API}/update/${id}`, productOrigin)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -53,7 +64,7 @@ export class ProductOriginService {
   }
 
   delete(id:number) {
-    return this.http.delete<ProductOrigin>(`${API}/delete/${id}`)
+    return this.http.delete<ProductOrigin>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

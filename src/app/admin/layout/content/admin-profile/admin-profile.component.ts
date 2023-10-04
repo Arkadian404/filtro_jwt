@@ -56,7 +56,6 @@ export class AdminProfileComponent implements OnInit{
       {validators: validatePassword('newPassword', 'confirmPassword')}
     )
     this.getUser();
-     //this.form.patchValue(this.user);
   }
 
 

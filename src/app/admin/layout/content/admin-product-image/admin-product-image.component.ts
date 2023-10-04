@@ -42,13 +42,16 @@ export class AdminProductImageComponent implements OnInit{
   }
 
   getProductImageList(){
-    return this.productImageService.getProductImageList()
+    return this.productImageService.getAdminProductImageList()
       .subscribe({
         next:(data)=>{
           console.log(data);
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) =>{
+            return data.product.name.toLowerCase().includes(filter)
+          }
         },
         error:(err)=>{
           console.log(err)

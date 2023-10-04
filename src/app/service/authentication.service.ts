@@ -15,32 +15,14 @@ const AUTH_API:string = 'http://localhost:8080/api/v1';
   providedIn: 'root'
 })
 export class AuthenticationService {
-   isLogged = new BehaviorSubject(false);
-   username = new BehaviorSubject('');
-
-  currentIsLogged$ = this.isLogged.asObservable();
-  currentUsername$ = this.username.asObservable();
-
 
   constructor(private http:HttpClient,
               private tokenService:TokenService) { }
 
 
-  get usernameValue():string{
-    return this.username.value;
-  }
-
   public authenticate(request:AuthenticationRequest){
     return this.http.post<AuthenticationResponse>(`${AUTH_API}/auth/authenticate`, request)
       .pipe(
-        tap(token=>{
-          this.tokenService.setAccessToken(token.accessToken);
-          this.tokenService.setRefreshToken(token.refreshToken);
-          this.isLogged.next(true);
-          console.log(this.isLogged.value);
-          this.username.next(this.tokenService.getUsername());
-          console.log(this.username.value)
-        }),
         catchError((err)=>{
           console.log("Error handled by Service..." + err.status)
           return throwError(()=> new Error(err.error.message));

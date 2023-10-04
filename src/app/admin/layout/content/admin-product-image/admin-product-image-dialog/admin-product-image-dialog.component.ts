@@ -51,7 +51,7 @@ export class AdminProductImageDialogComponent implements OnInit{
 
 
   onCategoryChange(selectedCategory:Category){
-    this.productService.getProductsByCategory(selectedCategory.id).subscribe(
+    this.productService.getAdminProductsByCategory(selectedCategory.id).subscribe(
       {
         next:(data)=>{
           this.products = data
@@ -74,7 +74,7 @@ export class AdminProductImageDialogComponent implements OnInit{
   }
 
   getCategories(){
-    return this.categoryService.getCategoryList()
+    return this.categoryService.getAdminCategoryList()
       .subscribe({
         next:(data)=>{
           this.categories = data;

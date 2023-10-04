@@ -17,6 +17,8 @@ import {ProductDetailService} from "../../../../../service/product-detail.servic
 import {ProductImage} from "../../../../../shared/models/product/product-image";
 import {Vendor} from "../../../../../shared/models/product/vendor";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
+import {Brand} from "../../../../../shared/models/product/brand";
+import {BrandService} from "../../../../../service/brand.service";
 
 
 
@@ -29,6 +31,7 @@ import {ProductOrigin} from "../../../../../shared/models/product/product-origin
 export class AdminProductDialogComponent implements OnInit{
   // @ts-ignore
   form: FormGroup;
+  brands: Brand[] = [];
   categories:Category[] = [];
   flavors:Flavor[] = [];
   sales:Sale[] = [];
@@ -36,6 +39,7 @@ export class AdminProductDialogComponent implements OnInit{
   origins:ProductOrigin[] = [];
 
   constructor(private formBuilder:FormBuilder,
+              private brandService: BrandService,
               private productService:ProductService,
               private categoryService:CategoryService,
               private flavorService:FlavorService,
@@ -50,6 +54,7 @@ export class AdminProductDialogComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.getBrands();
     this.getCategories();
     this.getFlavors();
     this.getSales();
@@ -57,9 +62,11 @@ export class AdminProductDialogComponent implements OnInit{
     this.getVendors();
     this.form = this.formBuilder.group({
       name : [''],
+      brand:[''],
       flavor:[''],
       description : [''],
       isSpecial: false,
+      isLimited:false,
       origin: [''],
       status: true,
       sale: [''],
@@ -72,9 +79,21 @@ export class AdminProductDialogComponent implements OnInit{
     }
   }
 
+  getBrands(){
+    return this.brandService.getAdminBrandList()
+      .subscribe({
+        next:(data)=>{
+          console.log(data);
+          this.brands = data;
+        },
+        error:(err)=>{
+          console.log(err)
+        }
+      });
+  }
 
   getCategories(){
-    return this.categoryService.getCategoryList()
+    return this.categoryService.getAdminCategoryList()
       .subscribe({
         next:(data)=>{
           console.log(data);
@@ -87,7 +106,7 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
   getFlavors(){
-    return this.flavorService.getFlavorList()
+    return this.flavorService.getAdminFlavorList()
       .subscribe({
         next:(data)=>{
           console.log(data);
@@ -100,7 +119,7 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
   getSales(){
-    return this.saleService.getSaleList()
+    return this.saleService.getAdminSaleList()
       .subscribe({
         next:(data)=>{
           console.log(data);
@@ -113,7 +132,7 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
   getVendors(){
-    return this.vendorService.getVendorList()
+    return this.vendorService.getAdminVendorList()
       .subscribe({
         next:(data)=>{
           console.log(data);
@@ -126,7 +145,7 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
   getOrigins(){
-    return this.productOriginService.getProductOriginList()
+    return this.productOriginService.getAdminProductOriginList()
       .subscribe({
         next:(data)=>{
           console.log(data);
@@ -138,35 +157,6 @@ export class AdminProductDialogComponent implements OnInit{
       });
   }
 
-
-
-  // onSubmit(){
-  //   if(this.form.valid){
-  //     if(this.data){
-  //       this.productService.updateProduct(this.data.id, this.form.value).subscribe({
-  //         next:(data)=>{
-  //           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
-  //           this.matDialog.close(true);
-  //           console.log(this.form);
-  //         },
-  //         error:(err)=>{
-  //           this.utilService.openSnackBar(err, 'Đóng');
-  //         }
-  //       })
-  //     }else{
-  //       this.productService.createProduct(this.form.value).subscribe({
-  //         next:() => {
-  //           this.utilService.openSnackBar('Thêm thành công', 'Đóng');
-  //           this.matDialog.close(true);
-  //           console.log(this.form)
-  //         },
-  //         error:(err) => {
-  //           this.utilService.openSnackBar(err, 'Đóng');
-  //         }
-  //       })
-  //     }
-  //   }
-  // }
 
   onSubmit(){
     if(this.form.valid){
@@ -207,6 +197,14 @@ export class AdminProductDialogComponent implements OnInit{
     })
   }
 
+  onBrandChange(event:any){
+    const brand = event.source._value;
+    if(brand === "''" || brand === ""){
+      this.form.patchValue({brand: null});
+    }
+  }
+
+
   onFlavorChange(event:any){
     const flavor = event.source._value;
     if(flavor === "''" || flavor === ""){
@@ -220,6 +218,8 @@ export class AdminProductDialogComponent implements OnInit{
       this.form.patchValue({sale: null});
     }
   }
+
+
 
   onOriginChange(event:any){
     const origin = event.source._value;

@@ -3,7 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Brand} from "../shared/models/product/brand";
 import {catchError, throwError} from "rxjs";
 
-const API = 'http://localhost:8080/api/v1/admin/brand';
+const ADMIN_API = 'http://localhost:8080/api/v1/admin/brand';
+const USER_API = 'http://localhost:8080/api/v1/user/brand';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,28 @@ export class BrandService {
 
   constructor(private http:HttpClient) { }
 
+  getAdminBrandList(){
+    return this.http.get<Brand[]>(`${ADMIN_API}/getList`)
+      .pipe(
+        catchError(err =>{
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
   getBrandList(){
-    return this.http.get<Brand[]>(`${API}/getList`)
+    return this.http.get<Brand[]>(`${USER_API}/getList`)
+      .pipe(
+        catchError(err =>{
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getAdminBrandById(id:number){
+    return this.http.get<Brand>(`${ADMIN_API}/find/${id}`)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -23,7 +44,7 @@ export class BrandService {
   }
 
   getBrandById(id:number){
-    return this.http.get<Brand>(`${API}/find/${id}`)
+    return this.http.get<Brand>(`${USER_API}/find/${id}`)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -33,7 +54,7 @@ export class BrandService {
   }
 
   createBrand(brand:Brand){
-    return this.http.post<Brand>(`${API}/create`, brand)
+    return this.http.post<Brand>(`${ADMIN_API}/create`, brand)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -43,7 +64,7 @@ export class BrandService {
   }
 
   updateBrand(id:number, brand:Brand){
-    return this.http.put<Brand>(`${API}/update/${id}`, brand)
+    return this.http.put<Brand>(`${ADMIN_API}/update/${id}`, brand)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -53,7 +74,7 @@ export class BrandService {
   }
 
   deleteBrand(id:number){
-    return this.http.delete<Brand>(`${API}/delete/${id}`)
+    return this.http.delete<Brand>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);

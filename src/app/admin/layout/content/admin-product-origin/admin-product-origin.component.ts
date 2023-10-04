@@ -34,13 +34,16 @@ export class AdminProductOriginComponent implements OnInit{
     this.getOrigins();
   }
   getOrigins(){
-    return this.productOriginService.getProductOriginList()
+    return this.productOriginService.getAdminProductOriginList()
       .subscribe({
         next:(data)=>{
           console.log(data);
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) =>{
+            return data.name.toLowerCase().includes(filter)
+          }
         },
         error:(err)=>{
           console.log(err)

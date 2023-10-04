@@ -3,7 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Vendor} from "../shared/models/product/vendor";
 import {catchError, throwError} from "rxjs";
 
-const API = 'http://localhost:8080/api/v1/admin/vendor';
+const ADMIN_API = 'http://localhost:8080/api/v1/admin/vendor';
+const USER_API = 'http://localhost:8080/api/v1/user/vendor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,18 @@ export class VendorService {
 
   constructor(private http:HttpClient) { }
 
+  getAdminVendorList(){
+    return this.http.get<Vendor[]>(`${ADMIN_API}/getList`)
+      .pipe(
+        catchError(err => {
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
   getVendorList(){
-    return this.http.get<Vendor[]>(`${API}/getList`)
+    return this.http.get<Vendor[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -23,7 +34,7 @@ export class VendorService {
   }
 
   getById(id:number){
-    return this.http.get<Vendor>(`${API}/find/${id}`)
+    return this.http.get<Vendor>(`${ADMIN_API}/find/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -33,7 +44,7 @@ export class VendorService {
   }
 
   create(vendor:Vendor) {
-    return this.http.post<Vendor>(`${API}/create`, vendor)
+    return this.http.post<Vendor>(`${ADMIN_API}/create`, vendor)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -43,7 +54,7 @@ export class VendorService {
   }
 
   update(id:number, vendor:Vendor) {
-    return this.http.put<Vendor>(`${API}/update/${id}`, vendor)
+    return this.http.put<Vendor>(`${ADMIN_API}/update/${id}`, vendor)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -53,7 +64,7 @@ export class VendorService {
   }
 
   delete(id:number) {
-    return this.http.delete<Vendor>(`${API}/delete/${id}`)
+    return this.http.delete<Vendor>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

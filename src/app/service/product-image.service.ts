@@ -12,7 +12,7 @@ export class ProductImageService {
 
   constructor(private http:HttpClient) { }
 
-  getProductImageList(){
+  getAdminProductImageList(){
     return this.http.get<ProductImage[]>(`${PRODUCT_IMAGE_API}/getList`)
       .pipe(
         catchError(err=>{
@@ -29,17 +29,6 @@ export class ProductImageService {
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
         })
-      );
-  }
-
-  getProductImageListByProductIdLimit(id:number){
-    return this.http.get<ProductImage[]>(`${PRODUCT_IMAGE_API}/getListByProductId/${id}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        }),
-        map(data => data[0].url)
       );
   }
 

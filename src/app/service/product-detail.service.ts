@@ -12,7 +12,7 @@ export class ProductDetailService {
 
   constructor(private http:HttpClient) { }
 
-  getProductDetails(){
+  getAdminProductDetails(){
     return this.http.get<ProductDetail[]>(`${API}/getList`)
       .pipe(
         catchError(err => {
@@ -29,19 +29,6 @@ export class ProductDetailService {
           console.log("Error handled by Service: ", err.status);
           return throwError(()=> new Error(err.error.message));
         })
-      )
-  }
-
-
-  //only takes the first element of the list
-  getByProductIdLimitPrice(id:number){
-    return this.http.get<ProductDetail[]>(`${API}/getListByProduct/${id}`)
-      .pipe(
-        catchError(err => {
-          console.log("Error handled by Service: ", err.status);
-          return throwError(()=> new Error(err.error.message));
-        }),
-        map(data => data[0].price)
       )
   }
 

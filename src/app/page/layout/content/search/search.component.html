@@ -12,7 +12,7 @@
      </div>
  </section>
  <section class="search-main">
-     <div *ngIf="products;else notFound" class="container mb-3">
+     <div *ngIf="products && products.length>0;else notFound" class="container mb-3">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="search-title p-3">
                 <p>Có {{products.length}} sản phẩm cho kết quả {{searchValue}}</p>

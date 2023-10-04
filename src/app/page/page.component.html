@@ -1,24 +1,8 @@
-<!--<header class="bg-dark text-white p-3 mb-3">-->
-<!--  <div class="container">-->
-<!--    <div class="d-flex flex-wrap aligns-items-center justify-content-center justify-content-lg-start">-->
-<!--      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">-->
-<!--        <li><a routerLink="/home" class="nav-link px-2 text-white">Home</a></li>-->
-<!--      </ul>-->
-<!--      <div class="text-end">-->
-<!--        <div *ngIf="!isLoggedIn;else userInfor">-->
-<!--          <a routerLink="/login" class="btn btn-outline-light me-2">Login</a>-->
-<!--        </div>-->
-<!--        <a routerLink="/admin" class="btn btn-outline-light me-2">Admin</a>-->
-<!--        <a routerLink="/refreshToken" class="btn btn-outline-light me-2">RefreshToken</a>-->
-<!--        <a routerLink="/register" class="btn btn-outline-light me-2">Register</a>-->
-<!--        <a routerLink="/logout" class="btn btn-outline-light me-2">Log out</a>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</header>-->
-
 <div class="container-fullwidth">
-  <app-header [username]="username"></app-header>
+  <app-header
+    [username]="tokenService.getUsername()"
+    (onLogout)="logout()"
+  ></app-header>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div>

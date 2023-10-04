@@ -36,7 +36,7 @@ export class AdminProductDetailComponent implements OnInit{
   }
 
   getProductDetails(){
-    return this.productDetailService.getProductDetails()
+    return this.productDetailService.getAdminProductDetails()
       .subscribe({
         next:(data)=>{
           console.log(data);

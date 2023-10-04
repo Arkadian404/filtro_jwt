@@ -16,7 +16,7 @@ import {Observable, of} from "rxjs";
 export class SearchComponent implements OnInit{
   searchValue = '';
   products:ProductDto[] = []
-  products$:Observable<ProductDto[]> = new Observable<ProductDto[]>();
+
   constructor(private activatedRoute: ActivatedRoute,
               private searchService:SearchService) {
   }
@@ -26,7 +26,6 @@ export class SearchComponent implements OnInit{
         next: data=> {
           this.searchValue = data;
           if(this.searchValue !== this.activatedRoute.snapshot.queryParams.query){
-            // this.products$ = this.searchService.getSearchResult(this.searchValue);
             this.getSearchResult(this.searchValue);
           }
         },
@@ -36,7 +35,6 @@ export class SearchComponent implements OnInit{
       });
       this.searchValue = this.activatedRoute.snapshot.queryParams.query;
       this.getSearchResult(this.searchValue);
-      // this.products$ = this.searchService.getSearchResult(this.searchValue);
     }
     getSearchResult(searchValue:string){
       this.searchService.getSearchResult(searchValue).subscribe({

@@ -20,6 +20,7 @@ export class AdminProductComponent implements OnInit{
 
   displayedColumns: string[] = ['id',
     'name',
+    'brand',
     'description',
     'sold',
     'flavor',
@@ -28,6 +29,7 @@ export class AdminProductComponent implements OnInit{
     'createdAt',
     'updatedAt',
     'isSpecial',
+    'isLimited',
     'origin',
     'vendor',
     'status',
@@ -49,13 +51,16 @@ export class AdminProductComponent implements OnInit{
   }
 
   getProductList(){
-    return this.productService.getProductList()
+    return this.productService.getAdminProductList()
       .subscribe({
         next:(data)=>{
           console.log(data);
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) =>{
+            return data.name.toLowerCase().includes(filter)
+          }
         },
         error:(err)=>{
           console.log(err)
