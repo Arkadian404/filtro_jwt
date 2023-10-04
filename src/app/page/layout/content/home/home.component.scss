@@ -254,23 +254,22 @@ swiper-slide{
     position: relative;
     overflow: hidden;
     z-index: 1;
+    @media (min-width: 1200px){
+      .col{
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+      }
+    }
 
-    //@media (min-width: 1200px){
-    //  .col{
-    //    -ms-flex: 0 0 20%;
-    //    flex: 0 0 20%;
-    //    max-width: 20%;
-    //  }
-    //}
 
-
-    //@media (min-width: 992px){
-    //  .col{
-    //    -ms-flex: 0 0 20%;
-    //    flex: 0 0 20%;
-    //    max-width: 20%;
-    //  }
-    //}
+    @media (min-width: 992px){
+      .col{
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+      }
+    }
 
 
     .col{
@@ -319,7 +318,7 @@ swiper-slide{
             width: 100%;
             color: #000;
             line-height: 1.3;
-            min-height: 45.4px;
+            min-height: 49.4px;
           }
         }
         .product-reviews{
@@ -420,7 +419,7 @@ swiper-slide{
             width: 100%;
             color: #000;
             line-height: 1.3;
-            min-height: 45.4px;
+            min-height: 49.4px;
           }
         }
         .product-reviews{

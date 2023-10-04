@@ -1,0 +1,28 @@
+<div class="" mat-dialog-title>
+  <h1>Thêm thương hiệu</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="content" mat-dialog-content>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Tên thương hiệu</mat-label>
+        <input type="text" matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ghi chú</mat-label>
+        <textarea type="text" matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Trạng thái</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="true">Mở</mat-option>
+          <mat-option [value]="false">Đóng</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="action" mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+  </div>
+</form>

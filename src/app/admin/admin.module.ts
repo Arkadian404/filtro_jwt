@@ -62,6 +62,8 @@ import { AdminVendorComponent } from './layout/content/admin-vendor/admin-vendor
 import { AdminProductOriginDialogComponent } from './layout/content/admin-product-origin/admin-product-origin-dialog/admin-product-origin-dialog.component';
 import { AdminVendorDialogComponent } from './layout/content/admin-vendor/admin-vendor-dialog/admin-vendor-dialog.component';
 import { AdminProductDetailDialogComponent } from './layout/content/admin-product-detail/admin-product-detail-dialog/admin-product-detail-dialog.component';
+import { AdminBrandComponent } from './layout/content/admin-brand/admin-brand.component';
+import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-brand-dialog/admin-brand-dialog.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { AdminProductDetailDialogComponent } from './layout/content/admin-produc
     AdminVendorComponent,
     AdminProductOriginDialogComponent,
     AdminVendorDialogComponent,
-    AdminProductDetailDialogComponent
+    AdminProductDetailDialogComponent,
+    AdminBrandComponent,
+    AdminBrandDialogComponent
   ],
   exports: [
     AdminHeaderComponent

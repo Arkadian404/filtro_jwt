@@ -1,2 +1,59 @@
-<p>search works!</p>
-{{searchValue}}
+ <section class="bread-crumb">
+     <div class="container">
+         <div class="bread-crumb-title text-center">
+                Tìm kiếm - {{searchValue}}
+         </div>
+         <nav aria-label="breadcrumb">
+             <ol class="breadcrumb justify-content-center">
+                 <li class="breadcrumb-item"><a [routerLink]="'/home'">Trang chủ</a></li>
+                 <li class="breadcrumb-item active" aria-current="page"><strong>Kết quả tìm kiếm</strong> </li>
+             </ol>
+         </nav>
+     </div>
+ </section>
+ <section class="search-main">
+     <div *ngIf="products;else notFound" class="container mb-3">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="search-title p-3">
+                <p>Có {{products.length}} sản phẩm cho kết quả {{searchValue}}</p>
+            </div>
+        </div>
+         <div class="products row">
+            <div *ngFor="let p of products" class="col-lg-15 col-md-15 col-sm 4 col-6">
+                <div class="block-item">
+                    <a href="" class="wish-list ms-0">
+                        <img src="assets/images/heart.svg" alt="">
+                    </a>
+                    <a href="" class="product-transition">
+                        <img [src]="p.images[0].url" alt="">
+                    </a>
+                    <div class="product-info">
+                        <a href="" class="product-name">
+                            {{p.name}}
+                        </a>
+                        <div class="product-reviews">
+                            <div class="product-reviews-star">
+                                <i class="fa-regular fa-star star-off"></i>
+                                <i class="fa-regular fa-star star-off"></i>
+                                <i class="fa-regular fa-star star-off"></i>
+                                <i class="fa-regular fa-star star-off"></i>
+                                <i class="fa-regular fa-star star-off"></i>
+                            </div>
+                        </div>
+                        <div class="product-price mt-1">
+                            <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                            <span class="old-price">1.200.000đ</span>
+                        </div>
+                    </div>
+                    <button class="cart-button">Chọn</button>
+                </div>
+            </div>
+         </div>
+     </div>
+ </section>
+ <ng-template #notFound>
+   <div class="search-title p-3 text-center">
+     <p>Không tìm thấy sản phẩm nào cho kết quả {{searchValue}}</p>
+   </div>
+ </ng-template>
+

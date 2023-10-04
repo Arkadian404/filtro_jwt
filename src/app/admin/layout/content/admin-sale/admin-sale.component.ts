@@ -10,7 +10,7 @@ import {SaleService} from "../../../../service/sale.service";
 
 import {ComponentType} from "@angular/cdk/overlay";
 
-import {Sale} from "../../../../shared/models/sale";
+import {Sale} from "../../../../shared/models/product/sale";
 import {AdminSaleDialogComponent} from "./admin-sale-dialog/admin-sale-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
 

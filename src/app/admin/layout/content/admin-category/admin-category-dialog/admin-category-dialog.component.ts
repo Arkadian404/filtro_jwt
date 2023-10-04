@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Category} from "../../../../../shared/models/category";
+import {Category} from "../../../../../shared/models/product/category";
 import {CategoryService} from "../../../../../service/category.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UtilService} from "../../../../../service/util.service";

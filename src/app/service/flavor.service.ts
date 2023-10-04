@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Flavor} from "../shared/models/flavor";
+import {Flavor} from "../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
 
 const FLAVOR_API:string ="http://localhost:8080/api/v1/admin/flavor"

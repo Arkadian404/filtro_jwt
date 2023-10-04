@@ -1,31 +1,29 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {BrandService} from "../../../../../service/brand.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {VendorService} from "../../../../../service/vendor.service";
-import {Vendor} from "../../../../../shared/models/product/vendor";
+import {AdminCategoryDialogComponent} from "../../admin-category/admin-category-dialog/admin-category-dialog.component";
 
 @Component({
-  selector: 'app-admin-vendor-dialog',
-  templateUrl: './admin-vendor-dialog.component.html',
-  styleUrls: ['./admin-vendor-dialog.component.scss', '../../reusable/dialog.scss']
+  selector: 'app-admin-brand-dialog',
+  templateUrl: './admin-brand-dialog.component.html',
+  styleUrls: ['./admin-brand-dialog.component.scss', "../../reusable/dialog.scss"]
 })
-export class AdminVendorDialogComponent {
+export class AdminBrandDialogComponent implements OnInit{
   form:FormGroup<any>;
+
   constructor(private formBuilder:FormBuilder,
-              private vendorService:VendorService,
+              private brandService:BrandService,
               private utilService:UtilService,
-              private matDialog:MatDialogRef<AdminVendorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data:any) {
-  }
+              private matDialog:MatDialogRef<AdminCategoryDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data:any) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group<Vendor>({
+    this.form = this.formBuilder.group({
       name: '',
-      email: '',
-      phone: '',
-      address: '',
-      description: ''
+      description: '',
+      status: true
     });
     if(this.data){
       this.form.patchValue(this.data);
@@ -36,7 +34,7 @@ export class AdminVendorDialogComponent {
   onSubmit(){
     if(this.form.valid){
       if(this.data){
-        this.vendorService.update(this.data.id, this.form.value).subscribe({
+        this.brandService.updateBrand(this.data.id, this.form.value).subscribe({
           next:(data)=>{
             this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
             this.matDialog.close(true);
@@ -45,9 +43,9 @@ export class AdminVendorDialogComponent {
           error:(err)=>{
             this.utilService.openSnackBar(err, 'Đóng');
           }
-        })
+        });
       }else{
-        this.vendorService.create(this.form.value).subscribe({
+        this.brandService.createBrand(this.form.value).subscribe({
           next:() => {
             this.utilService.openSnackBar('Thêm thành công', 'Đóng');
             this.matDialog.close(true);
@@ -60,4 +58,9 @@ export class AdminVendorDialogComponent {
       }
     }
   }
+
+
+
+
+
 }

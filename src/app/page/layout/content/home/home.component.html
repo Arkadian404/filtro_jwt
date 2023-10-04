@@ -86,125 +86,47 @@
             </div>
             <div class="col-lg-3 col-md-6">
               <a href=""  class="section-title">Sản phẩm mới</a>
-              <div class="item-content">
+              <div *ngFor="let p of latestProducts" class="item-content">
                   <div class="product-block">
                     <a href="" class="product-image">
-                      <img src="/assets/images/coffee_4.jpg" alt="">
+                      <img [src]="p.images[0].url" alt="{{p.name}}">
                     </a>
                     <div class="product-right">
-                      <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
+                      <a href="" class="product-name">{{p.name}}</a>
                       <div class="product-price">
-                        <span class="price">100.000đ</span>
+                        <span class="price">{{ p.productDetails[0].price | currency:'VND'}}</span>
                       </div>
                     </div>
                   </div>
               </div>
-              <div class="item-content">
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <a href=""  class="section-title">Sản phẩm bán chạy</a>
+              <div *ngFor="let p of bestSellerProducts" class="item-content">
                 <div class="product-block">
                   <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
+                    <img [src]="p.images[0].url" alt="{{p.name}}">
                   </a>
                   <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
+                    <a href="" class="product-name">{{p.name}}</a>
                     <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
+                      <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
-              <a href=""  class="section-title">Sản phẩm mới</a>
-              <div class="item-content">
+              <a href=""  class="section-title">Hộp quà tặng</a>
+              <div *ngFor="let p of specialProducts" class="item-content">
                 <div class="product-block">
                   <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
+                    <img [src]="p.images[0].url" alt="{{p.name}}">
                   </a>
                   <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
+                    <a href="" class="product-name">{{p.name}}</a>
                     <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <a href=""  class="section-title">Sản phẩm mới</a>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-content">
-                <div class="product-block">
-                  <a href="" class="product-image">
-                    <img src="/assets/images/coffee_4.jpg" alt="">
-                  </a>
-                  <div class="product-right">
-                    <a href="" class="product-name">NÂMMAMAMAMAMSMSASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
+                      <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
                     </div>
                   </div>
                 </div>
@@ -235,16 +157,16 @@
         navigation="true"
         [slidesPerView]="slidesPerView"
         >
-          <swiper-slide>
+        <swiper-slide *ngFor="let p of top10ColombiaProducts">
             <div class="block-item">
               <a href="" class="wishlist">
                 <img src="assets/images/heart.svg" alt="">
               </a>
               <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
+                <img [src]="p.images[0].url" alt="{{p.name}}">
               </a>
               <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
+                  <a href="" class="product-name">{{p.name}}</a>
               </div>
               <div class="product-reviews">
                 <div class="product-reviews-star">
@@ -256,281 +178,11 @@
                 </div>
               </div>
               <div class="product-price">
-                <span class="price">100.000đ</span>
+                <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
                 <span class="old-price">120000d</span>
               </div>
             </div>
             <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
-          </swiper-slide>
-        <swiper-slide>
-            <div class="block-item">
-              <a href="" class="wishlist">
-                <img src="assets/images/heart.svg" alt="">
-              </a>
-              <a href="" class="product-transition">
-                <img src="assets/images/coffee_4.jpg" alt="">
-              </a>
-              <div class="product-info">
-                  <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                </div>
-              </div>
-              <div class="product-price">
-                <span class="price">100.000đ</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button type="button" class="cart-button">Chon</button>
           </swiper-slide>
       </swiper-container>
     </div>
@@ -550,16 +202,16 @@
       <div class="col-lg-6 col-md-12 col-12 menu"></div>
     </div>
     <div class="row full-list">
-      <div class="col">
+      <div *ngFor="let p of top10RoastedProducts" class="col">
         <div class="block-item">
           <a href="" class="wishlist">
             <img src="assets/images/heart.svg" alt="">
           </a>
           <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
+            <img [src]="p.images[0].url" alt="{{p.name}}">
           </a>
           <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
+            <a href="" class="product-name">{{p.name}}</a>
           </div>
           <div class="product-reviews">
             <div class="product-reviews-star">
@@ -571,250 +223,7 @@
             </div>
           </div>
           <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
-            <span class="old-price">120000d</span>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="block-item">
-          <a href="" class="wishlist">
-            <img src="assets/images/heart.svg" alt="">
-          </a>
-          <a href="" class="product-transition">
-            <img src="assets/images/coffee_4.jpg" alt="">
-          </a>
-          <div class="product-info">
-            <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-          </div>
-          <div class="product-reviews">
-            <div class="product-reviews-star">
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-              <i class="fa-regular fa-star star-off"></i>
-            </div>
-          </div>
-          <div class="product-price">
-            <span class="price">100.000đ</span>
+            <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
             <span class="old-price">120000d</span>
           </div>
           <button type="button" class="cart-button">Chon</button>
@@ -844,16 +253,16 @@
         navigation="true"
         [slidesPerView]="slidesPerView"
       >
-        <swiper-slide>
+        <swiper-slide *ngFor="let p of top10BottledProducts">
           <div class="block-item">
             <a href="" class="wishlist">
               <img src="assets/images/heart.svg" alt="">
             </a>
             <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
+              <img [src]="p.images[0].url" alt="{{p.name}}">
             </a>
             <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
+              <a href="" class="product-name">{{p.name}}</a>
             </div>
             <div class="product-reviews">
               <div class="product-reviews-star">
@@ -865,281 +274,11 @@
               </div>
             </div>
             <div class="product-price">
-              <span class="price">100.000đ</span>
+              <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
               <span class="old-price">120000d</span>
             </div>
           </div>
           <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button class="cart-button">Chon</button>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="block-item">
-            <a href="" class="wishlist">
-              <img src="assets/images/heart.svg" alt="">
-            </a>
-            <a href="" class="product-transition">
-              <img src="assets/images/coffee_4.jpg" alt="">
-            </a>
-            <div class="product-info">
-              <a href="" class="product-name">OPASIDOPISAOPDISAOPDIASOPDDSOPA</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-              </div>
-            </div>
-            <div class="product-price">
-              <span class="price">100.000đ</span>
-              <span class="old-price">120000d</span>
-            </div>
-          </div>
-          <button type="button" class="cart-button">Chon</button>
         </swiper-slide>
       </swiper-container>
     </div>

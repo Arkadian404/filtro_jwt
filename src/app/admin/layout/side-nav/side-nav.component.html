@@ -14,15 +14,19 @@
   </a>
   <a mat-list-item [routerLink]="['category']" routerLinkActive="list-item-active">
     <mat-icon fontIcon="view_cozy"></mat-icon>
-    <span>Category</span>
+    <span>Danh mục</span>
   </a>
   <a mat-list-item [routerLink]="['flavor']" routerLinkActive="list-item-active">
     <mat-icon fontIcon="edit"></mat-icon>
-    <span>Flavor</span>
+    <span>Hương vị</span>
   </a>
   <a mat-list-item [routerLink]="['sale']" routerLinkActive="list-item-active">
     <mat-icon fontIcon="event_list"></mat-icon>
-    <span>Sale</span>
+    <span>Sự kiện</span>
+  </a>
+  <a mat-list-item [routerLink]="['brand']" routerLinkActive="list-item-active">
+    <mat-icon fontIcon="event_list"></mat-icon>
+    <span>Thương hiệu</span>
   </a>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -40,6 +44,10 @@
       <a mat-list-item [routerLink]="['product-detail']" routerLinkActive="list-item-active">
         <mat-icon fontIcon="details"></mat-icon>
         <span>Chi tiết sản phẩm</span>
+      </a>
+      <a mat-list-item [routerLink]="['vendor']" routerLinkActive="list-item-active">
+        <mat-icon fontIcon="storefront"></mat-icon>
+        <span>Nhà cung cấp</span>
       </a>
       <a mat-list-item [routerLink]="['product-origin']" routerLinkActive="list-item-active">
         <mat-icon fontIcon="connecting_airports"></mat-icon>

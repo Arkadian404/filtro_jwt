@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {catchError, throwError} from "rxjs";
+import {catchError, map, switchMap, throwError} from "rxjs";
 import {ProductImage} from "../shared/models/product/product-image";
 
 const PRODUCT_IMAGE_API:string = 'http://localhost:8080/api/v1/admin/product-image';
@@ -29,6 +29,17 @@ export class ProductImageService {
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
         })
+      );
+  }
+
+  getProductImageListByProductIdLimit(id:number){
+    return this.http.get<ProductImage[]>(`${PRODUCT_IMAGE_API}/getListByProductId/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        }),
+        map(data => data[0].url)
       );
   }
 

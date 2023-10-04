@@ -3,7 +3,7 @@ import {FlavorService} from "../../../../service/flavor.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {Flavor} from "../../../../shared/models/flavor";
+import {Flavor} from "../../../../shared/models/product/flavor";
 import {ComponentType} from "@angular/cdk/overlay";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";

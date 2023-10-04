@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductDetail} from "../shared/models/product/product-detail";
-import {catchError, throwError} from "rxjs";
+import {catchError, map, Observable, switchMap, throwError} from "rxjs";
 
 const API = 'http://localhost:8080/api/v1/admin/product-detail';
 
@@ -32,8 +32,21 @@ export class ProductDetailService {
       )
   }
 
+
+  //only takes the first element of the list
+  getByProductIdLimitPrice(id:number){
+    return this.http.get<ProductDetail[]>(`${API}/getListByProduct/${id}`)
+      .pipe(
+        catchError(err => {
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        }),
+        map(data => data[0].price)
+      )
+  }
+
   getByProductId(id:number){
-    return this.http.get<ProductDetail>(`${API}/getListByProduct/${id}`)
+    return this.http.get<ProductDetail[]>(`${API}/getListByProduct/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

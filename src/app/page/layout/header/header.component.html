@@ -114,98 +114,128 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar_main">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown" appDropdownHover>
+        <div class="navbar-nav">
+          <div class="nav-item dropdown" appDropdownHover>
             <a class="ps-0 dropdown-toggle nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+              Khám phá
+            </a>
+              <div class="dropdown-menu" style="white-space: nowrap;" >
+                <div class="row">
+                  <div class="col-lg">
+                    <a class="dropdown-item"> Loại </a>
+                    <mat-divider></mat-divider>
+                    <div class="p-3">
+                      <ul style="column-count: 2;">
+                        <li *ngFor="let c of categories">
+                          <a [routerLink]="''">{{c.name}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg">
+                    <a class="dropdown-item"> Nguồn gốc </a>
+                    <mat-divider></mat-divider>
+                    <div class="p-3">
+                      <ul style="column-count: 2;">
+                        <li>
+                          <a [routerLink]="''">Các nước châu Mỹ</a>
+                        </li>
+                        <li>
+                          <a [routerLink]="''">Các nước châu Phi</a>
+                        </li>
+                        <li>
+                          <a [routerLink]="''">Các nước châu Á</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg">
+                    <a class="dropdown-item"> Nhà cung  cấp </a>
+                    <mat-divider></mat-divider>
+                    <div class="p-3">
+                      <ul style="column-count: 2;">
+                        <li *ngFor="let v of vendors">
+                          <a [routerLink]="''">{{v.name}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+                <div class="row">
+                  <div class="col-lg">
+                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Cà phê quý hiếm (limited) </a>
+                  </div>
+                  <div class="col-lg">
+                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Hộp quà tặng (special box) </a>
+                  </div>
+                  <div class="col-lg">
+                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Colombia Best Tier</a>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="nav-item dropdown" appDropdownHover>
+            <a class="dropdown-toggle nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
               Danh mục
             </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="#"> Test 1 </a>
+            <div class="dropdown-menu" style="white-space: nowrap;" >
+              <div class="row">
+                <div class="col-md">
+                  <a class="dropdown-item"> Loại </a>
                   <mat-divider></mat-divider>
-                  <div class="nav-child">
-                    <ul style="column-count: 2;">
-                      <li><a href="">T</a></li>
-                      <li><a href="">A</a></li>
-                      <li><a href="">V</a> </li>
-                      <li><a href="">S</a></li>
-                      <li><a href="">T</a></li>
-                      <li><a href="">J</a></li>
+                  <div class="p-3">
+                    <ul>
+                      <li *ngFor="let c of categories">
+                        <a [routerLink]="">{{c.name}}</a>
+                      </li>
                     </ul>
                   </div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Submenu two</a>
-                  <mat-divider></mat-divider>
-                  <div class="nav-child">
-                    <ul style="column-count: 2;">
-                      <li><a href="">T</a></li>
-                      <li><a href="">A</a></li>
-                      <li><a href="">V</a> </li>
-                      <li><a href="">S</a></li>
-                      <li><a href="">T</a></li>
-                      <li><a href="">J</a></li>
-                    </ul>
-                  </div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Submenu three</a>
-                  <mat-divider></mat-divider>
-                  <div class="nav-child">
-                    <ul style="column-count: 2;">
-                      <li><a href="">T</a></li>
-                      <li><a href="">A</a></li>
-                      <li><a href="">V</a> </li>
-                      <li><a href="">S</a></li>
-                      <li><a href="">T</a></li>
-                      <li><a href="">J</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-          </li>
-          <li class="nav-item dropdown" appDropdownHover>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item dropdown" appDropdownHover>
             <a class="dropdown-toggle nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
-              Sản phẩm mới
+              NHÀ PHÂN PHỐI
             </a>
-            <ul class="dropdown-menu">
-              <li> <a class="dropdown-item" href="#">Submenu one </a> </li>
-              <li> <a class="dropdown-item" href="#">Submenu two</a> </li>
-              <li> <a class="dropdown-item" href="#">Submenu three</a> </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown" appDropdownHover>
-            <a class="dropdown-toggle nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
-              Thương hiệu
+            <div class="dropdown-menu" style="white-space: nowrap;" >
+              <div class="row">
+                <div class="col-md">
+                  <a class="dropdown-item"> Tên </a>
+                  <mat-divider></mat-divider>
+                  <div class="p-3">
+                    <ul>
+                      <li *ngFor="let v of vendors">
+                        <a [routerLink]="">{{v.name}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+              CÀ PHÊ QUÝ HIẾM (LIMITED)
             </a>
-            <ul class="dropdown-menu">
-              <li> <a class="dropdown-item" href="#">Submenu one </a> </li>
-              <li> <a class="dropdown-item" href="#">Submenu two</a> </li>
-              <li> <a class="dropdown-item" href="#">Submenu three</a> </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link item-content" routerLink="/">
-              Hộp quà tặng (Đặc biệt)
+          </div>
+          <div class="nav-item">
+            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+              HỘP QUÀ TẶNG (SPECIAL BOX)
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link item-content" routerLink="/">
-              sự kiện
+          </div>
+          <div class="nav-item">
+            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+              LIÊN HỆ
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link item-content" routerLink="/">
-              Liên hệ
+          </div>
+          <div class="nav-item" >
+            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+              GIỚI THIỆU
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link item-content" routerLink="/">
-              giới thiệu
-            </a>
-          </li>
-        </ul>
-      </div> <!-- collapse end.// -->
-    </div> <!-- container end.// -->
-  </nav> <!-- navbar end.// -->
+          </div>
+        </div> <!-- collapse end.// -->
+      </div> <!-- container end.// -->
+    </div>
+  </nav><!-- navbar end.// -->
 </header> <!-- section-header end.// -->

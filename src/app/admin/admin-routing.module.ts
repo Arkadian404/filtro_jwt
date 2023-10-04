@@ -13,11 +13,11 @@ import {AdminFlavorComponent} from "./layout/content/admin-flavor/admin-flavor.c
 import {AdminProductComponent} from "./layout/content/admin-product/admin-product.component";
 import {AdminProductImageComponent} from "./layout/content/admin-product-image/admin-product-image.component";
 import {AdminSaleComponent} from "./layout/content/admin-sale/admin-sale.component";
-import {userLoginGuard} from "../guards/user-login.guard";
 import {adminLoginGuard} from "../guards/admin-login.guard";
 import {AdminVendorComponent} from "./layout/content/admin-vendor/admin-vendor.component";
 import {AdminProductOriginComponent} from "./layout/content/admin-product-origin/admin-product-origin.component";
 import {AdminProductDetailComponent} from "./layout/content/admin-product-detail/admin-product-detail.component";
+import {AdminBrandComponent} from "./layout/content/admin-brand/admin-brand.component";
 
 const routes: Routes = [
   {path: '', component: AdminComponent,  children:[
@@ -34,7 +34,8 @@ const routes: Routes = [
       {path: 'sale', component: AdminSaleComponent,  canActivate:[authGuard]},
       {path:'vendor', component:AdminVendorComponent, canActivate:[authGuard]},
       {path: 'product-origin', component: AdminProductOriginComponent, canActivate:[authGuard]},
-      {path: 'product-detail', component: AdminProductDetailComponent, canActivate:[authGuard]}
+      {path: 'product-detail', component: AdminProductDetailComponent, canActivate:[authGuard]},
+      {path: 'brand', component: AdminBrandComponent, canActivate:[authGuard]}
     ]}
 ];
 

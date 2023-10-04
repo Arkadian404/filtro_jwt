@@ -87,5 +87,27 @@
   width: 750px;
 }
 
+ul{
+  padding: 0;
+}
 
+li{
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.6;
+  a{
+    text-decoration: none;
+    color: #000;
+    &:hover{
+      cursor: pointer;
+      color: gray;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .dropdown-menu {
+    width: 100%;
+  }
+}
 

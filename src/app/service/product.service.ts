@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../shared/models/product/product";
 import {catchError, map, throwError} from "rxjs";
+import {ProductDto} from "../shared/dto/product-dto";
 
 const PRODUCT_API:string = 'http://localhost:8080/api/v1/admin/product';
 
@@ -83,7 +84,7 @@ export class ProductService {
   }
 
   getProductsBySale(saleId:number){
-return this.http.get<Product[]>(`${PRODUCT_API}/getListBySale/${saleId}`)
+    return this.http.get<Product[]>(`${PRODUCT_API}/getListBySale/${saleId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -91,6 +92,67 @@ return this.http.get<Product[]>(`${PRODUCT_API}/getListBySale/${saleId}`)
         })
       )
   }
+
+  getTop3LatestProducts(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop3LatestProducts`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getTop3BestSellerProducts(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop3BestSellerProducts`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getTop3SpecialProducts(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop3SpecialProducts`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getTop10ProductsInColombia(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop10ProductsInColombia`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getTop10ProductsByRoastedCoffeeBeans(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop10ProductsByRoastedCoffeeBeans`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  getTop10ProductsByBottledCoffee(){
+    return this.http.get<ProductDto[]>(`${PRODUCT_API}/getTop10ProductsByBottledCoffee`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
 
   createProduct(product:Product){
     return this.http.post<Product>(`${PRODUCT_API}/create`,product)

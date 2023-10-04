@@ -6,16 +6,16 @@ import {ProductService} from "../../../../../service/product.service";
 import {CategoryService} from "../../../../../service/category.service";
 import {FlavorService} from "../../../../../service/flavor.service";
 import {SaleService} from "../../../../../service/sale.service";
-import {Category} from "../../../../../shared/models/category";
-import {Flavor} from "../../../../../shared/models/flavor";
-import {Sale} from "../../../../../shared/models/sale";
+import {Category} from "../../../../../shared/models/product/category";
+import {Flavor} from "../../../../../shared/models/product/flavor";
+import {Sale} from "../../../../../shared/models/product/sale";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ProductOriginService} from "../../../../../service/product-origin.service";
 import {ProductDetailService} from "../../../../../service/product-detail.service";
 
 
 import {ProductImage} from "../../../../../shared/models/product/product-image";
-import {Vendor} from "../../../../../shared/models/vendor";
+import {Vendor} from "../../../../../shared/models/product/vendor";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
 
 
@@ -61,7 +61,7 @@ export class AdminProductDialogComponent implements OnInit{
       description : [''],
       isSpecial: false,
       origin: [''],
-      status: false,
+      status: true,
       sale: [''],
       category: [''],
       vendor: ['']
@@ -216,28 +216,28 @@ export class AdminProductDialogComponent implements OnInit{
 
   onSaleChange(event:any){
     const sale = event.source._value;
-    if(sale == "''" || sale == ""){
+    if(sale === "''" || sale === ""){
       this.form.patchValue({sale: null});
     }
   }
 
   onOriginChange(event:any){
     const origin = event.source._value;
-    if(origin == "''" || origin == ""){
+    if(origin === "''" || origin === ""){
       this.form.patchValue({origin: null});
     }
   }
 
   onCategoryChange(event:any){
     const category = event.source._value;
-    if(category == "''"){
+    if(category === "''" || category === ""){
       this.form.patchValue({category: null});
     }
   }
 
   onVendorChange(event:any){
     const vendor = event.source._value;
-    if(vendor == "''"){
+    if(vendor == "''" || vendor === ""){
       this.form.patchValue({vendor: null});
     }
   }

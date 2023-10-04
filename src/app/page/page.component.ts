@@ -6,16 +6,12 @@ import {TokenService} from "../service/token.service";
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent implements OnInit, DoCheck{
+export class PageComponent implements OnInit{
 
   isLoggedIn = false;
   username = '';
 
   constructor(private tokenService:TokenService) {
-  }
-
-  ngDoCheck(): void {
-    this.isLoggedIn = this.tokenService.isLoggedIn();
   }
 
   ngOnInit(): void {

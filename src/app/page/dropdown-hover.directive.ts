@@ -17,6 +17,7 @@ export class DropdownHoverDirective {
       // Hiển thị dropdown-menu
       this.renderer.addClass(this.dropdownMenu, 'show');
       this.renderer.addClass(this.dropdownMenu, 'd-flex');
+      // this.renderer.addClass(this.dropdownMenu, 'align-items-stretch')
     }
   }
 
@@ -25,6 +26,7 @@ export class DropdownHoverDirective {
       // Ẩn dropdown-menu
       this.renderer.removeClass(this.dropdownMenu, 'show');
       this.renderer.removeClass(this.dropdownMenu, 'd-flex');
+      // this.renderer.addClass(this.dropdownMenu, 'align-items-stretch');
     }
   }
 

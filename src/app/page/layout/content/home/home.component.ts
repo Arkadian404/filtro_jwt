@@ -1,7 +1,11 @@
 import {Component, DoCheck, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthenticationService} from "../../../../service/authentication.service";
-import {User} from "../../../../shared/models/user";
 import {TokenService} from "../../../../service/token.service";
+import {Product} from "../../../../shared/models/product/product";
+import {ProductService} from "../../../../service/product.service";
+import {ProductDetailService} from "../../../../service/product-detail.service";
+import {ProductImageService} from "../../../../service/product-image.service";
+import {ProductDto} from "../../../../shared/dto/product-dto";
 
 
 @Component({
@@ -12,6 +16,16 @@ import {TokenService} from "../../../../service/token.service";
 export class HomeComponent implements OnInit{
   slidesPerView = 5;
   screenWidth: number;
+
+
+  latestProducts: ProductDto[] = []
+  bestSellerProducts: ProductDto[] = []
+  specialProducts: ProductDto[] = []
+  top10ColombiaProducts: ProductDto[] = []
+  top10RoastedProducts: ProductDto[] = []
+  top10BottledProducts: ProductDto[] = []
+
+
   @HostListener('window:resize')
   getScreenWidth() {
     this.screenWidth = window.innerWidth;
@@ -26,13 +40,96 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  constructor(private jwtService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
+              private productService:ProductService,
+              private productDetailsService:ProductDetailService,
+              private productImageService: ProductImageService,
               private tokenService:TokenService) {
   }
 
   ngOnInit(){
+    this.getLatestProducts();
+    this.getBestSellerProducts();
+    this.getSpecialProducts();
+    this.getTop10ProductsInColombia();
+    this.getTop10RoastedProducts();
+    this.getTop10BottledProducts();
+  }
+
+  getLatestProducts(){
+      this.productService.getTop3LatestProducts()
+          .subscribe({
+            next:(data)=>{
+              this.latestProducts = data;
+              console.log(data);
+            },
+            error:(err)=>{
+              console.log(err);
+            }
+          })
   }
 
 
+  getBestSellerProducts(){
+    this.productService.getTop3BestSellerProducts().subscribe({
+      next:(data)=>{
+
+        this.bestSellerProducts = data;
+        console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  getSpecialProducts(){
+    this.productService.getTop3SpecialProducts().subscribe({
+      next:(data)=>{
+
+        this.specialProducts = data;
+        console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  getTop10ProductsInColombia(){
+    this.productService.getTop10ProductsInColombia().subscribe({
+      next:(data)=>{
+        this.top10ColombiaProducts = data;
+        console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  getTop10RoastedProducts(){
+    this.productService.getTop10ProductsByRoastedCoffeeBeans().subscribe({
+      next:(data)=>{
+        this.top10RoastedProducts = data;
+        console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  getTop10BottledProducts(){
+    this.productService.getTop10ProductsByBottledCoffee().subscribe({
+      next:(data)=>{
+        this.top10BottledProducts = data;
+        console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
 
 }

@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../../../../service/category.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Category} from "../../../../../shared/models/category";
+import {Category} from "../../../../../shared/models/product/category";
 import {ProductDetailService} from "../../../../../service/product-detail.service";
 import {ProductDetail} from "../../../../../shared/models/product/product-detail";
 import {Product} from "../../../../../shared/models/product/product";
@@ -34,9 +34,8 @@ export class AdminProductDetailDialogComponent implements OnInit{
       product: '',
       weight: '',
       quantity: '',
-      sold: '',
       price: '',
-      status: false
+      status: true
     });
     if(this.data){
       this.form.reset();

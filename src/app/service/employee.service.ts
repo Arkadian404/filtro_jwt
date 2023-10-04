@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Employee} from "../shared/models/employee";
 import {catchError, throwError} from "rxjs";
-import {Flavor} from "../shared/models/flavor";
+import {Flavor} from "../shared/models/product/flavor";
 
 const EMPLOYEE_API = 'http://localhost:8080/api/v1/admin/employee'
 

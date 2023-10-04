@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Category} from "../../../../shared/models/category";
+import {Category} from "../../../../shared/models/product/category";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AdminCategoryDialogComponent} from "./admin-category-dialog/admin-category-dialog.component";
 import {CategoryService} from "../../../../service/category.service";

@@ -4,7 +4,7 @@ import {UtilService} from "../../../../../service/util.service";
 import {CategoryService} from "../../../../../service/category.service";
 import {ProductService} from "../../../../../service/product.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Category} from "../../../../../shared/models/category";
+import {Category} from "../../../../../shared/models/product/category";
 import {Product} from "../../../../../shared/models/product/product";
 import {formatDate} from "@angular/common";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";

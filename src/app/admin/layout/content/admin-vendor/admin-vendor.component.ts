@@ -8,7 +8,7 @@ import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
-import {Vendor} from "../../../../shared/models/vendor";
+import {Vendor} from "../../../../shared/models/product/vendor";
 import {VendorService} from "../../../../service/vendor.service";
 import {AdminVendorDialogComponent} from "./admin-vendor-dialog/admin-vendor-dialog.component";
 
@@ -71,7 +71,11 @@ export class AdminVendorComponent implements OnInit{
 
 
   private openDialog(dialog:ComponentType<any> ,data?:Vendor) {
-    const dialogRef = this.dialog.open(dialog, {data});
+    const dialogRef = this.dialog.open(dialog, {
+      data,
+      width: '650px',
+      height: '650px'
+    });
     dialogRef.afterClosed().subscribe({
       next: (data) => {
         if (data) {

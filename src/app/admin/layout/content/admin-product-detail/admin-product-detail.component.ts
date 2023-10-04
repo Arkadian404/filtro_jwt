@@ -19,7 +19,7 @@ import {AdminProductDetailDialogComponent} from "./admin-product-detail-dialog/a
 })
 export class AdminProductDetailComponent implements OnInit{
 
-  displayedColumns: string[] = ['id', 'product','weight','quantity','sold','price', 'status', 'action'];
+  displayedColumns: string[] = ['id', 'product','weight','quantity','price', 'status', 'action'];
   dataSource!: MatTableDataSource<ProductDetail>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
