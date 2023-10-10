@@ -278,17 +278,32 @@ swiper-slide{
         width: inherit;
         margin-bottom: 15px;
         position: relative;
-        .wishlist{
-          img{
-            background-color: #f8f8f8;
-            height: 25px;
-            width: 25px;
+        .btn-wishlist{
+          background-color: #f8f8f8;
+          height: 35px;
+          width: 35px;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          z-index: 1;
+          display: block;
+          border-radius: 50%;
+          svg{
+            transition: all .3s;
+            width: 16px;
+            height: 16px;
             position: absolute;
-            top: 5px;
-            left: 5px;
-            z-index: 1;
-            display: block;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+          }
+          &:hover{
+            svg{
+              fill:  #ffffff;
+            }
+            background-color: #cecdcd;
           }
         }
         .product-transition{
@@ -379,17 +394,32 @@ swiper-slide{
       .block-item{
         margin-bottom: 15px;
         position: relative;
-        .wishlist{
-          img{
-            background-color: #f8f8f8;
-            height: 25px;
-            width: 25px;
+        .btn-wishlist{
+          background-color: #f8f8f8;
+          height: 35px;
+          width: 35px;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          z-index: 1;
+          display: block;
+          border-radius: 50%;
+          svg{
+            transition: all .3s;
+            width: 16px;
+            height: 16px;
             position: absolute;
-            top: 5px;
-            left: 5px;
-            z-index: 1;
-            display: block;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+          }
+          &:hover{
+            svg{
+              fill:  #ffffff;
+            }
+            background-color: #cecdcd;
           }
         }
         .product-transition{

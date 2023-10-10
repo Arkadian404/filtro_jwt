@@ -16,7 +16,12 @@ import {ProductDto} from "../../../../shared/dto/product-dto";
 export class HomeComponent implements OnInit{
   slidesPerView = 5;
   screenWidth: number;
-
+  isLatestProductsLoading = true;
+  isBestSellerProductsLoading = true;
+  isSpecialProductsLoading = true;
+  isTop10ColombiaProductsLoading = true;
+  isTop10RoastedProductsLoading = true;
+  isTop10BottledProductsLoading = true;
 
   latestProducts: ProductDto[] = []
   bestSellerProducts: ProductDto[] = []
@@ -62,9 +67,11 @@ export class HomeComponent implements OnInit{
             next:(data)=>{
               this.latestProducts = data;
               console.log(data);
+              this.isLatestProductsLoading = false;
             },
             error:(err)=>{
               console.log(err);
+              this.isLatestProductsLoading = false;
             }
           })
   }
@@ -73,12 +80,13 @@ export class HomeComponent implements OnInit{
   getBestSellerProducts(){
     this.productService.getTop3BestSellerProducts().subscribe({
       next:(data)=>{
-
         this.bestSellerProducts = data;
         console.log(data);
+        this.isBestSellerProductsLoading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isBestSellerProductsLoading = false;
       }
     })
   }
@@ -86,12 +94,13 @@ export class HomeComponent implements OnInit{
   getSpecialProducts(){
     this.productService.getTop3SpecialProducts().subscribe({
       next:(data)=>{
-
         this.specialProducts = data;
         console.log(data);
+        this.isSpecialProductsLoading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isSpecialProductsLoading = false;
       }
     })
   }
@@ -101,9 +110,11 @@ export class HomeComponent implements OnInit{
       next:(data)=>{
         this.top10ColombiaProducts = data;
         console.log(data);
+        this.isTop10ColombiaProductsLoading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isTop10ColombiaProductsLoading = false;
       }
     })
   }
@@ -113,9 +124,11 @@ export class HomeComponent implements OnInit{
       next:(data)=>{
         this.top10RoastedProducts = data;
         console.log(data);
+        this.isTop10RoastedProductsLoading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isTop10RoastedProductsLoading = false;
       }
     })
   }
@@ -125,9 +138,11 @@ export class HomeComponent implements OnInit{
       next:(data)=>{
         this.top10BottledProducts = data;
         console.log(data);
+        this.isTop10BottledProductsLoading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isTop10BottledProductsLoading = false;
       }
     })
   }

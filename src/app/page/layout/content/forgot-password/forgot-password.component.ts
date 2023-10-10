@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../../../service/email.service";
 import {UtilService} from "../../../../service/util.service";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,6 +11,7 @@ import {UtilService} from "../../../../service/util.service";
 })
 export class ForgotPasswordComponent implements OnInit{
   form:FormGroup;
+  isLoading = false;
   constructor(private formBuilder:FormBuilder,
               private emailService:EmailService,
               private utilService:UtilService) { }
@@ -22,12 +24,16 @@ export class ForgotPasswordComponent implements OnInit{
 
   onSubmit(){
     if(this.form.valid){
-      this.emailService.sendEmail(this.form.value.email).subscribe({
+      this.isLoading = true;
+      this.emailService.sendEmail(this.form.value.email)
+        .subscribe({
         next: (data) => {
           console.log(data);
+          this.isLoading = false;
           this.utilService.openSnackBar('Đã gửi email', 'Đóng')
         },
         error: (error) => {
+          this.isLoading = false;
           this.utilService.openSnackBar(error, 'Đóng')
           console.log(error);
         }

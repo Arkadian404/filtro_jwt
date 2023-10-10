@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Product} from "../shared/models/product/product";
 import {catchError, throwError} from "rxjs";
 import {ProductDto} from "../shared/dto/product-dto";
+import {Page} from "../shared/models/page";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
 const USER_API:string = 'http://localhost:8080/api/v1/user/product';
@@ -23,6 +24,27 @@ export class ProductService {
         })
       );
   }
+
+  getProductList(){
+    return this.http.get<ProductDto[]>(`${USER_API}/getList`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getProductListPaging(page:number, sort?:string){
+    return this.http.get<Page>(`${USER_API}/list?page=${page}&sort=${sort}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
 
   getProductById(id:number){
     return this.http.get<Product>(`${ADMIN_API}/find/${id}`)
@@ -45,7 +67,7 @@ export class ProductService {
   }
 
   getProductsByCategory(categoryId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListByCategory/${categoryId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByCategory/${categoryId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -55,7 +77,7 @@ export class ProductService {
   }
 
   getProductsByBrand(brandId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListByBrand/${brandId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByBrand/${brandId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -66,7 +88,7 @@ export class ProductService {
 
 
   getProductsByVendor(vendorId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListByVendor/${vendorId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByVendor/${vendorId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -76,7 +98,7 @@ export class ProductService {
   }
 
   getProductsByOrigin(originId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListByOrigin/${originId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByOrigin/${originId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -86,7 +108,7 @@ export class ProductService {
   }
 
   getProductsByIsSpecial(){
-    return this.http.get<Product[]>(`${USER_API}/getListByIsSpecial`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByIsSpecial`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -96,7 +118,7 @@ export class ProductService {
   }
 
   getProductsByFlavor(flavorId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListByFlavor/${flavorId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListByFlavor/${flavorId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -106,7 +128,7 @@ export class ProductService {
   }
 
   getProductsBySale(saleId:number){
-    return this.http.get<Product[]>(`${USER_API}/getListBySale/${saleId}`)
+    return this.http.get<ProductDto[]>(`${USER_API}/getListBySale/${saleId}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)

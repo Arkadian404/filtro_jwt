@@ -14,6 +14,7 @@ import {Observable, of} from "rxjs";
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit{
+  isLoading = true;
   searchValue = '';
   products:ProductDto[] = []
 
@@ -41,12 +42,13 @@ export class SearchComponent implements OnInit{
         next: data=> {
           this.products = data;
           console.log(this.products.length)
+          this.isLoading = false;
         },
         error: err=> {
           this.products = [];
           console.log(err)
-          // this.products$ = of([]);
+          this.isLoading = false;
       }
-  })
-    }
+     })
+  }
 }
