@@ -9,6 +9,14 @@
         <input type="text" matInput formControlName="name">
       </mat-form-field>
       <mat-form-field appearance="outline">
+        <mat-label>Khu vực</mat-label>
+        <mat-select
+                [compareWith]="compareFn"
+                formControlName="continent">
+          <mat-option *ngFor="let c of continent" [value]="c">{{c}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Ghi chú</mat-label>
         <input type="text" matInput formControlName="description">
       </mat-form-field>

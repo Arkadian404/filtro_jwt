@@ -33,6 +33,16 @@ export class ProductOriginService {
       )
   }
 
+  getProductOriginContinentList(name:string){
+      return this.http.get<ProductOrigin[]>(`${USER_API}/getListByContinent/${name}`)
+          .pipe(
+              catchError(err => {
+                  console.log("Error handled by Service: ", err.status);
+                  return throwError(()=> new Error(err.error.message));
+              })
+          )
+  }
+
   getById(id:number){
     return this.http.get<ProductOrigin>(`${ADMIN_API}/find/${id}`)
       .pipe(

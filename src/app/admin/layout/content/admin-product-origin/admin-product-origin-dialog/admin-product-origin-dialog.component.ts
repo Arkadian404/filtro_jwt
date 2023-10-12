@@ -13,6 +13,7 @@ import {ProductOriginService} from "../../../../../service/product-origin.servic
 export class AdminProductOriginDialogComponent implements OnInit{
 
   form:FormGroup<any>;
+  continent = ['Châu Á', 'Châu Âu', 'Châu Mỹ', 'Châu Phi', 'Châu Úc']
   constructor(private formBuilder:FormBuilder,
               private productOriginService:ProductOriginService,
               private utilService:UtilService,
@@ -23,6 +24,7 @@ export class AdminProductOriginDialogComponent implements OnInit{
   ngOnInit() {
     this.form = this.formBuilder.group<ProductOrigin>({
       name: '',
+      continent:'',
       description:''
     });
     if(this.data){
@@ -57,6 +59,9 @@ export class AdminProductOriginDialogComponent implements OnInit{
         })
       }
     }
+  }
+  compareFn(c1:any, c2:any):boolean{
+    return c1 && c2 ? c1 === c2 : c1 === c2;
   }
 
 }

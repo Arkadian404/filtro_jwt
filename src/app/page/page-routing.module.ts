@@ -12,6 +12,16 @@ import {RefreshTokenComponent} from "./layout/content/refresh-token/refresh-toke
 import {SearchComponent} from "./layout/content/search/search.component";
 import {CollectionComponent} from "./layout/content/collection/collection.component";
 import {AllComponent} from "./layout/content/collection/all/all.component";
+import {InstantCoffeeComponent} from "./layout/content/collection/instant-coffee/instant-coffee.component";
+import {
+    RoastedBeanCoffeeComponent
+} from "./layout/content/collection/roasted-bean-coffee/roasted-bean-coffee.component";
+import {CoffeeBallComponent} from "./layout/content/collection/coffee-ball/coffee-ball.component";
+import {BottledCoffeeComponent} from "./layout/content/collection/bottled-coffee/bottled-coffee.component";
+import {SpecialCoffeeComponent} from "./layout/content/collection/special-coffee/special-coffee.component";
+import {AmericasCofeeComponent} from "./layout/content/collection/americas-cofee/americas-cofee.component";
+import {AfricaCofeeComponent} from "./layout/content/collection/africa-cofee/africa-cofee.component";
+import {AsiaCofeeComponent} from "./layout/content/collection/asia-cofee/asia-cofee.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -24,11 +34,21 @@ const routes: Routes = [
       {path: 'forgot-password', component: ForgotPasswordComponent},
       {path: 'reset-password', component: ResetPasswordComponent},
       {path: 'refreshToken', component:RefreshTokenComponent},
-      {path: 'collection', component: CollectionComponent, children:[
-          {path:'all', component:AllComponent},
-          {path: '', redirectTo: 'all', pathMatch: 'full'}
-        ]}
-    ]}
+      {path: 'collection', component:CollectionComponent,  children:[
+        {path:'all', component:AllComponent},
+        {path: '', redirectTo: 'all', pathMatch: 'full'},
+        {path: 'instant-coffee', component: InstantCoffeeComponent},
+        {path: 'roasted-bean-coffee', component: RoastedBeanCoffeeComponent},
+        {path: 'coffee-ball', component: CoffeeBallComponent},
+        {path: 'bottled-coffee', component: BottledCoffeeComponent},
+        {path: 'special-coffee', component: SpecialCoffeeComponent},
+        {path: 'limited-coffee', component: SpecialCoffeeComponent},
+        {path: 'americas-coffee', component: AmericasCofeeComponent},
+        {path: 'africa-coffee', component: AfricaCofeeComponent},
+        {path: 'asia-coffee', component: AsiaCofeeComponent}]
+      }
+    ]
+  }
 ];
 
 @NgModule({

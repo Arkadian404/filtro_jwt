@@ -47,6 +47,15 @@ import { CollectionComponent } from './layout/content/collection/collection.comp
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatRadioModule} from "@angular/material/radio";
 import { AllComponent } from './layout/content/collection/all/all.component';
+import { InstantCoffeeComponent } from './layout/content/collection/instant-coffee/instant-coffee.component';
+import { RoastedBeanCoffeeComponent } from './layout/content/collection/roasted-bean-coffee/roasted-bean-coffee.component';
+import { CoffeeBallComponent } from './layout/content/collection/coffee-ball/coffee-ball.component';
+import { BottledCoffeeComponent } from './layout/content/collection/bottled-coffee/bottled-coffee.component';
+import { SpecialCoffeeComponent } from './layout/content/collection/special-coffee/special-coffee.component';
+import { LimitedCoffeeComponent } from './layout/content/collection/limited-coffee/limited-coffee.component';
+import { AmericasCofeeComponent } from './layout/content/collection/americas-cofee/americas-cofee.component';
+import { AfricaCofeeComponent } from './layout/content/collection/africa-cofee/africa-cofee.component';
+import { AsiaCofeeComponent } from './layout/content/collection/asia-cofee/asia-cofee.component';
 register();
 @NgModule({
   declarations: [
@@ -64,6 +73,15 @@ register();
     SearchComponent,
     CollectionComponent,
     AllComponent,
+    InstantCoffeeComponent,
+    RoastedBeanCoffeeComponent,
+    CoffeeBallComponent,
+    BottledCoffeeComponent,
+    SpecialCoffeeComponent,
+    LimitedCoffeeComponent,
+    AmericasCofeeComponent,
+    AfricaCofeeComponent,
+    AsiaCofeeComponent,
   ],
     imports: [
         CommonModule,

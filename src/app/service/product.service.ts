@@ -4,6 +4,7 @@ import {Product} from "../shared/models/product/product";
 import {catchError, throwError} from "rxjs";
 import {ProductDto} from "../shared/dto/product-dto";
 import {Page} from "../shared/models/page";
+import {ProductFilter} from "../shared/utils/product-filter";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
 const USER_API:string = 'http://localhost:8080/api/v1/user/product';
@@ -35,8 +36,10 @@ export class ProductService {
       );
   }
 
-  getProductListPaging(page:number, sort?:string){
-    return this.http.get<Page>(`${USER_API}/list?page=${page}&sort=${sort}`)
+  getProductListPaging(page:number, sort?:string,
+                       flavor?:string, category?:string, brand?:string,
+                       origin?:string, vendor?:string){
+    return this.http.get<Page>(`${USER_API}/all?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -45,6 +48,82 @@ export class ProductService {
       )
   }
 
+  getInstantCoffeeListPaging(page:number, sort?:string,
+                             flavor?:string, category?:string, brand?:string,
+                             origin?:string, vendor?:string) {
+      return this.http.get<Page>(`${USER_API}/byInstantCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+          .pipe(
+              catchError(err => {
+                  console.log("Error handled by Service: " + err.status)
+                  return throwError(() => new Error(err.error.message));
+              })
+          )
+  }
+
+
+  getRoastedBeanCoffeeListPaging(page:number, sort?:string,
+                               flavor?:string, category?:string, brand?:string,
+                               origin?:string, vendor?:string) {
+      return this.http.get<Page>(`${USER_API}/byRoastedBeanCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+            .pipe(
+                catchError(err => {
+                    console.log("Error handled by Service: " + err.status)
+                    return throwError(() => new Error(err.error.message));
+                })
+            )
+  }
+
+
+  getCoffeeBallListPaging(page:number, sort?:string,
+                                   flavor?:string, category?:string, brand?:string,
+                                   origin?:string, vendor?:string) {
+      return this.http.get<Page>(`${USER_API}/byCoffeeBall?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+            .pipe(
+                catchError(err => {
+                    console.log("Error handled by Service: " + err.status)
+                    return throwError(() => new Error(err.error.message));
+                })
+            )
+  }
+
+
+
+  getBottledCoffeeListPaging(page:number, sort?:string,
+                         flavor?:string, category?:string, brand?:string,
+                         origin?:string, vendor?:string){
+        return this.http.get<Page>(`${USER_API}/byBottledCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+            .pipe(
+                catchError(err=>{
+                    console.log("Error handled by Service: "+err.status)
+                    return throwError(()=> new Error(err.error.message));
+                })
+            )
+  }
+
+
+  getSpecialCoffeeListPaging(page:number, sort?:string,
+                         flavor?:string, category?:string, brand?:string,
+                         origin?:string, vendor?:string){
+      return this.http.get<Page>(`${USER_API}/byIsSpecial?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+          .pipe(
+                catchError(err=>{
+                    console.log("Error handled by Service: "+err.status)
+                    return throwError(()=> new Error(err.error.message));
+                })
+          )
+  }
+
+  getLimitedCoffeeListPaging(page:number, sort?:string,
+                         flavor?:string, category?:string, brand?:string,
+                         origin?:string, vendor?:string){
+      return this.http.get<Page>(`${USER_API}/byIsLimited?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+          .pipe(
+                catchError(err=>{
+                    console.log("Error handled by Service: "+err.status)
+                    return throwError(()=> new Error(err.error.message));
+                })
+          )
+  }
 
   getProductById(id:number){
     return this.http.get<Product>(`${ADMIN_API}/find/${id}`)
@@ -55,6 +134,8 @@ export class ProductService {
         })
       );
   }
+
+
 
   getAdminProductsByCategory(categoryId:number){
     return this.http.get<Product[]>(`${ADMIN_API}/getListByCategory/${categoryId}`)

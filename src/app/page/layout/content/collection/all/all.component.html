@@ -42,21 +42,11 @@
                 <div class="aside-top-title">Thương hiệu</div>
                 <div class="filter-group">
                   <ul class="filter">
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
+                    <li *ngFor="let b of brands">
+                      <mat-checkbox (change)="onBrandChange($event)" color="accent" [value]="b.name">
+                        {{b.name}}
+                      </mat-checkbox>
                     </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li
-                    ><li class="filter-item">
-                    <input type="checkbox"> HELLO
-                  </li>
                   </ul>
                 </div>
               </aside>
@@ -64,21 +54,11 @@
                 <div class="aside-top-title">Loại cà phê</div>
                 <div class="filter-group">
                   <ul class="filter">
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
+                    <li *ngFor="let c of categories">
+                      <mat-checkbox (change)="onCategoryChange($event)" color="accent" [value]="c.name">
+                        {{c.name}}
+                      </mat-checkbox>
                     </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li
-                    ><li class="filter-item">
-                    <input type="checkbox"> HELLO
-                  </li>
                   </ul>
                 </div>
               </aside>
@@ -86,21 +66,11 @@
                 <div class="aside-top-title">Hương vị</div>
                 <div class="filter-group">
                   <ul class="filter">
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
+                    <li *ngFor="let f of flavors">
+                      <mat-checkbox (change)="onFlavorChange($event)" color="accent" [value]="f.name">
+                        {{f.name}}
+                      </mat-checkbox>
                     </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li
-                    ><li class="filter-item">
-                    <input type="checkbox"> HELLO
-                  </li>
                   </ul>
                 </div>
               </aside>
@@ -108,21 +78,11 @@
                 <div class="aside-top-title">Xuất xứ</div>
                 <div class="filter-group">
                   <ul class="filter">
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
+                    <li *ngFor="let o of origins">
+                      <mat-checkbox (change)="onOriginChange($event)" color="accent" [value]="o.name">
+                        {{o.name}}
+                      </mat-checkbox>
                     </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li
-                    ><li class="filter-item">
-                    <input type="checkbox"> HELLO
-                  </li>
                   </ul>
                 </div>
               </aside>
@@ -130,21 +90,11 @@
                 <div class="aside-top-title">Nhà cung cấp</div>
                 <div class="filter-group">
                   <ul class="filter">
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
+                    <li *ngFor="let v of vendors">
+                      <mat-checkbox (change)="onVendorChange($event)" color="accent" [value]="v.name">
+                        {{v.name}}
+                      </mat-checkbox>
                     </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li>
-                    <li class="filter-item">
-                      <input type="checkbox"> HELLO
-                    </li
-                    ><li class="filter-item">
-                    <input type="checkbox"> HELLO
-                  </li>
                   </ul>
                 </div>
               </aside>
@@ -240,7 +190,10 @@
                     </li>
                     <ng-container *ngFor="let n of totalPages">
                       <li class="page-item" [ngClass]="{activated: n-1 == number }">
-                        <a class="page-tag" [routerLink]="['/collection/all']" [queryParams]="{page: n-1, sort:sort}">
+<!--                        <a class="page-tag" [routerLink]="['/collection/all']" [queryParams]="{page: n-1, sort:sort, flavor: flavor}">-->
+<!--                          <span>{{n}}</span>-->
+<!--                        </a>-->
+                        <a class="page-tag" [routerLink]="" (click)="onTagChange(n-1)">
                           <span>{{n}}</span>
                         </a>
                       </li>

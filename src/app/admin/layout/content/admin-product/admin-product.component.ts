@@ -21,7 +21,6 @@ export class AdminProductComponent implements OnInit{
   displayedColumns: string[] = ['id',
     'name',
     'brand',
-    'description',
     'sold',
     'flavor',
     'category',

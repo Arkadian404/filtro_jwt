@@ -9,19 +9,6 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss']
 })
-export class CollectionComponent implements OnInit{
-  isLoading = true;
-  page:Page;
-  products:ProductDto[];
-  number= 0;
-  sort = "";
-  totalPages:Array<number> = [];
-  constructor(private productService:ProductService,
-              private activatedRoute:ActivatedRoute,
-              private router:Router){
-  }
-  ngOnInit(): void {
-  }
-
+export class CollectionComponent{
 
 }
