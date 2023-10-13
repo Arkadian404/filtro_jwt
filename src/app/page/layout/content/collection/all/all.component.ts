@@ -21,6 +21,7 @@ import {ProductFilter} from "../../../../../shared/utils/product-filter";
   styleUrls: ['../collection.component.scss']
 })
 export class AllComponent implements OnInit{
+  isError = false;
   isLoading = true;
   page:Page;
   products:ProductDto[];
@@ -69,6 +70,7 @@ export class AllComponent implements OnInit{
       {
         next:(params)=>{
           const newPage = parseInt(params['page']) ? parseInt(params['page']) : 0;
+          const sort = params['sort'] ? params['sort'] : "";
           const flavor = params['flavor'] ? params['flavor'] : "";
           const brand = params['brand'] ? params['brand'] : "";
           const category = params['category'] ? params['category'] : "";
@@ -101,10 +103,12 @@ export class AllComponent implements OnInit{
           this.products = data.content;
           this.totalPages = Array(data.totalPages).fill(0).map((x,i)=>i+1);
           this.isLoading = false
+          this.isError = false;
         },
         error:(err)=>{
           console.log(err);
           this.isLoading = false
+          this.isError = true;
         }
       })
   }

@@ -20,16 +20,16 @@
             <div class="aside-title">Danh mục</div>
             <div class="aside-content">
               <ul>
-                <li><a href="">Cà phê bột</a></li>
-                <li><a href="">Cà phê hạt đã rang</a></li>
-                <li><a href="">Cà phê hạt nén</a></li>
-                <li><a href="">Cà phê đóng chai</a></li>
-                <li><a href="">Các nước châu Mỹ</a></li>
-                <li><a href="">Các nước chây Phi</a></li>
-                <li><a href="">Các nước châu Á</a></li>
-                <li><a href="">Cà phê quý hiếm (limited)</a></li>
-                <li><a href="">Hộp quà tặng (special box)</a></li>
-                <li><a href="">Sản phẩm bán chạy</a></li>
+                <li><a [routerLink]="'/collection/instant-coffee'">Cà phê bột</a></li>
+                <li><a [routerLink]="'/collection/roasted-bean-coffee'">Cà phê hạt đã rang</a></li>
+                <li><a [routerLink]="'/collection/coffee-ball'">Cà phê hạt nén</a></li>
+                <li><a [routerLink]="'/collection/bottled-coffee'">Cà phê đóng chai</a></li>
+                <li><a [routerLink]="'/collection/americas-coffee'">Các nước châu Mỹ</a></li>
+                <li><a [routerLink]="'/collection/africa-coffee'">Các nước châu Phi</a></li>
+                <li><a [routerLink]="'/collection/asia-coffee'">Các nước châu Á</a></li>
+                <li><a [routerLink]="'/collection/limited-coffee'">Cà phê quý hiếm (limited)</a></li>
+                <li><a [routerLink]="'/collection/special-coffee'">Hộp quà tặng (special box)</a></li>
+                <li><a [routerLink]="'/collection/best-seller'">Sản phẩm bán chạy</a></li>
               </ul>
             </div>
           </aside>
@@ -142,7 +142,12 @@
           <div class="d-flex justify-content-center mt-5" *ngIf="isLoading">
             <mat-spinner color="primary"></mat-spinner>
           </div>
-          <ng-container *ngIf="!isLoading">
+          <ng-container class="d-flex justify-content-center mt-5" *ngIf="isError && !isLoading">
+            <div class="alert alert-warning" role="warning">
+              <h3 class="text-center">Không tìm thấy sản phẩm</h3>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!isLoading && !isError">
             <section class="row products-view">
               <div *ngFor="let p of products; let i = index" class="col-md-3 col-lg-3 col-sm-6 col-6">
                 <div class="block-item">

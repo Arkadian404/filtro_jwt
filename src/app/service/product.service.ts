@@ -125,6 +125,31 @@ export class ProductService {
           )
   }
 
+  getContinentCoffeeListPaging(name:string,page:number, sort?:string,
+                               flavor?:string, category?:string, brand?:string,
+                               origin?:string, vendor?:string){
+    return this.http.get<Page>(`${USER_API}/byContinent/${name}?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+
+  getBestSellerCoffeeListPaging(page:number, sort?:string,
+                               flavor?:string, category?:string, brand?:string,
+                               origin?:string, vendor?:string){
+    return this.http.get<Page>(`${USER_API}/bestSeller?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
   getProductById(id:number){
     return this.http.get<Product>(`${ADMIN_API}/find/${id}`)
       .pipe(

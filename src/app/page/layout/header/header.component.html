@@ -124,41 +124,36 @@
       <div class="collapse navbar-collapse" id="navbar_main">
         <div class="navbar-nav">
           <div class="nav-item dropdown" appDropdownHover>
-            <a class="ps-0 dropdown-toggle nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+            <a class="ps-0 dropdown-toggle nav-link item-content" [routerLink]="'/collection/all'" data-bs-toggle="dropdown">
               Khám phá
             </a>
               <div class="dropdown-menu" style="white-space: nowrap;" >
                 <div class="row">
                   <div class="col-lg">
-                    <a class="dropdown-item"> Loại </a>
+                    <span class="ms-3"> Loại </span>
                     <mat-divider></mat-divider>
                     <div class="p-3">
                       <ul style="column-count: 2;">
-                        <li *ngFor="let c of categories">
-                          <a [routerLink]="''">{{c.name}}</a>
-                        </li>
+                        <li><a [routerLink]="'/collection/instant-coffee'" routerLinkActive="active-link">Cà phê bột</a></li>
+                        <li><a [routerLink]="'/collection/roasted-bean-coffee'" routerLinkActive="active-link">Cà phê hạt đã rang</a></li>
+                        <li><a [routerLink]="'/collection/coffee-ball'" routerLinkActive="active-link">Cà phê hạt nén</a></li>
+                        <li><a [routerLink]="'/collection/bottled-coffee'" routerLinkActive="active-link">Cà phê đóng chai</a></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-lg">
-                    <a class="dropdown-item"> Nguồn gốc </a>
+                    <span class="ms-3"> Nguồn gốc </span>
                     <mat-divider></mat-divider>
                     <div class="p-3">
                       <ul style="column-count: 2;">
-                        <li>
-                          <a [routerLink]="''">Các nước châu Mỹ</a>
-                        </li>
-                        <li>
-                          <a [routerLink]="''">Các nước châu Phi</a>
-                        </li>
-                        <li>
-                          <a [routerLink]="''">Các nước châu Á</a>
-                        </li>
+                        <li><a [routerLink]="'/collection/americas-coffee'" routerLinkActive="active-link">Các nước châu Mỹ</a></li>
+                        <li><a [routerLink]="'/collection/africa-coffee'" routerLinkActive="active-link">Các nước châu Phi</a></li>
+                        <li><a [routerLink]="'/collection/asia-coffee'" routerLinkActive="active-link">Các nước châu Á</a></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-lg">
-                    <a class="dropdown-item"> Nhà cung  cấp </a>
+                    <span class="ms-3"> Nhà cung  cấp </span>
                     <mat-divider></mat-divider>
                     <div class="p-3">
                       <ul style="column-count: 2;">
@@ -171,13 +166,13 @@
               </div>
                 <div class="row">
                   <div class="col-lg">
-                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Cà phê quý hiếm (limited) </a>
+                    <a [routerLink]="'/collection/limited-coffee'" routerLinkActive="active-link" class="dropdown-item" style="cursor: pointer">Cà phê quý hiếm (limited) </a>
                   </div>
                   <div class="col-lg">
-                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Hộp quà tặng (special box) </a>
+                    <a [routerLink]="'/collection/special-coffee'" routerLinkActive="active-link" class="dropdown-item" style="cursor: pointer">Hộp quà tặng (special box) </a>
                   </div>
                   <div class="col-lg">
-                    <a [routerLink]="''" class="dropdown-item" style="cursor: pointer">Colombia Best Tier</a>
+                    <a [routerLink]="'/collection/best-seller'" routerLinkActive="active-link" class="dropdown-item" style="cursor: pointer">Sản phẩm bán chạy</a>
                   </div>
                 </div>
             </div>
@@ -189,13 +184,14 @@
             <div class="dropdown-menu" style="white-space: nowrap;" >
               <div class="row">
                 <div class="col-md">
-                  <a class="dropdown-item"> Loại </a>
+                  <span class="ms-3"> Loại </span>
                   <mat-divider></mat-divider>
                   <div class="p-3">
                     <ul>
-                      <li *ngFor="let c of categories">
-                        <a [routerLink]="">{{c.name}}</a>
-                      </li>
+                      <li><a [routerLink]="'/collection/instant-coffee'" routerLinkActive="active-link">Cà phê bột</a></li>
+                      <li><a [routerLink]="'/collection/roasted-bean-coffee'" routerLinkActive="active-link">Cà phê hạt đã rang</a></li>
+                      <li><a [routerLink]="'/collection/coffee-ball'" routerLinkActive="active-link">Cà phê hạt nén</a></li>
+                      <li><a [routerLink]="'/collection/bottled-coffee'" routerLinkActive="active-link">Cà phê đóng chai</a></li>
                     </ul>
                   </div>
                 </div>
@@ -209,7 +205,7 @@
             <div class="dropdown-menu" style="white-space: nowrap;" >
               <div class="row">
                 <div class="col-md">
-                  <a class="dropdown-item"> Tên </a>
+                  <span class="ms-3"> Tên </span>
                   <mat-divider></mat-divider>
                   <div class="p-3">
                     <ul>
@@ -223,12 +219,12 @@
             </div>
           </div>
           <div class="nav-item">
-            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+            <a class="nav-link item-content" [routerLink]="'/collection/limited-coffee'" data-bs-toggle="dropdown">
               CÀ PHÊ QUÝ HIẾM (LIMITED)
             </a>
           </div>
           <div class="nav-item">
-            <a class="nav-link item-content" routerLink="/" data-bs-toggle="dropdown">
+            <a class="nav-link item-content" [routerLink]="'/collection/special-coffee'" data-bs-toggle="dropdown">
               HỘP QUÀ TẶNG (SPECIAL BOX)
             </a>
           </div>

@@ -51,6 +51,23 @@
         list-style: none;
         padding:0;
         margin-bottom: 0;
+        li{
+          margin-bottom: 5px;
+          .active-link{
+            color: #cecdcd;
+          }
+          a {
+            font-size: 17px;
+            font-weight: 400;
+            color:#000000;
+            white-space: normal;
+            padding: 3px 0;
+            text-decoration: none;
+            &:hover{
+              color: #cecdcd;
+            }
+          }
+        }
       }
     }
   }
@@ -346,5 +363,4 @@
     }
   }
 }
-
 

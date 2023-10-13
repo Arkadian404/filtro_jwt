@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Vendor} from "../shared/models/product/vendor";
 import {catchError, throwError} from "rxjs";
+import {VendorDto} from "../shared/dto/vendor-dto";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/vendor';
 const USER_API = 'http://localhost:8080/api/v1/user/vendor';
@@ -24,7 +25,7 @@ export class VendorService {
   }
 
   getVendorList(){
-    return this.http.get<Vendor[]>(`${USER_API}/getList`)
+    return this.http.get<VendorDto[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

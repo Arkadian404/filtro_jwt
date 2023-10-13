@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductOrigin} from "../shared/models/product/product-origin";
 import {catchError, throwError} from "rxjs";
+import {ProductOriginDto} from "../shared/dto/product-origin-dto";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/product-origin';
 const USER_API = 'http://localhost:8080/api/v1/user/product-origin';
@@ -24,7 +25,7 @@ export class ProductOriginService {
   }
 
   getProductOriginList(){
-    return this.http.get<ProductOrigin[]>(`${USER_API}/getList`)
+    return this.http.get<ProductOriginDto[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

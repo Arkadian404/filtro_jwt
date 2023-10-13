@@ -11,6 +11,10 @@ import {ProductOrigin} from "../../../shared/models/product/product-origin";
 import {VendorService} from "../../../service/vendor.service";
 import {Vendor} from "../../../shared/models/product/vendor";
 import {ProductService} from "../../../service/product.service";
+import {ProductOriginDto} from "../../../shared/dto/product-origin-dto";
+import {CategoryDto} from "../../../shared/dto/category-dto";
+import {FlavorDto} from "../../../shared/dto/flavor-dto";
+import {VendorDto} from "../../../shared/dto/vendor-dto";
 
 @Component({
   selector: 'app-header',
@@ -22,10 +26,10 @@ export class HeaderComponent implements OnInit{
   @Output() onLogout = new EventEmitter();
   searchValue = '';
   form:FormGroup;
-  categories: Category[] = [];
-  flavors:Flavor [] = []
-  origins:ProductOrigin[] = [];
-  vendors:Vendor[] = [];
+  categories: CategoryDto[] = [];
+  flavors:FlavorDto [] = []
+  origins:ProductOriginDto[] = [];
+  vendors:VendorDto[] = [];
   constructor(private formBuilder:FormBuilder,
               private productService:ProductService,
               private categoryService:CategoryService,

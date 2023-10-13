@@ -1,4 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import {Page} from "../../../../../shared/models/page";
+import {ProductDto} from "../../../../../shared/dto/product-dto";
+import {BrandDto} from "../../../../../shared/dto/brand-dto";
+import {CategoryDto} from "../../../../../shared/dto/category-dto";
+import {FlavorDto} from "../../../../../shared/dto/flavor-dto";
+import {ProductOriginDto} from "../../../../../shared/dto/product-origin-dto";
+import {VendorDto} from "../../../../../shared/dto/vendor-dto";
+import {ProductFilter} from "../../../../../shared/utils/product-filter";
 import {ProductService} from "../../../../../service/product.service";
 import {BrandService} from "../../../../../service/brand.service";
 import {CategoryService} from "../../../../../service/category.service";
@@ -6,21 +14,13 @@ import {FlavorService} from "../../../../../service/flavor.service";
 import {ProductOriginService} from "../../../../../service/product-origin.service";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {BrandDto} from "../../../../../shared/dto/brand-dto";
-import {CategoryDto} from "../../../../../shared/dto/category-dto";
-import {FlavorDto} from "../../../../../shared/dto/flavor-dto";
-import {ProductOriginDto} from "../../../../../shared/dto/product-origin-dto";
-import {VendorDto} from "../../../../../shared/dto/vendor-dto";
-import {ProductDto} from "../../../../../shared/dto/product-dto";
-import {Page} from "../../../../../shared/models/page";
-import {ProductFilter} from "../../../../../shared/utils/product-filter";
 
 @Component({
-  selector: 'app-special-coffee',
-  templateUrl: './special-coffee.component.html',
+  selector: 'app-best-seller',
+  templateUrl: './best-seller.component.html',
   styleUrls: ['../collection.component.scss']
 })
-export class SpecialCoffeeComponent implements OnInit {
+export class BestSellerComponent implements OnInit {
   isError = false;
   isLoading = true;
   page: Page;
@@ -94,7 +94,7 @@ export class SpecialCoffeeComponent implements OnInit {
   }
 
   getProducts(page?: number, sort?: string, flavor?: string, category?: string, brand?: string, origin?: string, vendor?: string) {
-    return this.productService.getSpecialCoffeeListPaging(page, sort, flavor, category, brand, origin, vendor)
+    return this.productService.getBestSellerCoffeeListPaging(page, sort, flavor, category, brand, origin, vendor)
       .subscribe({
         next: (data) => {
           console.log(data);

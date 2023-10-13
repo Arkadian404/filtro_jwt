@@ -53,9 +53,12 @@ import { CoffeeBallComponent } from './layout/content/collection/coffee-ball/cof
 import { BottledCoffeeComponent } from './layout/content/collection/bottled-coffee/bottled-coffee.component';
 import { SpecialCoffeeComponent } from './layout/content/collection/special-coffee/special-coffee.component';
 import { LimitedCoffeeComponent } from './layout/content/collection/limited-coffee/limited-coffee.component';
-import { AmericasCofeeComponent } from './layout/content/collection/americas-cofee/americas-cofee.component';
-import { AfricaCofeeComponent } from './layout/content/collection/africa-cofee/africa-cofee.component';
-import { AsiaCofeeComponent } from './layout/content/collection/asia-cofee/asia-cofee.component';
+import { AmericasCoffeeComponent } from './layout/content/collection/americas-coffee/americas-coffee.component';
+import { AfricaCoffeeComponent } from './layout/content/collection/africa-coffee/africa-coffee.component';
+import { AsiaCoffeeComponent } from './layout/content/collection/asia-coffee/asia-coffee.component';
+import { BestSellerComponent } from './layout/content/collection/best-seller/best-seller.component';
+import { ContactComponent } from './layout/content/contact/contact.component';
+import { IntroduceComponent } from './layout/content/introduce/introduce.component';
 register();
 @NgModule({
   declarations: [
@@ -79,9 +82,12 @@ register();
     BottledCoffeeComponent,
     SpecialCoffeeComponent,
     LimitedCoffeeComponent,
-    AmericasCofeeComponent,
-    AfricaCofeeComponent,
-    AsiaCofeeComponent,
+    AmericasCoffeeComponent,
+    AfricaCoffeeComponent,
+    AsiaCoffeeComponent,
+    BestSellerComponent,
+    ContactComponent,
+    IntroduceComponent,
   ],
     imports: [
         CommonModule,

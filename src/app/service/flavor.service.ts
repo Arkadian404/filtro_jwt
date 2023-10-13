@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Flavor} from "../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
+import {FlavorDto} from "../shared/dto/flavor-dto";
 
 const ADMIN_API:string ="http://localhost:8080/api/v1/admin/flavor"
 const USER_API:string ="http://localhost:8080/api/v1/user/flavor"
@@ -24,7 +25,7 @@ export class FlavorService {
   }
 
   getFlavorList(){
-    return this.http.get<Flavor[]>(`${USER_API}/getList`)
+    return this.http.get<FlavorDto[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
