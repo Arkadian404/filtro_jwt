@@ -5,6 +5,7 @@ import {catchError, throwError} from "rxjs";
 import {ProductDto} from "../shared/dto/product-dto";
 import {Page} from "../shared/models/page";
 import {ProductFilter} from "../shared/utils/product-filter";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
 const USER_API:string = 'http://localhost:8080/api/v1/user/product';
@@ -305,7 +306,7 @@ export class ProductService {
 
 
   createProduct(product:Product){
-    return this.http.post<Product>(`${ADMIN_API}/create`,product)
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`,product)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -315,7 +316,7 @@ export class ProductService {
   }
 
   updateProduct(id:number, product:Product){
-    return this.http.put<Product>(`${ADMIN_API}/update/${id}`,product)
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`,product)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -325,7 +326,7 @@ export class ProductService {
   }
 
   deleteProduct(id:number){
-    return this.http.delete(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);

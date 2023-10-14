@@ -10,27 +10,6 @@
   }
 }
 
-
-//.tera {
-//  background: url("/assets/images/coffee_4.jpg") center no-repeat;
-//  background-size: cover;
-//  max-height: 832px;
-//  overflow: hidden;
-//  margin-bottom: 0;
-//  h1 span, h3 span {
-//    display: block;
-//    font-size: 40px;
-//    margin-top: 10px;
-//    color: #96ca2d;
-//  }
-//  p {
-//    color: #f8f9fa;
-//  }
-//  .tera-content {
-//    color: #f8f9fa;
-//  }
-//}
-
 .tera {
   background: url("/assets/images/coffee_4.jpg") center no-repeat;
   background-size: cover;
@@ -122,18 +101,6 @@
     .product-right{
       flex: 1;
       .product-name{
-        //margin-bottom: 5px;
-        //font-size: 14px;
-        //line-height: 1.4em;
-        //color: #000;
-        //text-align: left;
-        //display: -webkit-box;
-        //vertical-align: middle !important;
-        //white-space: normal;
-        //word-break: break-all;
-        //max-width: 185px;
-        //overflow: hidden;
-        //position: relative;
         margin-bottom: 5px;
         font-size: 14px;
         line-height: 1.4em;
@@ -147,6 +114,9 @@
         word-break: break-all;
         overflow: hidden;
         position: relative;
+        &:hover{
+          color: #cecdcd;
+        }
       }
       .product-price{
         margin-bottom: 5px;
@@ -254,23 +224,6 @@ swiper-slide{
     position: relative;
     overflow: hidden;
     z-index: 1;
-    @media (min-width: 1200px){
-      .col{
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
-      }
-    }
-
-
-    @media (min-width: 992px){
-      .col{
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
-      }
-    }
-
 
     .col{
       width: 245px;
@@ -316,7 +269,6 @@ swiper-slide{
             max-height: 100%;
           }
         }
-
         .product-info{
           .product-name{
             font-size: 16px;
@@ -334,6 +286,9 @@ swiper-slide{
             color: #000;
             line-height: 1.3;
             min-height: 49.4px;
+            &:hover{
+              color: #cecdcd;
+            }
           }
         }
         .product-reviews{
@@ -450,6 +405,9 @@ swiper-slide{
             color: #000;
             line-height: 1.3;
             min-height: 49.4px;
+            &:hover{
+              color: #cecdcd;
+            }
           }
         }
         .product-reviews{

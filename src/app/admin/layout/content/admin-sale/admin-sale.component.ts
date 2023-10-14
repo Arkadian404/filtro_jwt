@@ -58,8 +58,8 @@ export class AdminSaleComponent implements OnInit{
 
   deleteSale(id:number){
     this.eventService.deleteSale(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getSales();
       },
       error:(err)=>{

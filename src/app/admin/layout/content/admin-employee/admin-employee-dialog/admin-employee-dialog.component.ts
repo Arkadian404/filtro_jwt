@@ -60,7 +60,7 @@ export class AdminEmployeeDialogComponent implements OnInit{
         this.employeeService.updateEmployee(this.data.id, this.form.value).subscribe({
           next:(data)=>{
             console.log(this.form.value)
-            this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+            this.utilService.openSnackBar(data.message, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -77,9 +77,9 @@ export class AdminEmployeeDialogComponent implements OnInit{
           }
         }
           this.employeeService.createEmployee(this.form.value).subscribe({
-            next:() => {
+            next:(data) => {
               console.log(this.form.value)
-              this.utilService.openSnackBar('Thêm thành công', 'Đóng');
+              this.utilService.openSnackBar(data.message, 'Đóng');
               this.matDialog.close(true);
               console.log(this.form)
             },

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Category} from "../shared/models/product/category";
 import {catchError, throwError} from "rxjs";
 import {CategoryDto} from "../shared/dto/category-dto";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/category';
 const USER_API:string = 'http://localhost:8080/api/v1/user/category';
@@ -55,7 +56,7 @@ export class CategoryService {
   }
 
   createCategory(category:Category){
-    return this.http.post<Category>(`${ADMIN_API}/create`, category)
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`, category)
       .pipe(
       catchError((err) => {
         console.log('Error handled by Service...' + err.status);
@@ -65,7 +66,7 @@ export class CategoryService {
   }
 
   updateCategory(id:number,category:Category){
-    return this.http.put<Category>(`${ADMIN_API}/update/${id}`, category)
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`, category)
       .pipe(
         catchError((err) => {
           console.log('Error handled by Service...' + err.status);
@@ -75,7 +76,7 @@ export class CategoryService {
   }
 
   deleteCategory(id:number){
-    return this.http.delete<Category>(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError((err) => {
           console.log('Error handled by Service...' + err.status);

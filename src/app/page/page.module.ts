@@ -59,6 +59,8 @@ import { AsiaCoffeeComponent } from './layout/content/collection/asia-coffee/asi
 import { BestSellerComponent } from './layout/content/collection/best-seller/best-seller.component';
 import { ContactComponent } from './layout/content/contact/contact.component';
 import { IntroduceComponent } from './layout/content/introduce/introduce.component';
+import { UserInfoComponent } from './layout/content/user-info/user-info.component';
+import { ProductDetailsComponent } from './layout/content/product-details/product-details.component';
 register();
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ register();
     BestSellerComponent,
     ContactComponent,
     IntroduceComponent,
+    UserInfoComponent,
+    ProductDetailsComponent,
   ],
     imports: [
         CommonModule,

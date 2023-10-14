@@ -33,8 +33,11 @@
                 <mat-icon class="admin-image-icon ml-1" fontIcon="keyboard_arrow_down"></mat-icon>
               </button>
               <mat-menu #menu="matMenu">
+                <button (click)="toggleUser()" mat-menu-item>
+                  <mat-icon fontIcon="account_circle"></mat-icon> Thông tin tài khoản
+                </button>
                 <button (click)="toggleLogout()" mat-menu-item>
-                  <mat-icon fontIcon="exit_to_app"></mat-icon> Logout
+                  <mat-icon fontIcon="exit_to_app"></mat-icon> Đăng xuất
                 </button>
               </mat-menu>
             </ng-container>

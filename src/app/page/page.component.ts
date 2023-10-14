@@ -26,6 +26,9 @@ export class PageComponent implements OnInit{
   }
 
 
+  navigateToUser(){
+    this.router.navigate(['/user-info']);
+  }
 
   logout() {
     this.authService.logout().subscribe({

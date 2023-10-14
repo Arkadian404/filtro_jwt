@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../shared/models/user";
 import {catchError, throwError} from "rxjs";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const USER_API:string = "http://localhost:8080/api/v1/admin/user"
 
@@ -33,7 +34,7 @@ export class UserService {
   }
 
   createUser(user:User){
-    return this.http.post(`${USER_API}/create`,user)
+    return this.http.post<SuccessMessage>(`${USER_API}/create`,user)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -43,7 +44,7 @@ export class UserService {
   }
 
   updateUser(id:number, user:User){
-    return this.http.put(`${USER_API}/update/${id}`,user)
+    return this.http.put<SuccessMessage>(`${USER_API}/update/${id}`,user)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -53,7 +54,7 @@ export class UserService {
   }
 
   deleteUser(id:number){
-    return this.http.delete(`${USER_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${USER_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)

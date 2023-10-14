@@ -36,7 +36,7 @@ export class AdminCategoryDialogComponent implements OnInit{
       if(this.data){
         this.categoryService.updateCategory(this.data.id, this.form.value).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+            this.utilService.openSnackBar(data.message, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -46,8 +46,8 @@ export class AdminCategoryDialogComponent implements OnInit{
         })
       }else{
       this.categoryService.createCategory(this.form.value).subscribe({
-        next:() => {
-          this.utilService.openSnackBar('Thêm thành công', 'Đóng');
+        next:(data) => {
+          this.utilService.openSnackBar(data.message, 'Đóng');
           this.matDialog.close(true);
           console.log(this.form)
         },

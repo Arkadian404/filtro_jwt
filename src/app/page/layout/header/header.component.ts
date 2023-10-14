@@ -24,6 +24,7 @@ import {VendorDto} from "../../../shared/dto/vendor-dto";
 export class HeaderComponent implements OnInit{
   @Input() username = '';
   @Output() onLogout = new EventEmitter();
+  @Output() onUser = new EventEmitter();
   searchValue = '';
   form:FormGroup;
   categories: CategoryDto[] = [];
@@ -107,7 +108,10 @@ export class HeaderComponent implements OnInit{
     this.onLogout.emit();
   }
 
-
+  toggleUser(){
+    this.onUser.emit();
+    console.log(this.onUser);
+  }
   onSearch(){
     this.searchValue = this.form.value.search;
     this.searchService.searchResults.next(this.searchValue);

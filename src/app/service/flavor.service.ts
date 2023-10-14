@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Flavor} from "../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
 import {FlavorDto} from "../shared/dto/flavor-dto";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const ADMIN_API:string ="http://localhost:8080/api/v1/admin/flavor"
 const USER_API:string ="http://localhost:8080/api/v1/user/flavor"
@@ -55,7 +56,7 @@ export class FlavorService {
   }
 
   createFlavor(flavor:Flavor){
-    return this.http.post<Flavor>(`${ADMIN_API}/create`, flavor)
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -65,7 +66,7 @@ export class FlavorService {
   }
 
   updateFlavor(id:number, flavor:Flavor){
-    return this.http.put<Flavor>(`${ADMIN_API}/update/${id}`, flavor)
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`, flavor)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -75,7 +76,7 @@ export class FlavorService {
   }
 
   deleteFlavor(id:number){
-    return this.http.delete<Flavor>(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);

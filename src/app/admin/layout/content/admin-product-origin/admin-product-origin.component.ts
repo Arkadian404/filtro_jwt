@@ -53,8 +53,8 @@ export class AdminProductOriginComponent implements OnInit{
 
   deleteProductOrigin(id:number){
     this.productOriginService.delete(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getOrigins();
       },
       error:(err)=>{

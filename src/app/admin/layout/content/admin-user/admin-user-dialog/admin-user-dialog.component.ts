@@ -74,7 +74,7 @@ export class AdminUserDialogComponent implements OnInit{
       if(this.data){
         this.userService.updateUser(this.data.id, this.form.value).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+            this.utilService.openSnackBar(data.message, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -84,8 +84,8 @@ export class AdminUserDialogComponent implements OnInit{
         })
       }else{
         this.userService.createUser(this.form.value).subscribe({
-          next:() => {
-            this.utilService.openSnackBar('Thêm thành công', 'Đóng');
+          next:(data) => {
+            this.utilService.openSnackBar(data.message, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

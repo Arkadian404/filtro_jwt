@@ -174,7 +174,7 @@ export class AdminProductDialogComponent implements OnInit{
   createProduct(){
     this.productService.createProduct(this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar('Tạo thành công', 'Đóng')
+        this.utilService.openSnackBar(data.message, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form);
       },
@@ -187,7 +187,7 @@ export class AdminProductDialogComponent implements OnInit{
   updateProduct(){
     this.productService.updateProduct(this.data.id, this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+        this.utilService.openSnackBar(data.message, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form);
       },

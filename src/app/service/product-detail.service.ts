@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductDetail} from "../shared/models/product/product-detail";
 import {catchError, map, Observable, switchMap, throwError} from "rxjs";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const API = 'http://localhost:8080/api/v1/admin/product-detail';
 
@@ -43,7 +44,7 @@ export class ProductDetailService {
   }
 
   create(productDetail:ProductDetail) {
-    return this.http.post<ProductDetail>(`${API}/create`, productDetail)
+    return this.http.post<SuccessMessage>(`${API}/create`, productDetail)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -53,7 +54,7 @@ export class ProductDetailService {
   }
 
   update(id:number, productDetail:ProductDetail) {
-    return this.http.put<ProductDetail>(`${API}/update/${id}`, productDetail)
+    return this.http.put<SuccessMessage>(`${API}/update/${id}`, productDetail)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -63,7 +64,7 @@ export class ProductDetailService {
   }
 
   delete(id:number) {
-    return this.http.delete<ProductDetail>(`${API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${API}/delete/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

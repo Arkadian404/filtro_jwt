@@ -24,11 +24,14 @@ import {AfricaCoffeeComponent} from "./layout/content/collection/africa-coffee/a
 import {AsiaCoffeeComponent} from "./layout/content/collection/asia-coffee/asia-coffee.component";
 import {BestSellerComponent} from "./layout/content/collection/best-seller/best-seller.component";
 import {LimitedCoffeeComponent} from "./layout/content/collection/limited-coffee/limited-coffee.component";
+import {UserInfoComponent} from "./layout/content/user-info/user-info.component";
+import {userInfoGuard} from "../guards/user-info.guard";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
       {path:'home', component:HomeComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'user-info', component:UserInfoComponent, canActivate:[userInfoGuard]},
       {path:'search', component:SearchComponent},
       {path:'login', component:LoginComponent, canActivate: [userLoginGuard]},
       {path:'register', component:RegisterComponent},

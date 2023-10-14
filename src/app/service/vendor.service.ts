@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Vendor} from "../shared/models/product/vendor";
 import {catchError, throwError} from "rxjs";
 import {VendorDto} from "../shared/dto/vendor-dto";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/vendor';
 const USER_API = 'http://localhost:8080/api/v1/user/vendor';
@@ -45,7 +46,7 @@ export class VendorService {
   }
 
   create(vendor:Vendor) {
-    return this.http.post<Vendor>(`${ADMIN_API}/create`, vendor)
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`, vendor)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -55,7 +56,7 @@ export class VendorService {
   }
 
   update(id:number, vendor:Vendor) {
-    return this.http.put<Vendor>(`${ADMIN_API}/update/${id}`, vendor)
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`, vendor)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
@@ -65,7 +66,7 @@ export class VendorService {
   }
 
   delete(id:number) {
-    return this.http.delete<Vendor>(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err => {
           console.log("Error handled by Service: ", err.status);

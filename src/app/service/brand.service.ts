@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Brand} from "../shared/models/product/brand";
 import {catchError, throwError} from "rxjs";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/brand';
 const USER_API = 'http://localhost:8080/api/v1/user/brand';
@@ -54,7 +55,7 @@ export class BrandService {
   }
 
   createBrand(brand:Brand){
-    return this.http.post<Brand>(`${ADMIN_API}/create`, brand)
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`, brand)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -64,7 +65,7 @@ export class BrandService {
   }
 
   updateBrand(id:number, brand:Brand){
-    return this.http.put<Brand>(`${ADMIN_API}/update/${id}`, brand)
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`, brand)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);
@@ -74,7 +75,7 @@ export class BrandService {
   }
 
   deleteBrand(id:number){
-    return this.http.delete<Brand>(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err =>{
           console.log("Error handled by Service: ", err.status);

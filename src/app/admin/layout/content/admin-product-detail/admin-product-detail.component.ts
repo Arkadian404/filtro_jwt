@@ -55,8 +55,8 @@ export class AdminProductDetailComponent implements OnInit{
 
   deleteProductDetail(id:number){
     this.productDetailService.delete(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getProductDetails();
       },
       error:(err)=>{

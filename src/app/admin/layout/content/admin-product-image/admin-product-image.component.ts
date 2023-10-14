@@ -61,8 +61,8 @@ export class AdminProductImageComponent implements OnInit{
 
   deleteProduct(id:number){
     this.productImageService.deleteProductImage(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getProductImageList();
       },
       error:(err)=>{

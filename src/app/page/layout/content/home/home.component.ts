@@ -14,7 +14,7 @@ import {ProductDto} from "../../../../shared/dto/product-dto";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  slidesPerView = 5;
+  slidesPerView = 10;
   screenWidth: number;
   isLatestProductsLoading = true;
   isBestSellerProductsLoading = true;

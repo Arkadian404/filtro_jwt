@@ -76,8 +76,8 @@ export class AdminFlavorComponent implements OnInit{
 
   deleteFlavor(id:number){
     this.flavorService.deleteFlavor(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getFlavors();
       },
       error:(err)=>{

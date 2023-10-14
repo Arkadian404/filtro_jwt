@@ -1,6 +1,7 @@
 <div class="container-fullwidth">
   <app-header
     [username]="tokenService.getUsername()"
+    (onUser)="navigateToUser()"
     (onLogout)="logout()"
   ></app-header>
   <router-outlet></router-outlet>

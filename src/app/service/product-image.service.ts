@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, switchMap, throwError} from "rxjs";
 import {ProductImage} from "../shared/models/product/product-image";
+import {SuccessMessage} from "../shared/models/success-message";
 
 const PRODUCT_IMAGE_API:string = 'http://localhost:8080/api/v1/admin/product-image';
 
@@ -43,7 +44,7 @@ export class ProductImageService {
   }
 
   createProductImage(productImage:ProductImage){
-    return this.http.post<ProductImage>(`${PRODUCT_IMAGE_API}/create`,productImage)
+    return this.http.post<SuccessMessage>(`${PRODUCT_IMAGE_API}/create`,productImage)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -53,7 +54,7 @@ export class ProductImageService {
   }
 
   updateProductImage(id:number, productImage:ProductImage){
-    return this.http.put(`${PRODUCT_IMAGE_API}/update/${id}`,productImage)
+    return this.http.put<SuccessMessage>(`${PRODUCT_IMAGE_API}/update/${id}`,productImage)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -63,7 +64,7 @@ export class ProductImageService {
   }
 
   deleteProductImage(id:number){
-    return this.http.delete(`${PRODUCT_IMAGE_API}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${PRODUCT_IMAGE_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);

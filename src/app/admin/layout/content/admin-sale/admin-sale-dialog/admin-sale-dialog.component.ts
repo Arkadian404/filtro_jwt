@@ -41,7 +41,7 @@ export class AdminSaleDialogComponent implements OnInit{
       if (this.data) {
         this.saleService.updateSale(this.data.id, this.form.value).subscribe({
           next: (data) => {
-            this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+            this.utilService.openSnackBar(data.message, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -51,8 +51,8 @@ export class AdminSaleDialogComponent implements OnInit{
         })
       } else {
         this.saleService.createSale(this.form.value).subscribe({
-          next: () => {
-            this.utilService.openSnackBar('Thêm thành công', 'Đóng');
+          next: (data) => {
+            this.utilService.openSnackBar(data.message, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

@@ -141,8 +141,8 @@ export class AdminProductImageDialogComponent implements OnInit{
 
   updateProductImage(id: number, image: ProductImage){
     this.productImageService.updateProductImage(id, image).subscribe({
-      next:() => {
-        this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+      next:(data) => {
+        this.utilService.openSnackBar(data.message, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form)
       },
@@ -181,8 +181,8 @@ export class AdminProductImageDialogComponent implements OnInit{
 
   createProductImage(image:ProductImage){
     this.productImageService.createProductImage(image).subscribe({
-      next:() => {
-        this.utilService.openSnackBar('Tạo thành công', 'Đóng')
+      next:(data) => {
+        this.utilService.openSnackBar(data.message, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form)
       },

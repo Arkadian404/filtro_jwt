@@ -59,8 +59,8 @@ export class AdminBrandComponent implements OnInit{
 
   deleteBrand(id:number){
     this.brandService.deleteBrand(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getBrands();
       },
       error:err=>{

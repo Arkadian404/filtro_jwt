@@ -65,8 +65,8 @@ export class AdminUserComponent implements OnInit{
 
   deleteEmployee(id:number){
     this.userService.deleteUser(id).subscribe({
-      next:()=>{
-        this.utilService.openSnackBar('Xóa thành công', 'Đóng');
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
         this.getUsers();
       },
       error:(err)=>{
