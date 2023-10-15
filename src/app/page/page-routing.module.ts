@@ -10,6 +10,7 @@ import {ForgotPasswordComponent} from "./layout/content/forgot-password/forgot-p
 import {ResetPasswordComponent} from "./layout/content/reset-password/reset-password.component";
 import {RefreshTokenComponent} from "./layout/content/refresh-token/refresh-token.component";
 import {SearchComponent} from "./layout/content/search/search.component";
+import {CartComponent} from "./layout/content/cart/cart.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -22,7 +23,7 @@ const routes: Routes = [
       {path: 'forgot-password', component: ForgotPasswordComponent},
       {path: 'reset-password', component: ResetPasswordComponent},
       {path: 'refreshToken', component:RefreshTokenComponent},
-
+      {path: 'cart', component:CartComponent},
     ]}
 ];
 

@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log("user name trong header: ", this.username);
     this.getCategories();
     this.getFlavors();
     this.getOrigins();
@@ -101,6 +102,8 @@ export class HeaderComponent implements OnInit{
 
   toggleLogout(){
     this.onLogout.emit();
+    localStorage.clear();
+
   }
 
 

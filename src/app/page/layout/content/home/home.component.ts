@@ -6,6 +6,10 @@ import {ProductService} from "../../../../service/product.service";
 import {ProductDetailService} from "../../../../service/product-detail.service";
 import {ProductImageService} from "../../../../service/product-image.service";
 import {ProductDto} from "../../../../shared/dto/product-dto";
+import {CartItemService} from "../../../../service/cart-item.service";
+import {CartItem} from "../../../../shared/models/cart-item";
+import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
+import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
 
 
 @Component({
@@ -14,6 +18,7 @@ import {ProductDto} from "../../../../shared/dto/product-dto";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
+  username: string;
   slidesPerView = 5;
   screenWidth: number;
 
@@ -24,6 +29,7 @@ export class HomeComponent implements OnInit{
   top10ColombiaProducts: ProductDto[] = []
   top10RoastedProducts: ProductDto[] = []
   top10BottledProducts: ProductDto[] = []
+  cartItems: CartItemDto[] = [];
 
 
   @HostListener('window:resize')
@@ -44,10 +50,14 @@ export class HomeComponent implements OnInit{
               private productService:ProductService,
               private productDetailsService:ProductDetailService,
               private productImageService: ProductImageService,
-              private tokenService:TokenService) {
+              private tokenService:TokenService,
+              private cartItemService: CartItemService,
+              private shareLoginUserNameService: SharedLoginUserNameService,) {
   }
 
   ngOnInit(){
+    this.username = this.shareLoginUserNameService.getLoginUserNameData();
+    console.log("username tai home page", this.username);
     this.getLatestProducts();
     this.getBestSellerProducts();
     this.getSpecialProducts();
@@ -131,5 +141,18 @@ export class HomeComponent implements OnInit{
       }
     })
   }
+
+  addToCart(product: ProductDto): void {
+    if(this.username){
+      this.cartItemService.addToCartAfterLogin(product);
+      console.log("them vao gio hang da login", this.cartItems);
+    } else {
+      this.cartItemService.addToCartNotLogin(product);
+      this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+      console.log("them vao gio hang chua login", this.cartItems);
+    }
+    // Call your cart service to add the product to the cart
+  }
+
 
 }

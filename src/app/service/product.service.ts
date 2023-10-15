@@ -193,7 +193,7 @@ export class ProductService {
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
         })
-      );;
+      );
   }
 
   deleteProduct(id:number){

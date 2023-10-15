@@ -4,6 +4,7 @@ import {Sale} from "./sale";
 import {ProductOrigin} from "./product-origin";
 import {Vendor} from "./vendor";
 import {Brand} from "./brand";
+import {ProductDetail} from "./product-detail";
 
 export interface Product{
   id?:number;
@@ -21,4 +22,5 @@ export interface Product{
   flavor:Flavor;
   sale:Sale;
   vendor: Vendor;
+  productDetails: Array<ProductDetail>
 }

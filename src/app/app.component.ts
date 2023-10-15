@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DoCheck, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, HostListener, OnInit} from '@angular/core';
 
 
 @Component({
@@ -10,10 +10,7 @@ export class AppComponent{
   title = 'jwt-ng-client';
 
   constructor() {
-
+    // localStorage.clear();
   }
-
-
-
 
 }

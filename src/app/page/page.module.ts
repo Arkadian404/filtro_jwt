@@ -43,6 +43,8 @@ import { SearchComponent } from './layout/content/search/search.component';
 import {RouterModule} from "@angular/router";
 import {DropdownHoverDirective} from "./dropdown-hover.directive";
 import { register } from 'swiper/element/bundle';
+import {CartComponent} from "./layout/content/cart/cart.component";
+
 register();
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ register();
     HeaderComponent,
     FooterComponent,
     SearchComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,
