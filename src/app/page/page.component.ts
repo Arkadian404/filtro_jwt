@@ -7,6 +7,8 @@ import {SharedLoginUserNameService} from "../service/SharedLoginUserNameService"
 import {Cart} from "../shared/models/cart";
 import {CartItemService} from "../service/cart-item.service";
 import {Observable} from "rxjs";
+import {ProductDetail} from "../shared/models/product/product-detail";
+import {ProductDetailService} from "../service/product-detail.service";
 
 @Component({
   selector: 'app-page',
@@ -18,20 +20,23 @@ export class PageComponent implements OnInit{
   isLoggedIn = false;
   username = '';
   cart: Cart;
-
+  sampleProductDetail: ProductDetail;
 
   constructor(public tokenService:TokenService,
               private authService: AuthenticationService,
               private utilService:UtilService,
               private router:Router,
               private shareLoginUserNameService: SharedLoginUserNameService,
-              private cartItemService: CartItemService,) {
+              private cartItemService: CartItemService,
+              private productDetailService: ProductDetailService, ) {
   }
 
   ngOnInit(): void {
       this.isLoggedIn = true;
       this.username = this.tokenService.getUsername();
-      this.shareLoginUserNameService.setLoginUserNameData(this.username);
+      console.log("username trong page component: ", this.username);
+      this.getSampleProductDetail();
+      // this.shareLoginUserNameService.setLoginUserNameData(this.username);
       this.getCart();
 
     // this.cartItemService.convertListCartItemAfterLogin();
@@ -59,8 +64,12 @@ export class PageComponent implements OnInit{
       .subscribe({
         next:(data) => {
           this.cart = data;
+          console.log("cart trong page component: ", this.cart);
+          console.log("username trong page component", this.username);
           // this.shareLoginUserNameService.setCart(this.cart);
           localStorage.setItem('cart', JSON.stringify(this.cart));
+          localStorage.setItem('username', JSON.stringify(this.username));
+          localStorage.setItem('sampleProductDetail', JSON.stringify(this.sampleProductDetail));
         },
         error: (err) => {
           console.log(err)
@@ -68,4 +77,16 @@ export class PageComponent implements OnInit{
       });
   }
 
+  getSampleProductDetail(){
+    return this.productDetailService.getById(1)
+      .subscribe(({
+        next:(data) =>{
+          this.sampleProductDetail = data;
+          console.log("sample product Detail: ", this.sampleProductDetail);
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      }))
+  }
 }

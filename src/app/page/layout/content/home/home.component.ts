@@ -10,7 +10,7 @@ import {CartItemService} from "../../../../service/cart-item.service";
 import {CartItem} from "../../../../shared/models/cart-item";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
-
+import {UtilService} from "../../../../service/util.service";
 
 @Component({
   selector: 'app-security',
@@ -52,19 +52,32 @@ export class HomeComponent implements OnInit{
               private productImageService: ProductImageService,
               private tokenService:TokenService,
               private cartItemService: CartItemService,
-              private shareLoginUserNameService: SharedLoginUserNameService,) {
+              private shareLoginUserNameService: SharedLoginUserNameService,
+              private utilService:UtilService,) {
   }
 
   ngOnInit(){
-    this.username = this.shareLoginUserNameService.getLoginUserNameData();
+    this.username = this.authenticationService.getUserNameFromLocalStorage();
     console.log("username tai home page", this.username);
+    if (this.username){
+      this.cartItemService.convertListCartItemAfterLogin().subscribe({
+        next:(data)=>{
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      });
+    }
     this.getLatestProducts();
     this.getBestSellerProducts();
     this.getSpecialProducts();
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
+
   }
+
+
 
   getLatestProducts(){
       this.productService.getTop3LatestProducts()
@@ -144,12 +157,19 @@ export class HomeComponent implements OnInit{
 
   addToCart(product: ProductDto): void {
     if(this.username){
+      // this.cartItemService.addToCartAfterLogin(product).subscribe({
+      //   next: (data) =>{
+      //     this.utilService.openSnackBar('Thêm sản phẩm vào giỏ hàng thành công', 'Đóng');
+      //   }
+      // });
       this.cartItemService.addToCartAfterLogin(product);
-      console.log("them vao gio hang da login", this.cartItems);
+      this.utilService.openSnackBar('Thêm sản phẩm vào giỏ hàng thành công', 'Đóng');
+      // console.log("them vao gio hang da login", this.cartItems);
     } else {
       this.cartItemService.addToCartNotLogin(product);
       this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
-      console.log("them vao gio hang chua login", this.cartItems);
+      this.utilService.openSnackBar('Thêm sản phẩm vào giỏ hàng thành công', 'Đóng');
+      // console.log("them vao gio hang chua login", this.cartItems);
     }
     // Call your cart service to add the product to the cart
   }

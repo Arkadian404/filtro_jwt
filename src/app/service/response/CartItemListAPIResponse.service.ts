@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {CartItemService} from "../cart-item.service";
 
 import {catchError, throwError} from "rxjs";
 import {CartItemListAPIResponse} from "../../shared/models/response/CartItemListAPIResponse";
@@ -10,7 +11,8 @@ const CART_ITEM_API:string = 'http://localhost:8080/api/v1/user/cart';
   providedIn: 'root'
 })
 export  class CartItemListAPIResponseService{
-  constructor(private  http:HttpClient) {
+  constructor(private  http:HttpClient,
+              cartItemService: CartItemService) {
   }
   getCartItemList(){
     return this.http.get<CartItemListAPIResponse>(`${CART_ITEM_API}/getList`)

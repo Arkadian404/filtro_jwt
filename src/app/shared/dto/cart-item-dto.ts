@@ -5,7 +5,7 @@ export interface CartItemDto{
   id?: number,
   cart: Cart,
   productName: string,
-  productDetail: ProductDetailDto,
+  productDetailDto: ProductDetailDto,
   quantity?: number,
   price?: number,
   purchaseDate?: Date

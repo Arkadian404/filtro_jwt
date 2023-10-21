@@ -6,7 +6,7 @@ import {ProductDetailDto} from "../dto/product-detail-dto";
 export interface CartItem{
   id?: number,
   cart: Cart,
-  productDetail: ProductDetail,
+  productDetail?: ProductDetail,
   quantity?: number,
   price?: number,
   purchaseDate?: Date

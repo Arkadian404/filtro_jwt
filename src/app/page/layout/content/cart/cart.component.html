@@ -7,6 +7,7 @@
         <thead class="bg-secondary text-dark">
         <tr>
           <th>Products</th>
+          <th>Weight</th>
           <th>Price</th>
           <th>Quantity</th>
           <th>Total</th>
@@ -26,6 +27,7 @@
                 </div>
               </div>
             </td>
+            <td class="align-middle">{{ item.productDetailDto.weight}}</td>
             <td class="align-middle">{{ item.price}}</td>
             <td class="align-middle">
               <div class="input-group quantity mx-auto btn-group-quantity">
@@ -43,7 +45,7 @@
               </div>
             </td>
             <td class="align-middle total-column">{{ item.price * item.quantity }}</td>
-            <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+            <td class="align-middle"><button class="btn btn-sm btn-primary" (click) = "deleteCartItem(item.id)"><i class="fa fa-times"></i></button></td>
           </tr>
           </tbody>
         </ng-container>

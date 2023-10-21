@@ -25,6 +25,7 @@ export class SearchComponent implements OnInit{
     this.searchService.searchResults$.subscribe({
         next: data=> {
           this.searchValue = data;
+          console.log("search value: ", this.searchValue);
           if(this.searchValue !== this.activatedRoute.snapshot.queryParams.query){
             this.getSearchResult(this.searchValue);
           }
