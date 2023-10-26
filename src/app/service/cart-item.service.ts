@@ -51,6 +51,12 @@ export class CartItemService{
     return cartItemsJSON ? JSON.parse(cartItemsJSON) : [];
   }
 
+  removeCartItemsFromLocalStorage() {
+    localStorage.removeItem('cartItems');
+  }
+
+
+
   getProductImagesFromLocalStorage(): ProductImageDto[] {
     // Retrieve cart items from local storage, parse the JSON, and return them
     const productImagesJSON = localStorage.getItem('productImage');
@@ -171,7 +177,7 @@ export class CartItemService{
                 const productDetailIds: number[] = [];
                 quantities.push(1);
                 productDetailIds.push(product.productDetails.at(0).id);
-                console.log("Tien hanh saveCartItemSubcribe");
+                console.log("Tien hanh saveCartItemSubcribe co productDetailId: ", productDetailIds);
                 this.saveCartItemSubcribe(quantities, productDetailIds);
               }
               else {
@@ -189,6 +195,7 @@ export class CartItemService{
 
   saveCartItemSubcribe(quantities: number[],
                        productDetailIds: number[]){
+    console.log("productDetailIds trong saveCartItemSubcribe: ", productDetailIds);
     this.saveCartItemAPI(quantities, productDetailIds).subscribe({
       next:(data)=>{
         console.log(data.message);

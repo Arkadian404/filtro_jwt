@@ -44,6 +44,7 @@ import {RouterModule} from "@angular/router";
 import {DropdownHoverDirective} from "./dropdown-hover.directive";
 import { register } from 'swiper/element/bundle';
 import {CartComponent} from "./layout/content/cart/cart.component";
+import {CartItemDialogComponent} from "./layout/content/home/cart-item-dialog/cart-item-dialog.component";
 
 register();
 @NgModule({
@@ -61,6 +62,7 @@ register();
     FooterComponent,
     SearchComponent,
     CartComponent,
+    CartItemDialogComponent
   ],
   imports: [
     CommonModule,
