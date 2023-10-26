@@ -178,6 +178,7 @@ export class HomeComponent implements OnInit{
   }
 
   openProductDetailDialog(data:ProductDto){
+    data.productDetails = data.productDetails.filter((item)=>item.quantity > 0);
     this.openDialog(CartItemDialogComponent, data);
   }
 

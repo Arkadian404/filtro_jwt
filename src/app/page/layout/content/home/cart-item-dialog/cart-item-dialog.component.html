@@ -15,7 +15,7 @@
           formControlName="productDetailDto"
           (selectionChange)="onProductDetailChange($event)">
           <mat-option [value]="''">Không</mat-option>
-          <mat-option *ngFor="let c of productDetailDtos" [value]="c">{{c.weight}}kg với giá {{c.price}}</mat-option>
+          <mat-option *ngFor="let c of productDetailDtos" [value]="c">{{c.weight}}g với giá {{c.price}}; số lượng tồn kho: {{c.quantity}} </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

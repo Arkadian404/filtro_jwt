@@ -39,18 +39,18 @@ export class CartItemDialogComponent implements OnInit{
 
     });
     if(this.data){
-      this.form.patchValue(this.data);
       console.log(this.data);
+      this.form.patchValue(this.data);
       this.productDetailDtos = this.data.productDetails;
-      console.log(this.productDetailDtos);
 
     }
   }
 
   onSubmit(){
     if(this.form.valid){
-      if(this.data){
-        const selectedProductDetailDto = this.form.get('productDetailDto').value;
+      const selectedProductDetailDto = this.form.get('productDetailDto').value;
+      console.log("selectedProductDetailDto: ",selectedProductDetailDto );
+      if(this.data && selectedProductDetailDto !== null){
         // console.log("selectedProductDetailDto: ", selectedProductDetailDto)
         console.log(this.data);
         // console.log("Gia tri product detail sau khi chon: ", this.data.id);
