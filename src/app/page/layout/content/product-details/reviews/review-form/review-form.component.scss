@@ -1,0 +1,19 @@
+
+:host ::ng-deep .p-rating-icon{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+:host ::ng-deep .p-rating-icon:not(.p-rating-cancel),
+:host ::ng-deep .p-rating-icon:not(.p-rating-cancel):hover {
+  color: #ff9900 !important;
+}
+
+.rating{
+  span{
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}

@@ -64,7 +64,6 @@ import { AdminVendorDialogComponent } from './layout/content/admin-vendor/admin-
 import { AdminProductDetailDialogComponent } from './layout/content/admin-product-detail/admin-product-detail-dialog/admin-product-detail-dialog.component';
 import { AdminBrandComponent } from './layout/content/admin-brand/admin-brand.component';
 import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-brand-dialog/admin-brand-dialog.component';
-
 @NgModule({
   declarations: [
     AdminComponent,
@@ -102,10 +101,10 @@ import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-br
     AdminVendorDialogComponent,
     AdminProductDetailDialogComponent,
     AdminBrandComponent,
-    AdminBrandDialogComponent
+    AdminBrandDialogComponent,
+
   ],
   exports: [
-    AdminHeaderComponent
   ],
   imports: [
     CommonModule,

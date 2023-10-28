@@ -1,0 +1,50 @@
+<div class="card review-bg">
+  <div class="card-body">
+    <div class="d-flex align-items-start">
+      <div class="flex-grow-1 ms-3">
+        <h4 class="mb-1">{{user?.username}}</h4>
+        <p class="text-muted text-sm mb-1">{{processDate()}}</p>
+        <div *ngIf="!(!!parentId)" class="star">
+          <ng-container *ngFor="let s of stars; index as i">
+            <i class="fas fa-star text-warning"></i>
+          </ng-container>
+          <ng-container *ngIf="starCount<5">
+            <i *ngFor="let o of starsOff" class="far fa-star text-warning"></i>
+          </ng-container>
+        </div>
+        <p class="text-muted mb-0 text-sm mt-1" *ngIf="!isEditing()">
+          {{review.comment}}
+        </p>
+        <app-review-form *ngIf="isEditing()"
+                         submitLabel="Edit"
+                         [comment]="review.comment"
+                         [hasCancelButton]="true"
+                         (onCancel)="onActiveEdit(null)"
+                         (onReviewSubmitForm)="onSubmitEditReview({content: $event, reviewId: review.id})">
+        </app-review-form>
+        <div class="d-flex">
+          <div *ngIf="canReply" (click)="onActiveReply({id: review.id, type: activeReviewTypeEnum.replying})">Reply</div>
+          <div *ngIf="canEdit" (click)="onActiveEdit({id: review.id, type: activeReviewTypeEnum.editing})">Edit</div>
+          <div *ngIf="canDelete">Delete</div>
+        </div>
+        <app-review-form *ngIf="isReplying()"
+                         submitLabel="Reply"
+                          [hasCancelButton]="true"
+                          (onCancel)="onActiveReply(null)"
+                         (onReviewSubmitForm)="onSubmitReplyReview({content: $event, parentId: replyId})"></app-review-form>
+        <div class="replies" *ngIf="replies.length > 0">
+          <app-review *ngFor="let rp of replies"
+                      [review]="rp"
+                      [activeReview]="activeReview"
+                      [parentId]="review.id"
+                      [replies]="[]"
+                      [user]="user"
+                      (onReplyReview)="onSubmitReplyReview($event)"
+                      (onEditReview)="onSubmitEditReview($event)"
+                      (setActiveReviewReply)="onActiveReply($event)"
+                      (setActiveReviewEdit)="onActiveEdit($event)" ></app-review>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

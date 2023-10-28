@@ -14,7 +14,7 @@ import {ProductDto} from "../../../../shared/dto/product-dto";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  slidesPerView = 10;
+  slidesPerView = 5;
   screenWidth: number;
   isLatestProductsLoading = true;
   isBestSellerProductsLoading = true;
@@ -34,14 +34,14 @@ export class HomeComponent implements OnInit{
   @HostListener('window:resize')
   getScreenWidth() {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth>= 320 && this.screenWidth<=480) {
+    if (this.screenWidth<=576) {
       this.slidesPerView = 1;
     } else if (this.screenWidth < 992) {
       this.slidesPerView = 2.5;
     } else if (this.screenWidth < 1200) {
       this.slidesPerView = 3.5;
-    } else if (this.screenWidth< 1600) {
-      this.slidesPerView = 4;
+    }else{
+      this.slidesPerView = 5;
     }
   }
 

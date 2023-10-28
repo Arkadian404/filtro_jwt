@@ -1,0 +1,330 @@
+.w-35{
+  width: 35px!important;
+}
+
+.f-14{
+  font-size: 14px;
+}
+
+.f-15{
+  font-size: 15px;
+}
+
+.f-20{
+  font-size: 20px;
+}
+
+.f-w-400{
+  font-weight: 400;
+}
+
+.f-w-500{
+  font-weight: 500;
+}
+
+.mat-mdc-tab-body.mat-mdc-tab-body-active {
+  animation: fade 0.5s;
+}
+
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.bread-crumb{
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/assets/images/coffee_bean_pattern.jpg");
+  background-color: #cecdcd;
+  padding: 40px 0;
+  margin: 0 0 25px;
+  .container{
+    .bread-crumb-title{
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .breadcrumb{
+      padding-top: 10px;
+      color: #fff;
+      text-align: center;
+      background-color: transparent;
+      font-size: 14px;
+      .breadcrumb-item{
+        a{
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.product-sticky{
+  top: 85px;
+}
+
+.carousel{
+  position: relative;
+  .carousel-inner{
+    img {
+      width:auto;
+      margin: 0 auto;
+      height: 350px;
+    }
+  }
+  .product-carousel-indicators{
+    height: 350px;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-direction: column;
+    .w-50{
+      width: 50px!important;
+    }
+  }
+}
+.slide{
+  display: flex;
+}
+
+.product-title{
+  line-height: 1.4;
+  font-size: 24px;
+  font-weight: 700;
+}
+.bg-light-success {
+  background: #dcf3d1;
+  color: #52c41a;
+  border-color: #dcf3d1;
+}
+.form-group{
+  margin-bottom: 1rem;
+  .list{
+    display: inline-block;
+    list-style: none;
+  }
+  .render{
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+  }
+  .col-form-label{
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .form-check{
+    display: block;
+    input{
+      display: none;
+    }
+    label{
+      text-align: center;
+      line-height: 30px;
+      min-width: 50px!important;
+      height: 30px!important;
+      padding: 0 5px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid #f4f4f4 !important;
+      border-radius: 3px ;
+      background-color: #fff !important;
+      cursor: pointer;
+    }
+    //.crossed-out {
+    //  position: absolute;
+    //  width: 100%;
+    //  height: 100%;
+    //  left: 0;
+    //  top: 0;
+    //}
+  }
+  .form-check-inline{
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  .checkbox{
+    position: relative;
+    padding: 0;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+}
+
+.is-active{
+  background: transparent !important;
+  color: #cecdcd !important;
+  border: 1px solid #cecdcd !important;
+  border-radius: 3px;
+}
+
+.mat-mdc-tab-container{
+  border-bottom: 1px solid #cecdcd !important;
+}
+
+.details{
+  .tab-group{
+    .description{
+      font-size: 15px;
+      font-weight: 40;
+    }
+  }
+}
+
+.related{
+  .card-header{
+    border-bottom: 1px solid #cecdcd !important;
+    h3{
+      margin-bottom: 0;
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+  .card-body{
+    .products{
+      @media (min-width: 1200px){
+        .col-lg-15 {
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          max-width: 20%;
+        }
+      }
+      @media (min-width: 992px){
+        .col-md-15 {
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          max-width: 20%;
+        }
+      }
+      .block-item{
+        margin-bottom: 15px;
+        position: relative;
+        .btn-wishlist {
+          background-color: #f8f8f8;
+          height: 35px;
+          width: 35px;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          z-index: 1;
+          display: block;
+          border-radius: 50%;
+
+          svg {
+            transition: all .3s;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+          }
+
+          &:hover {
+            svg {
+              fill: #ffffff;
+            }
+
+            background-color: #cecdcd;
+          }
+        }
+
+        .product-transition{
+          height: 260px;
+          display: block;
+          position: relative;
+          img{
+            max-width: 100%;
+            height: auto;
+            vertical-align: center;
+            width: auto !important;
+            max-height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+          }
+        }
+        .product-info{
+          .product-name{
+            padding-top: 7px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            color: #000;
+            line-height: 1.3;
+            min-height: 49.4px;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            &:hover{
+              color: #cecdcd;
+            }
+          }
+          .product-reviews{
+            display: flex;
+            align-items: center;
+            .product-reviews-star{
+              line-height: 1;
+              color: #f8ce0b;
+              .star-off{
+                font-size: 18px;
+                font-style: normal;
+              }
+            }
+          }
+          .product-price{
+            .price{
+              font-size: 17px;
+              font-weight: 700;
+              color: #343434;
+            }
+            .old-price{
+              text-decoration: line-through;
+              font-size: 13px;
+              color: #999;
+              margin-left: 5px;
+              font-weight: normal;
+            }
+          }
+        }
+        .cart-button{
+          width: 100%;
+          margin-bottom: 0;
+          margin-top: 15px;
+          background-color: #343434;
+          color: #fff;
+          position: relative;
+          border: 2px solid #343434;
+          display: block;
+          border-radius: 3px;
+          text-align: center;
+          padding: 5px 10px;
+          font-weight: 600;
+          &:hover{
+            background-color: #fff;
+            color: #343434;
+          }
+        }
+      }
+    }
+  }
+
+}

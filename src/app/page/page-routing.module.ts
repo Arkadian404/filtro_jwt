@@ -26,6 +26,9 @@ import {BestSellerComponent} from "./layout/content/collection/best-seller/best-
 import {LimitedCoffeeComponent} from "./layout/content/collection/limited-coffee/limited-coffee.component";
 import {UserInfoComponent} from "./layout/content/user-info/user-info.component";
 import {userInfoGuard} from "../guards/user-info.guard";
+import {ContactComponent} from "./layout/content/contact/contact.component";
+import {IntroduceComponent} from "./layout/content/introduce/introduce.component";
+import {ProductDetailsComponent} from "./layout/content/product-details/product-details.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -52,7 +55,10 @@ const routes: Routes = [
         {path: 'africa-coffee', component: AfricaCoffeeComponent},
         {path: 'asia-coffee', component: AsiaCoffeeComponent},
         {path: 'best-seller', component: BestSellerComponent}]
-      }
+      },
+      {path:'product/:slug', component: ProductDetailsComponent },
+      {path:'contact', component:ContactComponent},
+      {path:'introduce', component: IntroduceComponent}
     ]
   }
 ];

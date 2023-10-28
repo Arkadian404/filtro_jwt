@@ -21,6 +21,7 @@ import {PageModule} from "./page/page.module";
 import {RouterModule} from "@angular/router";
 
 
+
 firebase.initializeApp(environment.firebaseConfig) //firebase
 @NgModule({
   declarations: [

@@ -1,12 +1,8 @@
 import {AfterViewInit, Component, DoCheck, Input, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from "../../../../service/search.service";
 import {ActivatedRoute} from "@angular/router";
-import {ProductService} from "../../../../service/product.service";
-import {ProductDetailService} from "../../../../service/product-detail.service";
-import {ProductImageService} from "../../../../service/product-image.service";
-import {Product} from "../../../../shared/models/product/product";
 import {ProductDto} from "../../../../shared/dto/product-dto";
-import {Observable, of} from "rxjs";
+
 
 @Component({
   selector: 'app-search',
@@ -25,7 +21,7 @@ export class SearchComponent implements OnInit{
   ngOnInit(): void {
     this.searchService.searchResults$.subscribe({
         next: data=> {
-          this.searchValue = data;
+          this.searchValue = this.activatedRoute.snapshot.queryParams.query;
           if(this.searchValue !== this.activatedRoute.snapshot.queryParams.query){
             this.getSearchResult(this.searchValue);
           }
@@ -34,14 +30,12 @@ export class SearchComponent implements OnInit{
           console.log(err)
         }
       });
-      this.searchValue = this.activatedRoute.snapshot.queryParams.query;
-      this.getSearchResult(this.searchValue);
+      this.getSearchResult(this.activatedRoute.snapshot.queryParams.query);
     }
     getSearchResult(searchValue:string){
       this.searchService.getSearchResult(searchValue).subscribe({
         next: data=> {
           this.products = data;
-          console.log(this.products.length)
           this.isLoading = false;
         },
         error: err=> {

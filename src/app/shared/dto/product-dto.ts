@@ -12,6 +12,7 @@ import {BrandDto} from "./brand-dto";
 export interface ProductDto{
   id?:number,
   name?:string,
+  slug?:string,
   brand?:BrandDto,
   images?: ProductImageDto[],
   description?:string,

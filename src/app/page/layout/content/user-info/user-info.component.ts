@@ -82,7 +82,7 @@ export class UserInfoComponent implements OnInit{
   }
 
   getUser() {
-    this.authService.currentUserAccess().pipe(
+    this.userService.currentUser().pipe(
       tap(user => {
           this.user = user
         }
@@ -96,7 +96,6 @@ export class UserInfoComponent implements OnInit{
             this.onDistrictChange({source: {_value: data.district}});
             this.onWardChange({source: {_value: data.ward}});
           }
-
         },
         error: (err) => {
           console.log(err)
@@ -107,7 +106,7 @@ export class UserInfoComponent implements OnInit{
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
+      this.userService.updateUserInfo(this.user.id, this.profileForm.value).subscribe({
         next: (data) => {
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
           console.log(data);
@@ -126,7 +125,7 @@ export class UserInfoComponent implements OnInit{
       console.log(this.user.id);
       console.log(this.passwordForm.value.oldPassword);
       console.log(this.passwordForm.value.newPassword);
-      this.userService.changePassword(this.user.id,
+      this.userService.changeUserPassword(this.user.id,
         this.passwordForm.value.oldPassword,
         this.passwordForm.value.newPassword)
         .subscribe({

@@ -27,8 +27,8 @@ export class ProductService {
       );
   }
 
-  getProductList(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getList`)
+  getProductDtoBySlug(slug:string){
+    return this.http.get<ProductDto>(`${USER_API}/get/${slug}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -304,6 +304,15 @@ export class ProductService {
       )
   }
 
+  getTop10RelatedProductsByFlavor(id:number, flavorId:number){
+    return this.http.get<ProductDto[]>(`${USER_API}/${id}/related/${flavorId}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
 
   createProduct(product:Product){
     return this.http.post<SuccessMessage>(`${ADMIN_API}/create`,product)

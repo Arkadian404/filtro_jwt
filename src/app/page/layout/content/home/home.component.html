@@ -95,11 +95,11 @@
               <ng-container *ngIf="!isLatestProductsLoading">
                 <div *ngFor="let p of latestProducts" class="item-content">
                   <div class="product-block">
-                    <a href="" class="product-image">
+                    <a [routerLink]="['/product', p.slug]" class="product-image">
                       <img [src]="p.images[0].url" alt="{{p.name}}">
                     </a>
                     <div class="product-right">
-                      <a href="" class="product-name">{{p.name}}</a>
+                      <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>
                       <div class="product-price">
                         <span class="price">{{ p.productDetails[0].price | currency:'VND'}}</span>
                       </div>
@@ -117,11 +117,11 @@
               <ng-container *ngIf="!isBestSellerProductsLoading">
                 <div *ngFor="let p of bestSellerProducts" class="item-content">
                   <div class="product-block">
-                    <a href="" class="product-image">
+                    <a [routerLink]="['/product', p.slug]" class="product-image">
                       <img [src]="p.images[0].url" alt="{{p.name}}">
                     </a>
                     <div class="product-right">
-                      <a href="" class="product-name">{{p.name}}</a>
+                      <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>
                       <div class="product-price">
                         <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
                       </div>
@@ -131,18 +131,18 @@
               </ng-container>
             </div>
             <div class="col-lg-3 col-md-6">
-              <a href=""  class="section-title">Hộp quà tặng</a>
+              <a [routerLink]="'/collection/special-coffee' | spaceToDash"  class="section-title">Hộp quà tặng</a>
               <div *ngIf="isSpecialProductsLoading" class="d-flex justify-content-center">
                 <mat-spinner color="primary"></mat-spinner>
               </div>
               <ng-container *ngIf="!isSpecialProductsLoading">
                 <div *ngFor="let p of specialProducts" class="item-content">
                   <div class="product-block">
-                    <a href="" class="product-image">
+                    <a [routerLink]="['/product', p.slug]" class="product-image">
                       <img [src]="p.images[0].url" alt="{{p.name}}">
                     </a>
                     <div class="product-right">
-                      <a href="" class="product-name">{{p.name}}</a>
+                      <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>
                       <div class="product-price">
                         <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
                       </div>
@@ -162,7 +162,7 @@
   <div class="product-main">
     <div class="row group-title">
       <div class="col-lg-6 col-md-12 col-12">
-        <a class="title-1" href="">
+        <a class="title-1" [routerLink]="'/collection/americas-coffee' | spaceToDash">
           <img src="assets/images/colombia.png" alt="colombia">
           COLOMBIA STARTER PACKS
         </a>
@@ -170,62 +170,99 @@
       </div>
       <div class="col-lg-6 col-md-12 col-12 menu"></div>
     </div>
-    <div class="product-list">
+
       <div *ngIf="isTop10ColombiaProductsLoading" class="d-flex justify-content-center">
         <mat-spinner color="primary"></mat-spinner>
       </div>
-      <ng-container *ngIf="!isTop10ColombiaProductsLoading">
-        <swiper-container
+      <ng-container *ngIf="!isTop10ColombiaProductsLoading" class="texture">
+        <swiper-container class="texture"
           navigation="true"
           [slidesPerView]="slidesPerView"
         >
-          <swiper-slide *ngFor="let p of top10ColombiaProducts">
+          <swiper-slide *ngFor="let p of top10ColombiaProducts" class="col-lg-15 col-md-15 col-sm 4 col-6 px-3">
             <div class="block-item">
               <button class="btn-wishlist">
                 <svg
                   fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                   <g id="SVGRepo_iconCarrier">
-                        <g>
-                          <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
-                        </g>
-                      </g>
-                    </svg>
+                            <g>
+                              <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
+                            </g>
+                          </g>
+                        </svg>
               </button>
-              <a href="" class="product-transition">
-                <img [src]="p.images[0].url" alt="{{p.name}}">
+              <a [routerLink]="['/product', p.slug]" class="product-transition">
+                <img [src]="p.images[0].url" alt="">
               </a>
               <div class="product-info">
-                <a href="" class="product-name">{{p.name}}</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
+                <a [routerLink]="['/product', p.slug]" class="product-name">
+                  {{p.name}}
+                </a>
+                <div class="product-reviews">
+                  <div class="product-reviews-star">
+                    <i class="fa-regular fa-star star-off"></i>
+                    <i class="fa-regular fa-star star-off"></i>
+                    <i class="fa-regular fa-star star-off"></i>
+                    <i class="fa-regular fa-star star-off"></i>
+                    <i class="fa-regular fa-star star-off"></i>
+                  </div>
+                </div>
+                <div class="product-price mt-1">
+                  <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                  <span class="old-price">1.200.000đ</span>
                 </div>
               </div>
-              <div class="product-price">
-                <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
-                <span class="old-price">120000d</span>
-              </div>
+              <button class="cart-button">Chọn</button>
             </div>
-            <button class="cart-button">Chon</button>
+
+
+            <!--            <div class="block-item">-->
+            <!--              <button class="btn-wishlist">-->
+            <!--                <svg-->
+            <!--                  fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">-->
+            <!--                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>-->
+            <!--                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>-->
+            <!--                  <g id="SVGRepo_iconCarrier">-->
+            <!--                        <g>-->
+            <!--                          <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>-->
+            <!--                        </g>-->
+            <!--                      </g>-->
+            <!--                    </svg>-->
+            <!--              </button>-->
+            <!--              <a [routerLink]="['/product', p.slug]" class="product-transition">-->
+            <!--                <img [src]="p.images[0].url" alt="{{p.name}}">-->
+            <!--              </a>-->
+            <!--              <div class="product-info">-->
+            <!--                <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>-->
+            <!--              </div>-->
+            <!--              <div class="product-reviews">-->
+            <!--                <div class="product-reviews-star">-->
+            <!--                  <i class="fa-regular fa-star star-off"></i>-->
+            <!--                  <i class="fa-regular fa-star star-off"></i>-->
+            <!--                  <i class="fa-regular fa-star star-off"></i>-->
+            <!--                  <i class="fa-regular fa-star star-off"></i>-->
+            <!--                  <i class="fa-regular fa-star star-off"></i>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="product-price">-->
+            <!--                <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>-->
+            <!--                <span class="old-price">120000d</span>-->
+            <!--              </div>-->
+            <!--              <button class="cart-button">Chon</button>-->
+            <!--            </div>-->
           </swiper-slide>
         </swiper-container>
       </ng-container>
     </div>
-  </div>
 </div>
 
 <div class="container">
   <div class="product-main">
     <div class="row group-title">
       <div class="col-lg-6 col-md-12 col-12">
-        <a class="title-2" href="">
+        <a class="title-2" [routerLink]="'/collection/roasted-bean-coffee'">
           <img src="assets/images/roasted_bean.png" alt="bean">
           ROASTED COFFEE BEANS FOR YOU
         </a>
@@ -236,41 +273,43 @@
       <mat-spinner color="primary"></mat-spinner>
     </div>
     <ng-container *ngIf="!isTop10RoastedProductsLoading">
-      <div class="row full-list">
-        <div *ngFor="let p of top10RoastedProducts" class="col">
+      <div class="row texture">
+        <div *ngFor="let p of top10RoastedProducts" class="col-lg-15 col-md-15 col-sm 4 col-6">
           <div class="block-item">
             <button class="btn-wishlist">
               <svg
                 fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
-                        <g>
-                          <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
-                        </g>
-                      </g>
-                    </svg>
+                            <g>
+                              <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
+                            </g>
+                          </g>
+                        </svg>
             </button>
-            <a href="" class="product-transition">
-              <img [src]="p.images[0].url" alt="{{p.name}}">
+            <a [routerLink]="['/product', p.slug]" class="product-transition">
+              <img [src]="p.images[0].url" alt="">
             </a>
             <div class="product-info">
-              <a href="" class="product-name">{{p.name}}</a>
-            </div>
-            <div class="product-reviews">
-              <div class="product-reviews-star">
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
-                <i class="fa-regular fa-star star-off"></i>
+              <a [routerLink]="['/product', p.slug]" class="product-name">
+                {{p.name}}
+              </a>
+              <div class="product-reviews">
+                <div class="product-reviews-star">
+                  <i class="fa-regular fa-star star-off"></i>
+                  <i class="fa-regular fa-star star-off"></i>
+                  <i class="fa-regular fa-star star-off"></i>
+                  <i class="fa-regular fa-star star-off"></i>
+                  <i class="fa-regular fa-star star-off"></i>
+                </div>
+              </div>
+              <div class="product-price mt-1">
+                <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                <span class="old-price">1.200.000đ</span>
               </div>
             </div>
-            <div class="product-price">
-              <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
-              <span class="old-price">120000d</span>
-            </div>
-            <button type="button" class="cart-button">Chon</button>
+            <button class="cart-button">Chọn</button>
           </div>
         </div>
       </div>
@@ -286,60 +325,60 @@
   <div class="product-main">
     <div class="row group-title">
       <div class="col-lg-6 col-md-12 col-12">
-        <a class="title-1" href="">
+        <a class="title-1" [routerLink]="'/collection/bottled-coffee'">
           <img src="assets/images/coffee_cup.png" alt="coffee_cup">
-          <span style="color: coral;">Bottled Coffee </span> <span>-</span> <span style="color: cadetblue;">Ready to drink</span>
+          <span style="color: coral;">Bottled Coffee </span> / <span style="color: cadetblue;">Ready to drink</span>
         </a>
       </div>
       <div class="col-lg-6 col-md-12 col-12 menu"></div>
     </div>
-    <div class="product-list">
       <div *ngIf="isTop10BottledProductsLoading" class="d-flex justify-content-center">
         <mat-spinner color="primary"></mat-spinner>
       </div>
-      <ng-container *ngIf="!isTop10BottledProductsLoading">
+    <div *ngIf="!isTop10BottledProductsLoading" class="texture">
         <swiper-container
           navigation="true"
           [slidesPerView]="slidesPerView"
         >
-          <swiper-slide *ngFor="let p of top10BottledProducts">
-            <div class="block-item">
-              <button class="btn-wishlist">
-                <svg
-                  fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                  <g id="SVGRepo_iconCarrier">
-                        <g>
-                          <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
-                        </g>
-                      </g>
-                    </svg>
-              </button>
-              <a href="" class="product-transition">
-                <img [src]="p.images[0].url" alt="{{p.name}}">
-              </a>
-              <div class="product-info">
-                <a href="" class="product-name">{{p.name}}</a>
-              </div>
-              <div class="product-reviews">
-                <div class="product-reviews-star">
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
-                  <i class="fa-regular fa-star star-off"></i>
+          <swiper-slide *ngFor="let p of top10BottledProducts" class="col-lg-15 col-md-15 col-sm 4 col-6 px-3">
+              <div class="block-item">
+                <button class="btn-wishlist">
+                  <svg
+                    fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                            <g>
+                              <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
+                            </g>
+                          </g>
+                        </svg>
+                </button>
+                <a [routerLink]="['/product', p.slug]" class="product-transition">
+                  <img [src]="p.images[0].url" alt="">
+                </a>
+                <div class="product-info">
+                  <a [routerLink]="['/product', p.slug]" class="product-name">
+                    {{p.name}}
+                  </a>
+                  <div class="product-reviews">
+                    <div class="product-reviews-star">
+                      <i class="fa-regular fa-star star-off"></i>
+                      <i class="fa-regular fa-star star-off"></i>
+                      <i class="fa-regular fa-star star-off"></i>
+                      <i class="fa-regular fa-star star-off"></i>
+                      <i class="fa-regular fa-star star-off"></i>
+                    </div>
+                  </div>
+                  <div class="product-price mt-1">
+                    <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                    <span class="old-price">1.200.000đ</span>
+                  </div>
                 </div>
+                <button class="cart-button">Chọn</button>
               </div>
-              <div class="product-price">
-                <span class="price">{{p.productDetails[0].price | currency: 'VND'}}</span>
-                <span class="old-price">120000d</span>
-              </div>
-            </div>
-            <button class="cart-button">Chon</button>
           </swiper-slide>
         </swiper-container>
-      </ng-container>
     </div>
   </div>
 </div>

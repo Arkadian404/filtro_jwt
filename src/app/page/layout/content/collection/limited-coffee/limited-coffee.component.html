@@ -163,11 +163,11 @@
                           </g>
                         </svg>
                   </button>
-                  <a href="" class="product-transition">
+                  <a [routerLink]="['/product', p.slug]" class="product-transition">
                     <img [src]="p.images[0].url" [alt]="p.name">
                   </a>
                   <div class="product-info">
-                    <a href="" class="product-name">{{p.name}}</a>
+                    <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>
                     <div class="review-badge">
                       <div class="review-star">
                         <i class="fa-regular fa-star star-off"></i>

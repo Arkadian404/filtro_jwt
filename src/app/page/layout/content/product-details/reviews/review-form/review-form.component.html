@@ -1,0 +1,13 @@
+<div class="container pt-3">
+  <form [formGroup]="form" (ngSubmit)="onReviewForm()">
+    <div class="rating">
+      <div *ngIf="submitLabel!=='Reply' && submitLabel!=='Edit'" class="d-flex align-items-end pb-2">
+        <span>Đánh giá của bạn về sản phẩm: </span>
+        <p-rating [cancel]="false" formControlName="rating"></p-rating>
+      </div>
+      <textarea formControlName="comment"></textarea>
+    </div>
+    <button type="submit" [disabled]="form.invalid">{{submitLabel}}</button>
+    <button *ngIf="hasCancelButton" type="button" (click)="onCancelForm()">Cancel</button>
+  </form>
+</div>

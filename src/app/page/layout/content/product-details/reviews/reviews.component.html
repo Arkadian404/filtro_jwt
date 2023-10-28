@@ -1,0 +1,91 @@
+<div class="card-body">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1 class="mb-3">
+              <b>4<small class="text-muted">/5</small></b>
+            </h1>
+            <p class="mb-2 text-muted">Based on 255 reviews</p>
+            <div class="star mb-3 f-20">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+              <i class="far fa-star text-warning"></i>
+            </div>
+            <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Review your product now</button>
+            <app-review-form *ngIf="isReview()"
+              submitLabel="Write"
+              [hasCancelButton]="true"
+              (onCancel)="handleActiveReview(null)"
+              (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"
+            >
+            </app-review-form>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex align-items-center">
+              <div class="w-100">
+                <div class="row align-items-center my-2">
+                  <div class="col">
+                    <mat-progress-bar color="accent" mode="determinate" value="40"></mat-progress-bar>
+                  </div>
+                  <div class="col-auto">
+                    <p class="mb-0 text-muted">5 stars</p>
+                  </div>
+                </div>
+                <div class="row align-items-center my-2">
+                  <div class="col">
+                    <mat-progress-bar color="accent" mode="determinate" value="80"></mat-progress-bar>
+                  </div>
+                  <div class="col-auto">
+                    <p class="mb-0 text-muted">4 stars</p>
+                  </div>
+                </div>
+                <div class="row align-items-center my-2">
+                  <div class="col">
+                    <mat-progress-bar color="accent" mode="determinate" value="30"></mat-progress-bar>
+                  </div>
+                  <div class="col-auto">
+                    <p class="mb-0 text-muted">3 stars</p>
+                  </div>
+                </div>
+                <div class="row align-items-center my-2">
+                  <div class="col">
+                    <mat-progress-bar color="accent" mode="determinate" value="20"></mat-progress-bar>
+                  </div>
+                  <div class="col-auto">
+                    <p class="mb-0 text-muted">2 stars</p>
+                  </div>
+                </div>
+                <div class="row align-items-center my-2">
+                  <div class="col">
+                    <mat-progress-bar color="accent" mode="determinate" value="10"></mat-progress-bar>
+                  </div>
+                  <div class="col-auto">
+                    <p class="mb-0 text-muted">1 stars</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-review *ngFor="let r of reviews"
+                [review]="r"
+                [starCount]="r.rating"
+                [product] = "product"
+                [user] = "user"
+                [replies]="getReplies(r.id)"
+                [activeReview]="activeReview"
+                (setActiveReviewReply)="handleActiveReview($event)"
+                (setActiveReviewEdit)="handleActiveReview($event)"
+                (onReplyReview)="handleSubmitReview($event)"
+                (onEditReview)="handleEditReview($event)"
+    >
+    </app-review>
+
+  </div>
+</div>

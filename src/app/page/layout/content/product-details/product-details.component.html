@@ -1,1 +1,316 @@
-<p>product-details works!</p>
+<section class="bread-crumb">
+    <div class="container">
+        <div class="bread-crumb-title text-center">
+            {{product?.name}}
+        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a [routerLink]="'/home'">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><strong>
+                    {{product?.name}}
+                </strong> </li>
+            </ol>
+        </nav>
+    </div>
+</section>
+<div class="d-flex justify-content-center my-5" *ngIf="isLoading">
+  <mat-spinner color="primary"></mat-spinner>
+</div>
+<ng-container *ngIf="!isLoading&&product">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-5">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6" style="z-index: 999;">
+                <div class="sticky-md-top product-sticky">
+                  <div class="carousel slide">
+                    <div class="carousel-inner bg-light rounded">
+                      <img class="d-block" [src]="selectedImage" [alt]="product.name">
+                    </div>
+                    <div class="carousel-indicators position-relative product-carousel-indicators my-sm-3 mx-0">
+                      <div *ngFor="let p of productImages" class="w-25 h-auto toggle-img mb-1">
+                        <img (click)="onImageChange($event)" class="d-block w-50 rounded" [src]="p.url" alt="">
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="product-title my-3">
+                  {{product.name}}
+                </div>
+                <span *ngIf="productDetail.quantity > 0;else outOfStock" class="badge text-bg-success mb-3">
+                  CÒN HÀNG
+                </span>
+                <ng-template #outOfStock>
+                  <span class="badge text-bg-danger mb-3">
+                    HẾT HÀNG
+                  </span>
+                </ng-template>
+                <h2 class="mb-4">
+                  <b>{{productDetail?.price | currency:'VND'}}</b>
+                  <span class="mx-2 f-14 f-w-400 text-muted text-decoration-line-through">
+                    {{productDetail?.price*1.5 | currency:'VND'}}
+                  </span>
+                </h2>
+                <p>
+                  <strong>Loại cà phê:</strong>
+                  {{product.category.name}}
+                </p>
+                <p>
+                  <strong>Hương vị:</strong>
+                  {{product.flavor.name}}
+                </p>
+                <p>
+                  <strong>Thương hiệu:</strong>
+                  {{product.brand.name}}
+                </p>
+                <p>
+                  <strong>Nguồn gốc:</strong>
+                  {{product.origin.name}}
+                </p>
+                <p>
+                  <strong>Nhà cung cấp:</strong>
+                  {{product.vendor.name}}
+                </p>
+                <div class="row form-group">
+                  <label class="col-form-label col-lg-3 col-sm-12 text-lg-start">
+                    Khối lượng
+                    <span class="text-danger">*</span>
+                  </label>
+                  <div class="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center">
+                    <div *ngFor="let pd of productDetails" (change)="onRadioChange($event)" [ngClass]="{'is-active': this.selectedProductDetailId == pd.id}" class="form-check form-check-inline checkbox mb-0">
+                        <input [id]="pd.id" type="radio" name="id" [value]="pd.id">
+                        <label [for]="pd.id">
+                          {{'Gói '+ pd.weight + 'gr'}}
+                        </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <label class="col-form-label col-lg-3 col-sm-12 text-lg-start">
+                    Số lượng
+                    <span class="text-danger">*</span>
+                  </label>
+                  <div class="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center">
+                    <div role="group" class="btn-group btn-group-sm mb-2 border">
+                      <button (click)="decreaseQuantity()" title="Decrease" type="button" class="btn btn-link-dark">
+                        <fa-icon [icon]="['fas', 'minus']"> </fa-icon>
+                      </button>
+                      <input type="text" name="quantity" [value]="selectedQuantity" title="total" class="w-35 text-center border-0 m-0 form-control rounded-0 shadow-none">
+                      <button (click)="increaseQuantity()" title="Increase" type="button" class="btn btn-link-dark">
+                        <fa-icon [icon]="['fas', 'plus']"> </fa-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-12">
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-outline-secondary">
+                        <fa-icon [icon]="['fas', 'shopping-cart']"> </fa-icon>
+                        Thêm vào giỏ hàng</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-12 details">
+            <div class="card">
+                <mat-tab-group  class="tab-group" [@.disabled]="true">
+                  <mat-tab label="Thông tin sản phẩm">
+                    <div class="container">
+                      <p class="my-3 f-15">
+                        <strong>Mô tả:</strong>
+                      </p>
+                      <p class="description">{{product.description}}</p>
+                      <p class="f-15">
+                        <strong>Trivia:</strong>
+                      </p>
+                      <p class="description">
+                        - Cà phê mới rang mỗi ngày với dịch vụ xay miễn phí Bạn có thể chọn mức độ xay theo nhu cầu của bạn.<br>
+                        - Đặt hàng ngay, đóng gói ngay ... đặt hàng trước trưa giao hàng trong ngày đặt hàng sau buổi trưa giao hàng ngày hôm sau.<br>
+                        - Có dịch vụ viết thiệp dễ thương. Theo thông điệp mà khách hàng muốn miễn phí!<br>
+                        - Cung cấp lời khuyên về các công thức pha chế khác nhau trực tiếp từ nhân viên pha cà phê.<br>
+                        - Nếu bạn muốn có đầy đủ hóa đơn thuế Bạn có thể liên hệ với quản trị viên qua trò chuyện (Zalo/ Facebook).<br>
+                      </p>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Chính sách đổi trả">
+                    <div class="container">
+                      <p class="my-3 f-15">
+                        <strong>Cà phê để được bao lâu kể từ khi tôi mua?</strong>
+                      </p>
+                      <p class="f-15">
+                        Chúng tôi nhận thấy rằng thời gian tốt nhất để pha cà phê rang espresso thực sự là 10 - 20 ngày sau khi rang.
+                        Và, quan trọng là cà phê tiếp tục ở trạng thái tối ưu sau 30 ngày sau khi rang và tốt nhất trước 6 tháng.
+                      </p>
+                      <p class="f-15">
+                        Cà phê Filter có thời hạn khác, tốt nhất nên từ 15 sau khi rang và trước 4 tháng
+                      </p>
+                      <p class="f-15">
+                        <strong> Chính sách hoàn trả của bạn là gì?</strong>
+                      </p>
+                      <p class="f-15">
+                       <strong>Về phần sản phẩm cà phê của chúng tôi</strong>
+                      </p>
+                      <p class="f-15">
+                        Chúng tôi đặt trọng tâm lớn vào kiểm soát chất lượng trước khi các gói cà từ các nhà máy cà phê được đưa lên kệ. Để đạt được thỏa thuận thương mại và trưng bày sản phẩm cà phê tại cửa hàng, các nhà máy cần đạt được các tiêu chuẩn về chất lượng cà phê nghiệm ngạt
+                        thông qua bộ phận kiểm soát chất lượng sản phẩm. Tuy nhiên, nhằm đảm bảo tối đa lợi ích của khách hàng, chúng tôi sẽ chấp nhận hoàn trả sản phẩm cà phê trong vòng 7 ngày kể từ khi khách hàng nhận được sản phẩm và sử dụng tối đa 10% khối lượng thực. Điều này sẽ giúp khách hàng
+                        yên tâm sử dụng sản phẩm tại cửa hàng cùng theo đó là đồng kiểm giữa nhà máy và bộ phẩn kiểm tra chất lượng của cửa hàng sau khi hoàn trả sản phẩm.
+                      </p>
+                      <p class="f-15">
+                        <strong>Chậm trễ trong việc giao hàng</strong>
+                      </p>
+                      <p class="f-15">
+                        Chúng tôi mong muốn gửi các đơn đặt hàng cà phê ngay trong ngày sau khi chúng được rang hoặc trong vòng 2 ngày làm việc đối với hàng hóa và các sản phẩm không phải là cà phê.
+                        Khi đơn đặt hàng của bạn đã được thu bởi nhà vận chuyển hàng hóa đã chọn, thời gian giao hàng nằm ngoài tầm kiểm soát của chúng tôi. Chúng tôi không thể hoàn trả hoặc thay thế các mặt hàng bị chậm trễ trong quá trình vận chuyển.
+                        Nếu đơn đặt hàng bị tuyên bố bị mất hoặc thiếu, chúng tôi sẽ hoàn lại tiền hoặc thay thế nó.
+                      </p>
+                      <p class="f-15">
+                        <strong>Rất tiếc, tôi đã nhầm lẫn với đơn đặt hàng của mình. Đơn hàng của tôi có thể bị thay đổi hoặc hủy bỏ không?</strong>
+                      </p>
+                      <p class="f-15">
+                        Chúng tôi thường xuyên xác nhận lại đơn đặt hàng của quý khách sau khi nhận thông tin trên hệ thống, vì thế sau khi đơn hàng được đóng gói và thu bởi nhà vận chuyển theo đúng thông tin đã xác nhận trước, chúng tôi khó lòng có thể thay đổi hay hủy bỏ đơn hàng.
+                      </p>
+                      <p class="f-15">
+                        Theo đó, khi bạn cần thay đổi bất kỳ thông tin đơn hàng nào, vui lòng gửi email về filtromart@gmail.com hoặc gọi hotline 0123456789 để được giúp đỡ sớm nhất.
+                      </p>
+                      <p class="f-15">
+                        <strong>Tôi muốn phục vụ cà phê của Filtro Mart tại Quán cà phê / Doanh nghiệp của mình, làm cách nào để biến điều này thành hiện thực?</strong>
+                      </p>
+                      <p class="f-15">
+                        Vui lòng gửi email về filtromart@gmail.com hoặc gọi hotline 0123456789 để được giúp đỡ sớm nhất.
+                      </p>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Hướng dẫn bảo quản">
+                    <div class="container">
+                      <p class="my-3 f-15">
+                        Cà phê là một trong những đồ uống phổ biến nhất trên thế giới và hạt cà phê thực tế là hạt của cây cà phê.
+                        Các hạt được chế biến thành hạt cà phê sau đó được rang để tạo ra các loại cà phê khác nhau.
+                        Người ta nói rằng cà phê ngon nhất là cà phê mới rang, xay và pha.
+                        Hương vị đặc trưng của cà phê là do quá trình rang xay.
+                      </p>
+                      <p class="f-15">
+                        4 tác nhân gây giảm chất lượng cà phê hạt rang:
+                      </p>
+                      <ul class="f-15">
+                        <li><strong>Ánh sáng</strong></li>
+                        <li><strong>Nhiệt độ</strong></li>
+                        <li><strong>Độ ẩm</strong></li>
+                        <li><strong>Không khí (O2)</strong></li>
+                      </ul>
+                      <p class="f-15">
+                        Oxy dẫn đến quá trình oxy hóa, làm mất mùi thơm và tinh dầu, cuối cùng khiến cà phê của bạn bị thiu.
+                        Nhiệt và độ ẩm đẩy nhanh quá trình đáng kể, cũng như ánh sáng, nhưng ở mức độ thấp hơn.
+                        Để đảm bảo rằng hạt cà phê của bạn luôn tươi, bạn cần phải làm mọi thứ có thể để đề phòng 4 điều này.
+                      </p>
+                      <p class="f-15">
+                        1. Tránh tối đa ánh sáng trực tiếp
+                      </p>
+                      <p class="f-15">
+                        2. Để cà phê tại nơi có nhiệt độ ổn định nhất:
+                      </p>
+                      <p class="f-15">
+                        Việc thay đổi nhiệt độ thúc đẩy quá trình oxy hóa của hạt cà phê, dẫn đến việc cà phê nhanh chóng giảm chất lượng.
+                        Vì thế cần đặt cà phê tại nơi có nhiệt độ ổn định ngày đêm, ít bị tác động nhiệt bởi yếu tố bên ngoài nhất
+                      </p>
+                      <p class="f-15">
+                        3. Không để trong tủ lạnh hay tủ đông:
+                      </p>
+                      <p class="f-15">
+                        Việc bỏ cà phê trong tủ đông lạnh sẽ làm nhiệt độ thay đổi nhanh chóng cùng với môi trường có độ ẩm cao, điều này thúc đẩy tối đa quá trình oxy hóa của cà phê.
+                      </p>
+                      <p class="f-15">
+                        4. Sử dụng lọ đụng cà phê chuyên dụng có khả năng chống oxy tràn vào bình chứa và đồng thời đẩy tối đa khí trong bình chứa cà phê ra ngoài.
+                      </p>
+                      <p class="f-15">
+                        5. Chia nhỏ theo từng khẩu phần cà phê: điều này giúp bạn hạn chế tác động vật lý tới các hạt cà phê chưa sử dụng tới, nó là yếu tố quan trọng nhằm tăng tính ổn định của hạt cà phê, giúp tăng tuổi thọ và duy trì chất lượng cà phê đáng kể.
+                      </p>
+                      <p class="f-15">
+                        6. Sử dụng cà phê nguyên hạt: tốc độ oxy hóa của cà phê nhanh dần khi bề mặt của nó tiếp xúc với oxy.
+                        Khi xay cà phê theo dạng bột, oxy sẽ tiếp cận mọi bề mặt của cà phê dễ dàng và nhanh chóng, điều này sẽ mang đi hương thơm ban đầu của loại cà phê của bạn đi nhanh chóng.
+                        Việc sử dụng cà phê nguyên hạt và chỉ xay ngay trước khi pha là yếu tố tiên quyết nhằm duy trì chất lượng cà phê trong thời gian dài.
+                      </p>
+                      <p class="f-15">
+                        7. Sử dụng cà phê của bạn nhanh nhất có thể, thời gian sử dụng cà phê tốt nhất là trong vòng 6 tháng trong điều kiện bảo quản hợp lý.
+                      </p>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Đánh giá sản phẩm">
+                    <app-reviews
+                      [product] ="product"
+                      [user] = "user"
+                    ></app-reviews>
+                  </mat-tab>
+                </mat-tab-group>
+            </div>
+          </div>
+        </div>
+        <div class="row related">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3>Sản phẩm liên quan</h3>
+              </div>
+              <div class="card-body">
+                <div class="products">
+                  <swiper-container navigation="true" [slidesPerView]="slidesPerView">
+                    <swiper-slide *ngFor="let p of relatedProducts" class="col-lg-15 col-md-15 col-sm 4 col-6 px-2">
+                      <div class="block-item">
+                        <button class="btn-wishlist">
+                          <svg
+                            fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                            <g>
+                              <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
+                            </g>
+                          </g>
+                        </svg>
+                        </button>
+                        <a [routerLink]="['/product', p.slug]" class="product-transition">
+                          <img [src]="p.images[0].url" alt="">
+                        </a>
+                        <div class="product-info">
+                          <a [routerLink]="['/product', p.slug]" class="product-name">
+                            {{p.name}}
+                          </a>
+                          <div class="product-reviews">
+                            <div class="product-reviews-star">
+                              <i class="fa-regular fa-star star-off"></i>
+                              <i class="fa-regular fa-star star-off"></i>
+                              <i class="fa-regular fa-star star-off"></i>
+                              <i class="fa-regular fa-star star-off"></i>
+                              <i class="fa-regular fa-star star-off"></i>
+                            </div>
+                          </div>
+                          <div class="product-price mt-1">
+                            <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                            <span class="old-price">1.200.000đ</span>
+                          </div>
+                        </div>
+                        <button class="cart-button">Chọn</button>
+                      </div>
+                    </swiper-slide>
+                  </swiper-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</ng-container>
