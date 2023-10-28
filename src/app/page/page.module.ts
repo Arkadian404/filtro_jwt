@@ -70,6 +70,9 @@ import { ReviewComponent } from './layout/content/product-details/reviews/review
 import { ReviewFormComponent } from './layout/content/product-details/reviews/review-form/review-form.component';
 import {RatingModule} from "primeng/rating";
 
+import {CartComponent} from "./layout/content/cart/cart.component";
+import {CartItemDialogComponent} from "./layout/content/home/cart-item-dialog/cart-item-dialog.component";
+
 register();
 @NgModule({
     declarations: [
@@ -106,6 +109,8 @@ register();
         ReviewsComponent,
         ReviewComponent,
         ReviewFormComponent,
+      CartComponent,
+      CartItemDialogComponent
     ],
   imports: [
     CommonModule,

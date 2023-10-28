@@ -6,7 +6,18 @@ import {ProductService} from "../../../../service/product.service";
 import {ProductDetailService} from "../../../../service/product-detail.service";
 import {ProductImageService} from "../../../../service/product-image.service";
 import {ProductDto} from "../../../../shared/dto/product-dto";
-
+import {CartItemService} from "../../../../service/cart-item.service";
+import {CartItem} from "../../../../shared/models/cart-item";
+import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
+import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
+import {UtilService} from "../../../../service/util.service";
+import {CartItemDialogComponent} from "./cart-item-dialog/cart-item-dialog.component";
+import {ComponentType} from "@angular/cdk/overlay";
+import {Flavor} from "../../../../shared/models/product/flavor";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  AdminFlavorDialogComponent
+} from "../../../../admin/layout/content/admin-flavor/admin-flavor-dialog/admin-flavor-dialog.component";
 
 @Component({
   selector: 'app-security',
@@ -14,6 +25,7 @@ import {ProductDto} from "../../../../shared/dto/product-dto";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
+  username: string;
   slidesPerView = 5;
   screenWidth: number;
   isLatestProductsLoading = true;
@@ -29,6 +41,7 @@ export class HomeComponent implements OnInit{
   top10ColombiaProducts: ProductDto[] = []
   top10RoastedProducts: ProductDto[] = []
   top10BottledProducts: ProductDto[] = []
+
 
 
   @HostListener('window:resize')
@@ -49,17 +62,37 @@ export class HomeComponent implements OnInit{
               private productService:ProductService,
               private productDetailsService:ProductDetailService,
               private productImageService: ProductImageService,
-              private tokenService:TokenService) {
+              private tokenService:TokenService,
+              private cartItemService: CartItemService,
+              private shareLoginUserNameService: SharedLoginUserNameService,
+              private utilService:UtilService,
+              private dialog:MatDialog,) {
   }
 
   ngOnInit(){
+    this.username = this.authenticationService.getUserNameFromLocalStorage();
+    console.log("username tai home page", this.username);
+    let cartItemInStorage: CartItemDto[] = this.cartItemService.getCartItemsFromLocalStorage();
+    if (this.username && cartItemInStorage.length > 0){
+      this.cartItemService.convertListCartItemAfterLogin().subscribe({
+        next:(data)=>{
+          this.cartItemService.removeCartItemsFromLocalStorage();
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      });
+    }
     this.getLatestProducts();
     this.getBestSellerProducts();
     this.getSpecialProducts();
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
+
   }
+
+
 
   getLatestProducts(){
       this.productService.getTop3LatestProducts()
@@ -146,5 +179,23 @@ export class HomeComponent implements OnInit{
       }
     })
   }
+
+
+  private openDialog(dialog:ComponentType<any> ,data?:ProductDto) {
+    const dialogRef = this.dialog.open(dialog, {data});
+    dialogRef.afterClosed().subscribe({
+      next: (data) => {
+        if (data) {
+          this.ngOnInit();
+        }
+      }
+    });
+  }
+
+  openProductDetailDialog(data:ProductDto){
+    data.productDetails = data.productDetails.filter((item)=>item.quantity > 0);
+    this.openDialog(CartItemDialogComponent, data);
+  }
+
 
 }

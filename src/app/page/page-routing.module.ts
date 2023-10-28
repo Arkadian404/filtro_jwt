@@ -29,6 +29,7 @@ import {userInfoGuard} from "../guards/user-info.guard";
 import {ContactComponent} from "./layout/content/contact/contact.component";
 import {IntroduceComponent} from "./layout/content/introduce/introduce.component";
 import {ProductDetailsComponent} from "./layout/content/product-details/product-details.component";
+import {CartComponent} from "./layout/content/cart/cart.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -57,6 +58,7 @@ const routes: Routes = [
         {path: 'best-seller', component: BestSellerComponent}]
       },
       {path:'product/:slug', component: ProductDetailsComponent },
+      {path: 'cart', component:CartComponent},
       {path:'contact', component:ContactComponent},
       {path:'introduce', component: IntroduceComponent}
     ]

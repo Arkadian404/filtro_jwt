@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductDetail} from "../shared/models/product/product-detail";
 import {catchError, map, Observable, switchMap, throwError} from "rxjs";
+import {Cart} from "../shared/models/cart";
 import {SuccessMessage} from "../shared/models/success-message";
 
 const API = 'http://localhost:8080/api/v1/admin/product-detail';
@@ -72,5 +73,12 @@ export class ProductDetailService {
         })
       )
   }
+
+  getSampleProductDetailFromLocalStorage(): ProductDetail{
+    const sampleProductDetailJson = localStorage.getItem('sampleProductDetail');
+    console.log("sampleProductDetailJson: ", sampleProductDetailJson);
+    return sampleProductDetailJson ? JSON.parse(sampleProductDetailJson): "";
+  }
+
 
 }
