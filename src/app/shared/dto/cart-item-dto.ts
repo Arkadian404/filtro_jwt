@@ -1,12 +1,16 @@
-import {Cart} from "../models/cart";
+
 import {ProductDetailDto} from "./product-detail-dto";
+import {CartDto} from "./cart-dto";
+import {ProductImageDto} from "./product-image-dto";
 
 export interface CartItemDto{
   id?: number,
-  cart: Cart,
-  productName: string,
-  productDetailDto: ProductDetailDto,
+  cart?: CartDto,
+  productName?: string,
+  productImage?:ProductImageDto;
+  productDetail?: ProductDetailDto,
   quantity?: number,
   price?: number,
+  total?:number,
   purchaseDate?: Date
 }

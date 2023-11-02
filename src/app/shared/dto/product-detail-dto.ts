@@ -1,6 +1,6 @@
 export interface ProductDetailDto{
   id?:number,
-  quantity?:number,
+  stock?:number,
   price?:number,
   weight?:number,
 }

@@ -16,40 +16,53 @@
         </thead>
         <ng-container>
           <tbody class="align-middle">
-          <tr *ngFor="let item of cartItems; let i = index">
+            <tr *ngFor="let item of cartItems; let i = index" >
             <td class="align-middle">
               <div class="product-info">
                 <div class="product-image-container">
-                  <img [src]="productImages[i].url" alt="" class="product-image">
+                  <img [src]="item.productImage.url" alt="" class="product-image">
                 </div>
                 <div class="product-details">
                   <span class="product-name">{{ item.productName}}</span>
                 </div>
               </div>
             </td>
-            <td class="align-middle">{{ item.productDetailDto.weight}}</td>
+            <td class="align-middle">{{ item.productDetail.weight}}</td>
             <td class="align-middle">{{ item.price}}</td>
             <td class="align-middle">
               <div class="input-group quantity mx-auto btn-group-quantity">
                 <div class="input-group-btn">
-                  <button class="btn btn-sm btn-primary btn-minus" (click)="decrementQuantity(item)">
+                  <button *ngIf="username;else decrease" class="btn btn-sm btn-primary btn-minus" (click)="selectedCartItem = item;updateCartItemQuantity(item.id, -1)">
                     <i class="fa fa-minus"></i>
                   </button>
+                  <ng-template #decrease>
+                    <button class="btn btn-sm btn-primary btn-minus"(click)="decrementQuantity(item)" >
+                      <i class="fa fa-minus"></i>
+                    </button>
+                  </ng-template>
                 </div>
                 <input type="text" class="form-control form-control-sm bg-secondary text-center" [value]="item.quantity">
                 <div class="input-group-btn">
-                  <button class="btn btn-sm btn-primary btn-plus" (click)="incrementQuantity(item)">
+                  <button *ngIf="username;else increase"  class="btn btn-sm btn-primary btn-plus" (click)="selectedCartItem = item;updateCartItemQuantity(item.id, 1)" >
                     <i class="fa fa-plus"></i>
                   </button>
+                  <ng-template #increase>
+                    <button class="btn btn-sm btn-primary btn-plus" (click)="incrementQuantity(item)">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </ng-template>
                 </div>
               </div>
             </td>
-            <td class="align-middle total-column">{{ item.price * item.quantity }}</td>
-            <td class="align-middle"><button class="btn btn-sm btn-primary" (click) = "deleteCartItem(item.id)"><i class="fa fa-times"></i></button></td>
+            <td class="align-middle total-column">{{ item.total }}</td>
+            <td class="align-middle">
+              <button class="btn btn-sm btn-primary" (click) = "deleteCartItem(item)">
+                <i class="fa fa-times"></i>
+              </button>
+            </td>
           </tr>
           </tbody>
         </ng-container>
-
       </table>
     </div>
     <div class="col-lg-4">

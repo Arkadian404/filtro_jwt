@@ -71,7 +71,7 @@ export class ProductDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     this.getUser();
-    this.form = this.formBuilder.group<ProductDetailDto>({
+    this.form = this.formBuilder.group({
       quantity:1,
     })
     this.activatedRoute.params.subscribe({

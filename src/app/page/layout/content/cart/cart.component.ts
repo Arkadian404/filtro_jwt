@@ -1,17 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-
-import {CartItem} from "../../../../shared/models/cart-item";
 import {CartItemService} from "../../../../service/cart-item.service";
-import {CartItemListAPIResponseService} from "../../../../service/response/CartItemListAPIResponse.service";
-
-import {DataSource} from "@angular/cdk/collections";
-import {CartItemListAPIResponse} from "../../../../shared/models/response/CartItemListAPIResponse";
-import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
-import {AuthenticationService} from "../../../../service/authentication.service";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {UtilService} from "../../../../service/util.service";
-import {BehaviorSubject} from "rxjs";
+
+import {TokenService} from "../../../../service/token.service";
 
 @Component({
   selector: 'app-cart',
@@ -22,73 +14,81 @@ export class CartComponent implements OnInit{
   username: string;
   // dataSource!: MatTableDataSource<CartItemListAPIResponse>;
 
-  cartItems: any[];
-  cartItemList: any[];
-  productImages: any[];
-  cartItemListAPIResponse: CartItemListAPIResponse;
+  cartItems: CartItemDto[];
+  selectedCartItem:CartItemDto;
   subTotal: number= 0;
   totalSum: number = 0;
-  constructor(private cartItemListAPIResponseService: CartItemListAPIResponseService,
-              private cartItemService: CartItemService,
-              private shareLoginUserNameService: SharedLoginUserNameService,
-              private authenticationService: AuthenticationService,
+  constructor(private cartItemService: CartItemService,
+              private tokenService: TokenService,
               private utilService:UtilService) {
   }
   ngOnInit(): void {
-    this.username = this.authenticationService.getUserNameFromLocalStorage();
+    this.username = this.tokenService.getUsername();
     console.log("user name: ", this.username);
+    console.log(this.username==null)
     this.getCartItemList();
   }
 
   getCartItemList(){
-    if (this.username){
-      return this.cartItemListAPIResponseService.getCartItemList()
-        .subscribe({
-          next:(data) =>{
-            console.log("cart item khi login: ", data);
-            this.cartItemListAPIResponse = data;
-            this.cartItems = data.cartItemList;
-            this.productImages = data.productImages;
-            // Assign the sum to a component property
-            this.subTotal = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    if(this.username){
+      return this.cartItemService.getCart(this.username).subscribe({
+        next:(data) =>{
+          this.cartItemService.getCartItems(data.id).subscribe(items=>{
+            this.cartItems = items;
+            this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
             this.totalSum = this.subTotal + 10;
-          },
-          error: (err) => {
-            console.log(err)
-          }
-        });
-    }
-    else {
-      this.cartItems =  this.cartItemService.getCartItemsFromLocalStorage();
-      this.productImages = this.cartItemService.getProductImagesFromLocalStorage();
-      console.log("cartitem chua login",  this.cartItems);
-      console.log("productImage chua login",  this.productImages);
-      // Assign the sum to a component property
-      this.subTotal = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          })
+        }
+      })
+    }else{
+      this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+      console.log(this.cartItems)
+      this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
       this.totalSum = this.subTotal + 10;
-      return null;
+      return this.cartItems ? this.cartItems : [];
     }
   }
-  incrementQuantity(item: CartItem): void {
+
+  incrementQuantity(item: CartItemDto): void {
     item.quantity += 1;
-    this.subTotal = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    item.total = item.quantity * item.price;
+    this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
     this.totalSum = this.subTotal + 10;
   }
 
-  decrementQuantity(item: CartItem): void {
+  decrementQuantity(item: CartItemDto): void {
     if (item.quantity > 1) {
       item.quantity -= 1;
-      this.subTotal = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);;
+      item.total = item.quantity * item.price;
+      this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
       this.totalSum = this.subTotal + 10;
     }
   }
 
-  deleteCartItem(itemId: number){
+  updateCartItemQuantity(id:number, amount:number){
+    const currentQuantity = this.selectedCartItem.quantity;
+    if(currentQuantity + amount > 0){
+        this.cartItemService.updateCartItemQuantity(id, amount).subscribe({
+        next:(data)=>{
+          console.log(id)
+          console.log(amount)
+          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
+          this.getCartItemList();
+        },
+        error:(err)=>{
+          this.utilService.openSnackBar(err.error.message, 'Đóng');
+        }
+      })
+    }
+  }
+
+  deleteCartItem(event: any){
     if (this.username){
-      return this.cartItemService.deleteWithLogin(itemId)
+      return this.cartItemService.deleteWithLogin(event.id)
         .subscribe({
           next:(data) =>{
-            this.utilService.openSnackBar('Xóa CartItem thành công', 'Đóng');
+            this.utilService.openSnackBar(data.message, 'Đóng');
             this.getCartItemList();
           },
           error: (err) => {
@@ -96,12 +96,9 @@ export class CartComponent implements OnInit{
           }
         });
     } else {
-      console.log("Xoa cartitem chua login: ", itemId);
-      this.cartItemService.deleteWithoutLogin(itemId);
+      this.cartItemService.deleteWithoutLogin(event.productDetail.id);
       this.getCartItemList();
-      // Assign the sum to a component property
-
-      return null;
+      return this.getCartItemList() ? this.getCartItemList() : [];
     }
 
   }

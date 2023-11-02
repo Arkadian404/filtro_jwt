@@ -9,7 +9,7 @@ import {
   BehaviorSubject,
   catchError,
   filter,
-  Observable,
+  Observable, shareReplay,
   switchMap,
   take, tap,
   throwError
@@ -57,7 +57,10 @@ export class AuthInterceptor implements HttpInterceptor {
     console.log("CALLING HANDLE")
     console.log('1'+this.isRefresh)
     console.log('rt expired:'+ this.tokenService.isRefreshTokenExpired())
-    if(this.tokenService.isRefreshTokenExpired() || !this.tokenService.getRefreshToken() || !this.tokenService.getAccessToken()){
+    if(!this.tokenService.getRefreshToken() || !this.tokenService.getAccessToken()){
+      // this.router.navigate(['/login']);
+      // this.tokenService.clearToken();
+      this.authenticationService.logout();
       this.tokenService.clearToken();
       this.router.navigate(['/login']);
     }
@@ -82,6 +85,7 @@ export class AuthInterceptor implements HttpInterceptor {
       )
     }else{
       return this.refreshTokenSubject.pipe(
+        shareReplay(1),
         filter(token=>token !== null),
         take(1),
         switchMap((token:any)=>{

@@ -1,6 +1,5 @@
 import {Cart} from "./cart";
 import {ProductDetail} from "./product/product-detail";
-import {ProductDetailDto} from "../dto/product-detail-dto";
 
 
 export interface CartItem{
@@ -9,5 +8,6 @@ export interface CartItem{
   productDetail?: ProductDetail,
   quantity?: number,
   price?: number,
+  total?:number,
   purchaseDate?: Date
 }

@@ -43,7 +43,7 @@
                 <div class="product-title my-3">
                   {{product.name}}
                 </div>
-                <span *ngIf="productDetail.quantity > 0;else outOfStock" class="badge text-bg-success mb-3">
+                <span *ngIf="productDetail.stock > 0;else outOfStock" class="badge text-bg-success mb-3">
                   CÒN HÀNG
                 </span>
                 <ng-template #outOfStock>

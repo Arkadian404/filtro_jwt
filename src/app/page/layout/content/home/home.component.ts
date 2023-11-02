@@ -1,23 +1,12 @@
-import {Component, DoCheck, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {Component, HostListener, OnInit} from '@angular/core';
 import {TokenService} from "../../../../service/token.service";
-import {Product} from "../../../../shared/models/product/product";
 import {ProductService} from "../../../../service/product.service";
-import {ProductDetailService} from "../../../../service/product-detail.service";
-import {ProductImageService} from "../../../../service/product-image.service";
 import {ProductDto} from "../../../../shared/dto/product-dto";
 import {CartItemService} from "../../../../service/cart-item.service";
-import {CartItem} from "../../../../shared/models/cart-item";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
-import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../service/util.service";
-import {CartItemDialogComponent} from "./cart-item-dialog/cart-item-dialog.component";
-import {ComponentType} from "@angular/cdk/overlay";
-import {Flavor} from "../../../../shared/models/product/flavor";
-import {MatDialog} from "@angular/material/dialog";
-import {
-  AdminFlavorDialogComponent
-} from "../../../../admin/layout/content/admin-flavor/admin-flavor-dialog/admin-flavor-dialog.component";
+
 
 @Component({
   selector: 'app-security',
@@ -34,14 +23,14 @@ export class HomeComponent implements OnInit{
   isTop10ColombiaProductsLoading = true;
   isTop10RoastedProductsLoading = true;
   isTop10BottledProductsLoading = true;
-
+  selectedProduct: ProductDto;
   latestProducts: ProductDto[] = []
   bestSellerProducts: ProductDto[] = []
   specialProducts: ProductDto[] = []
   top10ColombiaProducts: ProductDto[] = []
   top10RoastedProducts: ProductDto[] = []
   top10BottledProducts: ProductDto[] = []
-
+  form:FormGroup;
 
 
   @HostListener('window:resize')
@@ -58,31 +47,20 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private formBuilder:FormBuilder,
               private productService:ProductService,
-              private productDetailsService:ProductDetailService,
-              private productImageService: ProductImageService,
               private tokenService:TokenService,
               private cartItemService: CartItemService,
-              private shareLoginUserNameService: SharedLoginUserNameService,
-              private utilService:UtilService,
-              private dialog:MatDialog,) {
+              private utilService:UtilService) {
   }
 
   ngOnInit(){
-    this.username = this.authenticationService.getUserNameFromLocalStorage();
-    console.log("username tai home page", this.username);
-    let cartItemInStorage: CartItemDto[] = this.cartItemService.getCartItemsFromLocalStorage();
-    if (this.username && cartItemInStorage.length > 0){
-      this.cartItemService.convertListCartItemAfterLogin().subscribe({
-        next:(data)=>{
-          this.cartItemService.removeCartItemsFromLocalStorage();
-        },
-        error:(err)=>{
-          console.log(err);
-        }
-      });
-    }
+    const cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+    this.username = this.tokenService.getUsername();
+    this.convertCartItemsToUserCart(cartItems, this.username);
+    this.form = this.formBuilder.group({
+      quantity:1,
+    })
     this.getLatestProducts();
     this.getBestSellerProducts();
     this.getSpecialProducts();
@@ -92,14 +70,11 @@ export class HomeComponent implements OnInit{
 
   }
 
-
-
   getLatestProducts(){
       this.productService.getTop3LatestProducts()
           .subscribe({
             next:(data)=>{
               this.latestProducts = data;
-              console.log(data);
               this.isLatestProductsLoading = false;
             },
             error:(err)=>{
@@ -114,7 +89,6 @@ export class HomeComponent implements OnInit{
     this.productService.getTop3BestSellerProducts().subscribe({
       next:(data)=>{
         this.bestSellerProducts = data;
-        console.log(data);
         this.isBestSellerProductsLoading = false;
       },
       error:(err)=>{
@@ -128,7 +102,6 @@ export class HomeComponent implements OnInit{
     this.productService.getTop3SpecialProducts().subscribe({
       next:(data)=>{
         this.specialProducts = data;
-        console.log(data);
         this.isSpecialProductsLoading = false;
       },
       error:(err)=>{
@@ -142,7 +115,6 @@ export class HomeComponent implements OnInit{
     this.productService.getTop10ProductsInColombia().subscribe({
       next:(data)=>{
         this.top10ColombiaProducts = data;
-        console.log(data);
         this.isTop10ColombiaProductsLoading = false;
       },
       error:(err)=>{
@@ -156,7 +128,6 @@ export class HomeComponent implements OnInit{
     this.productService.getTop10ProductsByRoastedCoffeeBeans().subscribe({
       next:(data)=>{
         this.top10RoastedProducts = data;
-        console.log(data);
         this.isTop10RoastedProductsLoading = false;
       },
       error:(err)=>{
@@ -170,7 +141,6 @@ export class HomeComponent implements OnInit{
     this.productService.getTop10ProductsByBottledCoffee().subscribe({
       next:(data)=>{
         this.top10BottledProducts = data;
-        console.log(data);
         this.isTop10BottledProductsLoading = false;
       },
       error:(err)=>{
@@ -181,21 +151,72 @@ export class HomeComponent implements OnInit{
   }
 
 
-  private openDialog(dialog:ComponentType<any> ,data?:ProductDto) {
-    const dialogRef = this.dialog.open(dialog, {data});
-    dialogRef.afterClosed().subscribe({
-      next: (data) => {
-        if (data) {
-          this.ngOnInit();
-        }
+  convertCartItemsToUserCart(cartItems: CartItemDto[], username:string){
+    if(this.username){
+      if(cartItems.length > 0){
+        console.log(this.cartItemService.cartItemsBehavior.getValue());
+        this.cartItemService.getCart(username).subscribe({
+          next:(cart)=>{
+            cartItems.forEach(ci=>{
+              ci.cart = cart;
+              this.cartItemService.addCartItemToCart(ci).subscribe();
+              this.cartItemService.cartItemsBehavior.next([...this.cartItemService.cartItemsBehavior.getValue(), ci]);
+            })
+            localStorage.removeItem("cartItems");
+          }
+        });
+      }else{
+        this.cartItemService.getCart(username).subscribe(cart=>{
+          this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+            this.cartItemService.cartItemsBehavior.next(items);
+          })
+        })
       }
-    });
+    }else{
+      if(cartItems.length > 0){
+        this.cartItemService.cartItemsBehavior.next(cartItems);
+      }else{
+        this.cartItemService.cartItemsBehavior.next([]);
+      }
+    }
   }
 
-  openProductDetailDialog(data:ProductDto){
-    data.productDetails = data.productDetails.filter((item)=>item.quantity > 0);
-    this.openDialog(CartItemDialogComponent, data);
+  addCartItemToCart(cartItem:CartItemDto){
+    this.cartItemService.addCartItemToCart(cartItem).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, "Đóng");
+        this.cartItemService.addCartItemsBehavior.next(cartItem);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
+  addToCart(event:any){
+    this.selectedProduct = event;
+    if(this.form.valid){
+      this.form.value.productName = this.selectedProduct.name;
+      this.form.value.productDetail =this.selectedProduct.productDetails[0];
+      this.form.value.productImage =  this.selectedProduct.images[0];
+      this.form.value.price = this.selectedProduct.productDetails[0].price;
+      this.form.value.total = this.form.value.quantity * this.form.value.price;
+    }
+    console.log(this.form.value)
+    if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
+      this.cartItemService.addToCartNotLogin(this.form.value)
+    }else{
+      this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
+        next:(data)=>{
+          this.form.value.cart = data;
+          this.addCartItemToCart(this.form.value);
+        }
+      })
+    }
+  }
+
+  addToWishlist(event:any){
+    console.log(event);
+  }
 
 }

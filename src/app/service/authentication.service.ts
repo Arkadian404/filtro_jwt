@@ -8,6 +8,7 @@ import {TokenService} from "./token.service";
 import {AuthenticationResponse} from "../shared/models/auth/authentication-response.interface";
 import {Employee} from "../shared/models/employee";
 import {Cart} from "../shared/models/cart";
+import {CartItemService} from "./cart-item.service";
 
 
 const AUTH_API:string = 'http://localhost:8080/api/v1';
@@ -18,6 +19,7 @@ const AUTH_API:string = 'http://localhost:8080/api/v1';
 export class AuthenticationService {
 
   constructor(private http:HttpClient,
+              private cartItemService:CartItemService,
               private tokenService:TokenService) { }
 
 
@@ -100,10 +102,10 @@ export class AuthenticationService {
     );
   }
 
-  public getUserNameFromLocalStorage(): string{
-    const usernameJson = localStorage.getItem('username');
-    console.log("usernameJson: ", usernameJson);
-    return usernameJson ? JSON.parse(usernameJson): "";
-  }
+  // public getUserNameFromLocalStorage(): string{
+  //   const usernameJson = localStorage.getItem('username');
+  //   console.log("usernameJson: ", usernameJson);
+  //   return usernameJson ? JSON.parse(usernameJson): "";
+  // }
 
 }

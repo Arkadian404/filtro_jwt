@@ -55,7 +55,6 @@
                 </div>
               </mat-menu>
             </ng-template>
-
             <button mat-icon-button [matMenuTriggerFor]="wishlist">
               <mat-icon
                 [matBadge]="1"
@@ -68,13 +67,38 @@
                   <span class="mr-16">1 items</span>
                   <a routerLink="cart">View Cart</a>
                 </div>
+                <mat-divider></mat-divider>
+                <div class="py-3">
+                  <div class="d-flex justify-content-between font-light mb-2">
+                    ASC X 1
+                    <span class="fw-bold">{{'150' | currency}}</span>
+                  </div>
+                </div><mat-divider></mat-divider>
+                <div class="py-3">
+                  <div class="d-flex justify-content-between font-light mb-2">
+                    ASC X 1
+                    <span class="fw-bold">{{'150' | currency}}</span>
+                  </div>
+                </div><mat-divider></mat-divider>
+                <div class="py-3">
+                  <div class="d-flex justify-content-between font-light mb-2">
+                    ASC X 1
+                    <span class="fw-bold">{{'150' | currency}}</span>
+                  </div>
+                </div>
               </div>
+
             </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="cart">
-              <mat-icon
-                [matBadge]="1"
+              <mat-icon *ngIf="amountOfCartItem > 0; else noItem"
+                [matBadge]="amountOfCartItem"
                 matBadgeColor="warn"
-                fontIcon="shopping_cart"></mat-icon>
+                fontIcon="shopping_cart">
+              </mat-icon>
+              <ng-template #noItem>
+                <mat-icon fontIcon="shopping_cart">
+                </mat-icon>
+              </ng-template>
             </button>
             <mat-menu #cart="matMenu">
               <div class="p-3 custom-size">

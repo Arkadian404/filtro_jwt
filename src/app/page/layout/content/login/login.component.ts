@@ -6,8 +6,7 @@ import {Router} from "@angular/router";
 import {TokenService} from "../../../../service/token.service";
 import {UtilService} from "../../../../service/util.service";
 import {CartItemService} from "../../../../service/cart-item.service";
-import {Cart} from "../../../../shared/models/cart";
-import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNameService";
+import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 
 @Component({
   selector: 'app-login',
@@ -17,15 +16,14 @@ import {SharedLoginUserNameService} from "../../../../service/SharedLoginUserNam
 export class LoginComponent implements OnInit{
   form!:FormGroup;
   passwordType= true;
-
+  cartItems: CartItemDto[];
 
   constructor(private formBuilder: FormBuilder
               ,private authService:AuthenticationService,
               private tokenService:TokenService,
               private utilService:UtilService,
               private router: Router,
-              private shareLoginUserNameService: SharedLoginUserNameService,
-              private cartItemService: CartItemService,) { }
+              private cartItemService: CartItemService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({

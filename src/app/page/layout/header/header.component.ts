@@ -2,19 +2,16 @@ import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/c
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchService} from "../../../service/search.service";
 import {Router} from "@angular/router";
-import {Category} from "../../../shared/models/product/category";
 import {CategoryService} from "../../../service/category.service";
 import {FlavorService} from "../../../service/flavor.service";
-import {Flavor} from "../../../shared/models/product/flavor";
 import {ProductOriginService} from "../../../service/product-origin.service";
-import {ProductOrigin} from "../../../shared/models/product/product-origin";
 import {VendorService} from "../../../service/vendor.service";
-import {Vendor} from "../../../shared/models/product/vendor";
-import {ProductService} from "../../../service/product.service";
 import {ProductOriginDto} from "../../../shared/dto/product-origin-dto";
 import {CategoryDto} from "../../../shared/dto/category-dto";
 import {FlavorDto} from "../../../shared/dto/flavor-dto";
 import {VendorDto} from "../../../shared/dto/vendor-dto";
+import {CartItemService} from "../../../service/cart-item.service";
+import {CartItemDto} from "../../../shared/dto/cart-item-dto";
 
 @Component({
   selector: 'app-header',
@@ -25,6 +22,8 @@ export class HeaderComponent implements OnInit{
   @Input() username = '';
   @Output() onLogout = new EventEmitter();
   @Output() onUser = new EventEmitter();
+  amountOfCartItem = 0;
+  cartItems:CartItemDto[] = [];
   searchValue = '';
   form:FormGroup;
   categories: CategoryDto[] = [];
@@ -32,7 +31,7 @@ export class HeaderComponent implements OnInit{
   origins:ProductOriginDto[] = [];
   vendors:VendorDto[] = [];
   constructor(private formBuilder:FormBuilder,
-              private productService:ProductService,
+              private cartItemService:CartItemService,
               private categoryService:CategoryService,
               private flavorService:FlavorService,
               private originService:ProductOriginService,
@@ -42,14 +41,107 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("user name trong header: ", this.username);
     this.getCategories();
     this.getFlavors();
     this.getOrigins();
     this.getVendors();
     this.form = this.formBuilder.group({
       search: ['']
+    });
+    this.getCartItemInformation(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
+    this.getCartItemInformationAfterAdd(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
+    this.getCartItemInformationAfterDelete(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
+  }
+
+  getCartItemInformation(){
+    this.cartItemService.cartItems$.subscribe(data=>{
+      if(this.username){
+        if(data.length > 0){
+          this.cartItemService.getCart(this.username).subscribe(cart=>{
+            this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+              this.cartItems = items;
+              this.amountOfCartItem = this.cartItems.length;
+            })
+          });
+        }else{
+          this.cartItemService.getCart(this.username).subscribe(data=>{
+            this.cartItemService.getCartItems(data.id).subscribe(items=>{
+              this.cartItems = items;
+              this.amountOfCartItem = this.cartItems.length;
+            })
+          });
+        }
+      }else{
+        this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+        this.amountOfCartItem = this.cartItems.length;
+      }
     })
+  }
+
+
+  getCartItemInformationAfterAdd(){
+    this.cartItemService.addCartItems$.subscribe(data=>{
+      if(this.username){
+        if(data!=null){
+          this.cartItemService.getCart(this.username).subscribe(cart=>{
+            this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+              this.cartItems = [...items];
+              this.amountOfCartItem = this.cartItems.length;
+            })
+          });
+        }else{
+          this.cartItemService.getCart(this.username).subscribe(data=>{
+            this.cartItemService.getCartItems(data.id).subscribe(items=>{
+              this.cartItems = items;
+              this.amountOfCartItem = this.cartItems.length;
+            })
+          });
+        }
+      }else {
+        if(data!=null){
+          this.cartItems = ([...this.cartItems, data]);
+          this.amountOfCartItem = this.cartItems.length;
+        }else{
+          this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+          this.amountOfCartItem = this.cartItems.length;
+        }
+      }
+    })
+
+  }
+
+  getCartItemInformationAfterDelete(){
+    this.cartItemService.deleteCartItems$.subscribe(data=>{
+      if(this.username){
+        if(data!=null){
+          this.cartItemService.getCart(this.username).subscribe(cart=>{
+            this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+              this.cartItems = items;
+              this.amountOfCartItem = this.cartItems.length;
+            });
+          });
+        }else{
+          this.cartItemService.getCart(this.username).subscribe(cart=>{
+            this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+              this.cartItems = items;
+              this.amountOfCartItem = this.cartItems.length;
+            })
+          });
+        }
+      }else {
+        if(data!=null){
+          const items = this.cartItemService.getCartItemsFromLocalStorage();
+          const index = items.findIndex(item=>item.productDetail.id === data);
+          items.splice(index, 1);
+          this.cartItems = items;
+          this.amountOfCartItem = this.cartItems.length;
+        }else{
+          this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+          this.amountOfCartItem = this.cartItems.length;
+        }
+      }
+    })
+
   }
 
 
@@ -57,7 +149,6 @@ export class HeaderComponent implements OnInit{
     return this.categoryService.getCategoryList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.categories = data;
         },
         error:(err)=>{
@@ -70,7 +161,6 @@ export class HeaderComponent implements OnInit{
     return this.flavorService.getFlavorList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.flavors = data;
         },
         error:(err)=>{
@@ -83,7 +173,6 @@ export class HeaderComponent implements OnInit{
     return this.originService.getProductOriginList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.origins = data;
         },
         error:(err)=>{
@@ -96,7 +185,6 @@ export class HeaderComponent implements OnInit{
     return this.vendorService.getVendorList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.vendors = data;
         },
         error:(err)=>{
@@ -108,17 +196,14 @@ export class HeaderComponent implements OnInit{
   toggleLogout(){
     this.onLogout.emit();
     localStorage.clear();
-
   }
 
   toggleUser(){
     this.onUser.emit();
-    console.log(this.onUser);
   }
   onSearch(){
     this.searchValue = this.form.value.search;
     this.searchService.searchResults.next(this.searchValue);
     this.router.navigate(['/search'], {queryParams: {query: this.searchValue}});
-    console.log(this.searchValue);
   }
 }

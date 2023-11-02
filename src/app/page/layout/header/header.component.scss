@@ -1,5 +1,7 @@
-::ng-deep.mat-menu-panel {
-  max-width:fit-content !important;
+::ng-deep .mat-mdc-menu-panel {
+  //max-width:fit-content !important;
+  max-height: 300px !important;
+  overflow: scroll;
 }
 
 .mat-header{
