@@ -8,6 +8,16 @@
   border-top-width: 2px;
 }
 
+.cart-link{
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  &:hover{
+    cursor: pointer;
+    color: #cecdcd;
+  }
+}
+
 .custom-size{
   width:250px;
 }

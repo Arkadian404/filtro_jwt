@@ -154,12 +154,15 @@ export class HomeComponent implements OnInit{
   convertCartItemsToUserCart(cartItems: CartItemDto[], username:string){
     if(this.username){
       if(cartItems.length > 0){
-        console.log(this.cartItemService.cartItemsBehavior.getValue());
         this.cartItemService.getCart(username).subscribe({
           next:(cart)=>{
+            console.log(cart);
+            console.log(cartItems);
             cartItems.forEach(ci=>{
               ci.cart = cart;
-              this.cartItemService.addCartItemToCart(ci).subscribe();
+              this.cartItemService.addCartItemToCart(ci).subscribe(item=>{
+                console.log(item);
+              });
               this.cartItemService.cartItemsBehavior.next([...this.cartItemService.cartItemsBehavior.getValue(), ci]);
             })
             localStorage.removeItem("cartItems");
@@ -197,6 +200,7 @@ export class HomeComponent implements OnInit{
     this.selectedProduct = event;
     if(this.form.valid){
       this.form.value.productName = this.selectedProduct.name;
+      this.form.value.slug = this.selectedProduct.slug;
       this.form.value.productDetail =this.selectedProduct.productDetails[0];
       this.form.value.productImage =  this.selectedProduct.images[0];
       this.form.value.price = this.selectedProduct.productDetails[0].price;

@@ -87,47 +87,57 @@
                   </div>
                 </div>
               </div>
-
             </mat-menu>
-            <button mat-icon-button [matMenuTriggerFor]="cart">
-              <mat-icon *ngIf="amountOfCartItem > 0; else noItem"
-                [matBadge]="amountOfCartItem"
-                matBadgeColor="warn"
-                fontIcon="shopping_cart">
-              </mat-icon>
-              <ng-template #noItem>
-                <mat-icon fontIcon="shopping_cart">
+            <ng-container>
+              <button mat-icon-button [matMenuTriggerFor]="cart">
+                <mat-icon *ngIf="amountOfCartItem > 0; else noItem"
+                          [matBadge]="amountOfCartItem"
+                          matBadgeColor="warn"
+                          fontIcon="shopping_cart">
                 </mat-icon>
-              </ng-template>
-            </button>
-            <mat-menu #cart="matMenu">
-              <div class="p-3 custom-size">
-                <div class="pb-3 d-flex justify-content-between">
-                  <span class="mr-16">1 items</span>
-                  <a class="rounded-link" routerLink="cart">View Cart</a>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="py-3">
-                  <div class="d-flex justify-content-between font-light mb-2">
-                    ASC X 1
-                    <span class="fw-bold">{{'150' | currency}}</span>
+                <ng-template #noItem>
+                  <mat-icon fontIcon="shopping_cart">
+                  </mat-icon>
+                </ng-template>
+              </button>
+              <mat-menu #cart="matMenu">
+                <div *ngIf="amountOfCartItem >0;else emptyCart">
+                  <div class="p-3 custom-size">
+                    <div class="pb-3 d-flex justify-content-between">
+                      <span class="mr-16">{{amountOfCartItem}} sản phẩm</span>
+                      <a  [routerLink]="['/cart']" class="rounded-link cart-link">Giỏ hàng</a>
+                    </div>
+                    <div class="view" *ngFor="let ci of cartItems">
+                      <mat-divider></mat-divider>
+                      <div class="py-3">
+                        <div class="d-flex justify-content-between align-items-center font-light mb-2">
+                          <a [routerLink]="['/product', ci.slug]">
+                            <img [src]="ci.productImage.url" height="60px" width="60px" alt="{{ci.productName}}">
+                          </a>
+                          <span class="font-weight-bold">X {{ci.quantity}}</span>
+                          <span class="fw-bold">{{ci.productDetail.price | currency:'VND'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div class="pt-3 d-flex justify-content-around">
+                    <button class="btn btn-danger btn-circle">
+                      <mat-icon fontIcon="remove_shopping_cart"></mat-icon>
+                    </button>
+                    <button routerLink="/cart" class="btn btn-success btn-circle">
+                      <mat-icon fontIcon="shopping_cart_checkout"></mat-icon>
+                    </button>
                   </div>
                 </div>
-                <mat-divider></mat-divider>
-                <div class="py-3 d-flex justify-content-between">
-                  Total <span class="fw-bold">{{'450' | currency}}</span>
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="pt-3 d-flex justify-content-around">
-                <button class="btn btn-danger btn-circle">
-                  <mat-icon fontIcon="remove_shopping_cart"></mat-icon>
-                </button>
-                <button routerLink="/cart" class="btn btn-success btn-circle">
-                  <mat-icon fontIcon="shopping_cart_checkout"></mat-icon>
-                </button>
-              </div>
-            </mat-menu>
+                <ng-template #emptyCart>
+                  <div class="p-3 custom-size">
+                    EMPTY
+                  </div>
+                </ng-template>
+
+              </mat-menu>
+            </ng-container>
           </div>
         </div> <!-- col end.// -->
         <div class="col-lg-5 col-md-12 col-12">

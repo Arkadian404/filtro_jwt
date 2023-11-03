@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchService} from "../../../service/search.service";
 import {Router} from "@angular/router";
@@ -98,13 +98,8 @@ export class HeaderComponent implements OnInit{
           });
         }
       }else {
-        if(data!=null){
-          this.cartItems = ([...this.cartItems, data]);
-          this.amountOfCartItem = this.cartItems.length;
-        }else{
-          this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
-          this.amountOfCartItem = this.cartItems.length;
-        }
+        this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+        this.amountOfCartItem = this.cartItems.length;
       }
     })
 

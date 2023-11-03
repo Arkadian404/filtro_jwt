@@ -58,11 +58,11 @@ export class CartItemService{
       cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * cartItems[existingItemIndex].price;
     }else{
       cartItems.push(cartItem);
-      this.addCartItemsBehavior.next(cartItem);
       console.log("cart items: ", this.addCartItemsBehavior.value);
     }
     // Save the updated cart items to local storage
     this.saveCartItemsFromLocalStorage(cartItems);
+    this.addCartItemsBehavior.next(cartItem);
   }
 
   addCartItemToCart(cartItem: CartItemDto){

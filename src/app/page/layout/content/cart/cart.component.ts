@@ -54,6 +54,8 @@ export class CartComponent implements OnInit{
     item.total = item.quantity * item.price;
     this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
     this.totalSum = this.subTotal + 10;
+    this.cartItemService.saveCartItemsFromLocalStorage(this.cartItems);
+    this.cartItemService.addCartItemsBehavior.next(item);
   }
 
   decrementQuantity(item: CartItemDto): void {
@@ -62,16 +64,21 @@ export class CartComponent implements OnInit{
       item.total = item.quantity * item.price;
       this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
       this.totalSum = this.subTotal + 10;
+      this.cartItemService.saveCartItemsFromLocalStorage(this.cartItems);
+      this.cartItemService.deleteCartItemsBehavior.next(item.id);
     }
   }
 
   updateCartItemQuantity(id:number, amount:number){
     const currentQuantity = this.selectedCartItem.quantity;
+    if(amount> 0){
+      this.cartItemService.addCartItemsBehavior.next(this.selectedCartItem);
+    }else{
+      this.cartItemService.deleteCartItemsBehavior.next(this.selectedCartItem.id);
+    }
     if(currentQuantity + amount > 0){
         this.cartItemService.updateCartItemQuantity(id, amount).subscribe({
         next:(data)=>{
-          console.log(id)
-          console.log(amount)
           this.utilService.openSnackBar(data.message, 'Đóng');
           this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
           this.getCartItemList();

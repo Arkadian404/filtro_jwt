@@ -1,11 +1,9 @@
 import {UserDto} from "./user-dto";
 
-
-export interface CartDto{
-  id?:number;
-  user?:UserDto;
+export interface WishlistDto{
+  id?:number,
+  user?:UserDto,
   createdAt?:Date;
   updatedAt?:Date;
-  total?:number;
   status?:boolean;
 }
