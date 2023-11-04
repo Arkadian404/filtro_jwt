@@ -37,28 +37,30 @@
                           </g>
                         </svg>
              </button>
-             <a [routerLink]="['/product', p.slug]" class="product-transition">
-               <img [src]="p.images[0].url" alt="">
-             </a>
-             <div class="product-info">
-               <a [routerLink]="['/product', p.slug]" class="product-name">
-                 {{p.name}}
+             <form [formGroup]="form" (ngSubmit)="addToCart(p)">
+               <a [routerLink]="['/product', p.slug]" class="product-transition">
+                 <img [src]="p.images[0].url" alt="">
                </a>
-               <div class="product-reviews">
-                 <div class="product-reviews-star">
-                   <i class="fa-regular fa-star star-off"></i>
-                   <i class="fa-regular fa-star star-off"></i>
-                   <i class="fa-regular fa-star star-off"></i>
-                   <i class="fa-regular fa-star star-off"></i>
-                   <i class="fa-regular fa-star star-off"></i>
+               <div class="product-info">
+                 <a [routerLink]="['/product', p.slug]" class="product-name">
+                   {{p.name}}
+                 </a>
+                 <div class="product-reviews">
+                   <div class="product-reviews-star">
+                     <i class="fa-regular fa-star star-off"></i>
+                     <i class="fa-regular fa-star star-off"></i>
+                     <i class="fa-regular fa-star star-off"></i>
+                     <i class="fa-regular fa-star star-off"></i>
+                     <i class="fa-regular fa-star star-off"></i>
+                   </div>
+                 </div>
+                 <div class="product-price mt-1">
+                   <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                   <span class="old-price">1.200.000đ</span>
                  </div>
                </div>
-               <div class="product-price mt-1">
-                 <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
-                 <span class="old-price">1.200.000đ</span>
-               </div>
-             </div>
-             <button class="cart-button">Chọn</button>
+               <button class="cart-button" type="submit">Thêm vào giỏ</button>
+             </form>
            </div>
          </div>
        </div>

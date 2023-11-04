@@ -14,6 +14,11 @@ import {FlavorService} from "../../../../../service/flavor.service";
 import {ProductOriginService} from "../../../../../service/product-origin.service";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {UtilService} from "../../../../../service/util.service";
+import {CartItemService} from "../../../../../service/cart-item.service";
+import {TokenService} from "../../../../../service/token.service";
+import {CartItemDto} from "../../../../../shared/dto/cart-item-dto";
 
 @Component({
   selector: 'app-americas-coffee',
@@ -33,6 +38,9 @@ export class AmericasCoffeeComponent implements OnInit{
   origin = "";
   vendor = "";
   totalPages:Array<number> = [];
+
+  product:ProductDto;
+  form: FormGroup;
 
   brands:BrandDto[] =[];
   categories:CategoryDto[] = [];
@@ -54,11 +62,18 @@ export class AmericasCoffeeComponent implements OnInit{
               private originService:ProductOriginService,
               private vendorService:VendorService,
               private activatedRoute:ActivatedRoute,
+              private tokenService:TokenService,
+              private cartItemService:CartItemService,
+              private utilService:UtilService,
+              private formBuilder:FormBuilder,
               private router:Router){
   }
 
   ngOnInit(): void {
     this.initial();
+    this.form = this.formBuilder.group({
+      quantity:1,
+    })
     this.sort = this.activatedRoute.snapshot.queryParams.sort;
     this.flavor = this.activatedRoute.snapshot.queryParams.flavor;
     this.activatedRoute.queryParams.subscribe(
@@ -322,4 +337,41 @@ export class AmericasCoffeeComponent implements OnInit{
       })
     }
   }
+
+  addToCart(event:ProductDto){
+    this.product = event;
+    if(this.form.valid){
+      this.form.value.productName = this.product.name;
+      this.form.value.slug = this.product.slug;
+      this.form.value.productDetail =this.product.productDetails[0];
+      this.form.value.productImage =  this.product.images[0];
+      this.form.value.price = this.product.productDetails[0].price;
+      this.form.value.total = this.form.value.quantity * this.form.value.price;
+    }
+    console.log(this.form.value);
+    if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
+      this.cartItemService.addToCartNotLogin(this.form.value)
+    }else{
+      this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
+        next:(data)=>{
+          this.form.value.cart = data;
+          this.addCartItemToCart(this.form.value);
+        }
+      })
+    }
+  }
+
+
+  addCartItemToCart(cartItem:CartItemDto){
+    this.cartItemService.addCartItemToCart(cartItem).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, "Đóng");
+        this.cartItemService.addCartItemsBehavior.next(cartItem);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
 }
