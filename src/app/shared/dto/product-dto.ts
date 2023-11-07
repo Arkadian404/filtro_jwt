@@ -22,4 +22,5 @@ export interface ProductDto{
   sale?:SaleDto,
   origin?:ProductOriginDto,
   vendor?:VendorDto,
+  isAdded?:boolean,
 }

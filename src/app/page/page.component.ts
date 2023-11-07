@@ -7,6 +7,7 @@ import {Cart} from "../shared/models/cart";
 import {CartItemService} from "../service/cart-item.service";
 import {ProductDetail} from "../shared/models/product/product-detail";
 import {CartItemDto} from "../shared/dto/cart-item-dto";
+import {WishlistItemService} from "../service/wishlist-item.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class PageComponent implements OnInit{
               private authService: AuthenticationService,
               private utilService:UtilService,
               private router:Router,
-              private cartItemService: CartItemService) {
+              private cartItemService: CartItemService,
+              private wishlistItemService: WishlistItemService) {
   }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class PageComponent implements OnInit{
         this.tokenService.clearToken();
         this.username = null;
         this.cartItemService.cartItemsBehavior.next([]);
+        this.wishlistItemService.wishlistItemsBehavior.next([]);
         this.utilService.openSnackBar('Đăng xuất thành công', 'Đóng');
         this.router.navigate(['/home']);
       },

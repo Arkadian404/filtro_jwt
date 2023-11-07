@@ -12,6 +12,8 @@ import {FlavorDto} from "../../../shared/dto/flavor-dto";
 import {VendorDto} from "../../../shared/dto/vendor-dto";
 import {CartItemService} from "../../../service/cart-item.service";
 import {CartItemDto} from "../../../shared/dto/cart-item-dto";
+import {WishlistItemService} from "../../../service/wishlist-item.service";
+import {WishlistItemDto} from "../../../shared/dto/wishlist-item-dto";
 
 @Component({
   selector: 'app-header',
@@ -22,8 +24,13 @@ export class HeaderComponent implements OnInit{
   @Input() username = '';
   @Output() onLogout = new EventEmitter();
   @Output() onUser = new EventEmitter();
+
   amountOfCartItem = 0;
   cartItems:CartItemDto[] = [];
+
+  amountOfWishlistItem = 0;
+  wishlistItems:WishlistItemDto[] = [];
+
   searchValue = '';
   form:FormGroup;
   categories: CategoryDto[] = [];
@@ -37,6 +44,7 @@ export class HeaderComponent implements OnInit{
               private originService:ProductOriginService,
               private vendorService:VendorService,
               private searchService:SearchService,
+              private wishlistItemService:WishlistItemService,
               private router:Router){
   }
 
@@ -51,6 +59,9 @@ export class HeaderComponent implements OnInit{
     this.getCartItemInformation(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
     this.getCartItemInformationAfterAdd(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
     this.getCartItemInformationAfterDelete(); //cap nhat so luong san pham trong gio hang trong header khong lien quan den database
+    this.getWishlistInformation(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
+    this.getWishlistInformationAfterAdd(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
+    this.getWishlistInformationAfterDelete(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
   }
 
   getCartItemInformation(){
@@ -77,7 +88,6 @@ export class HeaderComponent implements OnInit{
       }
     })
   }
-
 
   getCartItemInformationAfterAdd(){
     this.cartItemService.addCartItems$.subscribe(data=>{
@@ -113,6 +123,9 @@ export class HeaderComponent implements OnInit{
             this.cartItemService.getCartItems(cart.id).subscribe(items=>{
               this.cartItems = items;
               this.amountOfCartItem = this.cartItems.length;
+              console.log(this.cartItems)
+              console.log(this.cartItems.length)
+              console.log(this.amountOfCartItem);
             });
           });
         }else{
@@ -137,6 +150,89 @@ export class HeaderComponent implements OnInit{
       }
     })
 
+  }
+
+  getWishlistInformation(){
+    this.wishlistItemService.wishlistItems$.subscribe(data=>{
+      if(this.username){
+        if(data.length > 0){
+          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+            this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }else{
+          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+            this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }
+      }else{
+        this.wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+        this.amountOfWishlistItem = this.wishlistItems.length;
+      }
+    })
+  }
+
+  getWishlistInformationAfterAdd(){
+    this.wishlistItemService.addWishlistItems$.subscribe(data=>{
+      if(this.username){
+        if(data!=null){
+          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+            this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }else{
+          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+            this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }
+      }else {
+        this.wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+        this.amountOfWishlistItem = this.wishlistItems.length;
+      }
+    })
+  }
+
+  getWishlistInformationAfterDelete(){
+    this.wishlistItemService.deleteWishlistItems$.subscribe(data=>{
+      if(this.username){
+        if(data!=null){
+          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+            this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }else{
+          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+            this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.amountOfWishlistItem = this.wishlistItems.length;
+            })
+          });
+        }
+      }else {
+        if(data!=null){
+          const items = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+          const index = items.findIndex(item=>item.product.id === data);
+          items.splice(index, 1);
+          this.wishlistItems = items;
+          this.amountOfWishlistItem = this.wishlistItems.length;
+        }else{
+          this.wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+          this.amountOfWishlistItem = this.wishlistItems.length;
+        }
+      }
+    })
   }
 
 

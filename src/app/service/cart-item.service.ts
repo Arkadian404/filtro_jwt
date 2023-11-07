@@ -3,7 +3,6 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {CartItemDto} from "../shared/dto/cart-item-dto";
 
-import {Cart} from "../shared/models/cart";
 import {SuccessMessage} from "../shared/models/success-message";
 import {CartDto} from "../shared/dto/cart-dto";
 
@@ -45,10 +44,6 @@ export class CartItemService{
     localStorage.removeItem('cartItems');
   }
 
-  removeCartItemsLength(){
-    localStorage.removeItem('cartItemsLength');
-  }
-
 
   addToCartNotLogin(cartItem: CartItemDto): void {
     const cartItems: CartItemDto[] = this.getCartItemsFromLocalStorage();
@@ -86,7 +81,7 @@ export class CartItemService{
   }
 
   getCartItems(cartId:number){
-    return this.http.get<CartItemDto[]>(`${CART_ITEM_API}/getCartItems/${cartId}`)
+    return this.http.get<CartItemDto[]>(`${CART_ITEM_API}/${cartId}/getCartItems`)
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
@@ -118,7 +113,6 @@ export class CartItemService{
     }
     if(this.cartItems.length === 0){
       this.removeCartItemsFromLocalStorage();
-      this.removeCartItemsLength();
     }
   }
 

@@ -1,9 +1,9 @@
-import {ProductDetail} from "./product/product-detail";
 import {Wishlist} from "./wishlist";
+import {Product} from "./product/product";
 
 export interface WishlistItem{
   id?:number,
   wishlist?:Wishlist,
-  productDetail?:ProductDetail,
+  product?:Product,
   addedAt?:Date
 }

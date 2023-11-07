@@ -12,7 +12,6 @@ import {TokenService} from "../../../../service/token.service";
 })
 export class CartComponent implements OnInit{
   username: string;
-  // dataSource!: MatTableDataSource<CartItemListAPIResponse>;
 
   cartItems: CartItemDto[];
   selectedCartItem:CartItemDto;
@@ -90,13 +89,29 @@ export class CartComponent implements OnInit{
     }
   }
 
+  getCartItems(){
+    this.cartItemService.getCart(this.username).subscribe(cart=>{
+      this.cartItemService.getCartItems(cart.id).subscribe(items=>{
+        if(items.length>0) {
+          this.cartItems = items;
+          this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
+          this.totalSum = this.subTotal + 10;
+        }else{
+          this.cartItems = [];
+          this.subTotal = 0;
+          this.totalSum = 0;
+        }
+      })
+    })
+  }
+
   deleteCartItem(event: any){
     if (this.username){
       return this.cartItemService.deleteWithLogin(event.id)
         .subscribe({
           next:(data) =>{
             this.utilService.openSnackBar(data.message, 'Đóng');
-            this.getCartItemList();
+            this.getCartItems();
           },
           error: (err) => {
             console.log(err)
@@ -107,6 +122,5 @@ export class CartComponent implements OnInit{
       this.getCartItemList();
       return this.getCartItemList() ? this.getCartItemList() : [];
     }
-
   }
 }

@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {WishlistItem} from "./wishlist-item";
 
 export interface Wishlist{
   id?:number,
