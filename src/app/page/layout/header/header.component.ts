@@ -123,9 +123,6 @@ export class HeaderComponent implements OnInit{
             this.cartItemService.getCartItems(cart.id).subscribe(items=>{
               this.cartItems = items;
               this.amountOfCartItem = this.cartItems.length;
-              console.log(this.cartItems)
-              console.log(this.cartItems.length)
-              console.log(this.amountOfCartItem);
             });
           });
         }else{

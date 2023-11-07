@@ -71,6 +71,7 @@ import { ReviewFormComponent } from './layout/content/product-details/reviews/re
 import {RatingModule} from "primeng/rating";
 
 import {CartComponent} from "./layout/content/cart/cart.component";
+import { ConvertUnitPipe } from './pipe/convert-unit.pipe';
 
 register();
 @NgModule({
@@ -109,6 +110,7 @@ register();
         ReviewComponent,
         ReviewFormComponent,
         CartComponent,
+        ConvertUnitPipe,
     ],
   imports: [
     CommonModule,

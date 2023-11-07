@@ -66,25 +66,17 @@
         display: block;
         border-radius: 50%;
 
-        svg {
+        .mat-icon{
+          vertical-align: middle;
           transition: all .3s;
-          width: 16px;
-          height: 16px;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
         }
-
-        &:hover {
-          svg {
-            fill: #ffffff;
-          }
-
+        &:hover{
           background-color: #cecdcd;
+          .mat-icon{
+            color: #ffffff;
+          }
         }
+
       }
 
       .product-transition{
@@ -168,6 +160,8 @@
       }
     }
   }
+}
 
-
+.active-wishlist{
+  color: red;
 }
