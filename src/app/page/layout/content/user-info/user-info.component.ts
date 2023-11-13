@@ -31,8 +31,7 @@ export class UserInfoComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private utilService: UtilService,
-              private authService: AuthenticationService) {
+              private utilService: UtilService) {
   }
 
   ngOnInit(): void {

@@ -30,6 +30,8 @@ import {ContactComponent} from "./layout/content/contact/contact.component";
 import {IntroduceComponent} from "./layout/content/introduce/introduce.component";
 import {ProductDetailsComponent} from "./layout/content/product-details/product-details.component";
 import {CartComponent} from "./layout/content/cart/cart.component";
+import {CheckoutComponent} from "./layout/content/checkout/checkout.component";
+import {InvoiceComponent} from "./layout/content/invoice/invoice.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -59,6 +61,8 @@ const routes: Routes = [
       },
       {path:'product/:slug', component: ProductDetailsComponent },
       {path: 'cart', component:CartComponent},
+      {path:'checkout', component:CheckoutComponent},
+      {path: 'invoice', component: InvoiceComponent},
       {path:'contact', component:ContactComponent},
       {path:'introduce', component: IntroduceComponent}
     ]

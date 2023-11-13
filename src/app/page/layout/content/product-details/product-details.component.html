@@ -52,9 +52,9 @@
                   </span>
                 </ng-template>
                 <h2 class="mb-4">
-                  <b>{{productDetail?.price | currency:'VND'}}</b>
+                  <b>{{productDetail?.price | currencyVND}}</b>
                   <span class="mx-2 f-14 f-w-400 text-muted text-decoration-line-through">
-                    {{productDetail?.price*1.5 | currency:'VND'}}
+                    {{productDetail?.price*1.5 | currencyVND}}
                   </span>
                 </h2>
                 <p>
@@ -294,7 +294,7 @@
                               </div>
                             </div>
                             <div class="product-price mt-1">
-                              <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                              <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
                               <span class="old-price">1.200.000đ</span>
                             </div>
                           </div>

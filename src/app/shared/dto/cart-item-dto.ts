@@ -13,5 +13,6 @@ export interface CartItemDto{
   quantity?: number,
   price?: number,
   total?:number,
-  purchaseDate?: Date
+  purchaseDate?: Date,
+
 }

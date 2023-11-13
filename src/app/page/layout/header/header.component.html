@@ -67,31 +67,24 @@
               </ng-template>
             </button>
             <mat-menu #wishlist="matMenu">
-              <div class="p-3 custom-size">
-                <div class="pb-3 d-flex justify-content-between">
-                  <span class="mr-16">1 items</span>
-                  <a routerLink="cart">View Cart</a>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="py-3">
-                  <div class="d-flex justify-content-between font-light mb-2">
-                    ASC X 1
-                    <span class="fw-bold">{{'150' | currency}}</span>
-                  </div>
-                </div><mat-divider></mat-divider>
-                <div class="py-3">
-                  <div class="d-flex justify-content-between font-light mb-2">
-                    ASC X 1
-                    <span class="fw-bold">{{'150' | currency}}</span>
-                  </div>
-                </div><mat-divider></mat-divider>
-                <div class="py-3">
-                  <div class="d-flex justify-content-between font-light mb-2">
-                    ASC X 1
-                    <span class="fw-bold">{{'150' | currency}}</span>
+              <div class="" *ngIf="amountOfWishlistItem > 0; else emptyWishlist">
+                <div class="view" *ngFor="let wi of wishlistItems">
+                  <mat-divider></mat-divider>
+                  <div class="py-3">
+                    <div class="d-flex justify-content-between align-items-center font-light mb-2">
+                      <a [routerLink]="['/product', wi.product.slug]">
+                        <img [src]="wi.product.images[0].url" height="90px" width="90px" alt="{{wi.product.name}}">
+                      </a>
+                      <span class="fw-bold">{{wi.product.productDetails[0].price | currencyVND}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
+              <ng-template #emptyWishlist>
+                <div class="p-3 custom-size">
+                  EMPTY
+                </div>
+              </ng-template>
             </mat-menu>
             <ng-container>
               <button mat-icon-button [matMenuTriggerFor]="cart">
@@ -120,7 +113,7 @@
                             <img [src]="ci.productImage.url" height="60px" width="60px" alt="{{ci.productName}}">
                           </a>
                           <span class="font-weight-bold">X {{ci.quantity}}</span>
-                          <span class="fw-bold">{{ci.productDetail.price | currency:'VND'}}</span>
+                          <span class="fw-bold">{{ci.productDetail.price | currencyVND}}</span>
                         </div>
                       </div>
                     </div>

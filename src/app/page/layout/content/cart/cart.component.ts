@@ -12,7 +12,7 @@ import {TokenService} from "../../../../service/token.service";
 })
 export class CartComponent implements OnInit{
   username: string;
-
+  isLoading: boolean = true;
   cartItems: CartItemDto[];
   selectedCartItem:CartItemDto;
   subTotal: number= 0;
@@ -23,8 +23,6 @@ export class CartComponent implements OnInit{
   }
   ngOnInit(): void {
     this.username = this.tokenService.getUsername();
-    console.log("user name: ", this.username);
-    console.log(this.username==null)
     this.getCartItemList();
   }
 
@@ -34,16 +32,22 @@ export class CartComponent implements OnInit{
         next:(data) =>{
           this.cartItemService.getCartItems(data.id).subscribe(items=>{
             this.cartItems = items;
+            console.log(items)
             this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-            this.totalSum = this.subTotal + 10;
-          })
+            this.totalSum = this.subTotal;
+            this.isLoading = false;
+          });
+        },
+        error: (err) => {
+          console.log(err)
+          this.isLoading = false;
         }
       })
     }else{
       this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
       console.log(this.cartItems)
       this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-      this.totalSum = this.subTotal + 10;
+      this.totalSum = this.subTotal;
       return this.cartItems ? this.cartItems : [];
     }
   }
@@ -52,7 +56,7 @@ export class CartComponent implements OnInit{
     item.quantity += 1;
     item.total = item.quantity * item.price;
     this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-    this.totalSum = this.subTotal + 10;
+    this.totalSum = this.subTotal;
     this.cartItemService.saveCartItemsFromLocalStorage(this.cartItems);
     this.cartItemService.addCartItemsBehavior.next(item);
   }
@@ -62,7 +66,7 @@ export class CartComponent implements OnInit{
       item.quantity -= 1;
       item.total = item.quantity * item.price;
       this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-      this.totalSum = this.subTotal + 10;
+      this.totalSum = this.subTotal;
       this.cartItemService.saveCartItemsFromLocalStorage(this.cartItems);
       this.cartItemService.deleteCartItemsBehavior.next(item.id);
     }
@@ -95,7 +99,7 @@ export class CartComponent implements OnInit{
         if(items.length>0) {
           this.cartItems = items;
           this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-          this.totalSum = this.subTotal + 10;
+          this.totalSum = this.subTotal;
         }else{
           this.cartItems = [];
           this.subTotal = 0;

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../shared/models/product/product";
-import {catchError, throwError} from "rxjs";
+import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {ProductDto} from "../shared/dto/product-dto";
 import {Page} from "../shared/models/page";
-import {ProductFilter} from "../shared/utils/product-filter";
 import {SuccessMessage} from "../shared/models/success-message";
+import {PageContext} from "../shared/utils/page-context";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
 const USER_API:string = 'http://localhost:8080/api/v1/user/product';
@@ -14,6 +14,20 @@ const USER_API:string = 'http://localhost:8080/api/v1/user/product';
   providedIn: 'root'
 })
 export class ProductService {
+  private data = new BehaviorSubject<Page>(null);
+  data$ = this.data.asObservable();
+
+  private context = new BehaviorSubject<PageContext>(null);
+  context$ = this.context.asObservable();
+
+  setData(data:any){
+    this.data.next(data);
+  }
+
+  setContext(context:PageContext){
+    this.context.next(context);
+  }
+
 
   constructor(private http:HttpClient) { }
 

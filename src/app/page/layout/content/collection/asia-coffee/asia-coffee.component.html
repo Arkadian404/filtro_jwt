@@ -1,12 +1,12 @@
 <section class="bread-crumb">
   <div class="container">
     <div class="bread-crumb-title text-center">
-      KHU VỰC CHÂU Á
+      {{title | uppercase}}
     </div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb justify-content-center">
         <li class="breadcrumb-item"><a [routerLink]="'/home'">Trang chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><strong>Khu vực Châu Phi</strong> </li>
+        <li class="breadcrumb-item active" aria-current="page"><strong>{{title}}</strong> </li>
       </ol>
     </nav>
   </div>
@@ -20,16 +20,16 @@
             <div class="aside-title">Danh mục</div>
             <div class="aside-content">
               <ul>
-                <li><a [routerLink]="'/collection/instant-coffee'">Cà phê bột</a></li>
-                <li><a [routerLink]="'/collection/roasted-bean-coffee'">Cà phê hạt đã rang</a></li>
-                <li><a [routerLink]="'/collection/coffee-ball'">Cà phê hạt nén</a></li>
-                <li><a [routerLink]="'/collection/bottled-coffee'">Cà phê đóng chai</a></li>
-                <li><a [routerLink]="'/collection/americas-coffee'">Các nước châu Mỹ</a></li>
-                <li><a [routerLink]="'/collection/africa-coffee'">Các nước châu Phi</a></li>
+                <li><a [routerLink]="'/collection/instant-coffee'" routerLinkActive="active-link">Cà phê bột</a></li>
+                <li><a [routerLink]="'/collection/roasted-bean-coffee'" routerLinkActive="active-link">Cà phê hạt đã rang</a></li>
+                <li><a [routerLink]="'/collection/coffee-ball'" routerLinkActive="active-link">Cà phê hạt nén</a></li>
+                <li><a [routerLink]="'/collection/bottled-coffee'" routerLinkActive="active-link">Cà phê đóng chai</a></li>
+                <li><a [routerLink]="'/collection/americas-coffee'" routerLinkActive="active-link">Các nước châu Mỹ</a></li>
+                <li><a [routerLink]="'/collection/africa-coffee'" routerLinkActive="active-link">Các nước châu Phi</a></li>
                 <li><a [routerLink]="'/collection/asia-coffee'" routerLinkActive="active-link">Các nước châu Á</a></li>
-                <li><a [routerLink]="'/collection/limited-coffee'">Cà phê quý hiếm (limited)</a></li>
-                <li><a [routerLink]="'/collection/special-coffee'">Hộp quà tặng (special box)</a></li>
-                <li><a [routerLink]="'/collection/best-seller'">Sản phẩm bán chạy</a></li>
+                <li><a [routerLink]="'/collection/limited-coffee'" routerLinkActive="active-link">Cà phê quý hiếm (limited)</a></li>
+                <li><a [routerLink]="'/collection/special-coffee'" routerLinkActive="active-link">Hộp quà tặng (special box)</a></li>
+                <li><a [routerLink]="'/collection/best-seller'" routerLinkActive="active-link">Sản phẩm bán chạy</a></li>
               </ul>
             </div>
           </aside>
@@ -151,18 +151,14 @@
             <section class="row products-view">
               <div *ngFor="let p of products; let i = index" class="col-md-3 col-lg-3 col-sm-6 col-6">
                 <div class="block-item">
-                  <button class="btn-wishlist">
-                    <svg
-                      fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#000000">
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                      <g id="SVGRepo_iconCarrier">
-                            <g>
-                              <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path>
-                            </g>
-                          </g>
-                        </svg>
-                  </button>
+                  <form [formGroup]="wishlistItemForm" (ngSubmit)="handleWishlist(p)">
+                    <button type="submit" class="btn-wishlist">
+                      <mat-icon *ngIf="checkExist(isWishlist, p); else unFavorite" class="active-wishlist" fontIcon="favorite"></mat-icon>
+                      <ng-template #unFavorite>
+                        <mat-icon fontIcon="favorite_border"></mat-icon>
+                      </ng-template>
+                    </button>
+                  </form>
                   <form [formGroup]="form" (ngSubmit)="addToCart(p)">
                     <a [routerLink]="['/product', p.slug]" class="product-transition">
                       <img [src]="p.images[0].url" [alt]="p.name">
@@ -179,7 +175,7 @@
                         </div>
                       </div>
                       <div class="product-price mt-2">
-                        <span class="price">{{p.productDetails[0].price | currency:'VND'}}</span>
+                        <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
                         <span class="old-price">150000</span>
                       </div>
                     </div>

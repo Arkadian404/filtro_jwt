@@ -3,4 +3,5 @@ export interface ProductDetailDto{
   stock?:number,
   price?:number,
   weight?:number,
+  categoryId?: number,
 }

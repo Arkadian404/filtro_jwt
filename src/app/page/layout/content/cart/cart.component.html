@@ -1,17 +1,35 @@
+<section class="bread-crumb">
+  <div class="container">
+    <div class="bread-crumb-title text-center">
+      GIỎ HÀNG
+    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb justify-content-center">
+        <li class="breadcrumb-item"><a [routerLink]="'/home'">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><strong>
+          Giỏ hàng
+        </strong> </li>
+      </ol>
+    </nav>
+  </div>
+</section>
 <body>
 <!-- Cart Start -->
 <div class="container-fluid pt-5">
-  <div class="row px-xl-5">
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading" class="row px-xl-5">
     <div class="col-lg-8 table-responsive mb-5">
       <table class="table table-bordered text-center mb-0">
         <thead class="bg-secondary text-dark">
         <tr>
-          <th>Products</th>
-          <th>Weight</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-          <th>Remove</th>
+          <th>Sản phẩm</th>
+          <th>Khối lượng</th>
+          <th>Giá tiền</th>
+          <th>Số lượng</th>
+          <th>Tổng cộng</th>
+          <th>Hành động</th>
         </tr>
         </thead>
         <ng-container>
@@ -27,8 +45,8 @@
                 </div>
               </div>
             </td>
-            <td class="align-middle">{{ item.productDetail.weight}}</td>
-            <td class="align-middle">{{ item.price}}</td>
+            <td class="align-middle">{{ item.productDetail.weight | convertUnit: item.productDetail.categoryId}}</td>
+            <td class="align-middle">{{ item.price | currencyVND}}</td>
             <td class="align-middle">
               <div class="input-group quantity mx-auto btn-group-quantity">
                 <div class="input-group-btn">
@@ -54,7 +72,7 @@
                 </div>
               </div>
             </td>
-            <td class="align-middle total-column">{{ item.total }}</td>
+            <td class="align-middle total-column">{{ item.total | currencyVND}}</td>
             <td class="align-middle">
               <button class="btn btn-sm btn-primary" (click) = "deleteCartItem(item)">
                 <i class="fa fa-times"></i>
@@ -70,30 +88,30 @@
         <div class="input-group">
           <input type="text" class="form-control p-4" placeholder="Coupon Code">
           <div class="input-group-append">
-            <button class="btn btn-primary">Apply Coupon</button>
+            <button class="btn btn-primary">Nhập mã coupon</button>
           </div>
         </div>
       </form>
       <div class="card border-secondary mb-5">
         <div class="card-header bg-secondary border-0">
-          <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+          <h3 class="font-weight-semi-bold m-0">Tổng quan giỏ hàng</h3>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between mb-3 pt-1">
-            <h6 class="font-weight-medium">Subtotal</h6>
-            <h6 class="font-weight-medium">{{subTotal}}</h6>
+            <h3 class="font-weight-medium">Tạm tính</h3>
+            <h3 class="font-weight-medium">{{subTotal | currencyVND}}</h3>
           </div>
           <div class="d-flex justify-content-between">
-            <h6 class="font-weight-medium">Shipping</h6>
-            <h6 class="font-weight-medium">$10</h6>
+            <h3 class="font-weight-medium">Giảm giá (%)</h3>
+            <h3 class="font-weight-medium">-----</h3>
           </div>
         </div>
         <div class="card-footer border-secondary bg-transparent">
           <div class="d-flex justify-content-between mt-2">
-            <h5 class="font-weight-bold">Total</h5>
-            <h5 class="font-weight-bold">{{totalSum}}</h5>
+            <h5 class="font-weight-bold">Tổng cộng</h5>
+            <h5 class="font-weight-bold">{{totalSum | currencyVND}}</h5>
           </div>
-          <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+          <a [routerLink]="['/checkout']" class="btn btn-block btn-primary my-3 py-3">Tiến hành thanh toán</a>
         </div>
       </div>
     </div>

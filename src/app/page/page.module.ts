@@ -29,7 +29,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MatLineModule, MatNativeDateModule} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
 import {MatTabsModule} from "@angular/material/tabs";
 import {LoginComponent} from "./layout/content/login/login.component";
@@ -72,6 +72,10 @@ import {RatingModule} from "primeng/rating";
 
 import {CartComponent} from "./layout/content/cart/cart.component";
 import { ConvertUnitPipe } from './pipe/convert-unit.pipe';
+import { CurrencyVNDPipe } from './pipe/currency-VND.pipe';
+import { CheckoutComponent } from './layout/content/checkout/checkout.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import { InvoiceComponent } from './layout/content/invoice/invoice.component';
 
 register();
 @NgModule({
@@ -111,46 +115,51 @@ register();
         ReviewFormComponent,
         CartComponent,
         ConvertUnitPipe,
+        CurrencyVNDPipe,
+        CheckoutComponent,
+        InvoiceComponent,
     ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    PageRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    FontAwesomeModule,
-    ChartModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    CdkMenuTrigger,
-    MatTreeModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgOptimizedImage,
-    MatCardModule,
-    MatTabsModule,
-    MatBadgeModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    AdminModule,
-    MatProgressBarModule,
-    RatingModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        PageRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        FontAwesomeModule,
+        ChartModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatMenuModule,
+        CdkMenuTrigger,
+        MatTreeModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgOptimizedImage,
+        MatCardModule,
+        MatTabsModule,
+        MatBadgeModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        AdminModule,
+        MatProgressBarModule,
+        RatingModule,
+        MatStepperModule,
+        MatLineModule,
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PageModule { }
