@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {ShippingMethod} from "./shipping-method";
 
 export interface Order{
   id?: number;
@@ -12,7 +13,7 @@ export interface Order{
   district?: string;
   ward?: string;
   paymentMethod?: string;
-  shippingFee?: number;
+  shippingMethod?:ShippingMethod
   notes?: string;
   total?: number;
   orderDate?: Date;

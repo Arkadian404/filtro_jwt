@@ -32,6 +32,9 @@ import {ProductDetailsComponent} from "./layout/content/product-details/product-
 import {CartComponent} from "./layout/content/cart/cart.component";
 import {CheckoutComponent} from "./layout/content/checkout/checkout.component";
 import {InvoiceComponent} from "./layout/content/invoice/invoice.component";
+import {CodCallbackComponent} from "./layout/content/payment/cod-callback/cod-callback.component";
+import {MomoCallbackComponent} from "./layout/content/payment/momo-callback/momo-callback.component";
+import {VnpayCallbackComponent} from "./layout/content/payment/vnpay-callback/vnpay-callback.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -62,7 +65,11 @@ const routes: Routes = [
       {path:'product/:slug', component: ProductDetailsComponent },
       {path: 'cart', component:CartComponent},
       {path:'checkout', component:CheckoutComponent},
-      {path: 'invoice', component: InvoiceComponent},
+      {path: 'payment', children:[
+          {path:'cod', component: CodCallbackComponent},
+          {path: 'momo', component: MomoCallbackComponent},
+          {path:'vnpay', component: VnpayCallbackComponent}
+        ]},
       {path:'contact', component:ContactComponent},
       {path:'introduce', component: IntroduceComponent}
     ]

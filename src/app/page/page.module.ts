@@ -1,5 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
 import {PageComponent} from "./page.component";
@@ -76,6 +76,10 @@ import { CurrencyVNDPipe } from './pipe/currency-VND.pipe';
 import { CheckoutComponent } from './layout/content/checkout/checkout.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import { InvoiceComponent } from './layout/content/invoice/invoice.component';
+import { MomoCallbackComponent } from './layout/content/payment/momo-callback/momo-callback.component';
+import { VnpayCallbackComponent } from './layout/content/payment/vnpay-callback/vnpay-callback.component';
+import { CodCallbackComponent } from './layout/content/payment/cod-callback/cod-callback.component';
+import { OrderComponent } from './layout/content/order/order.component';
 
 register();
 @NgModule({
@@ -118,6 +122,10 @@ register();
         CurrencyVNDPipe,
         CheckoutComponent,
         InvoiceComponent,
+        MomoCallbackComponent,
+        VnpayCallbackComponent,
+        CodCallbackComponent,
+        OrderComponent,
     ],
     imports: [
         CommonModule,
@@ -159,6 +167,7 @@ register();
         RatingModule,
         MatStepperModule,
         MatLineModule,
+
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

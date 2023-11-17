@@ -105,11 +105,11 @@
                             </div>
                             <div class="row">
                               <div class="col-12">
-                                <mat-radio-group (change)="onShippingChange($event)" formControlName="shippingFee" class="radio-group" aria-label="Select an option">
+                                <mat-radio-group (change)="onShippingChange($event)" formControlName="shippingMethod" class="radio-group" aria-label="Select an option">
                                   <div class="card border">
-                                    <ul class="list-group list-group-flush align-items-center">
-                                      <li class="list-group-item" *ngFor="let s of shippingMethod; let i = index">
-                                        <mat-radio-button class="radio-button" [value]="s"> {{s.name}}
+                                    <ul class="list-group list-group-flush align-items-start">
+                                      <li class="list-group-item" *ngFor="let s of shippingMethods; let i = index">
+                                        <mat-radio-button class="radio-button" [value]="s"> {{s.name + ' ('+ s.duration +')'}}
                                           <span class="text-muted ms-5">{{s.fee | currencyVND}}</span>
                                         </mat-radio-button>
                                       </li>
@@ -128,14 +128,18 @@
                               <div class="col-12">
                                 <mat-radio-group (change)="onPaymentChange($event)" formControlName="paymentMethod" class="radio-group" aria-label="Select an option">
                                   <div class="card border">
-                                    <ul class="list-group list-group-flush align-items-center">
+                                    <ul class="list-group list-group-flush align-items-start">
                                       <li class="list-group-item">
                                         <mat-radio-button class="radio-button" value="COD">Thanh toán khi nhận hàng (COD)</mat-radio-button>
-                                        <img class="ms-3 img-fluid" src="assets/images/cash.png" height="30px" width="30px" alt="">
+                                        <img class="ms-2 img-fluid" src="assets/images/cash.png" height="40px" width="40px" alt="">
                                       </li>
                                       <li class="list-group-item">
                                         <mat-radio-button class="radio-button" value="MOMO">Thanh toán qua ví điện tử Momo</mat-radio-button>
-                                        <img class="ms-3 img-fluid" src="assets/images/momo.png" height="30px" width="30px" alt="">
+                                        <img class="ms-2 img-fluid" src="assets/images/momo.png" height="40px" width="40px" alt="">
+                                      </li>
+                                      <li class="list-group-item">
+                                        <mat-radio-button class="radio-button" value="VNPAY">Thanh toán qua cổng điện tử VNPAY</mat-radio-button>
+                                        <img class="ms-2 img-fluid" src="assets/images/vnpay.png" height="40px" width="40px" alt="">
                                       </li>
                                     </ul>
                                   </div>

@@ -45,6 +45,7 @@ export class CartComponent implements OnInit{
       })
     }else{
       this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+      this.isLoading = false;
       console.log(this.cartItems)
       this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
       this.totalSum = this.subTotal;

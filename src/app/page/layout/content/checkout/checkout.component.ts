@@ -15,6 +15,7 @@ import {CartDto} from "../../../../shared/dto/cart-dto";
 import {OrderService} from "../../../../service/order.service";
 import {Router} from "@angular/router";
 import {OrderDto} from "../../../../shared/dto/order-dto";
+import {ShippingMethodDto} from "../../../../shared/dto/shipping-method-dto";
 
 interface shippingMethod{
   name:string,
@@ -27,10 +28,6 @@ interface shippingMethod{
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit{
-  shippingMethod:shippingMethod[] = [
-    {name:'Giao hàng chuẩn (nhận từ 5 - 7 ngày)',fee: 35000},
-    {name:'Giao hàng nhanh (nhận từ 1 - 2 ngày)',fee: 50000},
-  ]
   infoForm:FormGroup;
   moneyForm:FormGroup;
   orderForm:FormGroup;
@@ -38,7 +35,8 @@ export class CheckoutComponent implements OnInit{
   cart:CartDto;
   cartItems: CartItemDto[] =[];
   order:OrderDto;
-  selectedShipping:shippingMethod;
+  selectedShipping:ShippingMethodDto;
+  shippingMethods:ShippingMethodDto[] = [];
   selectedPaymentMethod = "";
   user:UserDto;
   dataJson = data;
@@ -66,7 +64,7 @@ export class CheckoutComponent implements OnInit{
       notes: '',
     });
     this.moneyForm = this.formBuilder.group({
-      shippingFee: ['', Validators.required],
+      shippingMethod: ['', Validators.required],
       paymentMethod: ['', Validators.required]
     });
     this.orderForm = this.formBuilder.group({
@@ -79,14 +77,23 @@ export class CheckoutComponent implements OnInit{
       ward: ['', Validators.required],
       notes: '',
       paymentMethod: ['', Validators.required],
-      shippingFee:'',
+      shippingMethod:'',
       total: '',
     });
+    this.getShippingMethods();
     this.getUser();
     this.getCartItems();
   }
 
-
+  getShippingMethods(){
+    this.orderService.getShippingMethods().subscribe({
+      next:data=>{
+        this.shippingMethods = data;
+        console.log(this.shippingMethods);
+      },
+      error:err=>{console.log(err)}
+    })
+  }
   getProvinces() {
     this.provinces = Object.values(<Province[]>this.dataJson).slice(0, 63);
   }
@@ -154,6 +161,10 @@ export class CheckoutComponent implements OnInit{
     this.selectedPaymentMethod = event.value;
   }
 
+  onCodCallback(orderCode:string){
+    this.router.navigate(['/payment/cod'], {queryParams: {orderCode : orderCode}});
+  }
+
   onSubmit() {
     if(this.infoForm.valid && this.moneyForm.valid){
       this.orderForm.patchValue({
@@ -166,7 +177,7 @@ export class CheckoutComponent implements OnInit{
         ward: this.infoForm.value.ward,
         notes: this.infoForm.value.notes,
         paymentMethod: this.selectedPaymentMethod,
-        shippingFee: this.selectedShipping.fee,
+        shippingMethod: this.selectedShipping,
         total: this.cart.total + this.selectedShipping.fee,
       });
       console.log(this.orderForm.value);
@@ -175,13 +186,22 @@ export class CheckoutComponent implements OnInit{
           this.order = data;
           console.log(this.order);
           if(this.selectedPaymentMethod === 'COD'){
-            this.router.navigate(['/home']);
+            this.onCodCallback(this.order.orderCode);
             this.cartItemService.cartItemsBehavior.next([]);
           }else if(this.selectedPaymentMethod === 'MOMO'){
             this.orderService.placeMomoOrder(this.order).subscribe({
               next:data=>{
                 console.log(data);
                 window.location.href = data.payUrl;
+                this.cartItemService.cartItemsBehavior.next([]);
+              },
+              error:err=>{console.log(err)}
+            })
+          }else if(this.selectedPaymentMethod === 'VNPAY'){
+            this.orderService.placeVNPayOrder(this.order).subscribe({
+              next:data=>{
+                console.log(data);
+                window.location.href = data.paymentUrl;
                 this.cartItemService.cartItemsBehavior.next([]);
               },
               error:err=>{console.log(err)}

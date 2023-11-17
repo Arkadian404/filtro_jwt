@@ -1,4 +1,5 @@
 import {UserDto} from "./user-dto";
+import {ShippingMethodDto} from "./shipping-method-dto";
 
 export interface OrderDto{
   id?: number;
@@ -13,7 +14,7 @@ export interface OrderDto{
   ward?: string;
   paymentMethod?: string;
   notes?: string;
-  shippingFee?: number;
+  shippingMethod?:ShippingMethodDto
   total?: number;
   orderDate?: Date;
   status?: string;
