@@ -79,7 +79,10 @@ import { InvoiceComponent } from './layout/content/invoice/invoice.component';
 import { MomoCallbackComponent } from './layout/content/payment/momo-callback/momo-callback.component';
 import { VnpayCallbackComponent } from './layout/content/payment/vnpay-callback/vnpay-callback.component';
 import { CodCallbackComponent } from './layout/content/payment/cod-callback/cod-callback.component';
-import { OrderComponent } from './layout/content/order/order.component';
+import { OrdersComponent } from './layout/content/orders/orders.component';
+import {ButtonModule} from "primeng/button";
+import {TableModule} from "primeng/table";
+import { OrderDetailModalComponent } from './layout/content/orders/order-detail-modal/order-detail-modal.component';
 
 register();
 @NgModule({
@@ -125,7 +128,8 @@ register();
         MomoCallbackComponent,
         VnpayCallbackComponent,
         CodCallbackComponent,
-        OrderComponent,
+        OrdersComponent,
+        OrderDetailModalComponent,
     ],
     imports: [
         CommonModule,
@@ -167,8 +171,14 @@ register();
         RatingModule,
         MatStepperModule,
         MatLineModule,
+        ButtonModule,
+        TableModule,
 
     ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [
+    CurrencyVNDPipe,
+    ConvertUnitPipe
+  ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PageModule { }

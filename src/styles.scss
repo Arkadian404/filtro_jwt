@@ -10,6 +10,8 @@
   display: none;
 }
 
+
+
 .cdk-global-scrollblock {
   overflow-y: hidden;
 }
@@ -18,8 +20,8 @@ td, th {
   text-align: center !important;
   vertical-align: middle !important;
   white-space: normal;
-  word-wrap: break-word;
-  max-width: 200px;
+  //word-wrap: break-word;
+  //max-width: 200px;
 }
 
 

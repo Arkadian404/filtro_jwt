@@ -18,6 +18,7 @@ import {AdminVendorComponent} from "./layout/content/admin-vendor/admin-vendor.c
 import {AdminProductOriginComponent} from "./layout/content/admin-product-origin/admin-product-origin.component";
 import {AdminProductDetailComponent} from "./layout/content/admin-product-detail/admin-product-detail.component";
 import {AdminBrandComponent} from "./layout/content/admin-brand/admin-brand.component";
+import {AdminOrderComponent} from "./layout/content/admin-order/admin-order.component";
 
 const routes: Routes = [
   {path: '', component: AdminComponent,  children:[
@@ -35,7 +36,8 @@ const routes: Routes = [
       {path:'vendor', component:AdminVendorComponent, canActivate:[authGuard]},
       {path: 'product-origin', component: AdminProductOriginComponent, canActivate:[authGuard]},
       {path: 'product-detail', component: AdminProductDetailComponent, canActivate:[authGuard]},
-      {path: 'brand', component: AdminBrandComponent, canActivate:[authGuard]}
+      {path: 'brand', component: AdminBrandComponent, canActivate:[authGuard]},
+      {path: 'order', component: AdminOrderComponent, canActivate:[authGuard]},
     ]}
 ];
 

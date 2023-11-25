@@ -1,13 +1,7 @@
-<div class="container-lg mt-5">
+<div class="container-fluid mt-5">
   <div class="row align-items-center justify-content-between">
     <div class="col-sm-10">
-      <h2>DANH MỤC NHÀ CUNG CẤP</h2>
-    </div>
-    <div class="col-sm-2 mb-3">
-      <button mat-raised-button (click)="openCreateDialog()">
-        <mat-icon fontIcon="add"></mat-icon>
-        Thêm nhà cung cấp
-      </button>
+      <h2>LỊCH SỬ ĐƠN HÀNG</h2>
     </div>
   </div>
   <div class="row">
@@ -26,9 +20,19 @@
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên nhà cung cấp </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <ng-container matColumnDef="orderCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã đơn hàng </th>
+          <td mat-cell *matCellDef="let row"> {{row.orderCode}} </td>
+        </ng-container
+
+        ><ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Người dùng </th>
+        <td mat-cell *matCellDef="let row"> {{row.user?.username}} </td>
+      </ng-container>
+
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Họ và tên </th>
+          <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="email">
@@ -37,19 +41,46 @@
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Số điện thoại </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SĐT </th>
           <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
         </ng-container>
 
         <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Địa chỉ </th>
-          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.address+', '+row.ward+', '+row.district+', '+row.district}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ghi chú </th>
-          <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+        <ng-container matColumnDef="paymentMethod">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Thanh toán </th>
+          <td mat-cell *matCellDef="let row"> {{row.paymentMethod}} </td>
         </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tổng tiền </th>
+          <td mat-cell *matCellDef="let row"> {{row.total | currency:'VND'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tình trạng </th>
+          <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày đặt </th>
+          <td mat-cell *matCellDef="let row"> {{row.orderDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="notes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ghi chú </th>
+          <td mat-cell *matCellDef="let row"> {{row.notes}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shippingMethod">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vận chuyển </th>
+          <td mat-cell *matCellDef="let row"> {{row.shippingMethod?.name}} </td>
+        </ng-container>
+
+
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>

@@ -18,5 +18,4 @@ export interface OrderDto{
   total?: number;
   orderDate?: Date;
   status?: string;
-
 }

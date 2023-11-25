@@ -35,6 +35,7 @@ import {InvoiceComponent} from "./layout/content/invoice/invoice.component";
 import {CodCallbackComponent} from "./layout/content/payment/cod-callback/cod-callback.component";
 import {MomoCallbackComponent} from "./layout/content/payment/momo-callback/momo-callback.component";
 import {VnpayCallbackComponent} from "./layout/content/payment/vnpay-callback/vnpay-callback.component";
+import {OrdersComponent} from "./layout/content/orders/orders.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -70,6 +71,7 @@ const routes: Routes = [
           {path: 'momo', component: MomoCallbackComponent},
           {path:'vnpay', component: VnpayCallbackComponent}
         ]},
+      {path:'orders', component:OrdersComponent},
       {path:'contact', component:ContactComponent},
       {path:'introduce', component: IntroduceComponent}
     ]

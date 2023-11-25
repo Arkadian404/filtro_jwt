@@ -1,0 +1,164 @@
+.<section>
+  <div mat-dialog-title class="d-flex justify-content-between align-items-center">
+    <h2 class="mb-0" >Chi tiết đơn hàng: #{{data.orderCode}}</h2>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="px-2">
+    <mat-dialog-content>
+      <div class="card mb-0">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-header border-bottom-dashed p-4">
+              <div class="d-sm-flex">
+                <div class="flex-grow-1">
+                  <img ngSrc="assets/images/filtro_coffee.png" class="card-logo card-logo-dark" alt="logo dark"
+                       height="250" width="250">
+                  <div class="mt-sm-5 mt-4 fs-14">
+                    <h4 class="text-muted text-uppercase fw-semibold mb-2">Địa chỉ</h4>
+                    <p class="text-muted mb-1" id="address-details"> HCM, Center District, VN</p>
+                    <p class="text-muted mb-0" id="zip-code">
+                      <span>Mã zip:</span> 700000</p>
+                  </div>
+                </div>
+                <div class="flex-shrink-0 mt-sm-0 mt-3 class=fs-14">
+                  <h4 class="fs-14 mb-0"><span class="text-muted fw-normal">Mã số đăng ký:</span> <strong class="text-dark" id="legal-register-no"> 987654</strong></h4>
+                  <h4 class="fs-14 mb-0"><span class="text-muted fw-normal">Email:</span> <strong class="text-dark" id="email"> filtro@workshop.com</strong></h4>
+                  <h4 class="fs-14 mb-0"><span class="text-muted fw-normal">Website:</span> <a href="http://localhost:4200.com/" class="link-primary text-decoration-none" target="_blank" id="website" previewlistener="true"> filtrocoffee.com</a></h4>
+                  <h4 class="fs-14 mb-0"><span class="text-muted fw-normal">Liên hệ qua sđt: </span><strong class="text-dark" id="contact-no"> +(84) 234 6789</strong></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="card-body p-4">
+              <div class="row g-3">
+                <div class="col-lg-3 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold fs-14">Mã đơn hàng</p>
+                  <h4 class="fs-15 mb-0"><span id="invoice-no">#{{data.orderCode}}</span></h4>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold fs-14">Ngày đặt hàng</p>
+                  <h4 class="fs-15 mb-0"><span id="invoice-date">{{getDate(data.orderDate) | date:'dd-MM-yyyy'}}</span> <small class="text-muted" id="invoice-time"> {{getTime(data.orderDate)}}</small></h4>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold fs-14">Trạng thái</p>
+                  <div [ngSwitch]="data.status">
+                     <span *ngSwitchCase="'PENDING'"
+                           class="badge bg-warning-subtle text-warning">Đang chờ xử lý</span>
+                    <span *ngSwitchCase="'PAID_MOMO'"
+                          class="badge bg-secondary-subtle text-secondary">Đã thanh toán bằng MOMO</span>
+                    <span *ngSwitchCase="'PAID_VNPAY'"
+                          class="badge bg-secondary-subtle text-secondary">Đã thanh toán bằng Vnpay</span>
+                    <span *ngSwitchCase="'CONFIRMED'"
+                          class="badge bg-success-subtle text-success">Đã xác nhận</span>
+                    <span *ngSwitchCase="'CANCELED'"
+                          class="badge bg-danger-subtle text-danger">Đã hủy thanh toán</span>
+                    <span *ngSwitchDefault
+                          class="badge text-bg-info">Lỗi giao dịch</span>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold fs-14">Tổng tiền</p>
+                  <h4 class="fs-15 mb-0"><span id="total-amount">{{data.total | currencyVND}}</span></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="card-body p-4 border-top border-top-dashed">
+              <div class="row g-3">
+                <div class="col-12">
+                  <h6 class="text-muted text-uppercase fw-semibold fs-14 mb-3">Địa chỉ giao hàng</h6>
+                  <p class="fw-bold mb-2 fs-16 text-dark" id="billing-name">{{data.fullName}}</p>
+                  <p class="text-muted mb-1 fs-14" id="billing-address-line-1">{{data.address +', '+ data.ward+', '+data.district+', '+data.province}}</p>
+                  <p class="text-muted mb-1 fs-14">Số điện thoại: +<span id="billing-phone-no">(+84) {{data.phone}}</span></p>
+                  <p class="text-muted mb-0 fs-14">Email: <span id="billing-email-no">{{data.email}}</span> </p>
+                </div>
+              </div>
+              <!--end row-->
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="card-body p-4">
+              <div class="table-responsive">
+                <table class="table table-borderless text-center table-nowrap align-middle mb-0">
+                  <thead>
+                  <tr class="table-active">
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col">Chi tiết sản phẩm</th>
+                    <th scope="col">Giá tiền</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col" class="text-end">Tổng tiền</th>
+                  </tr>
+                  </thead>
+                  <tbody id="products-list">
+                  <tr *ngFor="let pd of orderDetails; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td class="text-start">
+                      <span class="fw-medium">{{pd.productName}}</span>
+                      <p class="text-muted mb-0">{{pd.productDetail.weight | convertUnit:pd.productDetail.categoryId}}</p>
+                    </td>
+                    <td>{{pd.price | currencyVND}}</td>
+                    <td>{{pd.quantity}}</td>
+                    <td class="text-end">{{pd.total | currencyVND}}</td>
+                  </tr>
+                  </tbody>
+                </table><!--end table-->
+              </div>
+              <div class="border-top border-top-dashed mt-2">
+                <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto" style="width:250px">
+                  <tbody>
+                  <tr>
+                    <td>Tạm tính</td>
+                    <td class="text-end">{{(data.total - data.shippingMethod?.fee )| currencyVND}}</td>
+                  </tr>
+<!--                  <tr>-->
+<!--                    <td>Estimated Tax (12.5%)</td>-->
+<!--                    <td class="text-end">$172.04</td>-->
+<!--                  </tr>-->
+                  <tr>
+                    <td>Giảm giá (%)
+<!--                      <small class="text-muted"></small>-->
+                    </td>
+                    <td class="text-end">---</td>
+                  </tr>
+                  <tr>
+                    <td>Phí vận chuyển</td>
+                    <td class="text-end">{{data.shippingMethod?.fee | currencyVND}}</td>
+                  </tr>
+                  <tr class="border-top border-top-dashed fs-15">
+                    <th scope="row">Tổng tiền</th>
+                    <th class="text-end">{{data.total | currencyVND}}</th>
+                  </tr>
+                  </tbody>
+                </table>
+                <!--end table-->
+              </div>
+              <div class="mt-3">
+                <h4 class="text-muted text-uppercase fw-semibold mb-3">Chi tiết thanh toán</h4>
+                <p class="text-muted mb-1 fs-14">Họ và tên: <span class="fw-medium" id="card-holder-name">{{data.fullName}}</span></p>
+                <p class="text-muted mb-1 fs-14">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{'Thanh toán bằng '+ data.paymentMethod}}</span></p>
+                <p class="text-muted fs-14">Tổng tiền: <span id="card-total-amount">{{data.total | currencyVND}}</span></p>
+              </div>
+              <div class="mt-4">
+                <div class="alert alert-info">
+                  <p class="mb-0"><span class="fw-semibold">NOTES:</span>
+                    <span id="note">Thông tin về đơn hàng và ngày giao hàng sẽ được gửi thông qua email của bạn. Việc giao hàng có thể chậm trễ hoặc sớm hơn so với ngày dự kiến, bạn vui lòng không tắt điện thoại trong ngày nhận hàng và chuẩn bị đầy đủ tiền mặt nếu như thực hiện đặt hàng bằng COD</span>
+                  </p>
+                </div>
+              </div>
+              <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                <a href="javascript:window.print()" class="btn btn-success"><i class="ri-printer-line align-bottom me-1"></i> Print</a>
+                <a href="javascript:void(0);" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+</section>
+
+

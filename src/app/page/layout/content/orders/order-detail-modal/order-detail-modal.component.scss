@@ -1,0 +1,54 @@
+.fw-semibold{
+  font-weight: 600;
+}
+
+.fw-normal{
+  font-weight: 400;
+}
+
+.fw-medium{
+  font-weight: 500;
+}
+
+.fs-14{
+  font-size: 14px;
+}
+
+.fs-15{
+  font-size: 15px;
+}
+
+.fs-16{
+  font-size: 16px;
+}
+
+span{
+  color: #000000;
+  font-weight: bolder;
+}
+
+.border-bottom-dashed{
+  border-bottom-style: dashed !important;
+}
+
+.card-header{
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ebec;
+}
+
+.mat-mdc-dialog-content {
+  max-height: initial;
+}
+
+
+.bg-warning-subtle{
+  background-color: #fcf2da;
+}
+
+.bg-secondary-subtle{
+  background-color: #e5e1ff;
+}
+
+.bg-success-subtle{
+  background-color: #cdf7ec;
+}

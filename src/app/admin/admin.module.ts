@@ -64,6 +64,9 @@ import { AdminVendorDialogComponent } from './layout/content/admin-vendor/admin-
 import { AdminProductDetailDialogComponent } from './layout/content/admin-product-detail/admin-product-detail-dialog/admin-product-detail-dialog.component';
 import { AdminBrandComponent } from './layout/content/admin-brand/admin-brand.component';
 import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-brand-dialog/admin-brand-dialog.component';
+import { AdminOrderComponent } from './layout/content/admin-order/admin-order.component';
+import { AdminOrderDialogComponent } from './layout/content/admin-order/admin-order-dialog/admin-order-dialog.component';
+import {PageModule} from "../page/page.module";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -102,6 +105,8 @@ import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-br
     AdminProductDetailDialogComponent,
     AdminBrandComponent,
     AdminBrandDialogComponent,
+    AdminOrderComponent,
+    AdminOrderDialogComponent,
 
   ],
   exports: [

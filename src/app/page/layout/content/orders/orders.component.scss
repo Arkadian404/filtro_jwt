@@ -1,0 +1,129 @@
+.fs-13{
+  font-size: 13px;
+}
+
+.fs-15{
+  font-size: 15px;
+}
+
+.fs-16{
+  font-size: 16px;
+}
+
+.f-w-500{
+  font-weight: 500;
+}
+
+.f-w-600{
+  font-weight: 600;
+}
+
+
+
+
+.bread-crumb{
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/assets/images/coffee_bean_pattern.jpg");
+  background-color: #cecdcd;
+  padding: 40px 0;
+  margin: 0 0 25px;
+  .container{
+    .bread-crumb-title{
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .breadcrumb{
+      padding-top: 10px;
+      color: #fff;
+      text-align: center;
+      background-color: transparent;
+      font-size: 14px;
+      .breadcrumb-item{
+        a{
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.section{
+  padding: 80px 0;
+}
+
+.avatar-sm{
+  height: 3rem;
+  width: 3rem;
+}
+
+.avatar-xs{
+  height: 2rem;
+  width: 2rem;
+}
+
+.avatar-title{
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  //background-color: #4b93ff;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-weight: 500;
+  height: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.75rem 0.65rem;
+
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 15px;
+  width: 100%;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.mat-mdc-cell {
+  padding: 0.75rem 0.65rem;
+}
+
+th{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+td, th {
+  width: 25%;
+  white-space: nowrap !important;
+}
+
+.bg-warning-subtle{
+  background-color: #fcf2da;
+}
+
+.bg-secondary-subtle{
+  background-color: #e5e1ff;
+}
+
+.bg-success-subtle{
+  background-color: #cdf7ec;
+}
+
