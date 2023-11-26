@@ -2,6 +2,7 @@
   <app-header
     [username]="tokenService.getUsername()"
     (onUser)="navigateToUser()"
+    (onOrders)="navigateToOrders()"
     (onLogout)="logout()"
   ></app-header>
   <router-outlet></router-outlet>

@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit{
   @Input() username = '';
   @Output() onLogout = new EventEmitter();
   @Output() onUser = new EventEmitter();
+  @Output() onOrders = new EventEmitter();
 
   amountOfCartItem = 0;
   cartItems:CartItemDto[] = [];
@@ -289,6 +290,11 @@ export class HeaderComponent implements OnInit{
   toggleUser(){
     this.onUser.emit();
   }
+
+  toggleOrders(){
+    this.onOrders.emit();
+  }
+
   onSearch(){
     this.searchValue = this.form.value.search;
     this.searchService.searchResults.next(this.searchValue);

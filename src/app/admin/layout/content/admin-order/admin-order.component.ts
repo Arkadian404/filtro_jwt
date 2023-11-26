@@ -52,7 +52,7 @@ export class AdminOrderComponent {
       {
         next:data=>{
           this.dataSource = new MatTableDataSource(data);
-          this.sort.sort(({id: 'orderDate', start:'desc', disableClear: true}) as MatSortable);
+          // this.sort.sort(<MatSortable>({id: 'orderDate', start: 'desc'}));
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataSource.filterPredicate = (data, filter)=>{
@@ -91,9 +91,7 @@ export class AdminOrderComponent {
     const dialogRef = this.dialog.open(dialog, {data});
     dialogRef.afterClosed().subscribe({
       next:(data)=>{
-        if(data){
-          this.getOrders();
-        }
+        this.getOrders();
       }
     })
   }

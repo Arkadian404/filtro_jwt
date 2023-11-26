@@ -41,6 +41,10 @@ export class PageComponent implements OnInit{
     this.router.navigate(['/user-info']);
   }
 
+  navigateToOrders(){
+    this.router.navigate(['/orders']);
+  }
+
   logout() {
     this.authService.logout().subscribe({
       next: (data) => {

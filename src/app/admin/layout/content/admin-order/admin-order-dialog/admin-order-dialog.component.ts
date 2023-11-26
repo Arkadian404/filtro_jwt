@@ -14,7 +14,7 @@ import {OrderDetail} from "../../../../../shared/models/order-detail";
 export class AdminOrderDialogComponent {
   form:FormGroup<any>;
   orderDetails: OrderDetail[] = [];
-  status =['PENDING', 'PAID_MOMO', 'PAID_VNPAY', 'CONFIRMED', 'CANCELED', 'FAILED'];
+  status =['PENDING', 'PAID_MOMO', 'PAID_VNPAY', 'CONFIRMED', 'CANCELLED', 'FAILED'];
 
   constructor(private formBuilder:FormBuilder,
               private orderService:OrderService,

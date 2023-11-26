@@ -36,6 +36,9 @@
                 <button (click)="toggleUser()" mat-menu-item>
                   <mat-icon fontIcon="account_circle"></mat-icon> Thông tin tài khoản
                 </button>
+                <button (click)="toggleOrders()" mat-menu-item>
+                  <mat-icon fontIcon="inventory_2"></mat-icon> Thông tin đơn hàng
+                </button>
                 <button (click)="toggleLogout()" mat-menu-item>
                   <mat-icon fontIcon="exit_to_app"></mat-icon> Đăng xuất
                 </button>
@@ -48,10 +51,10 @@
               </button>
               <mat-menu #user="matMenu">
                 <div class="p-3 custom-size">
-                  <a class="user-part" routerLink="/login">Đăng nhập</a>
+                  <a class="user-part" routerLink="/login"> <mat-icon fontIcon="login"></mat-icon>Đăng nhập</a>
                 </div>
                 <div class="px-3 pb-3">
-                  <a class=user-part routerLink="/register">Đăng ký</a>
+                  <a class=user-part routerLink="/register"> <mat-icon fontIcon="how_to_reg"></mat-icon>Đăng ký</a>
                 </div>
               </mat-menu>
             </ng-template>
