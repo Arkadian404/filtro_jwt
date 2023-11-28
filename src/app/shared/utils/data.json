@@ -5,6 +5,7 @@
     "codename": "thanh_pho_ha_noi",
     "division_type": "thành phố trung ương",
     "phone_code": 24,
+    "distance": 1719,
     "districts": [
       {
         "name": "Quận Ba Đình",
@@ -4337,6 +4338,7 @@
     "codename": "tinh_ha_giang",
     "division_type": "tỉnh",
     "phone_code": 219,
+    "distance": 1672,
     "districts": [
       {
         "name": "Thành phố Hà Giang",
@@ -5796,6 +5798,7 @@
     "codename": "tinh_cao_bang",
     "division_type": "tỉnh",
     "phone_code": 206,
+    "distance": 1989,
     "districts": [
       {
         "name": "Thành phố Cao Bằng",
@@ -7022,6 +7025,7 @@
     "codename": "tinh_bac_kan",
     "division_type": "tỉnh",
     "phone_code": 209,
+    "distance": 1876,
     "districts": [
       {
         "name": "Thành Phố Bắc Kạn",
@@ -7859,6 +7863,7 @@
     "codename": "tinh_tuyen_quang",
     "division_type": "tỉnh",
     "phone_code": 207,
+    "distance": 1846,
     "districts": [
       {
         "name": "Thành phố Tuyên Quang",
@@ -8897,6 +8902,7 @@
     "codename": "tinh_lao_cai",
     "division_type": "tỉnh",
     "phone_code": 214,
+    "distance": 2003,
     "districts": [
       {
         "name": "Thành phố Lào Cai",
@@ -10051,6 +10057,7 @@
     "codename": "tinh_dien_bien",
     "division_type": "tỉnh",
     "phone_code": 215,
+    "distance": 2034,
     "districts": [
       {
         "name": "Thành phố Điện Biên Phủ",
@@ -11053,6 +11060,7 @@
     "codename": "tinh_lai_chau",
     "division_type": "tỉnh",
     "phone_code": 213,
+    "distance": 2207,
     "districts": [
       {
         "name": "Thành phố Lai Châu",
@@ -11876,6 +11884,7 @@
     "codename": "tinh_son_la",
     "division_type": "tỉnh",
     "phone_code": 212,
+    "distance": 1882,
     "districts": [
       {
         "name": "Thành phố Sơn La",
@@ -13421,6 +13430,7 @@
     "codename": "tinh_yen_bai",
     "division_type": "tỉnh",
     "phone_code": 216,
+    "distance": 1871,
     "districts": [
       {
         "name": "Thành phố Yên Bái",
@@ -14722,6 +14732,7 @@
     "codename": "tinh_hoa_binh",
     "division_type": "tỉnh",
     "phone_code": 218,
+    "distance": 1719,
     "districts": [
       {
         "name": "Thành phố Hòa Bình",
@@ -15878,6 +15889,7 @@
     "codename": "tinh_thai_nguyen",
     "division_type": "tỉnh",
     "phone_code": 208,
+    "distance": 1794,
     "districts": [
       {
         "name": "Thành phố Thái Nguyên",
@@ -17207,6 +17219,7 @@
     "codename": "tinh_lang_son",
     "division_type": "tỉnh",
     "phone_code": 205,
+    "distance": 1865,
     "districts": [
       {
         "name": "Thành phố Lạng Sơn",
@@ -18715,6 +18728,7 @@
     "codename": "tinh_quang_ninh",
     "division_type": "tỉnh",
     "phone_code": 203,
+    "distance": 1874,
     "districts": [
       {
         "name": "Thành phố Hạ Long",
@@ -20080,6 +20094,7 @@
     "codename": "tinh_bac_giang",
     "division_type": "tỉnh",
     "phone_code": 204,
+    "distance": 1796,
     "districts": [
       {
         "name": "Thành phố Bắc Giang",
@@ -21642,6 +21657,7 @@
     "codename": "tinh_phu_tho",
     "division_type": "tỉnh",
     "phone_code": 210,
+    "distance": 1812,
     "districts": [
       {
         "name": "Thành phố Việt Trì",
@@ -23343,6 +23359,7 @@
     "codename": "tinh_vinh_phuc",
     "division_type": "tỉnh",
     "phone_code": 211,
+    "distance": 1779,
     "districts": [
       {
         "name": "Thành phố Vĩnh Yên",
@@ -24385,6 +24402,7 @@
     "codename": "tinh_bac_ninh",
     "division_type": "tỉnh",
     "phone_code": 222,
+    "distance": 1749,
     "districts": [
       {
         "name": "Thành phố Bắc Ninh",
@@ -25348,6 +25366,7 @@
     "codename": "tinh_hai_duong",
     "division_type": "tỉnh",
     "phone_code": 220,
+    "distance": 1734,
     "districts": [
       {
         "name": "Thành phố Hải Dương",
@@ -27110,6 +27129,7 @@
     "codename": "thanh_pho_hai_phong",
     "division_type": "thành phố trung ương",
     "phone_code": 225,
+    "distance": 1798,
     "districts": [
       {
         "name": "Quận Hồng Bàng",
@@ -28772,6 +28792,7 @@
     "codename": "tinh_hung_yen",
     "division_type": "tỉnh",
     "phone_code": 221,
+    "distance": 1688,
     "districts": [
       {
         "name": "Thành phố Hưng Yên",
@@ -29998,6 +30019,7 @@
     "codename": "tinh_thai_binh",
     "division_type": "tỉnh",
     "phone_code": 227,
+    "distance": 1677,
     "districts": [
       {
         "name": "Thành phố Thái Bình",
@@ -31898,6 +31920,7 @@
     "code": 35,
     "codename": "tinh_ha_nam",
     "division_type": "tỉnh",
+    "distance": 1719,
     "phone_code": 226,
     "districts": [
       {
@@ -32725,6 +32748,7 @@
     "codename": "tinh_nam_dinh",
     "division_type": "tỉnh",
     "phone_code": 228,
+    "distance": 1656,
     "districts": [
       {
         "name": "Thành phố Nam Định",
@@ -34406,6 +34430,7 @@
     "codename": "tinh_ninh_binh",
     "division_type": "tỉnh",
     "phone_code": 229,
+    "distance": 1672,
     "districts": [
       {
         "name": "Thành phố Ninh Bình",
@@ -35488,6 +35513,7 @@
     "codename": "tinh_thanh_hoa",
     "division_type": "tỉnh",
     "phone_code": 237,
+    "distance": 1440,
     "districts": [
       {
         "name": "Thành phố Thanh Hóa",
@@ -39653,6 +39679,7 @@
     "codename": "tinh_nghe_an",
     "division_type": "tỉnh",
     "phone_code": 238,
+    "distance": 1431,
     "districts": [
       {
         "name": "Thành phố Vinh",
@@ -43071,6 +43098,7 @@
     "codename": "tinh_ha_tinh",
     "division_type": "tỉnh",
     "phone_code": 239,
+    "distance": 1369,
     "districts": [
       {
         "name": "Thành phố Hà Tĩnh",
@@ -44709,6 +44737,7 @@
     "codename": "tinh_quang_binh",
     "division_type": "tỉnh",
     "phone_code": 232,
+    "distance": 1257,
     "districts": [
       {
         "name": "Thành Phố Đồng Hới",
@@ -45847,6 +45876,7 @@
     "codename": "tinh_quang_tri",
     "division_type": "tỉnh",
     "phone_code": 233,
+    "distance": 1334,
     "districts": [
       {
         "name": "Thành phố Đông Hà",
@@ -46820,6 +46850,7 @@
     "codename": "tinh_thua_thien_hue",
     "division_type": "tỉnh",
     "phone_code": 234,
+    "distance": 1074,
     "districts": [
       {
         "name": "Thành phố Huế",
@@ -47897,6 +47928,7 @@
     "codename": "thanh_pho_da_nang",
     "division_type": "thành phố trung ương",
     "phone_code": 236,
+    "distance": 960,
     "districts": [
       {
         "name": "Quận Liên Chiểu",
@@ -48369,6 +48401,7 @@
     "codename": "tinh_quang_nam",
     "division_type": "tỉnh",
     "phone_code": 235,
+    "distance": 756,
     "districts": [
       {
         "name": "Thành phố Tam Kỳ",
@@ -50227,6 +50260,7 @@
     "codename": "tinh_quang_ngai",
     "division_type": "tỉnh",
     "phone_code": 255,
+    "distance": 815,
     "districts": [
       {
         "name": "Thành phố Quảng Ngãi",
@@ -51563,6 +51597,7 @@
     "codename": "tinh_binh_dinh",
     "division_type": "tỉnh",
     "phone_code": 256,
+    "distance": 643,
     "districts": [
       {
         "name": "Thành phố Quy Nhơn",
@@ -52784,6 +52819,7 @@
     "codename": "tinh_phu_yen",
     "division_type": "tỉnh",
     "phone_code": 257,
+    "distance": 490,
     "districts": [
       {
         "name": "Thành phố Tuy Hoà",
@@ -53644,6 +53680,7 @@
     "codename": "tinh_khanh_hoa",
     "division_type": "tỉnh",
     "phone_code": 258,
+    "distance": 431,
     "districts": [
       {
         "name": "Thành phố Nha Trang",
@@ -54707,6 +54744,7 @@
     "codename": "tinh_ninh_thuan",
     "division_type": "tỉnh",
     "phone_code": 259,
+    "distance": 350,
     "districts": [
       {
         "name": "Thành phố Phan Rang-Tháp Chàm",
@@ -55234,6 +55272,7 @@
     "codename": "tinh_binh_thuan",
     "division_type": "tỉnh",
     "phone_code": 252,
+    "distance": 221,
     "districts": [
       {
         "name": "Thành phố Phan Thiết",
@@ -56201,6 +56240,7 @@
     "codename": "tinh_kon_tum",
     "division_type": "tỉnh",
     "phone_code": 260,
+    "distance": 546,
     "districts": [
       {
         "name": "Thành phố Kon Tum",
@@ -57014,6 +57054,7 @@
     "codename": "tinh_gia_lai",
     "division_type": "tỉnh",
     "phone_code": 269,
+    "distance": 480,
     "districts": [
       {
         "name": "Thành phố Pleiku",
@@ -58716,6 +58757,7 @@
     "codename": "tinh_dak_lak",
     "division_type": "tỉnh",
     "phone_code": 262,
+    "distance": 347,
     "districts": [
       {
         "name": "Thành phố Buôn Ma Thuột",
@@ -60148,6 +60190,7 @@
     "codename": "tinh_dak_nong",
     "division_type": "tỉnh",
     "phone_code": 261,
+    "distance": 253,
     "districts": [
       {
         "name": "Thành phố Gia Nghĩa",
@@ -60726,6 +60769,7 @@
     "codename": "tinh_lam_dong",
     "division_type": "tỉnh",
     "phone_code": 263,
+    "distance": 243,
     "districts": [
       {
         "name": "Thành phố Đà Lạt",
@@ -61837,6 +61881,7 @@
     "codename": "tinh_binh_phuoc",
     "division_type": "tỉnh",
     "phone_code": 271,
+    "distance": 121,
     "districts": [
       {
         "name": "Thị xã Phước Long",
@@ -62722,6 +62767,7 @@
     "codename": "tinh_tay_ninh",
     "division_type": "tỉnh",
     "phone_code": 276,
+    "distance": 88,
     "districts": [
       {
         "name": "Thành phố Tây Ninh",
@@ -63470,6 +63516,7 @@
     "codename": "tinh_binh_duong",
     "division_type": "tỉnh",
     "phone_code": 274,
+    "distance": 72,
     "districts": [
       {
         "name": "Thành phố Thủ Dầu Một",
@@ -64197,6 +64244,7 @@
     "codename": "tinh_dong_nai",
     "division_type": "tỉnh",
     "phone_code": 251,
+    "distance": 93,
     "districts": [
       {
         "name": "Thành phố Biên Hòa",
@@ -65495,6 +65543,7 @@
     "codename": "tinh_ba_ria_vung_tau",
     "division_type": "tỉnh",
     "phone_code": 254,
+    "distance": 96,
     "districts": [
       {
         "name": "Thành phố Vũng Tàu",
@@ -66149,6 +66198,7 @@
     "codename": "thanh_pho_ho_chi_minh",
     "division_type": "thành phố trung ương",
     "phone_code": 28,
+    "distance": 0,
     "districts": [
       {
         "name": "Quận 1",
@@ -68540,6 +68590,7 @@
     "codename": "tinh_long_an",
     "division_type": "tỉnh",
     "phone_code": 272,
+    "distance": 34,
     "districts": [
       {
         "name": "Thành phố Tân An",
@@ -70000,6 +70051,7 @@
     "codename": "tinh_tien_giang",
     "division_type": "tỉnh",
     "phone_code": 273,
+    "distance": 63,
     "districts": [
       {
         "name": "Thành phố Mỹ Tho",
@@ -71312,6 +71364,7 @@
     "codename": "tinh_ben_tre",
     "division_type": "tỉnh",
     "phone_code": 275,
+    "distance": 86,
     "districts": [
       {
         "name": "Thành phố Bến Tre",
@@ -72501,6 +72554,7 @@
     "codename": "tinh_tra_vinh",
     "division_type": "tỉnh",
     "phone_code": 294,
+    "distance": 126,
     "districts": [
       {
         "name": "Thành phố Trà Vinh",
@@ -73333,6 +73387,7 @@
     "codename": "tinh_vinh_long",
     "division_type": "tỉnh",
     "phone_code": 270,
+    "distance": 137,
     "districts": [
       {
         "name": "Thành phố Vĩnh Long",
@@ -74163,6 +74218,7 @@
     "codename": "tinh_dong_thap",
     "division_type": "tỉnh",
     "phone_code": 277,
+    "distance": 140,
     "districts": [
       {
         "name": "Thành phố Cao Lãnh",
@@ -75281,6 +75337,7 @@
     "codename": "tinh_an_giang",
     "division_type": "tỉnh",
     "phone_code": 296,
+    "distance": 239,
     "districts": [
       {
         "name": "Thành phố Long Xuyên",
@@ -76481,6 +76538,7 @@
     "codename": "tinh_kien_giang",
     "division_type": "tỉnh",
     "phone_code": 297,
+    "distance": 252,
     "districts": [
       {
         "name": "Thành phố Rạch Giá",
@@ -77633,6 +77691,7 @@
     "codename": "thanh_pho_can_tho",
     "division_type": "thành phố trung ương",
     "phone_code": 292,
+    "distance": 170,
     "districts": [
       {
         "name": "Quận Ninh Kiều",
@@ -78304,6 +78363,7 @@
     "codename": "tinh_hau_giang",
     "division_type": "tỉnh",
     "phone_code": 293,
+    "distance": 200,
     "districts": [
       {
         "name": "Thành phố Vị Thanh",
@@ -78910,6 +78970,7 @@
     "codename": "tinh_soc_trang",
     "division_type": "tỉnh",
     "phone_code": 299,
+    "distance": 221,
     "districts": [
       {
         "name": "Thành phố Sóc Trăng",
@@ -79781,6 +79842,7 @@
     "codename": "tinh_bac_lieu",
     "division_type": "tỉnh",
     "phone_code": 291,
+    "distance": 266,
     "districts": [
       {
         "name": "Thành phố Bạc Liêu",
@@ -80297,7 +80359,7 @@
   },
   {
     "name": "Tỉnh Cà Mau",
-    "code": 96,
+    "code": 309,
     "codename": "tinh_ca_mau",
     "division_type": "tỉnh",
     "phone_code": 290,

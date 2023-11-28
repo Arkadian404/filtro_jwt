@@ -17,11 +17,6 @@ import {Router} from "@angular/router";
 import {OrderDto} from "../../../../shared/dto/order-dto";
 import {ShippingMethodDto} from "../../../../shared/dto/shipping-method-dto";
 
-interface shippingMethod{
-  name:string,
-  fee:number
-}
-
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
