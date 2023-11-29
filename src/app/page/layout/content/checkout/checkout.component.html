@@ -60,7 +60,7 @@
                                 <mat-label>Thành phố/Tỉnh</mat-label>
                                 <mat-select (selectionChange)="onProvinceChange($event)" formControlName="province">
                                   <mat-option>Chọn thành phố/Tỉnh</mat-option>
-                                  <mat-option  *ngFor="let p of provinces" [value]="p.name" >{{p.name}}</mat-option  >
+                                  <mat-option *ngFor="let p of provinces" [value]="p.name" >{{p.name}}</mat-option  >
                                 </mat-select>
                               </mat-form-field>
                             </div>
@@ -102,19 +102,20 @@
                           <div class="row">
                             <div class="col-12">
                               <h3>Phương thức vận chuyển</h3>
+                              <p>Phí vận chuyển: <b>{{this.shippingFee | currencyVND}}</b></p>
                             </div>
                             <div class="row">
                               <div class="col-12">
                                 <mat-radio-group (change)="onShippingChange($event)" formControlName="shippingMethod" class="radio-group" aria-label="Select an option">
-                                  <div class="card border">
-                                    <ul class="list-group list-group-flush align-items-start">
-                                      <li class="list-group-item" *ngFor="let s of shippingMethods; let i = index">
-                                        <mat-radio-button class="radio-button" [value]="s"> {{s.name + ' ('+ s.duration +')'}}
-                                          <span class="text-muted ms-5">{{s.fee | currencyVND}}</span>
-                                        </mat-radio-button>
+                                    <ul class="list-group list-group-flush align-items-center">
+                                      <div class="">
+                                      <li class="list-group-item d-flex" *ngFor="let s of shippingMethods; let i = index">
+                                        <mat-radio-button class="pe-3" [value]="s"> {{s.name + ' ('+ s.duration +')'}}</mat-radio-button>
+                                        <span class="text-muted align-self-center ms-auto">+{{s.surcharge | currencyVND}}</span>
                                       </li>
+                                      </div>
+
                                     </ul>
-                                  </div>
                                 </mat-radio-group>
                               </div>
                               <div class="col-12"></div>
@@ -126,24 +127,25 @@
                             </div>
                             <div class="row">
                               <div class="col-12">
-                                <mat-radio-group (change)="onPaymentChange($event)" formControlName="paymentMethod" class="radio-group" aria-label="Select an option">
-                                  <div class="card border">
+                                <mat-radio-group (change)="onPaymentChange($event)" formControlName="paymentMethod"  aria-label="Select an option">
                                     <ul class="list-group list-group-flush align-items-start">
-                                      <li class="list-group-item">
-                                        <mat-radio-button class="radio-button" value="COD">Thanh toán khi nhận hàng (COD)</mat-radio-button>
-                                        <img class="ms-2 img-fluid" src="assets/images/cash.png" height="40px" width="40px" alt="">
-                                      </li>
-                                      <li class="list-group-item">
-                                        <mat-radio-button class="radio-button" value="MOMO">Thanh toán qua ví điện tử Momo</mat-radio-button>
-                                        <img class="ms-2 img-fluid" src="assets/images/momo.png" height="40px" width="40px" alt="">
-                                      </li>
-                                      <li class="list-group-item">
-                                        <mat-radio-button class="radio-button" value="VNPAY">Thanh toán qua cổng điện tử VNPAY</mat-radio-button>
-                                        <img class="ms-2 img-fluid" src="assets/images/vnpay.png" height="40px" width="40px" alt="">
-                                      </li>
+                                      <div >
+                                        <li class="list-group-item d-flex">
+                                          <mat-radio-button class="radio-button" value="COD">Thanh toán khi nhận hàng (COD)</mat-radio-button>
+                                          <img class="ms-auto" src="assets/images/cash.png" height="40px" width="40px" alt="">
+                                        </li>
+                                        <li class="list-group-item d-flex">
+                                          <mat-radio-button class="radio-button" value="MOMO">Thanh toán qua ví điện tử Momo</mat-radio-button>
+                                          <img class="ms-auto" src="assets/images/momo.png" height="40px" width="40px" alt="">
+                                        </li>
+                                        <li class="list-group-item d-flex">
+                                          <mat-radio-button class="radio-button" value="VNPAY">Thanh toán qua cổng điện tử VNPAY</mat-radio-button>
+                                          <img class="ms-auto" src="assets/images/vnpay.png" height="40px" width="40px" alt="">
+                                        </li>
+                                      </div>
                                     </ul>
-                                  </div>
                                 </mat-radio-group>
+
                               </div>
                               <div class="col-12"></div>
                             </div>
@@ -248,7 +250,7 @@
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">{{this.selectedShipping?.fee == null ? '-' : this.selectedShipping.fee | currencyVND}}</h4>
+                    <h4 class="mb-0">{{this.shippingFee + this.selectedShipping?.surcharge == null ? '-' : this.shippingFee + this.selectedShipping?.surcharge | currencyVND}}</h4>
                   </div>
                   <span class="text-muted">Chi phí vận chuyển</span>
                 </li>
@@ -272,7 +274,7 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h3 class="mb-0"><strong>{{(cart.total + selectedShipping?.fee?? 0) | currencyVND}}</strong></h3>
+                    <h3 class="mb-0"><strong>{{(cart.total + this.shippingFee + this.selectedShipping?.surcharge?? 0) | currencyVND}}</strong></h3>
                   </div>
                   <h3 class="mb-0 d-inline-block">Tổng cộng</h3>
                 </li>

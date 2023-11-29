@@ -6,15 +6,42 @@ import {AdminCategoryDialogComponent} from "../../admin-category/admin-category-
 import {OrderService} from "../../../../../service/order.service";
 import {OrderDetail} from "../../../../../shared/models/order-detail";
 
+interface status{
+  value: any ;
+  viewValue: any;
+}
+
 @Component({
   selector: 'app-admin-order-dialog',
   templateUrl: './admin-order-dialog.component.html',
   styleUrls: ['./admin-order-dialog.component.scss']
 })
+
 export class AdminOrderDialogComponent {
   form:FormGroup<any>;
   orderDetails: OrderDetail[] = [];
-  status =['PENDING', 'PAID_MOMO', 'PAID_VNPAY', 'CONFIRMED', 'CANCELLED', 'FAILED'];
+  status: status[] =[{
+    value: 'PENDING',
+    viewValue: 'Đang chờ xử lý'
+  },{
+    value: 'PAID_MOMO',
+    viewValue: 'Đã thanh toán qua Momo'
+  },{
+    value: 'PAID_VNAPAY',
+    viewValue: 'Đã thanh toán qua VNPay'
+  },{
+    value: 'COD',
+    viewValue: 'Toán khi sau khi nhận hàng'
+  },{
+    value: 'CONFIRMED',
+    viewValue: 'Xác nhận đơn hàng'
+  },{
+    value: 'CANCELED',
+    viewValue: 'Đã hủy'
+  },{
+    value: 'FAILED',
+    viewValue: 'Thanh toán thất bại'
+  }];
 
   constructor(private formBuilder:FormBuilder,
               private orderService:OrderService,

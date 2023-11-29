@@ -67,6 +67,7 @@ import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-br
 import { AdminOrderComponent } from './layout/content/admin-order/admin-order.component';
 import { AdminOrderDialogComponent } from './layout/content/admin-order/admin-order-dialog/admin-order-dialog.component';
 import {PageModule} from "../page/page.module";
+import { OrderStatusConvertPipe } from './pipe/order-status-convert.pipe';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -107,6 +108,7 @@ import {PageModule} from "../page/page.module";
     AdminBrandDialogComponent,
     AdminOrderComponent,
     AdminOrderDialogComponent,
+    OrderStatusConvertPipe,
 
   ],
   exports: [

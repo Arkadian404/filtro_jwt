@@ -710,5 +710,6 @@ export class Province {
   division_type:string;
   name:string;
   phone_code:number;
+  distance:number;
 }
 

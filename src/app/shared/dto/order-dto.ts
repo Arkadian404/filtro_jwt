@@ -15,6 +15,7 @@ export interface OrderDto{
   paymentMethod?: string;
   notes?: string;
   shippingMethod?:ShippingMethodDto
+  shippingFee?: number;
   total?: number;
   orderDate?: Date;
   status?: string;

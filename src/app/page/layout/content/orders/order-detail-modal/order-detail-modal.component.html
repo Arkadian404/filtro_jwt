@@ -112,7 +112,7 @@
                   <tbody>
                   <tr>
                     <td>Tạm tính</td>
-                    <td class="text-end">{{(data.total - data.shippingMethod?.fee )| currencyVND}}</td>
+                    <td class="text-end">{{(data.total - data.shippingFee??0 )| currencyVND}}</td>
                   </tr>
 <!--                  <tr>-->
 <!--                    <td>Estimated Tax (12.5%)</td>-->
@@ -126,7 +126,7 @@
                   </tr>
                   <tr>
                     <td>Phí vận chuyển</td>
-                    <td class="text-end">{{data.shippingMethod?.fee | currencyVND}}</td>
+                    <td class="text-end">{{data.shippingFee??0 | currencyVND}}</td>
                   </tr>
                   <tr class="border-top border-top-dashed fs-15">
                     <th scope="row">Tổng tiền</th>
@@ -144,7 +144,7 @@
               </div>
               <div class="mt-4">
                 <div class="alert alert-info">
-                  <p class="mb-0"><span class="fw-semibold">NOTES:</span>
+                  <p class="mb-0"><span class="fw-semibold">NOTES: </span>
                     <span id="note">Thông tin về đơn hàng và ngày giao hàng sẽ được gửi thông qua email của bạn. Việc giao hàng có thể chậm trễ hoặc sớm hơn so với ngày dự kiến, bạn vui lòng không tắt điện thoại trong ngày nhận hàng và chuẩn bị đầy đủ tiền mặt nếu như thực hiện đặt hàng bằng COD</span>
                   </p>
                 </div>

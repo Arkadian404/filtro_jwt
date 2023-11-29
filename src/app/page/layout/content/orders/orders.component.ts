@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from "../../../../service/order.service";
 import {OrderDto} from "../../../../shared/dto/order-dto";
 import {TokenService} from "../../../../service/token.service";
@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ComponentType, Overlay} from "@angular/cdk/overlay";
 import {DialogService} from "../../../../admin/layout/content/reusable/dialog.service";
 import {OrderDetailModalComponent} from "./order-detail-modal/order-detail-modal.component";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-orders',
@@ -19,6 +20,7 @@ import {OrderDetailModalComponent} from "./order-detail-modal/order-detail-modal
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit{
+  isLoading = true;
   orders:OrderDto[] = [];
   user:UserDto;
   displayedColumns: string[] = ['orderCode', 'fullName', 'orderDate', 'total', 'status', 'action'];
@@ -34,19 +36,19 @@ export class OrdersComponent implements OnInit{
               private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.getUserOrders();
-
   }
 
   getUserOrders(){
     this.authenticationService.currentUserAccess().subscribe(user => {
       this.user = user;
       this.orderService.getAllOrderByUserId(this.user?.id).subscribe(orders=>{
+        this.orders = orders;
         this.dataSource = new MatTableDataSource(orders);
-        this.sort.sort(({id: 'orderDate', start:'desc'}) as MatSortable)
+        this.sort.sort(({id: 'orderDate', start: 'desc', disableClear: false}));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log(orders)
-      })
+      });
+        this.isLoading = false;
     })
   }
 
@@ -64,5 +66,6 @@ export class OrdersComponent implements OnInit{
   openOrderDetailsDialog(data:OrderDto){
     this.openDialog(OrderDetailModalComponent, data);
   }
+
 
 }

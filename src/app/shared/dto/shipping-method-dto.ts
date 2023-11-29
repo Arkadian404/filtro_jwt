@@ -1,6 +1,6 @@
 export interface ShippingMethodDto {
     id?: number;
     name?: string;
-    fee?: number;
+    surcharge?: number;
     duration?: number;
 }

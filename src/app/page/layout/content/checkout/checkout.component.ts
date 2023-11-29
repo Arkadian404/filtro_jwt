@@ -31,13 +31,37 @@ export class CheckoutComponent implements OnInit{
   cartItems: CartItemDto[] =[];
   order:OrderDto;
   selectedShipping:ShippingMethodDto;
-  shippingMethods:ShippingMethodDto[] = [];
   selectedPaymentMethod = "";
+  selectedProvince:Province;
+  shippingMethods:ShippingMethodDto[] = [];
+  shippingFee = 0;
   user:UserDto;
   dataJson = data;
   provinces: Province[];
   districts: District[];
   wards: Ward[];
+
+
+  baseFees = [{
+    weight: 100,
+    fees: [8000, 12000, 13000, 14000]
+  },{
+    weight: 250,
+    fees: [10000, 16000, 18000, 23000]
+  },{
+    weight: 500,
+    fees: [12000, 23000, 25000, 30000]
+  },{
+    weight: 1000,
+    fees: [16000, 33000, 35000, 44000]
+  },{
+    weight: 1500,
+    fees: [19000, 40000, 42000, 57000]
+  },{
+    weight: 2000,
+    fees: [22000, 47000, 49000, 70000]
+  }]
+
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private tokenService:TokenService,
@@ -73,11 +97,64 @@ export class CheckoutComponent implements OnInit{
       notes: '',
       paymentMethod: ['', Validators.required],
       shippingMethod:'',
+      shippingFee: '',
       total: '',
     });
     this.getShippingMethods();
     this.getUser();
-    this.getCartItems();
+  }
+
+  getFeeIndex(province:Province){
+    if(province.distance == 0){
+      return 0;
+    }else if(province.distance <= 100){
+      return 1;
+    }else if(province.distance <= 300){
+      return 2;
+    }else{
+      return 3;
+    }
+  }
+
+  baseShippingFee(province:Province, weight:number) {
+    let standard:any;
+    if(weight <= 2000){
+       standard = this.baseFees.find(f => weight <= f.weight);
+    }else{
+       standard = this.baseFees.find(f => f.weight == 2000);
+    }
+    const index = this.getFeeIndex(province);
+    return standard?.fees[index];
+  }
+
+  calculateShippingFee(province:Province, weight:number){
+    console.log('weight: '+weight);
+
+    let tempWeight = 0;
+    if(weight > 2000){
+      tempWeight = weight;
+    }
+    if(province!=null){
+      let shippingFee = this.baseShippingFee(province, tempWeight);
+      console.log('calc: '+shippingFee);
+      const surplusWeight = Math.floor((weight - 2000) / 500);
+      if(surplusWeight > 0){
+        let extraFee = 0;
+        if(province.distance == 0){
+          extraFee = 2000 * surplusWeight;
+        }else if( province.distance <= 100){
+          extraFee = 4000 * surplusWeight;
+        }else if(province.distance <= 300){
+          extraFee = 5000 * surplusWeight;
+        }else{
+          extraFee = 9000 * surplusWeight;
+        }
+        shippingFee += extraFee;
+      }
+      return shippingFee;
+    }else{
+      return 0;
+    }
   }
 
   getShippingMethods(){
@@ -94,7 +171,13 @@ export class CheckoutComponent implements OnInit{
   }
 
   onProvinceChange(event: any) {
+    console.log(this.cartItems);
     const province = event.source._value;
+    this.selectedProvince = this.provinces.find(p => p.name === province);
+    this.shippingFee = this.calculateShippingFee(this.selectedProvince, this.cartItems.reduce((sum, item)=> sum+ item.productDetail.weight * item.quantity, 0));
+    console.log(this.selectedProvince);
+    console.log(this.cartItems.reduce((sum, item)=> sum+ item.productDetail.weight * item.quantity, 0));
+    console.log(this.shippingFee);
     console.log(province);
     this.districts = this.provinces.find(p => p.name === province)?.districts || []
   }
@@ -126,25 +209,21 @@ export class CheckoutComponent implements OnInit{
               district: data.district,
               ward: data.ward,
             });
-            this.onProvinceChange({source: {_value: data.province}});
-            this.onDistrictChange({source: {_value: data.district}});
-            this.onWardChange({source: {_value: data.ward}});
+            this.cartItemService.getCart(data.username).subscribe(cart=>{
+              this.cart = cart;
+              this.cartItemService.getCartItems(this.cart.id).subscribe(cartItems=>{
+                this.cartItems = cartItems;
+                this.isLoading = false;
+                this.onProvinceChange({source: {_value: data.province}});
+                this.onDistrictChange({source: {_value: data.district}});
+                this.onWardChange({source: {_value: data.ward}});
+              })
+            })
           }
         },
         error:err=>{console.log(err)}
       }
     );
-  }
-
-  getCartItems(){
-    this.cartItemService.getCart(this.tokenService.getUsername()).subscribe(cart=>{
-      this.cart = cart;
-      this.cartItemService.getCartItems(this.cart.id).subscribe(cartItems=>{
-          this.cartItems = cartItems;
-          this.isLoading = false;
-          console.log(this.cartItems);
-      })
-    })
   }
 
 
@@ -173,7 +252,8 @@ export class CheckoutComponent implements OnInit{
         notes: this.infoForm.value.notes,
         paymentMethod: this.selectedPaymentMethod,
         shippingMethod: this.selectedShipping,
-        total: this.cart.total + this.selectedShipping.fee,
+        shippingFee: this.shippingFee + this.selectedShipping.surcharge,
+        total: this.cart.total + this.shippingFee,
       });
       console.log(this.orderForm.value);
       this.orderService.placeOrder(this.orderForm.value).subscribe({

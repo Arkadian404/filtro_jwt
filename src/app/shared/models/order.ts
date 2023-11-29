@@ -16,6 +16,7 @@ export interface Order{
   ward?: string;
   paymentMethod?: string;
   shippingMethod?:ShippingMethod
+  shippingFee?: number;
   notes?: string;
   total?: number;
   orderDate?: Date;
