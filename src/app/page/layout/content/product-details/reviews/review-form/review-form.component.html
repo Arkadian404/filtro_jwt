@@ -1,13 +1,23 @@
 <div class="container pt-3">
   <form [formGroup]="form" (ngSubmit)="onReviewForm()">
-    <div class="rating">
+    <div class="rating mb-3">
       <div *ngIf="submitLabel!=='Reply' && submitLabel!=='Edit'" class="d-flex align-items-end pb-2">
         <span>Đánh giá của bạn về sản phẩm: </span>
         <p-rating [cancel]="false" formControlName="rating"></p-rating>
       </div>
-      <textarea formControlName="comment"></textarea>
     </div>
-    <button type="submit" [disabled]="form.invalid">{{submitLabel}}</button>
-    <button *ngIf="hasCancelButton" type="button" (click)="onCancelForm()">Cancel</button>
+    <div class="mb-3">
+      <textarea class="form-control" placeholder="Điền thông tin đánh giá của bạn" rows="4" formControlName="comment"></textarea>
+    </div>
+    <div class="text-end">
+      <button class="me-3" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{submitLabel}}
+        <mat-icon fontIcon="keyboard_double_arrow_right"></mat-icon>
+      </button>
+      <button mat-raised-button color="warn" *ngIf="hasCancelButton" type="button" (click)="onCancelForm()">
+        Hủy
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
+    </div>
   </form>
 </div>

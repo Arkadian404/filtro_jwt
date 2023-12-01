@@ -15,14 +15,7 @@
               <i class="fas fa-star-half-alt text-warning"></i>
               <i class="far fa-star text-warning"></i>
             </div>
-            <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Review your product now</button>
-            <app-review-form *ngIf="isReview()"
-              submitLabel="Write"
-              [hasCancelButton]="true"
-              (onCancel)="handleActiveReview(null)"
-              (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"
-            >
-            </app-review-form>
+            <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
           </div>
           <div class="col-sm-6">
             <div class="d-flex align-items-center">
@@ -69,6 +62,15 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-sm-12">
+            <app-review-form *ngIf="isReview()"
+                             submitLabel="Gửi"
+                             [hasCancelButton]="true"
+                             (onCancel)="handleActiveReview(null)"
+                             (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"
+            >
+            </app-review-form>
           </div>
         </div>
       </div>

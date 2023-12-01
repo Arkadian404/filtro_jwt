@@ -22,15 +22,24 @@
                          (onCancel)="onActiveEdit(null)"
                          (onReviewSubmitForm)="onSubmitEditReview({content: $event, reviewId: review.id})">
         </app-review-form>
-        <div class="d-flex">
-          <div *ngIf="canReply" (click)="onActiveReply({id: review.id, type: activeReviewTypeEnum.replying})">Reply</div>
-          <div *ngIf="canEdit" (click)="onActiveEdit({id: review.id, type: activeReviewTypeEnum.editing})">Edit</div>
-          <div *ngIf="canDelete">Delete</div>
+        <div class="d-flex my-3">
+          <button class="me-3" mat-raised-button color="primary" *ngIf="canReply" (click)="onActiveReply({id: review.id, type: activeReviewTypeEnum.replying})">
+            Phản hồi
+            <mat-icon fontIcon="chat"></mat-icon>
+          </button>
+          <button class="me-3" mat-raised-button color="accent" *ngIf="canEdit" (click)="onActiveEdit({id: review.id, type: activeReviewTypeEnum.editing})">
+            Sửa
+            <mat-icon fontIcon="edit"></mat-icon>
+          </button>
+          <button mat-raised-button color="warn" *ngIf="canDelete">
+            Xóa
+            <mat-icon  fontIcon="close"></mat-icon>
+          </button>
         </div>
         <app-review-form *ngIf="isReplying()"
                          submitLabel="Reply"
                           [hasCancelButton]="true"
-                          (onCancel)="onActiveReply(null)"
+                         (onCancel)="onActiveReply(null)"
                          (onReviewSubmitForm)="onSubmitReplyReview({content: $event, parentId: replyId})"></app-review-form>
         <div class="replies" *ngIf="replies.length > 0">
           <app-review *ngFor="let rp of replies"
