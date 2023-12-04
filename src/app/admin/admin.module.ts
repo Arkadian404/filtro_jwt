@@ -68,6 +68,7 @@ import { AdminOrderComponent } from './layout/content/admin-order/admin-order.co
 import { AdminOrderDialogComponent } from './layout/content/admin-order/admin-order-dialog/admin-order-dialog.component';
 import {PageModule} from "../page/page.module";
 import { OrderStatusConvertPipe } from './pipe/order-status-convert.pipe';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -113,38 +114,39 @@ import { OrderStatusConvertPipe } from './pipe/order-status-convert.pipe';
   ],
   exports: [
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AdminRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    FontAwesomeModule,
-    ChartModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    CdkMenuTrigger,
-    MatTreeModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgOptimizedImage,
-    MatCardModule,
-    MatTabsModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule,
+        AdminRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        FontAwesomeModule,
+        ChartModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatMenuModule,
+        CdkMenuTrigger,
+        MatTreeModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgOptimizedImage,
+        MatCardModule,
+        MatTabsModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class AdminModule { }

@@ -64,7 +64,6 @@ export class CheckoutComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private tokenService:TokenService,
               private cartItemService:CartItemService,
               private orderService:OrderService,
               private router:Router){
@@ -128,13 +127,15 @@ export class CheckoutComponent implements OnInit{
   }
 
   calculateShippingFee(province:Province, weight:number){
-    console.log('weight: '+weight);
-
-    let tempWeight = 0;
-    if(weight > 2000){
-      tempWeight = weight;
+    if(!province){
+      return 0;
     }
-    if(province!=null){
+    console.log('weight: '+weight);
+    let tempWeight = 0;
+    if(weight < 2000){
+      tempWeight = weight;
+      return this.baseShippingFee(province, tempWeight);
+    }else{
       let shippingFee = this.baseShippingFee(province, tempWeight);
       console.log('calc: '+shippingFee);
       const surplusWeight = Math.floor((weight - 2000) / 500);
@@ -152,9 +153,8 @@ export class CheckoutComponent implements OnInit{
         shippingFee += extraFee;
       }
       return shippingFee;
-    }else{
-      return 0;
     }
+
   }
 
   getShippingMethods(){

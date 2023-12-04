@@ -76,6 +76,72 @@
           <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
         </div>
       </form>
+      <div *ngIf="isLoading" class="loading">
+        <mat-spinner color="primary"></mat-spinner>
+      </div>
     </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div hidden="hidden" #orderMail>
+  <table  cellspacing="0" align="center" style="width:100%;max-width:700px;border-radius:2px;border-spacing:0px;margin-left:auto;margin-right:auto;background:#fff;border:1px solid #dddddd" bgcolor="#FFF">
+    <tbody>
+    <tr>
+      <td style="padding:15px;text-align:center;background-color:#fff">
+        <a href="https://shopvnb.com" target="_blank" previewlistener="true">
+          <img style="max-height:125px" src="https://i.postimg.cc/v8rFPrft/filtro-coffee.png" data-bit="iit">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left;color:#666;font-size:15px;line-height:26px;padding:25px">
+        Xin chào {{data.user.username}}<br><br>
+        Cảm ơn bạn đã đặt hàng ở FiltroCoffee, đơn hàng của bạn đã được xác nhận và sớm sẽ được chuyển cho đơn vị vận chuyển. <br><br>
+        <b>Họ tên:</b> {{data.fullName}}<br><br>
+        <b>Số điện thoại</b> {{data.phone}}<br><br>
+        <b>Địa chỉ:</b> {{data.address + ', '+ data.ward+ ', '+ data.district+ ', '+ data.province}}.<br>
+        <table style="margin-top: 12px;" border="1">
+          <tbody>
+          <tr>
+            <td>Tên sản phẩm</td>
+            <td>Đơn vị</td>
+            <td>Số lượng</td>
+          </tr>
+          <tr *ngFor="let od of orderDetails">
+            <td>{{od.productDetail.product?.name}}</td>
+            <td>{{od.productDetail.weight}}</td>
+            <td>{{od.quantity}}</td>
+          </tr>
+          <tr>
+            <td colspan="2"><b>Tổng cộng: </b></td><td><b>{{getOrderQuantity(orderDetails)}}</b></td>
+          </tr>
+          </tbody>
+        </table>
+        <p>Xem chi tiết đơn hàng tại website
+          <a href="http://localhost:4200/orders" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://shopvnb.com/thanh-vien/xem-don-hang?ma_dh%3D2023011653147&amp;source=gmail&amp;ust=1701675216808000&amp;usg=AOvVaw3qDZvIxsdi0kn1pNn3WIUr" previewlistener="true">http://localhost:4200/orders</a>
+        </p>
+        <p>*Lưu ý nhỏ cho bạn: Đơn hàng sẽ được gọi để xác nhận trước khi giao. Phí ship và thời gian nhận hàng sẽ được thông báo cụ thể lúc xác nhận đơn hàng.</p>
+        <p>***Đây là email tự động. Vui lòng không trả lời vào email này</p>
+      </td>
+    </tr>
+    <tr>
+      <td><hr></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;color:#666;font-size:15px;line-height:26px;padding:0 25px 25px 25px">----------</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;color:#666;font-size:15px;line-height:26px;padding:0 25px 25px 25px">Filtro Coffee</td>
+    </tr>
+    </tbody>
+  </table>
+
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ReviewService} from "../../../../../service/review.service";
 import {ReviewDto} from "../../../../../shared/dto/review-dto";
 import {UserDto} from "../../../../../shared/dto/user-dto";
@@ -6,13 +6,14 @@ import {ProductDto} from "../../../../../shared/dto/product-dto";
 import {ActiveReview} from "../../../../../shared/utils/active-review";
 import {map} from "rxjs";
 import {ActiveReviewTypeEnum} from "../../../../../shared/utils/active-review-type-enum";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.scss']
 })
-export class ReviewsComponent implements OnInit{
+export class ReviewsComponent implements OnInit, OnChanges{
   @Input() user:UserDto;
   @Input() product:ProductDto;
   canReview = true;
@@ -21,13 +22,20 @@ export class ReviewsComponent implements OnInit{
   activeReview: ActiveReview | null = null;
   activeReviewTypeEnum = ActiveReviewTypeEnum;
 
-  constructor(private reviewService:ReviewService) {
+  constructor(private reviewService:ReviewService,
+              private route:ActivatedRoute) {
   }
 
 
   ngOnInit(){
     this.canReview = !!this.user;
     this.getAllReviewsByProductId(this.product?.id);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.product){
+      this.getAllReviewsByProductId(this.product?.id);
+    }
   }
 
   getAllReviewsByProductId(id:number){
