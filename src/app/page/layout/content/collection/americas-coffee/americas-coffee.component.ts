@@ -29,6 +29,11 @@ import {WishlistItemDto} from "../../../../../shared/dto/wishlist-item-dto";
 })
 export class AmericasCoffeeComponent implements OnInit{
   title = "Khu vực Châu Mỹ"
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page:Page;
@@ -485,5 +490,8 @@ export class AmericasCoffeeComponent implements OnInit{
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 
 }

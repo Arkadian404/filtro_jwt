@@ -13,6 +13,8 @@ import {ComponentType, Overlay} from "@angular/cdk/overlay";
 import {DialogService} from "../../../../admin/layout/content/reusable/dialog.service";
 import {OrderDetailModalComponent} from "./order-detail-modal/order-detail-modal.component";
 import {user} from "@angular/fire/auth";
+import {Order} from "../../../../shared/models/order";
+import {UtilService} from "../../../../service/util.service";
 
 @Component({
   selector: 'app-orders',
@@ -32,7 +34,8 @@ export class OrdersComponent implements OnInit{
 
   constructor(private orderService:OrderService,
               private dialog:MatDialog,
-              private overlay:Overlay,
+              private dialogService:DialogService,
+              private utilService: UtilService,
               private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.getUserOrders();
@@ -67,5 +70,26 @@ export class OrdersComponent implements OnInit{
     this.openDialog(OrderDetailModalComponent, data);
   }
 
+
+  cancelOrder(id:number){
+    this.orderService.cancelOrder(id).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.getUserOrders();
+      },
+      error:err=>{
+        console.log(err)
+      }
+    })
+  }
+
+  openCancelDialog(data:Order){
+    this.dialogService.confirmDialog().subscribe(res=>{
+      if(data.id !=null){
+        this.cancelOrder(data.id);
+      }
+      console.log(data);
+    })
+  }
 
 }

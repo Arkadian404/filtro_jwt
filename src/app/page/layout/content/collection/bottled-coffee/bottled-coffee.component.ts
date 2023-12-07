@@ -28,7 +28,12 @@ import {WishlistItemDto} from "../../../../../shared/dto/wishlist-item-dto";
   styleUrls: ['../collection.component.scss']
 })
 export class BottledCoffeeComponent implements OnInit{
-  title = "Cà phê đóng chai"
+  title = "Cà phê đóng chai";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page:Page;
@@ -466,5 +471,8 @@ export class BottledCoffeeComponent implements OnInit{
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 
 }

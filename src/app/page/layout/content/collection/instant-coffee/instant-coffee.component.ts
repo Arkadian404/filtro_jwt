@@ -29,6 +29,11 @@ import {WishlistItemDto} from "../../../../../shared/dto/wishlist-item-dto";
 })
 export class InstantCoffeeComponent implements OnInit{
   title = "Cà phê bột";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page:Page;
@@ -464,6 +469,10 @@ export class InstantCoffeeComponent implements OnInit{
 
   checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
     return !!isWishlist.find(item => item.id === product.id);
+  }
+
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
   }
 
 }

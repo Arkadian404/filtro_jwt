@@ -28,7 +28,12 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
   styleUrls: ['../collection.component.scss']
 })
 export class LimitedCoffeeComponent implements OnInit {
-  title = "Cà phê giới hạn"
+  title = "Cà phê giới hạn";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page: Page;
@@ -442,9 +447,6 @@ export class LimitedCoffeeComponent implements OnInit {
 
   deleteFromWishlist(productId:number){
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
-    console.log(wishlistItem);
-    console.log(productId);
-    console.log(this.wishlistItems);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, "Đóng");
@@ -488,4 +490,7 @@ export class LimitedCoffeeComponent implements OnInit {
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 }

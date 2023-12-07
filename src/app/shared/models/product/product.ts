@@ -10,6 +10,7 @@ export interface Product{
   id?:number;
   name:string;//
   brand:Brand;//
+  rating:number,
   description:string;//
   sold:number;
   createdAt:Date;

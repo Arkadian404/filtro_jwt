@@ -120,4 +120,14 @@ export class OrderService {
         })
       );
   }
+
+  cancelOrder(id:number){
+    return this.http.post<SuccessMessage>(`${Order_API}/cancelOrder/${id}`, {})
+      .pipe(
+        catchError(err=>{
+          console.log('Error handled by Service...' + err.status);
+          return throwError(()=>new Error(err.message))
+        })
+      );
+  }
 }

@@ -29,6 +29,11 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
 })
 export class BestSellerComponent implements OnInit {
   title = "Sản phẩm bán chạy"
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page: Page;
@@ -487,4 +492,7 @@ export class BestSellerComponent implements OnInit {
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 }

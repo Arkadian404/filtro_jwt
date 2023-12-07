@@ -31,8 +31,10 @@ export class ReviewComponent implements OnInit{
 
   @Output() setActiveReviewReply = new EventEmitter<ActiveReview | null>();
   @Output() setActiveReviewEdit = new EventEmitter<ActiveReview | null>();
+  @Output() setActiveReviewDelete = new EventEmitter<any>();
   @Output() onReplyReview = new EventEmitter<any>();
   @Output() onEditReview = new EventEmitter<any>();
+  @Output() onDeleteReview = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit(): void {
@@ -61,6 +63,11 @@ export class ReviewComponent implements OnInit{
     this.setActiveReviewEdit.emit(edit);
   }
 
+  onActiveDelete(id:number){
+    this.setActiveReviewDelete.emit(id);
+    this.onDeleteReview.emit(id);
+  }
+
   onSubmitReplyReview({content, parentId}:{content:string, parentId:number}){
     this.onReplyReview.emit({content, parentId});
   }
@@ -69,6 +76,7 @@ export class ReviewComponent implements OnInit{
     console.log(content, reviewId);
     this.onEditReview.emit({content, reviewId});
   }
+
 
   isReplying(){
     if(!this.activeReview){

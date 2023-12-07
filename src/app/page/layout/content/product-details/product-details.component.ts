@@ -310,4 +310,8 @@ export class ProductDetailsComponent implements OnInit{
   checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
     return !!isWishlist.find(item => item.id === product.id);
   }
+
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 }

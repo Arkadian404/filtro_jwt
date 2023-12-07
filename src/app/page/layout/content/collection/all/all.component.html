@@ -39,8 +39,18 @@
             </div>
             <div class="filter-container">
               <aside class="filter-type">
-                <div class="aside-top-title">Thương hiệu</div>
-                <div class="filter-group">
+                <div class="d-flex justify-content-between align-items-end">
+                  <div class="aside-top-title">Thương hiệu</div>
+                  <button (click)="isBrandClose = !isBrandClose"   mat-icon-button type="button" data-bs-toggle="collapse" data-bs-target="#coffeeBrand" aria-expanded="false" aria-controls="coffeeBrand">
+                    <ng-container *ngIf="isBrandClose;else isBrandOpen">
+                      <mat-icon fontIcon="add"></mat-icon>
+                    </ng-container>
+                    <ng-template #isBrandOpen>
+                      <mat-icon fontIcon="remove"></mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+                <div class="filter-group collapse" id="coffeeBrand">
                   <ul class="filter">
                     <li *ngFor="let b of brands">
                       <mat-checkbox (change)="onBrandChange($event)" color="accent" [value]="b.name">
@@ -51,8 +61,18 @@
                 </div>
               </aside>
               <aside class="filter-type mt-3">
-                <div class="aside-top-title">Loại cà phê</div>
-                <div class="filter-group">
+                <div class="d-flex justify-content-between align-items-end">
+                  <div class="aside-top-title">Loại cà phê</div>
+                  <button mat-icon-button (click)="isCategoryClose = !isCategoryClose" type="button" data-bs-toggle="collapse" data-bs-target="#coffeeType" aria-expanded="false" aria-controls="coffeeType">
+                    <ng-container *ngIf="isCategoryClose;else isCategoryOpen">
+                      <mat-icon fontIcon="add"></mat-icon>
+                    </ng-container>
+                    <ng-template #isCategoryOpen>
+                      <mat-icon fontIcon="remove"></mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+                <div class="filter-group collapse" id="coffeeType">
                   <ul class="filter">
                     <li *ngFor="let c of categories">
                       <mat-checkbox (change)="onCategoryChange($event)" color="accent" [value]="c.name">
@@ -63,8 +83,18 @@
                 </div>
               </aside>
               <aside class="filter-type mt-3">
-                <div class="aside-top-title">Hương vị</div>
-                <div class="filter-group">
+                <div class="d-flex justify-content-between align-items-end">
+                  <div class="aside-top-title">Hương vị</div>
+                  <button mat-icon-button (click)="isFlavorClose = !isFlavorClose" type="button" data-bs-toggle="collapse" data-bs-target="#coffeeFlavor" aria-expanded="false" aria-controls="coffeeFlavor">
+                    <ng-container *ngIf="isFlavorClose;else isFlavorOpen">
+                      <mat-icon fontIcon="add"></mat-icon>
+                    </ng-container>
+                    <ng-template #isFlavorOpen>
+                      <mat-icon fontIcon="remove"></mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+                <div class="filter-group collapse" id="coffeeFlavor">
                   <ul class="filter">
                     <li *ngFor="let f of flavors">
                       <mat-checkbox (change)="onFlavorChange($event)" color="accent" [value]="f.name">
@@ -75,8 +105,18 @@
                 </div>
               </aside>
               <aside class="filter-type mt-3">
-                <div class="aside-top-title">Xuất xứ</div>
-                <div class="filter-group">
+                <div class="d-flex justify-content-between align-items-end">
+                  <div class="aside-top-title">Xuất xứ</div>
+                  <button mat-icon-button (click)="isOriginClose = !isOriginClose" type="button" data-bs-toggle="collapse" data-bs-target="#coffeeOrigin" aria-expanded="false" aria-controls="coffeeOrigin">
+                    <ng-container *ngIf="isOriginClose;else isOriginOpen">
+                      <mat-icon fontIcon="add"></mat-icon>
+                    </ng-container>
+                    <ng-template #isOriginOpen>
+                      <mat-icon fontIcon="remove"></mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+                <div class="filter-group collapse" id="coffeeOrigin">
                   <ul class="filter">
                     <li *ngFor="let o of origins">
                       <mat-checkbox (change)="onOriginChange($event)" color="accent" [value]="o.name">
@@ -87,8 +127,18 @@
                 </div>
               </aside>
               <aside class="filter-type mt-3">
-                <div class="aside-top-title">Nhà cung cấp</div>
-                <div class="filter-group">
+                <div class="d-flex justify-content-between align-items-end">
+                  <div class="aside-top-title">Nhà cung cấp</div>
+                  <button mat-icon-button (click)="isVendorClose = ! isVendorClose" type="button" data-bs-toggle="collapse" data-bs-target="#coffeeVendor" aria-expanded="false" aria-controls="coffeeVendor">
+                    <ng-container *ngIf="isVendorClose;else isVendorOpen">
+                      <mat-icon fontIcon="add"></mat-icon>
+                    </ng-container>
+                    <ng-template #isVendorOpen>
+                      <mat-icon fontIcon="remove"></mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+                <div class="filter-group collapse" id="coffeeVendor">
                   <ul class="filter">
                     <li *ngFor="let v of vendors">
                       <mat-checkbox (change)="onVendorChange($event)" color="accent" [value]="v.name">
@@ -167,16 +217,28 @@
                       <a [routerLink]="['/product', p.slug]" class="product-name">{{p.name}}</a>
                       <div class="review-badge">
                         <div class="review-star">
-                          <i class="fa-regular fa-star star-off"></i>
-                          <i class="fa-regular fa-star star-off"></i>
-                          <i class="fa-regular fa-star star-off"></i>
-                          <i class="fa-regular fa-star star-off"></i>
-                          <i class="fa-regular fa-star star-off"></i>
+                          <ng-container *ngIf="p.rating > 0; else starsOff">
+                            <i *ngFor="let star of calcStars(p.rating)" class="fas fa-star text-warning star-off"></i>
+                            <i *ngFor="let star of calcStars(5-p.rating)" class="far fa-star text-warning star-off"></i>
+                          </ng-container>
+                          <ng-template #starsOff>
+                            <ng-container *ngIf="p.rating > 0; else starsOff">
+                              <i *ngFor="let star of calcStars(p.rating)" class="fas fa-star text-warning star-off"></i>
+                              <i *ngFor="let star of calcStars(5-p.rating)" class="far fa-star text-warning star-off"></i>
+                            </ng-container>
+                            <ng-template #starsOff>
+                              <i class="far fa-star text-warning star-off"></i>
+                              <i class="far fa-star text-warning star-off"></i>
+                              <i class="far fa-star text-warning star-off"></i>
+                              <i class="far fa-star text-warning star-off"></i>
+                              <i class="far fa-star text-warning star-off"></i>
+                            </ng-template>
+                          </ng-template>
                         </div>
                       </div>
                       <div class="product-price mt-2">
                         <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
-                        <span class="old-price">150000</span>
+                        <span class="old-price">{{p.productDetails[0].price*1.5 | currencyVND}}</span>
                       </div>
                     </div>
                     <button class="add-button" type="submit">Thêm vào giỏ</button>

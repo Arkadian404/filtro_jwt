@@ -29,6 +29,11 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
 })
 export class AfricaCoffeeComponent implements OnInit{
   title = "Khu vực Châu Phi"
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page:Page;
@@ -486,4 +491,7 @@ export class AfricaCoffeeComponent implements OnInit{
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 }

@@ -28,7 +28,12 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
   styleUrls: ['../collection.component.scss']
 })
 export class SpecialCoffeeComponent implements OnInit {
-  title = "Hộp quà tặng đặc biệt (Special Gift Box)"
+  title = "Hộp quà tặng đặc biệt (Special Gift Box)";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page: Page;
@@ -441,9 +446,6 @@ export class SpecialCoffeeComponent implements OnInit {
 
   deleteFromWishlist(productId:number){
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
-    console.log(wishlistItem);
-    console.log(productId);
-    console.log(this.wishlistItems);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, "Đóng");
@@ -485,6 +487,10 @@ export class SpecialCoffeeComponent implements OnInit {
 
   checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
     return !!isWishlist.find(item => item.id === product.id);
+  }
+
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
   }
 
 }

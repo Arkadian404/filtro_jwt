@@ -30,7 +30,12 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
   styleUrls: ['../collection.component.scss']
 })
 export class RoastedBeanCoffeeComponent implements OnInit {
-  title = "Cà phê hạt đã rang"
+  title = "Cà phê hạt đã rang";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page: Page;
@@ -292,29 +297,6 @@ export class RoastedBeanCoffeeComponent implements OnInit {
     }
   }
 
-  onCategoryChange(event:any){
-    console.log(event.source.value);
-    if(event.checked){
-      this.filters.categoryFilter.push(event.source.value);
-      this.router.navigate([],
-        {
-          relativeTo: this.activatedRoute,
-          queryParams:{category: this.filters.categoryFilter},
-          queryParamsHandling: 'merge',
-        })
-    }else{
-      this.filters.categoryFilter = this.filters.categoryFilter.filter(value => {
-        return value != event.source.value;
-      });
-      this.router.navigate([],{
-        relativeTo: this.activatedRoute,
-        queryParams:{category: this.filters.categoryFilter},
-        queryParamsHandling: 'merge',
-      })
-    }
-    console.log(this.filters.categoryFilter);
-  }
-
   onFlavorChange(event: any) {
     if (event.checked) {
       this.filters.flavorFilter.push(event.source.value);
@@ -444,9 +426,6 @@ export class RoastedBeanCoffeeComponent implements OnInit {
 
   deleteFromWishlist(productId:number){
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
-    console.log(wishlistItem);
-    console.log(productId);
-    console.log(this.wishlistItems);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, "Đóng");
@@ -490,4 +469,7 @@ export class RoastedBeanCoffeeComponent implements OnInit {
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 }

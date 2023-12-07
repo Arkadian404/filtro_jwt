@@ -28,7 +28,12 @@ import {WishlistItemService} from "../../../../../service/wishlist-item.service"
   styleUrls: ['../collection.component.scss']
 })
 export class CoffeeBallComponent implements OnInit{
-  title = "Cà phê hạt nén"
+  title = "Cà phê hạt nén";
+  isBrandClose = true;
+  isCategoryClose = true;
+  isFlavorClose = true;
+  isOriginClose = true;
+  isVendorClose = true;
   isError = false;
   isLoading = true;
   page:Page;
@@ -465,5 +470,8 @@ export class CoffeeBallComponent implements OnInit{
     return !!isWishlist.find(item => item.id === product.id);
   }
 
+  calcStars(starCount:number){
+    return this.utilService.calcStars(starCount);
+  }
 
 }

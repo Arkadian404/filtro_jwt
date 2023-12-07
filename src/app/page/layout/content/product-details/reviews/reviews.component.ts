@@ -22,8 +22,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
   activeReview: ActiveReview | null = null;
   activeReviewTypeEnum = ActiveReviewTypeEnum;
 
-  constructor(private reviewService:ReviewService,
-              private route:ActivatedRoute) {
+  constructor(private reviewService:ReviewService) {
   }
 
 
@@ -78,6 +77,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
       next: data => {
         console.log(`calling in handle`);
        this.getAllReviewsByProductId(this.product?.id);
+       this.activeReview = null;
       },
       error: err => {
         console.log(err);
@@ -89,6 +89,18 @@ export class ReviewsComponent implements OnInit, OnChanges{
     console.log(content, reviewId);
     console.log(`handleEdit:  ${reviewId}`)
     this.reviewService.updateReview(content, reviewId).subscribe({
+      next: data => {
+        this.getAllReviewsByProductId(this.product?.id);
+        console.log(`calling in handle`);
+        this.activeReview = null;
+      },
+      error: err => {}
+    });
+  }
+
+  handleDeleteReview(id:number){
+    console.log(`handleDelete:  ${id}`)
+    this.reviewService.deleteReview(id).subscribe({
       next: data => {
         this.getAllReviewsByProductId(this.product?.id);
         console.log(`calling in handle`);

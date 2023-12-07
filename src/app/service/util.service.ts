@@ -19,6 +19,14 @@ export class UtilService {
       this.snackBar.open(message, action, config);
     });
   }
+
+  calcStars(starCount:number){
+    if(starCount <= 1){
+      return Array(1).map((_,i)=>i+1);
+    }
+    return Array(Math.floor(starCount)).map((_,i)=>i+1);
+  }
+
   // openSnackBar(message:string, action:string){
   //   this.snackBar.open(message, action, {
   //     duration: 2000,

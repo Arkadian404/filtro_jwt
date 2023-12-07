@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="d-flex align-items-start">
       <div class="flex-grow-1 ms-3">
-        <h4 class="mb-1">{{user?.username}}</h4>
+        <h4 class="mb-1">{{review.user?.username}}</h4>
         <p class="text-muted text-sm mb-1">{{processDate()}}</p>
         <div *ngIf="!(!!parentId)" class="star">
           <ng-container *ngFor="let s of stars; index as i">
@@ -31,7 +31,7 @@
             Sửa
             <mat-icon fontIcon="edit"></mat-icon>
           </button>
-          <button mat-raised-button color="warn" *ngIf="canDelete">
+          <button mat-raised-button color="warn" *ngIf="canDelete" (click)="onActiveDelete(review.id)">
             Xóa
             <mat-icon  fontIcon="close"></mat-icon>
           </button>
@@ -51,7 +51,9 @@
                       (onReplyReview)="onSubmitReplyReview($event)"
                       (onEditReview)="onSubmitEditReview($event)"
                       (setActiveReviewReply)="onActiveReply($event)"
-                      (setActiveReviewEdit)="onActiveEdit($event)" ></app-review>
+                      (setActiveReviewEdit)="onActiveEdit($event)"
+                      (setActiveReviewDelete)="onActiveDelete($event)"
+                        ></app-review>
         </div>
       </div>
     </div>
