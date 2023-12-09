@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, throwError} from "rxjs";
 import {ReviewDto} from "../shared/dto/review-dto";
+import {ReviewRating} from "../shared/models/statistic/review-rating";
 
 const API_URL = 'http://localhost:8080/api/v1/user/review';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReviewService {
+export class ReviewService{
 
   constructor(private http:HttpClient) { }
+
 
   getAllReviews(){
     return this.http.get<ReviewDto[]>(`${API_URL}/all`)
@@ -34,6 +36,26 @@ export class ReviewService {
 
   getReviewsByProductId(id:number){
     return this.http.get<ReviewDto[]>(`${API_URL}/product/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getReviewProductCount(id:number){
+    return this.http.get<number>(`${API_URL}/get/countReviewProduct/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getReviewRating(id:number){
+    return this.http.get<ReviewRating[]>(`${API_URL}/get/productReviewRating/${id}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -81,5 +103,7 @@ export class ReviewService {
         })
       );
   }
+
+
 
 }

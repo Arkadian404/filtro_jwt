@@ -2,62 +2,45 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-        <div class="row">
+        <div class="row" *ngIf="product.rating > 0 && product.rating; else noRating">
           <div class="col-sm-6">
             <h1 class="mb-3">
-              <b>4<small class="text-muted">/5</small></b>
+              <b>{{product.rating.toFixed(1)}}<small class="text-muted">/5</small></b>
             </h1>
-            <p class="mb-2 text-muted">Based on 255 reviews</p>
+            <p class="mb-2 text-muted">Dựa trên {{reviewCount}} lượt đánh giá</p>
             <div class="star mb-3 f-20">
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star-half-alt text-warning"></i>
-              <i class="far fa-star text-warning"></i>
+              <ng-container *ngIf="product.rating > 0; else starsOff">
+                <i *ngFor="let star of calculateRating(product.rating)" class="fas fa-star text-warning star-off"></i>
+                <i *ngFor="let star of calculateRating(5-product.rating)" class="far fa-star text-warning star-off"></i>
+              </ng-container>
+              <ng-template #starsOff>
+                <ng-container *ngIf="product.rating > 0; else starsOff">
+                  <i *ngFor="let star of calculateRating(product.rating)" class="fas fa-star text-warning star-off"></i>
+                  <i *ngFor="let star of calculateRating(5-product.rating)" class="far fa-star text-warning star-off"></i>
+                </ng-container>
+                <ng-template #starsOff>
+                  <i class="far fa-star text-warning star-off"></i>
+                  <i class="far fa-star text-warning star-off"></i>
+                  <i class="far fa-star text-warning star-off"></i>
+                  <i class="far fa-star text-warning star-off"></i>
+                  <i class="far fa-star text-warning star-off"></i>
+                </ng-template>
+              </ng-template>
             </div>
-            <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+            <button *ngIf="user;else noUser" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+            <ng-template #noUser>
+              <strong><h2 class="f-w-600"><i>Bạn cần đăng nhập để có thể bình luận!</i></h2></strong>
+            </ng-template>
           </div>
           <div class="col-sm-6">
             <div class="d-flex align-items-center">
               <div class="w-100">
-                <div class="row align-items-center my-2">
+                <div class="row align-items-center my-2" *ngFor="let r of reviewsRating">
                   <div class="col">
-                    <mat-progress-bar color="accent" mode="determinate" value="40"></mat-progress-bar>
+                    <mat-progress-bar color="accent" mode="determinate" [value]="r.count*100/reviewCount"></mat-progress-bar>
                   </div>
                   <div class="col-auto">
-                    <p class="mb-0 text-muted">5 stars</p>
-                  </div>
-                </div>
-                <div class="row align-items-center my-2">
-                  <div class="col">
-                    <mat-progress-bar color="accent" mode="determinate" value="80"></mat-progress-bar>
-                  </div>
-                  <div class="col-auto">
-                    <p class="mb-0 text-muted">4 stars</p>
-                  </div>
-                </div>
-                <div class="row align-items-center my-2">
-                  <div class="col">
-                    <mat-progress-bar color="accent" mode="determinate" value="30"></mat-progress-bar>
-                  </div>
-                  <div class="col-auto">
-                    <p class="mb-0 text-muted">3 stars</p>
-                  </div>
-                </div>
-                <div class="row align-items-center my-2">
-                  <div class="col">
-                    <mat-progress-bar color="accent" mode="determinate" value="20"></mat-progress-bar>
-                  </div>
-                  <div class="col-auto">
-                    <p class="mb-0 text-muted">2 stars</p>
-                  </div>
-                </div>
-                <div class="row align-items-center my-2">
-                  <div class="col">
-                    <mat-progress-bar color="accent" mode="determinate" value="10"></mat-progress-bar>
-                  </div>
-                  <div class="col-auto">
-                    <p class="mb-0 text-muted">1 stars</p>
+                    <p class="mb-0 text-muted">{{r.rating}} sao</p>
                   </div>
                 </div>
               </div>
@@ -73,6 +56,26 @@
             </app-review-form>
           </div>
         </div>
+        <ng-template #noRating>
+          <div class="row">
+            <div class="col-sm-12">
+              <h1 class="mb-3">
+                <b>Chưa có đánh giá</b>
+              </h1>
+              <p class="mb-2 text-muted">Hãy là người đầu tiên đánh giá sản phẩm này</p>
+              <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+            </div>
+            <div class="col-sm-12">
+              <app-review-form *ngIf="isReview()"
+                               submitLabel="Gửi"
+                               [hasCancelButton]="true"
+                               (onCancel)="handleActiveReview(null)"
+                               (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"
+              >
+              </app-review-form>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
     <app-review *ngFor="let r of reviews"

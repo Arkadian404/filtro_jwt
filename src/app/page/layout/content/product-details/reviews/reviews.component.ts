@@ -7,6 +7,8 @@ import {ActiveReview} from "../../../../../shared/utils/active-review";
 import {map} from "rxjs";
 import {ActiveReviewTypeEnum} from "../../../../../shared/utils/active-review-type-enum";
 import {ActivatedRoute} from "@angular/router";
+import {UtilService} from "../../../../../service/util.service";
+import {ReviewRating} from "../../../../../shared/models/statistic/review-rating";
 
 @Component({
   selector: 'app-reviews',
@@ -21,14 +23,25 @@ export class ReviewsComponent implements OnInit, OnChanges{
   replies: ReviewDto[] = [];
   activeReview: ActiveReview | null = null;
   activeReviewTypeEnum = ActiveReviewTypeEnum;
+  reviewCount:number = 0;
+  reviewsRating:ReviewRating[] = [
+    {rating: 1, count: 0},
+    {rating: 2, count: 0},
+    {rating: 3, count: 0},
+    {rating: 4, count: 0},
+    {rating: 5, count: 0}
+  ];
 
-  constructor(private reviewService:ReviewService) {
+  constructor(private reviewService:ReviewService,
+              private utilService:UtilService) {
   }
 
 
   ngOnInit(){
     this.canReview = !!this.user;
     this.getAllReviewsByProductId(this.product?.id);
+    this.getReviewCount(this.product?.id);
+    this.getReviewsRating(this.product?.id);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -48,7 +61,35 @@ export class ReviewsComponent implements OnInit, OnChanges{
         console.log(err);
       }
     })
+  }
 
+  calculateRating(rating:number){
+    return this.utilService.calcStars(rating);
+  }
+
+  getReviewCount(id:number){
+    return this.reviewService.getReviewProductCount(id).subscribe({
+      next: data => {
+        this.reviewCount = data;
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
+  }
+
+  getReviewsRating(id:number){
+    return this.reviewService.getReviewRating(id).subscribe({
+      next: data => {
+        data.forEach(item => {
+          const index = this.reviewsRating.findIndex(r => r.rating == item.rating);
+          this.reviewsRating[index].count = item.count;
+        });
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
   }
 
   getReplies(id:number){
