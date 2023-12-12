@@ -66,9 +66,9 @@ import { AdminBrandComponent } from './layout/content/admin-brand/admin-brand.co
 import { AdminBrandDialogComponent } from './layout/content/admin-brand/admin-brand-dialog/admin-brand-dialog.component';
 import { AdminOrderComponent } from './layout/content/admin-order/admin-order.component';
 import { AdminOrderDialogComponent } from './layout/content/admin-order/admin-order-dialog/admin-order-dialog.component';
-import {PageModule} from "../page/page.module";
 import { OrderStatusConvertPipe } from './pipe/order-status-convert.pipe';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgApexchartsModule} from "ng-apexcharts";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -120,6 +120,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         AdminRoutingModule,
         FormsModule,
         ReactiveFormsModule,
+        NgApexchartsModule,
         BrowserAnimationsModule,
         MatFormFieldModule,
         MatInputModule,

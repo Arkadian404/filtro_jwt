@@ -1,38 +1,125 @@
-<div class="widget-container">
-  <div class="widget">
-    <div class="icon">
-      <fa-icon [icon]="faLocation"></fa-icon>
-    </div>
-    <div class="value">
-      <div class="top">32</div>
-      <div class="bottom">Locations</div>
+<div class="row row-cols-xxl-4 row-cols-1">
+  <div class="col">
+    <div class="card card-animate mb-3">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="vr rounded bg-secondary opacity-50" style="width:4px;"></div>
+          <div class="flex-grow-1 ms-3">
+            <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Doanh thu tháng {{currentMonthRevenue?.month}}</p>
+            <h4 class="fs-22 fw-semibold mb-3">
+              <span class="counter-value">{{currentMonthRevenue?.revenue | currency:'VND'}}</span>
+            </h4>
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="badge bg-success-subtle text-success  mb-0" *ngIf="revenueRatio > 0;else lossRevenue">
+                <i class="fa-solid fa-arrow-up"></i> {{revenueRatio}}%
+              </h5>
+              <ng-template #lossRevenue>
+                <h5 class="badge bg-danger-subtle text-danger  mb-0">
+                  <i class="fa-solid fa-arrow-down"></i> {{revenueRatio}}%
+                </h5>
+              </ng-template>
+              <p class="text-muted mb-0">so với tháng trước</p>
+            </div>
+          </div>
+          <div class="avatar-sm flex-shrink-0">
+            <span class="avatar-title bg-secondary-subtle text-secondary rounded fs-3">
+              <i class="fa-solid fa-wallet"></i>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="widget">
-    <div class="icon">
-      <fa-icon [icon]="faLocation"></fa-icon>
-    </div>
-    <div class="value">
-      <div class="top">32</div>
-      <div class="bottom">Locations</div>
+  <div class="col">
+    <div class="card card-animate mb-3">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="vr rounded bg-info opacity-50" style="width: 4px;"></div>
+          <div class="flex-grow-1 ms-3">
+            <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Đơn hàng tháng {{currentMonthOrder?.month}}</p>
+            <h4 class="fs-22 fw-semibold mb-3">
+              <span class="counter-value">{{currentMonthOrder?.count}}</span>
+            </h4>
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="orderRatio > 0; else lossOrder">
+                <i class="fa-solid fa-arrow-up"></i> {{orderRatio}}%
+              </h5>
+              <ng-template #lossOrder>
+                <h5 class="badge bg-danger-subtle text-danger mb-0">
+                  <i class="fa-solid fa-arrow-down"></i> {{orderRatio}}%
+                </h5>
+              </ng-template>
+              <p class="text-muted mb-0">so với tháng trước</p>
+            </div>
+          </div>
+          <div class="avatar-sm flex-shrink-0">
+                  <span class="avatar-title bg-info-subtle text-info rounded fs-3">
+                    <i class="fa-solid fa-store"></i>
+                  </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="widget">
-    <div class="icon">
-      <fa-icon [icon]="faLocation"></fa-icon>
-    </div>
-    <div class="value">
-      <div class="top">32</div>
-      <div class="bottom">Locations</div>
+  <div class="col">
+    <div class="card card-animate mb-3">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="vr rounded bg-warning opacity-50" style="width: 4px;"></div>
+          <div class="flex-grow-1 ms-3">
+            <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Khách hàng mới tháng {{currentMonthUser?.month}}</p>
+            <h4 class="fs-22 fw-semibold mb-3">
+              <span class="counter-value">{{currentMonthUser?.count}}</span>
+            </h4>
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="userRatio > 0; else lossUser">
+                <i class="fa-solid fa-arrow-up"></i> {{userRatio}}%
+              </h5>
+              <ng-template #lossUser>
+                <h5 class="badge bg-danger-subtle text-danger mb-0">
+                  <i class="fa-solid fa-arrow-down"></i> {{userRatio}}%
+                </h5>
+              </ng-template>
+              <p class="text-muted mb-0">so với tháng trước</p>
+            </div>
+          </div>
+          <div class="avatar-sm flex-shrink-0">
+                  <span class="avatar-title bg-warning-subtle text-warning rounded fs-3">
+                    <i class="fa-regular fa-circle-user"></i>
+                  </span>
+          </div>
+        </div>
+      </div><!-- end card body -->
     </div>
   </div>
-  <div class="widget">
-    <div class="icon">
-      <fa-icon [icon]="faLocation"></fa-icon>
-    </div>
-    <div class="value">
-      <div class="top">32</div>
-      <div class="bottom">Locations</div>
+  <div class="col">
+    <div class="card card-animate mb-3">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="vr rounded bg-primary opacity-50" style="width: 4px;"></div>
+          <div class="flex-grow-1 ms-3">
+            <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Sản phẩm mới tháng {{currentMonthProduct?.month}}</p>
+            <h4 class="fs-22 fw-semibold mb-3">
+              <span class="counter-value">{{currentMonthProduct?.count}}</span> </h4>
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="productRatio > 0; else lossProduct">
+                <i class="fa-solid fa-arrow-up"></i> {{isNaN(productRatio) ? '0' : productRatio}}%
+              </h5>
+              <ng-template #lossProduct>
+                <h5 class="badge bg-danger-subtle text-danger mb-0">
+                  <i class="fa-solid fa-arrow-down"></i> {{isNaN(productRatio) ? '0' : productRatio}}%
+                </h5>
+              </ng-template>
+              <p class="text-muted mb-0">so với tháng trước</p>
+            </div>
+          </div>
+          <div class="avatar-sm flex-shrink-0">
+                  <span class="avatar-title bg-primary-subtle text-primary rounded fs-3">
+                    <i class="fa-brands fa-sketch"></i>
+                  </span>
+          </div>
+        </div>
+      </div><!-- end card body -->
     </div>
   </div>
 </div>
