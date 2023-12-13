@@ -3,7 +3,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Brand} from "../../../../shared/models/product/brand";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {BrandService} from "../../../../service/brand.service";
+import {BrandService} from "../../../../service/product/brand.service";
 import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";

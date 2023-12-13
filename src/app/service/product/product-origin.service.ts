@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ProductOrigin} from "../shared/models/product/product-origin";
+import {ProductOrigin} from "../../shared/models/product/product-origin";
 import {catchError, throwError} from "rxjs";
-import {ProductOriginDto} from "../shared/dto/product-origin-dto";
-import {SuccessMessage} from "../shared/models/success-message";
+import {ProductOriginDto} from "../../shared/dto/product-origin-dto";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/product-origin';
 const USER_API = 'http://localhost:8080/api/v1/user/product-origin';

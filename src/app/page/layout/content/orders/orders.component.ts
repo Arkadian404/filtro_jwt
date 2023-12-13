@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from "../../../../service/order.service";
 import {OrderDto} from "../../../../shared/dto/order-dto";
 import {TokenService} from "../../../../service/token.service";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";

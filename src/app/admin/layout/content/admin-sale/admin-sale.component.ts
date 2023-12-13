@@ -6,7 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
-import {SaleService} from "../../../../service/sale.service";
+import {SaleService} from "../../../../service/product/sale.service";
 
 import {ComponentType} from "@angular/cdk/overlay";
 

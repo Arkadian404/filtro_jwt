@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, catchError, throwError} from "rxjs";
-import {Product} from "../shared/models/product/product";
-import {ProductDto} from "../shared/dto/product-dto";
+import {Product} from "../../shared/models/product/product";
+import {ProductDto} from "../../shared/dto/product-dto";
 
 const API_URL = 'http://localhost:8080/api/v1/user/search';
 

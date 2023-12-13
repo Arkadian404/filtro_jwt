@@ -7,9 +7,9 @@ import * as data from "../../../../shared/utils/data.json";
 import {Province} from "../../../../shared/models/province";
 import {District} from "../../../../shared/models/district";
 import {Ward} from "../../../../shared/models/ward";
-import {UserService} from "../../../../service/user.service";
+import {UserService} from "../../../../service/user/user.service";
 import {UtilService} from "../../../../service/util.service";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {validatePassword} from "../../../../shared/validators/validate-password.validator";
 import {tap} from "rxjs";
 

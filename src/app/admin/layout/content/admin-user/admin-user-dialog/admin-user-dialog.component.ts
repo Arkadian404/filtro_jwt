@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../../../../../shared/models/product/category";
-import {UserService} from "../../../../../service/user.service";
+import {UserService} from "../../../../../service/user/user.service";
 import {User} from "../../../../../shared/models/user";
 // @ts-ignore
 import * as data from "../../../../../shared/utils/data.json"

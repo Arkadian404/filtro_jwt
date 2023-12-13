@@ -1,14 +1,14 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UtilService} from "../../../../../service/util.service";
-import {CategoryService} from "../../../../../service/category.service";
-import {ProductService} from "../../../../../service/product.service";
+import {CategoryService} from "../../../../../service/product/category.service";
+import {ProductService} from "../../../../../service/product/product.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Category} from "../../../../../shared/models/product/category";
 import {Product} from "../../../../../shared/models/product/product";
 import {formatDate} from "@angular/common";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
-import {ProductImageService} from "../../../../../service/product-image.service";
+import {ProductImageService} from "../../../../../service/product/product-image.service";
 import {ProductImage} from "../../../../../shared/models/product/product-image";
 
 @Component({

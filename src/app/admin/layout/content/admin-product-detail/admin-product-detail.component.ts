@@ -9,7 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {ProductDetail} from "../../../../shared/models/product/product-detail";
-import {ProductDetailService} from "../../../../service/product-detail.service";
+import {ProductDetailService} from "../../../../service/product/product-detail.service";
 import {AdminProductDetailDialogComponent} from "./admin-product-detail-dialog/admin-product-detail-dialog.component";
 
 @Component({

@@ -8,7 +8,7 @@ import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
-import {ProductOriginService} from "../../../../service/product-origin.service";
+import {ProductOriginService} from "../../../../service/product/product-origin.service";
 import {ProductOrigin} from "../../../../shared/models/product/product-origin";
 import {AdminProductOriginDialogComponent} from "./admin-product-origin-dialog/admin-product-origin-dialog.component";
 

@@ -1,6 +1,6 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {TokenService} from "../service/token.service";
-import {AuthenticationService} from "../service/authentication.service";
+import {AuthenticationService} from "../service/user/authentication.service";
 import {UtilService} from "../service/util.service";
 import {Router} from "@angular/router";
 import {Cart} from "../shared/models/cart";

@@ -2,23 +2,23 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ProductService} from "../../../../../service/product.service";
-import {CategoryService} from "../../../../../service/category.service";
-import {FlavorService} from "../../../../../service/flavor.service";
-import {SaleService} from "../../../../../service/sale.service";
+import {ProductService} from "../../../../../service/product/product.service";
+import {CategoryService} from "../../../../../service/product/category.service";
+import {FlavorService} from "../../../../../service/product/flavor.service";
+import {SaleService} from "../../../../../service/product/sale.service";
 import {Category} from "../../../../../shared/models/product/category";
 import {Flavor} from "../../../../../shared/models/product/flavor";
 import {Sale} from "../../../../../shared/models/product/sale";
 import {VendorService} from "../../../../../service/vendor.service";
-import {ProductOriginService} from "../../../../../service/product-origin.service";
-import {ProductDetailService} from "../../../../../service/product-detail.service";
+import {ProductOriginService} from "../../../../../service/product/product-origin.service";
+import {ProductDetailService} from "../../../../../service/product/product-detail.service";
 
 
 import {ProductImage} from "../../../../../shared/models/product/product-image";
 import {Vendor} from "../../../../../shared/models/product/vendor";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
 import {Brand} from "../../../../../shared/models/product/brand";
-import {BrandService} from "../../../../../service/brand.service";
+import {BrandService} from "../../../../../service/product/brand.service";
 
 
 

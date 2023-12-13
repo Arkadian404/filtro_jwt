@@ -7,7 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {User} from "../../../../shared/models/user";
-import {UserService} from "../../../../service/user.service";
+import {UserService} from "../../../../service/user/user.service";
 import {AdminUserDialogComponent} from "./admin-user-dialog/admin-user-dialog.component";
 
 @Component({

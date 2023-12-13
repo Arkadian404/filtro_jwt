@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Category} from "../shared/models/product/category";
+import {Category} from "../../shared/models/product/category";
 import {catchError, throwError} from "rxjs";
-import {CategoryDto} from "../shared/dto/category-dto";
-import {SuccessMessage} from "../shared/models/success-message";
+import {CategoryDto} from "../../shared/dto/category-dto";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/category';
 const USER_API:string = 'http://localhost:8080/api/v1/user/category';

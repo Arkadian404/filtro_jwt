@@ -15,7 +15,7 @@ import {
   throwError
 } from 'rxjs';
 import {TokenService} from "./service/token.service";
-import {AuthenticationService} from "./service/authentication.service";
+import {AuthenticationService} from "./service/user/authentication.service";
 import {Router} from "@angular/router";
 
 @Injectable()

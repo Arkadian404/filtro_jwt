@@ -1,6 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ProductDto} from "../../../../shared/dto/product-dto";
-import {ProductService} from "../../../../service/product.service";
+import {ProductService} from "../../../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductImageDto} from "../../../../shared/dto/product-image-dto";
 import {FaIconLibrary} from "@fortawesome/angular-fontawesome";
@@ -11,8 +11,8 @@ import {ProductDetailDto} from "../../../../shared/dto/product-detail-dto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {TokenService} from "../../../../service/token.service";
-import {UserService} from "../../../../service/user.service";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {UserService} from "../../../../service/user/user.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {CartItemService} from "../../../../service/cart-item.service";
 import {UtilService} from "../../../../service/util.service";

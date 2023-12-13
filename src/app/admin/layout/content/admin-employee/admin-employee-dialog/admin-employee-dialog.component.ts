@@ -2,7 +2,7 @@ import {Component, ElementRef, Inject, Input, OnInit, Renderer2} from '@angular/
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {EmployeeService} from "../../../../../service/employee.service";
+import {EmployeeService} from "../../../../../service/user/employee.service";
 import {TokenService} from "../../../../../service/token.service";
 
 @Component({

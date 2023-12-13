@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
-import {ProductOriginService} from "../../../../../service/product-origin.service";
+import {ProductOriginService} from "../../../../../service/product/product-origin.service";
 
 @Component({
   selector: 'app-admin-origin-dialog',

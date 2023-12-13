@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {AuthenticationResponse} from "../../../../shared/models/auth/authentication-response.interface";
 import {TokenService} from "../../../../service/token.service";
 

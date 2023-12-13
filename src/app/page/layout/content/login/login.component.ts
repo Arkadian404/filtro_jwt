@@ -1,7 +1,7 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {AuthenticationRequest} from "../../../../shared/models/auth/authentication-request.interface";
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {Router} from "@angular/router";
 import {TokenService} from "../../../../service/token.service";
 import {UtilService} from "../../../../service/util.service";

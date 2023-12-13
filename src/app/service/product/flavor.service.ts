@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Flavor} from "../shared/models/product/flavor";
+import {Flavor} from "../../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
-import {FlavorDto} from "../shared/dto/flavor-dto";
-import {SuccessMessage} from "../shared/models/success-message";
+import {FlavorDto} from "../../shared/dto/flavor-dto";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const ADMIN_API:string ="http://localhost:8080/api/v1/admin/flavor"
 const USER_API:string ="http://localhost:8080/api/v1/user/flavor"

@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {ReviewService} from "../../../../../service/review.service";
+import {ReviewService} from "../../../../../service/product/review.service";
 import {ReviewDto} from "../../../../../shared/dto/review-dto";
 import {UserDto} from "../../../../../shared/dto/user-dto";
 import {ProductDto} from "../../../../../shared/dto/product-dto";

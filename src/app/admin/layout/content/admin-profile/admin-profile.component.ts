@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../../shared/models/user";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 // @ts-ignore
 import * as data from "../../../../shared/utils/data.json";
 import {Province} from "../../../../shared/models/province";
 import {District} from "../../../../shared/models/district";
 import {Ward} from "../../../../shared/models/ward";
 import {distinctUntilChanged, tap} from "rxjs";
-import {UserService} from "../../../../service/user.service";
+import {UserService} from "../../../../service/user/user.service";
 import {UtilService} from "../../../../service/util.service";
 import {validatePassword} from "../../../../shared/validators/validate-password.validator";
 

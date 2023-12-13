@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, DoCheck, Input, OnInit, ViewChild} from '@angular/core';
-import {SearchService} from "../../../../service/search.service";
+import {SearchService} from "../../../../service/product/search.service";
 import {ActivatedRoute} from "@angular/router";
 import {ProductDto} from "../../../../shared/dto/product-dto";
 import {FormBuilder, FormGroup} from "@angular/forms";

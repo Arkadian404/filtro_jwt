@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, switchMap, tap, throwError} from "rxjs";
-import {AuthenticationRequest} from "../shared/models/auth/authentication-request.interface";
-import {Register} from "../shared/models/auth/register.interface";
-import {User} from "../shared/models/user";
-import {TokenService} from "./token.service";
-import {AuthenticationResponse} from "../shared/models/auth/authentication-response.interface";
-import {Employee} from "../shared/models/employee";
-import {Cart} from "../shared/models/cart";
-import {CartItemService} from "./cart-item.service";
+import {AuthenticationRequest} from "../../shared/models/auth/authentication-request.interface";
+import {Register} from "../../shared/models/auth/register.interface";
+import {User} from "../../shared/models/user";
+import {TokenService} from "../token.service";
+import {AuthenticationResponse} from "../../shared/models/auth/authentication-response.interface";
+import {Employee} from "../../shared/models/employee";
+import {Cart} from "../../shared/models/cart";
+import {CartItemService} from "../cart-item.service";
 
 
 const AUTH_API:string = 'http://localhost:8080/api/v1';

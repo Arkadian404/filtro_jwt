@@ -18,6 +18,7 @@ import {
 import {OrderStatistic} from "../../../../../shared/models/statistic/order-statistic";
 import {Revenue} from "../../../../../shared/models/statistic/revenue";
 import {forkJoin, map, Observable} from "rxjs";
+import {OrderLocationStatistic} from "../../../../../shared/models/statistic/order-location-statistic";
 
 
 export type LineChartOptions = {
@@ -49,10 +50,12 @@ export class MidWidgets implements OnInit{
 
   currentMonth = new Date().getMonth()+1;
 
-  orders:OrderStatistic;
-  revenue:Revenue[];
-  failedOrders:OrderStatistic;
-  public lineChartOptions: Partial<LineChartOptions> | any;
+  orders?:OrderStatistic;
+  revenue:Revenue[] = [];
+  failedOrders?:OrderStatistic;
+  ratioOrders:number = 0;
+  totalRevenue = 0;
+  lineChartOptions: Partial<LineChartOptions> | any;
 
   constructor(private  statisticService:StatisticService,
               private render: Renderer2) {
@@ -123,25 +126,19 @@ export class MidWidgets implements OnInit{
       this.revenue = revenue;
       this.orders = order;
       this.failedOrders = failedOrder;
-      // this.currentMonth = this.revenue.map(r=>r.month)[0] === undefined ?new Date().getMonth()+1 : this.revenue.map(r=>r.month)[0];
+      this.ratioOrders = Number(((this.orders.count - this.failedOrders.count)/this.orders.count*100).toFixed(2));
+      this.totalRevenue = this.revenue.map(r=>r.revenue??0).reduce((a,b)=>a+b,0);
       this.initializeChart();
       this.lineChartOptions.series = [{name:"Doanh thu", data: this.revenue.map(r=>r.revenue??0)}];
       this.lineChartOptions.xaxis.categories = this.revenue.map(r=>r.day+"/"+r.month);
     });
   }
 
-  getTotalRevenue(){
-    return this.revenue?.map(r=>r.revenue??0).reduce((a,b)=>a+b,0);
-  }
-
-  ratioOrders(){
-    return Number(((this.orders?.count - this.failedOrders?.count)/this.orders?.count*100).toFixed(2));
-  }
-
   getCurrentMonth(){
     const revenue$ = this.statisticService.getRevenueByCurrentMonth();
     const order$ = this.statisticService.getOrderStatisticByCurrentMonth();
     const failedOrder$ = this.statisticService.getFailedOrderStatisticByCurrentMonth();
+    this.currentMonth = new Date().getMonth()+1;
     this.processData(revenue$, order$, failedOrder$);
   }
 
@@ -152,6 +149,7 @@ export class MidWidgets implements OnInit{
       const revenue$ = this.statisticService.getRevenueByLastMonth();
       const order$ = this.statisticService.getOrderStatisticByLastMonth();
       const failedOrder$ = this.statisticService.getFailedOrderStatisticByLastMonth();
+      this.currentMonth = new Date().getMonth();
       this.processData(revenue$, order$, failedOrder$);
     }else{
       this.render.removeClass(this.chart1Month.nativeElement,"active-btn-secondary");

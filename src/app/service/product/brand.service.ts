@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Brand} from "../shared/models/product/brand";
+import {Brand} from "../../shared/models/product/brand";
 import {catchError, throwError} from "rxjs";
-import {SuccessMessage} from "../shared/models/success-message";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const ADMIN_API = 'http://localhost:8080/api/v1/admin/brand';
 const USER_API = 'http://localhost:8080/api/v1/user/brand';

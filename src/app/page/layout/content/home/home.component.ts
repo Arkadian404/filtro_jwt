@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {TokenService} from "../../../../service/token.service";
-import {ProductService} from "../../../../service/product.service";
+import {ProductService} from "../../../../service/product/product.service";
 import {ProductDto} from "../../../../shared/dto/product-dto";
 import {CartItemService} from "../../../../service/cart-item.service";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";

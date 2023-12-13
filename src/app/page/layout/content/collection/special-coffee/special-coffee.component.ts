@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductService} from "../../../../../service/product.service";
-import {BrandService} from "../../../../../service/brand.service";
-import {CategoryService} from "../../../../../service/category.service";
-import {FlavorService} from "../../../../../service/flavor.service";
-import {ProductOriginService} from "../../../../../service/product-origin.service";
+import {ProductService} from "../../../../../service/product/product.service";
+import {BrandService} from "../../../../../service/product/brand.service";
+import {CategoryService} from "../../../../../service/product/category.service";
+import {FlavorService} from "../../../../../service/product/flavor.service";
+import {ProductOriginService} from "../../../../../service/product/product-origin.service";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BrandDto} from "../../../../../shared/dto/brand-dto";

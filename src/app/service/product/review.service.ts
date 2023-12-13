@@ -1,8 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, throwError} from "rxjs";
-import {ReviewDto} from "../shared/dto/review-dto";
-import {ReviewRating} from "../shared/models/statistic/review-rating";
+import {ReviewDto} from "../../shared/dto/review-dto";
+import {ReviewRating} from "../../shared/models/statistic/review-rating";
 
 const API_URL = 'http://localhost:8080/api/v1/user/review';
 

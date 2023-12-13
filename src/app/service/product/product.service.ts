@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../shared/models/product/product";
+import {Product} from "../../shared/models/product/product";
 import {BehaviorSubject, catchError, throwError} from "rxjs";
-import {ProductDto} from "../shared/dto/product-dto";
-import {Page} from "../shared/models/page";
-import {SuccessMessage} from "../shared/models/success-message";
-import {PageContext} from "../shared/utils/page-context";
+import {ProductDto} from "../../shared/dto/product-dto";
+import {Page} from "../../shared/models/page";
+import {SuccessMessage} from "../../shared/models/success-message";
+import {PageContext} from "../../shared/utils/page-context";
 
 const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
 const USER_API:string = 'http://localhost:8080/api/v1/user/product';

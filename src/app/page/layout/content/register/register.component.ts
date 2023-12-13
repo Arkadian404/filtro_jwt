@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Register} from "../../../../shared/models/auth/register.interface";
 import {AbstractControl, FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {UtilService} from "../../../../service/util.service";
 import {NoSpaceWhiteValidator} from "../../../../shared/validators/no-space-white.validator";
 

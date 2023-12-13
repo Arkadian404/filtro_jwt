@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Employee} from "../shared/models/employee";
+import {Sale} from "../../shared/models/product/sale";
 import {catchError, throwError} from "rxjs";
-import {Flavor} from "../shared/models/product/flavor";
-import {SuccessMessage} from "../shared/models/success-message";
+import {SuccessMessage} from "../../shared/models/success-message";
 
-const EMPLOYEE_API = 'http://localhost:8080/api/v1/admin/employee'
+const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/sale';
+const USER_API:string = 'http://localhost:8080/api/v1/user/sale';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class SaleService {
 
   constructor(private http:HttpClient) { }
 
-  getEmployeeList(){
-    return this.http.get<Employee[]>(`${EMPLOYEE_API}/getList`)
+  getAdminSaleList(){
+    return this.http.get<Sale[]>(`${ADMIN_API}/getList`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -24,8 +24,8 @@ export class EmployeeService {
       );
   }
 
-  getEmployeeById(id:number){
-    return this.http.get<Employee>(`${EMPLOYEE_API}/find/${id}`)
+  getSaleList(){
+    return this.http.get<Sale[]>(`${USER_API}/getList`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -34,8 +34,18 @@ export class EmployeeService {
       );
   }
 
-  createEmployee(employee:Employee){
-    return this.http.post<SuccessMessage>(`${EMPLOYEE_API}/create`, employee)
+  getSaleById(id:number){
+    return this.http.get<Sale>(`${ADMIN_API}/find/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );;
+  }
+
+  createSale(sale:Sale){
+    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`,sale)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -44,8 +54,8 @@ export class EmployeeService {
       );
   }
 
-  updateEmployee(id:number, employee:Employee){
-    return this.http.put<SuccessMessage>(`${EMPLOYEE_API}/update/${id}`, employee)
+  updateSale(id:number, sale:Sale){
+    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`,sale)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -54,8 +64,8 @@ export class EmployeeService {
       );
   }
 
-  deleteEmployee(id:number){
-    return this.http.delete<SuccessMessage>(`${EMPLOYEE_API}/delete/${id}`)
+  deleteSale(id:number){
+    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -63,7 +73,5 @@ export class EmployeeService {
         })
       );
   }
-
-
 
 }

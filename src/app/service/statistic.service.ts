@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Revenue} from "../shared/models/statistic/revenue";
 import {catchError, throwError} from "rxjs";
 import {OrderStatistic} from "../shared/models/statistic/order-statistic";
+import {OrderLocationStatistic} from "../shared/models/statistic/order-location-statistic";
 
 const API = 'http://localhost:8080/api/v1/user/statistic';
 
@@ -109,6 +110,26 @@ export class StatisticService {
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOrderLocationStatisticByCurrentMonth(){
+    return this.http.get<OrderLocationStatistic[]>(`${API}/get/order/location/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOrderLocationStatisticByLastMonth(){
+    return this.http.get<OrderLocationStatistic[]>(`${API}/get/order/location/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
           return throwError(()=> new Error(err.error.message));
         })
       );

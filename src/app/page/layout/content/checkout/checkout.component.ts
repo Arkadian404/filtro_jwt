@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../../../service/user.service";
+import {UserService} from "../../../../service/user/user.service";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {tap} from "rxjs";
 // @ts-ignore

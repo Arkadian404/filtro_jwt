@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Flavor} from "../../../../../shared/models/product/flavor";
 import {UtilService} from "../../../../../service/util.service";
-import {FlavorService} from "../../../../../service/flavor.service";
+import {FlavorService} from "../../../../../service/product/flavor.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({

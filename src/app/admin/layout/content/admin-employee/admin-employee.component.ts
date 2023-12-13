@@ -8,7 +8,7 @@ import {UtilService} from "../../../../service/util.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
-import {EmployeeService} from "../../../../service/employee.service";
+import {EmployeeService} from "../../../../service/user/employee.service";
 import {Employee} from "../../../../shared/models/employee";
 import {AdminEmployeeDialogComponent} from "./admin-employee-dialog/admin-employee-dialog.component";
 

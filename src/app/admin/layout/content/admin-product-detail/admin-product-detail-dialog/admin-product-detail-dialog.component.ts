@@ -1,13 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {CategoryService} from "../../../../../service/category.service";
+import {CategoryService} from "../../../../../service/product/category.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../../../../../shared/models/product/category";
-import {ProductDetailService} from "../../../../../service/product-detail.service";
+import {ProductDetailService} from "../../../../../service/product/product-detail.service";
 import {ProductDetail} from "../../../../../shared/models/product/product-detail";
 import {Product} from "../../../../../shared/models/product/product";
-import {ProductService} from "../../../../../service/product.service";
+import {ProductService} from "../../../../../service/product/product.service";
 
 @Component({
   selector: 'app-admin-product-detail-dialog',

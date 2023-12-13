@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ProductService} from "../../../../service/product.service";
+import {ProductService} from "../../../../service/product/product.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {Product} from "../../../../shared/models/product/product";
 import {UtilService} from "../../../../service/util.service";

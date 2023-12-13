@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Category} from "../../../../shared/models/product/category";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AdminCategoryDialogComponent} from "./admin-category-dialog/admin-category-dialog.component";
-import {CategoryService} from "../../../../service/category.service";
+import {CategoryService} from "../../../../service/product/category.service";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";

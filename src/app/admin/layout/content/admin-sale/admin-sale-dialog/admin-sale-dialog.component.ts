@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {SaleService} from "../../../../../service/sale.service";
+import {SaleService} from "../../../../../service/product/sale.service";
 import {Sale} from "../../../../../shared/models/product/sale";
 
 @Component({

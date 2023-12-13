@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../../../../service/authentication.service";
+import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {TokenService} from "../../../../service/token.service";
 import {UtilService} from "../../../../service/util.service";
 import {AuthenticationRequest} from "../../../../shared/models/auth/authentication-request.interface";

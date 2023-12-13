@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {SearchService} from "../../../service/search.service";
+import {SearchService} from "../../../service/product/search.service";
 import {Router} from "@angular/router";
-import {CategoryService} from "../../../service/category.service";
-import {FlavorService} from "../../../service/flavor.service";
-import {ProductOriginService} from "../../../service/product-origin.service";
+import {CategoryService} from "../../../service/product/category.service";
+import {FlavorService} from "../../../service/product/flavor.service";
+import {ProductOriginService} from "../../../service/product/product-origin.service";
 import {VendorService} from "../../../service/vendor.service";
 import {ProductOriginDto} from "../../../shared/dto/product-origin-dto";
 import {CategoryDto} from "../../../shared/dto/category-dto";

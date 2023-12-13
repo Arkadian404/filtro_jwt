@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, switchMap, throwError} from "rxjs";
-import {ProductImage} from "../shared/models/product/product-image";
-import {SuccessMessage} from "../shared/models/success-message";
+import {ProductImage} from "../../shared/models/product/product-image";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const PRODUCT_IMAGE_API:string = 'http://localhost:8080/api/v1/admin/product-image';
 
