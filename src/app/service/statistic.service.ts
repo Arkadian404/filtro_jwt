@@ -22,8 +22,90 @@ export class StatisticService {
       );
   }
 
+  getRevenueByCurrentMonth(){
+    return this.http.get<Revenue[]>(`${API}/get/revenue/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getRevenueByLastMonth(){
+    return this.http.get<Revenue[]>(`${API}/get/revenue/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getRevenueByDate(day:number, month:number, year:number){
+    return this.http.get<Revenue>(`${API}/get/revenue/date?day=${day}&month=${month}&year=${year}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+
+
   getOrderStatistic(month:number, year:number){
     return this.http.get<OrderStatistic>(`${API}/get/order?month=${month}&year=${year}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOrderStatisticByDate(day:number, month:number, year:number){
+    return this.http.get<OrderStatistic>(`${API}/get/order/date?day=${day}&month=${month}&year=${year}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOrderStatisticByCurrentMonth(){
+    return this.http.get<OrderStatistic>(`${API}/get/order/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOrderStatisticByLastMonth(){
+    return this.http.get<OrderStatistic>(`${API}/get/order/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getFailedOrderStatisticByCurrentMonth(){
+    return this.http.get<OrderStatistic>(`${API}/get/order/failed/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getFailedOrderStatisticByLastMonth(){
+    return this.http.get<OrderStatistic>(`${API}/get/order/failed/lastMonth`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)

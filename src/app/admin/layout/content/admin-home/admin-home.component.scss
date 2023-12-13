@@ -55,11 +55,11 @@
 .btn-soft-primary{
   color: #4b93ff;
   background: rgba(75, 147, 255, 0.1);
- &:hover{
-    color: #fff;
-    background-color: #4b93ff;
-    border-color: transparent;
-  }
+   &:hover{
+      color: #fff;
+      background-color: #4b93ff;
+      border-color: transparent;
+    }
  }
 
 .btn-soft-secondary{
@@ -70,6 +70,12 @@
     background-color: #7060e6;
     border-color: transparent;
   }
+}
+
+.active-btn-secondary{
+  color: #fff;
+  background-color: #7060e6;
+  border-color: transparent;
 }
 
 .border-dashed {

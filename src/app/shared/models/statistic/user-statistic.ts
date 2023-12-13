@@ -1,5 +1,6 @@
 export interface UserStatistic{
-  month: number;
-  year: number;
-  count: number;
+  day?: number;
+  month?: number;
+  year?: number;
+  count?: number;
 }

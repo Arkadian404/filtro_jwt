@@ -14,19 +14,7 @@ import {
 } from "ng-apexcharts";
 
 
-export type LineChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  stroke: ApexStroke;
-  dataLabels: ApexDataLabels;
-  markers: ApexMarkers;
-  colors: string[];
-  yaxis: ApexYAxis;
-  grid: ApexGrid;
-  legend: ApexLegend;
-  title: ApexTitleSubtitle;
-};
+
 
 export type AreaSplineChartOptions = {
   series: ApexAxisChartSeries;
@@ -70,86 +58,16 @@ export type DonutChartOptions = {
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
-export class AdminHomeComponent implements OnInit, OnChanges, AfterViewInit{
+export class AdminHomeComponent implements OnInit{
   @ViewChild("lineChart") chart: ElementRef;
 
-  public lineChartOptions: Partial<LineChartOptions> | any;
   public areaSplineChartOptions: Partial<AreaSplineChartOptions> | any;
   public radialBarChartOptions: Partial<RadialBarChartOptions> | any;
   public pieChartOptions: Partial<PieChartOptions> | any;
   public donutChartOptions: Partial<DonutChartOptions> | any;
 
   constructor() {
-    this.lineChartOptions = {
-      series: [
-        {
-          name: "High - 2013",
-          data: [28, 29, 33, 36, 32, 32, 33]
-        },
-        {
-          name:"Mid - 2013",
-          data: [15, 11, 20, 14, 12, 13, 11]
-        },
-        {
-          name: "Low - 2013",
-          data: [12, 11, 14, 18, 17, 13, 13]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "line",
-        dropShadow: {
-          enabled: true,
-          color: "#000",
-          top: 18,
-          left: 7,
-          blur: 10,
-          opacity: 0.2
-        },
-        toolbar: {
-          show: false
-        }
-      },
-      colors: ["#4de2bb", "#9587ff", "#f0587d"],
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "smooth"
-      },
-      title: {
-        text: "Average High & Low Temperature",
-        align: "left"
-      },
-      grid: {
-        borderColor: "#e7e7e7",
-        row: {
-          colors: ["transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5
-        }
-      },
 
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-        title: {
-          text: "Month"
-        }
-      },
-      yaxis: {
-        title: {
-          text: "Temperature"
-        },
-        min: 5,
-        max: 40
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "right",
-        floating: true,
-        offsetY: -25,
-        offsetX: -5
-      }
-    };
     this.areaSplineChartOptions = {
       series: [
         {
@@ -330,13 +248,5 @@ export class AdminHomeComponent implements OnInit, OnChanges, AfterViewInit{
 
     }
 
-  ngAfterViewInit(): void {
-    const width = this.chart.nativeElement.offsetWidth;
-    console.log(width);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
 
 }

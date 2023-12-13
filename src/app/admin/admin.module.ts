@@ -10,7 +10,7 @@ import {TopWidgetsComponent} from "./layout/content/admin-home/top-widgets/top-w
 import {SalesByCategoryComponent} from "./layout/content/admin-home/sales-by-category/sales-by-category.component";
 import {SalesByMonthComponent} from "./layout/content/admin-home/sales-by-month/sales-by-month.component";
 import {LastFewTransactionsComponent} from "./layout/content/admin-home/last-few-transactions/last-few-transactions.component";
-import {TopThreeProductsComponent} from "./layout/content/admin-home/top-three-products/top-three-products.component";
+import {MidWidgets} from "./layout/content/admin-home/mid-widgets/mid-widgets";
 import {AdminCategoryDialogComponent} from "./layout/content/admin-category/admin-category-dialog/admin-category-dialog.component";
 import {StatusConvertPipe} from "./pipe/status-convert.pipe";
 import {AdminConfirmationDialogComponent} from "./layout/content/reusable/admin-confirmation-dialog/admin-confirmation-dialog.component";
@@ -82,7 +82,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
     SalesByCategoryComponent,
     SalesByMonthComponent,
     LastFewTransactionsComponent,
-    TopThreeProductsComponent,
+    MidWidgets,
     AdminCategoryDialogComponent,
     StatusConvertPipe,
     AdminConfirmationDialogComponent,
