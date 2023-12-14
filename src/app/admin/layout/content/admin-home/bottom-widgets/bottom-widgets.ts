@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Chart} from "angular-highcharts";
 
 @Component({
   selector: 'app-bottom-widgets',
@@ -9,11 +8,10 @@ import {Chart} from "angular-highcharts";
 export class BottomWidgets implements OnInit{
 
 
-  constructor() {
-
-  }
-
   ngOnInit(): void {
+
   }
+
+
 
 }

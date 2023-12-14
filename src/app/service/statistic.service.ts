@@ -4,6 +4,10 @@ import {Revenue} from "../shared/models/statistic/revenue";
 import {catchError, throwError} from "rxjs";
 import {OrderStatistic} from "../shared/models/statistic/order-statistic";
 import {OrderLocationStatistic} from "../shared/models/statistic/order-location-statistic";
+import {CategoryStatistic} from "../shared/models/statistic/category-statistic";
+import {FlavorStatistic} from "../shared/models/statistic/flavor-statistic";
+import {BrandStatistic} from "../shared/models/statistic/brand-statistic";
+import {OriginStatistic} from "../shared/models/statistic/origin-statistic";
 
 const API = 'http://localhost:8080/api/v1/user/statistic';
 
@@ -155,4 +159,83 @@ export class StatisticService {
       );
   }
 
+  getCategoryStatisticByCurrentMonth(){
+    return this.http.get<CategoryStatistic[]>(`${API}/get/category/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getCategoryStatisticByLastMonth(){
+    return this.http.get<CategoryStatistic[]>(`${API}/get/category/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getFlavorStatisticByCurrentMonth(){
+    return this.http.get<FlavorStatistic[]>(`${API}/get/flavor/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getFlavorStatisticByLastMonth(){
+    return this.http.get<FlavorStatistic[]>(`${API}/get/flavor/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getBrandStatisticByCurrentMonth(){
+    return this.http.get<BrandStatistic[]>(`${API}/get/brand/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getBrandStatisticByLastMonth(){
+    return this.http.get<BrandStatistic[]>(`${API}/get/brand/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOriginStatisticByCurrentMonth(){
+    return this.http.get<OriginStatistic[]>(`${API}/get/origin/currentMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
+  getOriginStatisticByLastMonth(){
+    return this.http.get<OriginStatistic[]>(`${API}/get/origin/lastMonth`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
 }

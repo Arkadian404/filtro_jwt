@@ -28,6 +28,7 @@ export class UserInfoComponent implements OnInit{
   districts: District[];
   wards: Ward[];
   passwordType = true;
+  hours = new Date().getHours();
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,

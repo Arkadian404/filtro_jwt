@@ -1,0 +1,34 @@
+ <div class="card card-height-100 mb-3">
+    <div class="card-header align-items-center d-flex">
+      <h3 class="card-title mb-0 flex-grow-1"><strong>Thương hiệu</strong></h3>
+      <div>
+        <button type="button" class="btn btn-soft-secondary btn-sm me-1" #allRadialBtn>
+          ALL
+        </button>
+        <button (click)="onLastMonth()" type="button" class="btn btn-soft-secondary btn-sm me-1" #1RadialMonthBtn>
+          1M
+        </button>
+        <button type="button" class="btn btn-soft-secondary btn-sm me-1" #6RadialMonthBtn>
+          6M
+        </button>
+        <button type="button" class="btn btn-soft-primary btn-sm" #1RadialYearBtn>
+          1Y
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="radialBarChartOptions">
+        <div id="radialBarChart">
+          <apx-chart
+            [series]="radialBarChartOptions.series"
+            [chart]="radialBarChartOptions.chart"
+            [plotOptions]="radialBarChartOptions.plotOptions"
+            [labels]="radialBarChartOptions.labels"
+            [legend]="radialBarChartOptions.legend"
+            [colors]="radialBarChartOptions.colors"
+            [responsive]="radialBarChartOptions.responsive"
+          ></apx-chart>
+        </div>
+      </ng-container>
+    </div>
+  </div>

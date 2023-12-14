@@ -9,7 +9,6 @@ import {AdminHomeComponent} from "./layout/content/admin-home/admin-home.compone
 import {TopWidgetsComponent} from "./layout/content/admin-home/top-widgets/top-widgets.component";
 import {BottomWidgets} from "./layout/content/admin-home/bottom-widgets/bottom-widgets";
 import {RightWidgets} from "./layout/content/admin-home/right-widgets/right-widgets";
-import {LastFewTransactionsComponent} from "./layout/content/admin-home/last-few-transactions/last-few-transactions.component";
 import {MidWidgets} from "./layout/content/admin-home/mid-widgets/mid-widgets";
 import {AdminCategoryDialogComponent} from "./layout/content/admin-category/admin-category-dialog/admin-category-dialog.component";
 import {StatusConvertPipe} from "./pipe/status-convert.pipe";
@@ -69,6 +68,10 @@ import { AdminOrderDialogComponent } from './layout/content/admin-order/admin-or
 import { OrderStatusConvertPipe } from './pipe/order-status-convert.pipe';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgApexchartsModule} from "ng-apexcharts";
+import { SubBottomWidgetFirstComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-first/sub-bottom-widget-first.component';
+import { SubBottomWidgetMidFirstComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-mid-first/sub-bottom-widget-mid-first.component';
+import { SubBottomWidgetMidSecondComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-mid-second/sub-bottom-widget-mid-second.component';
+import { SubBottomWidgetEndComponent } from './layout/content/admin-home/bottom-widgets/sub-bototm-widget-end/sub-bottom-widget-end.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -81,7 +84,6 @@ import {NgApexchartsModule} from "ng-apexcharts";
     TopWidgetsComponent,
     BottomWidgets,
     RightWidgets,
-    LastFewTransactionsComponent,
     MidWidgets,
     AdminCategoryDialogComponent,
     StatusConvertPipe,
@@ -111,6 +113,10 @@ import {NgApexchartsModule} from "ng-apexcharts";
     AdminOrderDialogComponent,
     OrderStatusConvertPipe,
     RightWidgets,
+    SubBottomWidgetFirstComponent,
+    SubBottomWidgetMidFirstComponent,
+    SubBottomWidgetMidSecondComponent,
+    SubBottomWidgetEndComponent,
 
   ],
   exports: [
