@@ -18,7 +18,7 @@ import {AdminVendorDialogComponent} from "./admin-vendor-dialog/admin-vendor-dia
   styleUrls: ['./admin-vendor.component.scss']
 })
 export class AdminVendorComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'name', 'description', 'email', 'phone', 'address', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'email', 'phone', 'address', 'status', 'action'];
   dataSource!: MatTableDataSource<Vendor>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

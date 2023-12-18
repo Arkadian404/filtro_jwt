@@ -25,7 +25,8 @@ export class AdminProductOriginDialogComponent implements OnInit{
     this.form = this.formBuilder.group<ProductOrigin>({
       name: '',
       continent:'',
-      description:''
+      description:'',
+      status:true
     });
     if(this.data){
       this.form.patchValue(this.data);

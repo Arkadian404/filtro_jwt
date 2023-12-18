@@ -6,7 +6,7 @@ import {AdminCategoryDialogComponent} from "../../admin-category/admin-category-
 import {OrderService} from "../../../../../service/order.service";
 import {OrderDetail} from "../../../../../shared/models/order-detail";
 import {EmailService} from "../../../../../service/email.service";
-import {delay} from "rxjs";
+
 
 interface status{
   value: any ;
@@ -64,14 +64,14 @@ export class AdminOrderDialogComponent implements OnInit{
     this.getOrderDetails();
   }
 
-
-
   getOrderDetails(){
     this.orderService.getAdminOrderDetailByOrderId(this.data.id).subscribe(orderDetails=>{
       this.orderDetails = orderDetails;
       console.log(orderDetails)
     })
   }
+
+
 
   onStatusChange(event:any){
     const status = event.source._value;
@@ -85,28 +85,19 @@ export class AdminOrderDialogComponent implements OnInit{
         if(this.data.status == this.form.value.status){
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
           this.matDialog.close(true);
-        }else{
-          this.orderService.updateAdminOrder(this.data.id, this.form.value).subscribe({
-            next:(data)=>{
-              if(this.data.status !== 'CONFIRMED' && this.form.value.status == 'CONFIRMED'){
-                this.isLoading = true;
-                this.emailService.sendOrderMail(this.data.email, this.orderMail.nativeElement.innerHTML).subscribe({
-                  next:(data)=>{
-                    this.utilService.openSnackBar(data.message, 'Đóng')
-                    this.isLoading = false;
-                  },
-                  error:(err)=>{
-                    this.utilService.openSnackBar(err, 'Đóng');
-                    this.isLoading = false;
-                  }
-                });
-              }
-              this.utilService.openSnackBar(data.message, 'Đóng');
+        }else if (this.data.status !== 'CONFIRMED' && this.form.value.status == 'CONFIRMED') {
+          this.orderService.updateAdminOrder(this.data.id, this.form.value).subscribe(data => {
+            this.isLoading = true;
+            this.emailService.sendOrderMail(this.data.email, this.orderMail.nativeElement.innerHTML).subscribe(value=>{
+              this.isLoading = false;
+              this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
               this.matDialog.close(true);
-            },
-            error:(err)=>{
-              this.utilService.openSnackBar(err, 'Đóng');
-            }
+            });
+          });
+        }else{
+          this.orderService.updateAdminOrder(this.data.id, this.form.value).subscribe(data => {
+            this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
+            this.matDialog.close(true);
           });
         }
       }
@@ -117,6 +108,9 @@ export class AdminOrderDialogComponent implements OnInit{
     return orderDetails.map(orderDetail => orderDetail.quantity).reduce((a,b)=> a+b, 0);
   }
 
+  getTotalPrice(orderDetails:OrderDetail[]){
+    return orderDetails.map(orderDetail => orderDetail.total).reduce((a,b)=> a+b, 0);
+  }
 
 
 

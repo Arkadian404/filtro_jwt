@@ -18,7 +18,7 @@ import {AdminProductOriginDialogComponent} from "./admin-product-origin-dialog/a
   styleUrls: ['./admin-product-origin.component.scss']
 })
 export class AdminProductOriginComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'name', 'continent', 'description', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'continent', 'description', 'status', 'action'];
   dataSource!: MatTableDataSource<ProductOrigin>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

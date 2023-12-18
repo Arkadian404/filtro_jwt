@@ -114,14 +114,24 @@
             <td>Tên sản phẩm</td>
             <td>Đơn vị</td>
             <td>Số lượng</td>
+            <td>Giá tiền(đ)</td>
           </tr>
           <tr *ngFor="let od of orderDetails">
             <td>{{od.productDetail.product?.name}}</td>
             <td>{{od.productDetail.weight}}</td>
             <td>{{od.quantity}}</td>
+            <td>{{od.price}}</td>
           </tr>
           <tr>
-            <td colspan="2"><b>Tổng cộng: </b></td><td><b>{{getOrderQuantity(orderDetails)}}</b></td>
+            <td colspan="2">
+              <b>Tổng cộng: </b>
+            </td>
+            <td>
+              <b>{{getOrderQuantity(orderDetails)}}</b>
+            </td>
+            <td>
+              <b>{{getTotalPrice(orderDetails)}}</b>
+            </td>
           </tr>
           </tbody>
         </table>

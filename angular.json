@@ -18,7 +18,11 @@
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
             "allowedCommonJsDependencies": [
-              "highcharts"
+              "highcharts",
+              "date-format",
+              "ng-apexcharts",
+              "apexcharts",
+              "moment"
             ],
 						"outputPath": "dist/jwt-ng-client",
 						"index": "src/index.html",

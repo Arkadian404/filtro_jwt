@@ -22,6 +22,7 @@ export class AdminBrandComponent implements OnInit{
     'name',
     'description',
     'status',
+    'action'
   ]
   dataSource: MatTableDataSource<Brand>
 

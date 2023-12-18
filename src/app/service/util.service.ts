@@ -21,7 +21,10 @@ export class UtilService {
   }
 
   calcStars(starCount:number){
-    if(starCount <= 1){
+    if(starCount == 0){
+
+    }
+    if(starCount == 1){
       return Array(1).map((_,i)=>i+1);
     }
     return Array(Math.floor(starCount)).map((_,i)=>i+1);

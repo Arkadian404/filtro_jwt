@@ -175,7 +175,15 @@ export class ProductService {
       );
   }
 
-
+  getProductDtoById(id:number){
+    return this.http.get<ProductDto>(`${USER_API}/find/dto/${id}`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
 
   getAdminProductsByCategory(categoryId:number){
     return this.http.get<Product[]>(`${ADMIN_API}/getListByCategory/${categoryId}`)
@@ -355,6 +363,6 @@ export class ProductService {
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
         })
-      );;
+      );
   }
 }

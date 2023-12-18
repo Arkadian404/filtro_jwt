@@ -20,11 +20,11 @@
                   <div class="d-inline-flex mx-auto">
                     <img class="cirle-img wid-120 img-fluid" src="assets/images/coffee_cup.png" alt="">
                   </div>
-                  <h3><strong>{{user.username}}</strong></h3>
-                  <p class="text-muted" *ngIf="hours<=10">Cà phê filtro xin chào, chúc bạn buổi sáng vui vẻ</p>
-                  <p class="text-muted" *ngIf="hours<=14">Cà phê filtro xin chào, chúc bạn buổi trưa vui vẻ</p>
-                  <p class="text-muted" *ngIf="hours<=18">Cà phê filtro xin chào, chúc bạn buổi chiều vui vẻ</p>
-                  <p class="text-muted" *ngIf="hours<=24">Cà phê filtro xin chào, chúc bạn buổi tối vui vẻ</p>
+                  <h3><strong>{{user?.username}}</strong></h3>
+                  <p class="text-muted" *ngIf="hours>0 && hours<=10">Cà phê filtro xin chào, chúc bạn buổi sáng vui vẻ</p>
+                  <p class="text-muted" *ngIf="hours > 10 && hours<=14">Cà phê filtro xin chào, chúc bạn buổi trưa vui vẻ</p>
+                  <p class="text-muted" *ngIf="hours >14 && hours<=18">Cà phê filtro xin chào, chúc bạn buổi chiều vui vẻ</p>
+                  <p class="text-muted" *ngIf="hours > 18 && hours<=24">Cà phê filtro xin chào, chúc bạn buổi tối vui vẻ</p>
                   <div class="row g-3 my-4">
                     <div class="col-4">
                       <h5><strong>o(*￣▽￣*)ブ</strong></h5>
@@ -35,7 +35,7 @@
                       <p class="text-muted">***</p>
                     </div>
                     <div class="col-4">
-                      <h5><strong>（＾∀＾●）ﾉｼ</strong></h5>
+                      <h5><strong>(☞ﾟヮﾟ)☞</strong></h5>
                       <p class="text-muted">***</p>
                     </div>
                   </div>
@@ -105,8 +105,8 @@
                       </div>
                       <div class="row">
                         <mat-form-field>
-                          <mat-label>Address</mat-label>
-                          <input matInput formControlName="address" placeholder="Adress" type="text">
+                          <mat-label>Địa chỉ</mat-label>
+                          <input matInput formControlName="address" placeholder="Address" type="text">
                         </mat-form-field>
                       </div>
                       <div class="row">
@@ -165,7 +165,7 @@
                             <!--                          {{ passwordType ? 'visibility' : 'visibility_off' }}-->
                             <!--                        </mat-icon>-->
                           </mat-form-field>
-                          <a routerLink="/forgot-password" class="d-flex justify-content-end align-items-center text-decoration-none">Quên mật khẩu?</a>
+                          <a routerLink="/forgot-password" tabindex="-1" class="d-flex justify-content-end align-items-center text-decoration-none">Quên mật khẩu?</a>
                         </div>
                       </div>
                       <div class="row">

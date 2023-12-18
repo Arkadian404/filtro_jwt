@@ -4,4 +4,5 @@ export class ProductOrigin{
   name:string;
   continent:string;
   description:string;
+  status?:boolean;
 }

@@ -4,11 +4,10 @@ import {ReviewDto} from "../../../../../shared/dto/review-dto";
 import {UserDto} from "../../../../../shared/dto/user-dto";
 import {ProductDto} from "../../../../../shared/dto/product-dto";
 import {ActiveReview} from "../../../../../shared/utils/active-review";
-import {map} from "rxjs";
 import {ActiveReviewTypeEnum} from "../../../../../shared/utils/active-review-type-enum";
-import {ActivatedRoute} from "@angular/router";
 import {UtilService} from "../../../../../service/util.service";
 import {ReviewRating} from "../../../../../shared/models/statistic/review-rating";
+import {ProductService} from "../../../../../service/product/product.service";
 
 @Component({
   selector: 'app-reviews',
@@ -18,6 +17,7 @@ import {ReviewRating} from "../../../../../shared/models/statistic/review-rating
 export class ReviewsComponent implements OnInit, OnChanges{
   @Input() user:UserDto;
   @Input() product:ProductDto;
+  ratingProduct:ProductDto;
   canReview = true;
   reviews: ReviewDto[] = [];
   replies: ReviewDto[] = [];
@@ -33,6 +33,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
   ];
 
   constructor(private reviewService:ReviewService,
+              private productService:ProductService,
               private utilService:UtilService) {
   }
 
@@ -42,12 +43,24 @@ export class ReviewsComponent implements OnInit, OnChanges{
     this.getAllReviewsByProductId(this.product?.id);
     this.getReviewCount(this.product?.id);
     this.getReviewsRating(this.product?.id);
+    this.getProductDto(this.product?.id);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.product){
       this.getAllReviewsByProductId(this.product?.id);
     }
+  }
+
+  getProductDto(id?:number){
+    this.productService.getProductDtoById(id).subscribe({
+      next: data => {
+        this.ratingProduct = data;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 
   getAllReviewsByProductId(id:number){
@@ -118,6 +131,9 @@ export class ReviewsComponent implements OnInit, OnChanges{
       next: data => {
         console.log(`calling in handle`);
        this.getAllReviewsByProductId(this.product?.id);
+       this.getReviewCount(this.product?.id);
+       this.getReviewsRating(this.product?.id);
+       this.getProductDto(this.product?.id);
        this.activeReview = null;
       },
       error: err => {
@@ -132,6 +148,9 @@ export class ReviewsComponent implements OnInit, OnChanges{
     this.reviewService.updateReview(content, reviewId).subscribe({
       next: data => {
         this.getAllReviewsByProductId(this.product?.id);
+        this.getReviewCount(this.product?.id);
+        this.getReviewsRating(this.product?.id);
+        this.getProductDto(this.product?.id);
         console.log(`calling in handle`);
         this.activeReview = null;
       },
@@ -144,7 +163,10 @@ export class ReviewsComponent implements OnInit, OnChanges{
     this.reviewService.deleteReview(id).subscribe({
       next: data => {
         this.getAllReviewsByProductId(this.product?.id);
+        this.getReviewCount(this.product?.id);
+        this.getReviewsRating(this.product?.id);
         console.log(`calling in handle`);
+        this.getProductDto(this.product?.id);
         this.activeReview = null;
       },
       error: err => {}

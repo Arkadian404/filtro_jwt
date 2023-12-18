@@ -2,30 +2,28 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-        <div class="row" *ngIf="product.rating > 0 && product.rating; else noRating">
+        <div class="row" *ngIf="ratingProduct?.rating > 0 && ratingProduct?.rating; else noRating">
           <div class="col-sm-6">
             <h1 class="mb-3">
-              <b>{{product.rating.toFixed(1)}}<small class="text-muted">/5</small></b>
+              <b>{{ratingProduct?.rating.toFixed(1)}}<small class="text-muted">/5</small></b>
             </h1>
-            <p class="mb-2 text-muted">Dựa trên {{reviewCount}} lượt đánh giá</p>
+            <p class="mb-2 text-muted">Dựa trên {{reviewCount??0}} lượt đánh giá</p>
             <div class="star mb-3 f-20">
-              <ng-container *ngIf="product.rating > 0; else starsOff">
-                <i *ngFor="let star of calculateRating(product.rating)" class="fas fa-star text-warning star-off"></i>
-                <i *ngFor="let star of calculateRating(5-product.rating)" class="far fa-star text-warning star-off"></i>
-              </ng-container>
-              <ng-template #starsOff>
-                <ng-container *ngIf="product.rating > 0; else starsOff">
-                  <i *ngFor="let star of calculateRating(product.rating)" class="fas fa-star text-warning star-off"></i>
-                  <i *ngFor="let star of calculateRating(5-product.rating)" class="far fa-star text-warning star-off"></i>
+              <ng-container *ngIf="ratingProduct?.rating > 0; else starsOffs">
+                <i *ngFor="let star of calculateRating(ratingProduct?.rating)" class="fas fa-star text-warning star-off"></i>
+                <i *ngFor="let star of calculateRating(5-ratingProduct?.rating)" class="far fa-star text-warning star-off"></i>
+                <ng-container *ngIf="ratingProduct?.rating < 5">
+                  <i *ngFor="let star of calculateRating(5-ratingProduct?.rating)" class="far fa-star text-warning star-off"></i>
                 </ng-container>
-                <ng-template #starsOff>
+              </ng-container>
+                <ng-template #starsOffs>
                   <i class="far fa-star text-warning star-off"></i>
                   <i class="far fa-star text-warning star-off"></i>
                   <i class="far fa-star text-warning star-off"></i>
                   <i class="far fa-star text-warning star-off"></i>
                   <i class="far fa-star text-warning star-off"></i>
                 </ng-template>
-              </ng-template>
+
             </div>
             <button *ngIf="user;else noUser" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
             <ng-template #noUser>

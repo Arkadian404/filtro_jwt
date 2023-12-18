@@ -59,6 +59,8 @@ export class RegisterComponent implements OnInit{
       next: (data) => {
         console.log(data);
         this.utilService.openSnackBar('Đăng ký thành công', 'Đóng')
+        this.form.reset();
+        this.form.markAsPristine();
       },
       error: (error) => {
         this.utilService.openSnackBar(error, 'Đóng');

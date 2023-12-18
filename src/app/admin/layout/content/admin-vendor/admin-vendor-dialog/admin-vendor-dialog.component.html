@@ -24,6 +24,13 @@
         <mat-label>Ghi chú</mat-label>
         <input type="text" matInput formControlName="description">
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Trạng thái</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="true">Mở</mat-option>
+          <mat-option [value]="false">Đóng</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <div class="action" mat-dialog-actions>
