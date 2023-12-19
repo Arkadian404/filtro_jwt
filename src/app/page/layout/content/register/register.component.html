@@ -38,9 +38,10 @@
                   </mat-form-field>
                   <mat-error *ngIf="form.get('firstname').touched && !form.get('firstname').valid">
                     <p *ngIf="form.get('firstname').hasError('required')">Họ không được để trống</p>
+                    <p *ngIf="form.get('firstname').hasError('pattern')">Họ không được có số và kí tự đặc biệt</p>
                     <p *ngIf="form.get('firstname').hasError('whitespace')">Không được nhập khoảng cách</p>
                   </mat-error>
-                  <pre>{{form.controls.firstname.errors | json}}</pre>
+<!--                  <pre>{{form.controls.firstname.errors | json}}</pre>-->
                 </div>
 
 <!--                <div class="form-floating mb-3">-->
@@ -60,9 +61,10 @@
                   </mat-form-field>
                   <mat-error *ngIf="form.get('lastname').touched && !form.get('lastname').valid">
                     <p *ngIf="form.get('lastname').hasError('required')">Tên không được để trống</p>
+                    <p *ngIf="form.get('lastname').hasError('pattern')">Tên không chứa số và kí tự đặc biệt</p>
                     <p *ngIf="form.get('lastname').hasError('whitespace')">Không được nhập khoảng cách</p>
                   </mat-error>
-                  <pre>{{form.controls.lastname.errors | json}}</pre>
+<!--                  <pre>{{form.controls.lastname.errors | json}}</pre>-->
                 </div>
 
 <!--                <div class="form-floating mb-3">-->
@@ -86,7 +88,7 @@
                     <p *ngIf="form.get('email').hasError('whitespace')">Không được nhập khoảng cách</p>
                     <p *ngIf="form.get('email').hasError('email')">Email phải đúng format</p>
                   </mat-error>
-                  <pre>{{form.controls.email.errors | json}}</pre>
+<!--                  <pre>{{form.controls.email.errors | json}}</pre>-->
                 </div>
 
 <!--                <div class="form-floating mb-3">-->
@@ -108,7 +110,7 @@
                     <p *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</p>
                     <p *ngIf="form.get('username').hasError('whitespace')">Không được nhập khoảng cách</p>
                   </mat-error>
-                  <pre>{{form.controls.username.errors | json}}</pre>
+<!--                  <pre>{{form.controls.username.errors | json}}</pre>-->
                 </div>
 
 
@@ -134,7 +136,7 @@
                     <p *ngIf="form.get('password').hasError('required')">Mật khẩu không được để trống</p>
                     <p *ngIf="form.get('password').hasError('pattern')">Sai format</p>
                   </mat-error>
-                  <pre>{{form.controls.password.errors | json}}</pre>
+<!--                  <pre>{{form.controls.password.errors | json}}</pre>-->
                 </div>
 
 
@@ -157,7 +159,7 @@
                     <p *ngIf="form.get('confirmPassword').hasError('required')">Không được để trống</p>
                     <p *ngIf="form.hasError('invalidConfirmPassword')">Mật khẩu không khớp</p>
                   </mat-error>
-                  <pre>{{form.controls.confirmPassword.errors | json}}</pre>
+<!--                  <pre>{{form.controls.confirmPassword.errors | json}}</pre>-->
                 </div>
 
                 <div class="d-grid">

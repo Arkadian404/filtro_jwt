@@ -7,6 +7,8 @@ import {NoSpaceWhiteValidator} from "../../../../shared/validators/no-space-whit
 
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
+const NAME_PATTERN = /^[a-zA-Z]+$/;
+
 const validatePassword = (firstControl: string, secondControl: string) => {
   return function (formGroup: FormGroup) {
     const firstControlValue = formGroup.get(firstControl)?.value;
@@ -35,8 +37,8 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(){
     this.form = this.formBuilder.group({
-      firstname: ['', [Validators.required, NoSpaceWhiteValidator()]],
-      lastname: ['', [Validators.required, NoSpaceWhiteValidator()]],
+      firstname: ['', [Validators.required,NoSpaceWhiteValidator(), Validators.pattern(NAME_PATTERN) ]],
+      lastname: ['', [Validators.required, NoSpaceWhiteValidator(), Validators.pattern(NAME_PATTERN)]],
       email: ['', [Validators.required, Validators.email, NoSpaceWhiteValidator()]],
       username: ['', [Validators.required, NoSpaceWhiteValidator()]],
       password: ['', [Validators.required,
