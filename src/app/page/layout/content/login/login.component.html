@@ -27,7 +27,7 @@
                   <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
                     <p *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</p>
                   </mat-error>
-                  <pre>{{form.controls.username.errors | json}}</pre>
+<!--                  <pre>{{form.controls.username.errors | json}}</pre>-->
                 </div>
 
 <!--                <div class="form-floating mb-3">-->
@@ -49,11 +49,11 @@
                   <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
                     <p *ngIf="form.get('password').hasError('required')">Tên không được để trống</p>
                   </mat-error>
-                  <pre>{{form.controls.password.errors | json}}</pre>
+<!--                  <pre>{{form.controls.password.errors | json}}</pre>-->
                 </div>
 
                 <div class="d-grid">
-                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Đăng nhập</button>
                   <div class="d-flex">
                     <a class="small text-decoration-none" routerLink="/forgot-password">Quên mật khẩu?</a>
                     <a class="small text-decoration-none ms-auto" routerLink="/register">Tạo tài khoản</a>
