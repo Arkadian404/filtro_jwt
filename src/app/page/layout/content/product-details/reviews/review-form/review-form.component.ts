@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class ReviewFormComponent implements OnInit{
   @Input() submitLabel:string;
+  @Input() isParent:boolean;
   @Input() hasCancelButton:boolean;
   @Input() rating:number = 1;
   @Input() comment:string ='';

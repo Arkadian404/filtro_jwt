@@ -84,6 +84,7 @@ export class ReviewService{
 
   updateReview(content:any, id:number){
     return this.http.put(`${API_URL}/update/${id}`, {
+      rating: content?.rating??null,
       comment: content.comment,
     })
       .pipe(

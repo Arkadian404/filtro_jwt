@@ -19,6 +19,7 @@
                          submitLabel="Sửa"
                          [comment]="review.comment"
                          [hasCancelButton]="true"
+                         [isParent]="!!review.parentId"
                          (onCancel)="onActiveEdit(null)"
                          (onReviewSubmitForm)="onSubmitEditReview({content: $event, reviewId: review.id})">
         </app-review-form>

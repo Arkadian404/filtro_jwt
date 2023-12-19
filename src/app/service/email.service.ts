@@ -27,8 +27,7 @@ export class EmailService {
 
   public processResetPassword(newPassword:string){
     const token = this.activatedRoute.snapshot.queryParams.token;
-    const email = this.activatedRoute.snapshot.queryParams.email;
-    return this.http.post(`${RESET_API}/reset-password?token=${token}&email=${email}`, newPassword)
+    return this.http.post(`${RESET_API}/reset-password?token=${token}`, newPassword)
       .pipe(
         catchError(err=> {
           console.log("Error handled by Service: ", err.status);

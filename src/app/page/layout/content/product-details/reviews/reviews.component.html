@@ -11,7 +11,6 @@
             <div class="star mb-3 f-20">
               <ng-container *ngIf="ratingProduct?.rating > 0; else starsOffs">
                 <i *ngFor="let star of calculateRating(ratingProduct?.rating)" class="fas fa-star text-warning star-off"></i>
-                <i *ngFor="let star of calculateRating(5-ratingProduct?.rating)" class="far fa-star text-warning star-off"></i>
                 <ng-container *ngIf="ratingProduct?.rating < 5">
                   <i *ngFor="let star of calculateRating(5-ratingProduct?.rating)" class="far fa-star text-warning star-off"></i>
                 </ng-container>

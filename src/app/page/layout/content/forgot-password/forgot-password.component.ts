@@ -4,6 +4,8 @@ import {EmailService} from "../../../../service/email.service";
 import {UtilService} from "../../../../service/util.service";
 import {tap} from "rxjs";
 
+const EMAIL_REGEX = /^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$/;
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -18,7 +20,7 @@ export class ForgotPasswordComponent implements OnInit{
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]]
     })
   }
 

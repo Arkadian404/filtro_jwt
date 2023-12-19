@@ -27,7 +27,7 @@ import {WishlistItemService} from "../../../../service/wishlist-item.service";
 })
 export class ProductDetailsComponent implements OnInit{
   product:ProductDto;
-  relatedProducts:ProductDto[];
+  relatedProducts:ProductDto[]=[];
   user:UserDto;
   productDetail:ProductDetailDto;
   productDetails:ProductDetailDto[];
@@ -234,6 +234,7 @@ export class ProductDetailsComponent implements OnInit{
         }
       },
       error: err => {
+        this.relatedProducts = null;
         console.log(err);
       }
     })

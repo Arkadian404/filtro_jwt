@@ -49,6 +49,9 @@ export class ReviewsComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges) {
     if(changes.product){
       this.getAllReviewsByProductId(this.product?.id);
+      this.getReviewCount(this.product?.id);
+      this.getReviewsRating(this.product?.id);
+      this.getProductDto(this.product?.id);
     }
   }
 
@@ -96,7 +99,8 @@ export class ReviewsComponent implements OnInit, OnChanges{
       next: data => {
         data.forEach(item => {
           const index = this.reviewsRating.findIndex(r => r.rating == item.rating);
-          this.reviewsRating[index].count = item.count;
+          this.reviewsRating[index].count = item?.count;
+          console.log(this.reviewsRating);
         });
       },
       error: err => {
