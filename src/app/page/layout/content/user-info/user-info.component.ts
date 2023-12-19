@@ -109,6 +109,8 @@ export class UserInfoComponent implements OnInit{
 
   onSubmit() {
     if (this.profileForm.valid) {
+      const convertDate = new Date(this.profileForm.value.dob).toISOString();
+      this.profileForm.value.dob = convertDate.slice(0,10);
       this.userService.updateUserInfo(this.user.id, this.profileForm.value).subscribe({
         next: (data) => {
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')

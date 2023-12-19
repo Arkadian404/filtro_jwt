@@ -154,7 +154,7 @@
                         <p *ngIf="passwordForm.get('newPassword').hasError('required')">Mật khẩu không được để trống</p>
                         <p *ngIf="passwordForm.get('newPassword').hasError('pattern')">Sai passwordFormat</p>
                       </mat-error>
-                      <pre>{{passwordForm.controls.newPassword.errors | json}}</pre>
+<!--                      <pre>{{passwordForm.controls.newPassword.errors | json}}</pre>-->
                     </div>
                   </div>
                   <div class="row">
@@ -164,7 +164,7 @@
                         <input matInput formControlName="confirmPassword" placeholder="Nhập lại mật khẩu mới" type="password">
                       </mat-form-field>
                       <mat-error *ngIf="passwordForm.hasError('invalidConfirmPassword')">Mật khẩu không khớp</mat-error>
-                      <pre>{{passwordForm.errors | json}}</pre>
+<!--                      <pre>{{passwordForm.errors | json}}</pre>-->
                     </div>
                   </div>
                   <button [disabled]="passwordForm.invalid" mat-raised-button type="submit" class="btn btn-danger pull-right">Đổi mật khẩu</button>

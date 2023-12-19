@@ -5,6 +5,7 @@ import {CartItemDto} from "../shared/dto/cart-item-dto";
 
 import {SuccessMessage} from "../shared/models/success-message";
 import {CartDto} from "../shared/dto/cart-dto";
+import {UtilService} from "./util.service";
 
 
 const CART_ITEM_API:string = 'http://localhost:8080/api/v1/user/cart';
@@ -23,7 +24,8 @@ export class CartItemService{
 
   deleteCartItemsBehavior:BehaviorSubject<number> = new BehaviorSubject(null);
   deleteCartItems$ = this.deleteCartItemsBehavior.asObservable();
-  constructor(private  http:HttpClient) {
+  constructor(private  http:HttpClient,
+              private utilService:UtilService) {
 
   }
 
@@ -58,6 +60,7 @@ export class CartItemService{
     // Save the updated cart items to local storage
     this.saveCartItemsFromLocalStorage(cartItems);
     this.addCartItemsBehavior.next(cartItem);
+    this.utilService.openSnackBar("Thêm vào giỏ hàng thành công", "Đóng");
   }
 
   addCartItemToCart(cartItem: CartItemDto){

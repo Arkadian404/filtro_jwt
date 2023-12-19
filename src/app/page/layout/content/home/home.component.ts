@@ -7,7 +7,6 @@ import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../service/util.service";
 import {WishlistItemService} from "../../../../service/wishlist-item.service";
-import {WishlistItem} from "../../../../shared/models/wishlist-item";
 import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
 
 
@@ -258,7 +257,7 @@ export class HomeComponent implements OnInit{
     }
     console.log(this.cartItemForm.value)
     if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
-      this.cartItemService.addToCartNotLogin(this.cartItemForm.value)
+      this.cartItemService.addToCartNotLogin(this.cartItemForm.value);
     }else{
       this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
         next:(data)=>{

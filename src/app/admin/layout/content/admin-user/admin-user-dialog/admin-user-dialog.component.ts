@@ -76,6 +76,8 @@ export class AdminUserDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
+        const convertDate = new Date(this.form.value.dob).toISOString();
+        this.form.value.dob = convertDate.slice(0,10);
         this.userService.updateUser(this.data.id, this.form.value).subscribe({
           next:(data)=>{
             this.utilService.openSnackBar(data.message, 'Đóng')
@@ -87,6 +89,8 @@ export class AdminUserDialogComponent implements OnInit{
           }
         })
       }else{
+        const convertDate = new Date(this.form.value.dob).toISOString();
+        this.form.value.dob = convertDate.slice(0,10);
         this.userService.createUser(this.form.value).subscribe({
           next:(data) => {
             this.utilService.openSnackBar(data.message, 'Đóng');

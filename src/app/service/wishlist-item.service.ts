@@ -4,6 +4,7 @@ import {WishlistDto} from "../shared/dto/wishlist-dto";
 import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {WishlistItemDto} from "../shared/dto/wishlist-item-dto";
 import {SuccessMessage} from "../shared/models/success-message";
+import {UtilService} from "./util.service";
 
 
 
@@ -29,7 +30,8 @@ export class WishlistItemService {
 
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+              private utilService:UtilService) { }
 
   getWishlistItemsFromLocalStorage(): WishlistItemDto[] {
     const wishlistItemsJSON = localStorage.getItem('wishlistItems');
@@ -87,6 +89,7 @@ export class WishlistItemService {
       wishlistItems.push(wishlistItem);
       this.saveWishlistItemsToLocalStorage(wishlistItems);
       this.addWishlistItemsBehavior.next(wishlistItem);
+      this.utilService.openSnackBar('Thêm sản phẩm vào danh sách yêu thích thành công', 'Đóng');
     }
   }
 
@@ -104,6 +107,7 @@ export class WishlistItemService {
     if(this.wishlistItems.length === 0){
       this.removeWishlistItemsFromLocalStorage();
     }
+    this.utilService.openSnackBar('Xóa sản phẩm khỏi danh sách yêu thích thành công', 'Đóng');
   }
 
   deleteWithLogin (wishlistItemId: number){

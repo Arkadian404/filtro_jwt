@@ -90,6 +90,7 @@ export class AdminProfileComponent implements OnInit{
       {
         next:(data)=>{
           if(data){
+            console.log(data.dob);
             this.profileForm.patchValue(data);
             this.profileForm.get('username').disable();
             this.onProvinceChange({source:{_value:data.province}});
@@ -107,6 +108,8 @@ export class AdminProfileComponent implements OnInit{
 
   onSubmit(){
     if(this.profileForm.valid){
+      const convertDate = new Date(this.profileForm.value.dob).toISOString();
+      this.profileForm.value.dob = convertDate.slice(0,10);
       this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
         next:(data)=>{
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')

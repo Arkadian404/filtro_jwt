@@ -61,6 +61,10 @@ export class AdminEmployeeDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
+        const convertDobDate = new Date(this.form.get('user').value.dob).toISOString();
+        const convertStartOnDate = new Date(this.form.value.startOn).toISOString();
+        this.form.get('user').value.dob = convertDobDate.slice(0,10);
+        this.form.value.startOn = convertStartOnDate.slice(0,10);
         this.employeeService.updateEmployee(this.data.id, this.form.value).subscribe({
           next:(data)=>{
             console.log(this.form.value)
@@ -80,6 +84,8 @@ export class AdminEmployeeDialogComponent implements OnInit{
             return;
           }
         }
+        const convertDate = new Date(this.form.value.dob).toISOString();
+        this.form.value.dob = convertDate.slice(0,10);
           this.employeeService.createEmployee(this.form.value).subscribe({
             next:(data) => {
               console.log(this.form.value)
