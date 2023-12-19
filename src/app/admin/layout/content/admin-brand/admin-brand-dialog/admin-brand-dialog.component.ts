@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BrandService} from "../../../../../service/product/brand.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -21,9 +21,9 @@ export class AdminBrandDialogComponent implements OnInit{
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: '',
-      description: '',
-      status: true
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      status: [true, Validators.required]
     });
     if(this.data){
       this.form.patchValue(this.data);

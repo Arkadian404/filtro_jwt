@@ -61,17 +61,17 @@ export class AdminProductDialogComponent implements OnInit{
     this.getOrigins();
     this.getVendors();
     this.form = this.formBuilder.group({
-      name : [''],
-      brand:[''],
-      flavor:[''],
-      description : [''],
-      isSpecial: false,
-      isLimited:false,
-      origin: [''],
-      status: true,
+      name : ['', Validators.required],
+      brand:['', Validators.required],
+      flavor:['', Validators.required],
+      description : ['', Validators.required],
+      isSpecial: [false],
+      isLimited:[false],
+      origin: ['', Validators.required],
+      status: [true],
       sale: [''],
-      category: [''],
-      vendor: ['']
+      category: ['', Validators.required],
+      vendor: ['', Validators.required]
     });
     if (this.data){
       this.form.patchValue(this.data);

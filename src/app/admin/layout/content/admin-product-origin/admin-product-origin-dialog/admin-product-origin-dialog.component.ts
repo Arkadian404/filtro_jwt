@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
@@ -22,11 +22,11 @@ export class AdminProductOriginDialogComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group<ProductOrigin>({
-      name: '',
-      continent:'',
-      description:'',
-      status:true
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      continent:['', Validators.required],
+      description:[''],
+      status:[true, Validators.required]
     });
     if(this.data){
       this.form.patchValue(this.data);

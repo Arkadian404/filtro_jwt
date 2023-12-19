@@ -1,9 +1,13 @@
 import {Component, ElementRef, Inject, Input, OnInit, Renderer2} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {EmployeeService} from "../../../../../service/user/employee.service";
 import {TokenService} from "../../../../../service/token.service";
+
+const NAME_PATTERN =/^[a-zA-Z]+$/;
+const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/
+const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
 
 @Component({
   selector: 'app-employee-dialog',
@@ -29,18 +33,18 @@ export class AdminEmployeeDialogComponent implements OnInit{
   ngOnInit() {
     this.form = this.formBuilder.group<any>({
       user: this.formBuilder.group({
-        firstname:'',
-        lastname:'',
-        username:'',
-        password:'',
-        email:'',
-        dob:'',
-        address:'',
-        phone:'',
-        role:'',
-        enabled:true,
+        firstname:['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+        lastname:['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+        username:['', Validators.required],
+        password:['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]],
+        email:['', [Validators.required, Validators.email]],
+        dob:['', Validators.required],
+        address:['', Validators.required],
+        phone:['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
+        role:['', Validators.required],
+        enabled:[true, Validators.required],
       }),
-      startOn:''
+      startOn:['', Validators.required]
     });
     if(this.data){
       const passwordField = this.ref.nativeElement.querySelector('#password');

@@ -113,6 +113,14 @@ export class AdminOrderDialogComponent implements OnInit{
   }
 
 
+  onDisabled(status:string){
+   //kiểu nếu đang chờ xử lý hoặc momo hoặc vnpay, thì chỉ cho nhấn xác nhận đang hàng hoặc hủy thôi
+    if(status == 'PENDING' || status == 'PAID_MOMO' || status == 'PAID_VNPAY'){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   public compareObjectFunction =  (value1, value2) =>{
     return value1 == value2;

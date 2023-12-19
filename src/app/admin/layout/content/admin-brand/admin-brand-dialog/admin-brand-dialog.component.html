@@ -8,6 +8,9 @@
         <mat-label>Tên thương hiệu</mat-label>
         <input type="text" matInput formControlName="name">
       </mat-form-field>
+      <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
+        <p *ngIf="form.get('name').hasError('required')">Không được để trống</p>
+      </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Ghi chú</mat-label>
         <textarea type="text" matInput formControlName="description"></textarea>
@@ -23,6 +26,6 @@
   </div>
   <div class="action" mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
-    <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+    <button [disabled]="form.invalid" mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
   </div>
 </form>

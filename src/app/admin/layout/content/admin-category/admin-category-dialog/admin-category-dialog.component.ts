@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Category} from "../../../../../shared/models/product/category";
 import {CategoryService} from "../../../../../service/product/category.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -21,9 +21,9 @@ export class AdminCategoryDialogComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group<Category>({
-      name: '',
-      status: false
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      status: [false, Validators.required]
     });
     if(this.data){
       this.form.patchValue(this.data);

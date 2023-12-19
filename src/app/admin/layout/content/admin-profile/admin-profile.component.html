@@ -23,6 +23,10 @@
                           <mat-label>Email</mat-label>
                           <input matInput formControlName="email" placeholder="Email address" type="email">
                         </mat-form-field>
+                        <mat-error *ngIf="profileForm.get('email').touched && !profileForm.get('email').valid">
+                          <p *ngIf="profileForm.get('email').hasError('required')">Email không được để trống</p>
+                          <p *ngIf="profileForm.get('email').hasError('email')">Email sai format</p>
+                        </mat-error>
                       </div>
                     </div>
                     <div class="row">
@@ -31,12 +35,20 @@
                           <mat-label>Họ</mat-label>
                           <input matInput formControlName="firstname" placeholder="Fist Name" type="text">
                         </mat-form-field>
+                        <mat-error *ngIf="profileForm.get('firstname').touched && !profileForm.get('firstname').valid">
+                          <p *ngIf="profileForm.get('firstname').hasError('required')">Họ không được để trống</p>
+                          <p *ngIf="profileForm.get('firstname').hasError('pattern')">Họ không chứa số và kí tự đặc biệt</p>
+                        </mat-error>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field>
                           <mat-label>Tên</mat-label>
                           <input matInput formControlName="lastname" placeholder="Last Name" type="text">
                         </mat-form-field>
+                        <mat-error *ngIf="profileForm.get('lastname').touched && !profileForm.get('lastname').valid">
+                          <p *ngIf="profileForm.get('lastname').hasError('required')">Tên không được để trống</p>
+                          <p *ngIf="profileForm.get('lastname').hasError('pattern')">Tên không chứa số và kí tự đặc biệt</p>
+                        </mat-error>
                       </div>
                     </div>
                     <div class="row">
@@ -56,16 +68,23 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field>
-                          <mat-label>Phone</mat-label>
-                          <input matInput formControlName="phone" placeholder="Phone" type="text">
+                          <mat-label>Số điện thoại</mat-label>
+                          <input maxlength="10" matInput formControlName="phone" placeholder="Phone" type="text">
                         </mat-form-field>
+                        <mat-error *ngIf="profileForm.get('phone').touched && !profileForm.get('phone').valid">
+                          <p *ngIf="profileForm.get('phone').hasError('required')">Số điện thoại không được để trống</p>
+                          <p *ngIf="profileForm.get('phone').hasError('pattern')">Chỉ chứa số và dài 10 kí tự</p>
+                        </mat-error>
                       </div>
                     </div>
                     <div class="row">
                       <mat-form-field>
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="address" placeholder="Adress" type="text">
+                        <mat-label>Địa chỉ</mat-label>
+                        <input matInput formControlName="address" placeholder="Address" type="text">
                       </mat-form-field>
+                      <mat-error *ngIf="profileForm.get('address').touched && !profileForm.get('address').valid">
+                        <p *ngIf="profileForm.get('address').hasError('required')">Địa chỉ không được để trống</p>
+                      </mat-error>
                     </div>
                     <div class="row">
                       <div class="col-md-4">
@@ -96,7 +115,7 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <button mat-raised-button type="submit" class="btn btn-danger pull-right">Cập nhật hồ sơ</button>
+                    <button [disabled]="profileForm.invalid" mat-raised-button type="submit" class="btn btn-danger pull-right">Cập nhật hồ sơ</button>
                   </form>
                 </div>
               </div>
@@ -148,7 +167,7 @@
                       <pre>{{passwordForm.errors | json}}</pre>
                     </div>
                   </div>
-                  <button mat-raised-button type="submit" class="btn btn-danger pull-right">Đổi mật khẩu</button>
+                  <button [disabled]="passwordForm.invalid" mat-raised-button type="submit" class="btn btn-danger pull-right">Đổi mật khẩu</button>
                 </form>
               </div>
             </div>

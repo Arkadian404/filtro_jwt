@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../../../../../shared/models/product/category";
@@ -11,6 +11,10 @@ import {Province} from "../../../../../shared/models/province";
 import {District} from "../../../../../shared/models/district";
 import {Ward} from "../../../../../shared/models/ward";
 import {Observable, of} from "rxjs";
+
+const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
+const NAME_PATTERN = /^[a-zA-Z]+$/;
+const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/
 
 @Component({
   selector: 'app-user-dialog',
@@ -36,19 +40,19 @@ export class AdminUserDialogComponent implements OnInit{
 
   ngOnInit() {
     this.getProvinces();
-    this.form = this.formBuilder.group<User>({
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: '',
-      password: '',
+    this.form = this.formBuilder.group({
+      firstname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+      lastname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: [''],
       dob: new Date(),
-      address: '',
-      province: '',
-      district: '',
-      ward: '',
-      phone: '',
-      enabled: false
+      address: ['', Validators.required],
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      ward: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
+      enabled: [false]
     });
     if(this.data){
       const passwordField = this.ref.nativeElement.querySelector('#password');

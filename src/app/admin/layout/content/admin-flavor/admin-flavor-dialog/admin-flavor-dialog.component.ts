@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Flavor} from "../../../../../shared/models/product/flavor";
 import {UtilService} from "../../../../../service/util.service";
 import {FlavorService} from "../../../../../service/product/flavor.service";
@@ -22,10 +22,10 @@ export class AdminFlavorDialogComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group<Flavor>({
-      name: '',
-      description: '',
-      status: false
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      status: [false, Validators.required]
     });
     if(this.data){
       this.form.patchValue(this.data);

@@ -14,6 +14,9 @@ import {validatePassword} from "../../../../shared/validators/validate-password.
 import {tap} from "rxjs";
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
+const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/;
+const NAME_PATTERN = /^[a-zA-Z]+$/;
+
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
@@ -38,19 +41,19 @@ export class UserInfoComponent implements OnInit{
   ngOnInit(): void {
     this.getProvinces();
     this.profileForm = this.formBuilder.group({
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: '',
-      dob: '',
-      phone: '',
-      address: '',
-      province: '',
-      district: '',
-      ward: '',
+      firstname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+      lastname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      dob: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
+      address: ['', Validators.required],
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      ward: ['', Validators.required],
     })
     this.passwordForm = this.formBuilder.group({
-        oldPassword: '',
+        oldPassword: ['', Validators.required],
         newPassword: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]],
         confirmPassword: ['', Validators.required]
       },

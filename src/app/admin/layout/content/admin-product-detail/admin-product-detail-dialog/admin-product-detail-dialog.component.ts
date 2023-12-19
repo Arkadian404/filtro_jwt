@@ -1,13 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryService} from "../../../../../service/product/category.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../../../../../shared/models/product/category";
 import {ProductDetailService} from "../../../../../service/product/product-detail.service";
-import {ProductDetail} from "../../../../../shared/models/product/product-detail";
 import {Product} from "../../../../../shared/models/product/product";
 import {ProductService} from "../../../../../service/product/product.service";
+
+const NUMBER_PATTERN = '^[0-9]+$';
+
 
 @Component({
   selector: 'app-admin-product-detail-dialog',
@@ -31,11 +33,11 @@ export class AdminProductDetailDialogComponent implements OnInit{
   ngOnInit() {
     this.getCategories();
     this.form = this.formBuilder.group({
-      product: '',
-      weight: '',
-      quantity: '',
-      price: '',
-      status: true
+      product: ['', Validators.required],
+      weight: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
+      stock: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
+      price: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
+      status: [true]
     });
     if(this.data){
       this.form.reset();

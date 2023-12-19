@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {SaleService} from "../../../../../service/product/sale.service";
@@ -21,13 +21,13 @@ export class AdminSaleDialogComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group<Sale>({
-      name: '',
-      description: '',
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
       start: new Date(),
       end:new Date(),
-      discount: 0,
-      status: false
+      discount: [0, Validators.required],
+      status: [false, Validators.required]
     })
     if(this.data){
       this.form.patchValue(this.data);

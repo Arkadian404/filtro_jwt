@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {VendorService} from "../../../../../service/vendor.service";
@@ -20,13 +20,13 @@ export class AdminVendorDialogComponent {
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group<Vendor>({
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      description: '',
-      status:true
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
+      description: ['', Validators.required],
+      status:[true]
     });
     if(this.data){
       this.form.patchValue(this.data);
