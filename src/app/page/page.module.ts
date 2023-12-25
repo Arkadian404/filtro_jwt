@@ -1,5 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
 import {PageComponent} from "./page.component";
@@ -83,6 +83,7 @@ import { OrdersComponent } from './layout/content/orders/orders.component';
 import {ButtonModule} from "primeng/button";
 import {TableModule} from "primeng/table";
 import { OrderDetailModalComponent } from './layout/content/orders/order-detail-modal/order-detail-modal.component';
+import { PageTestComponent } from './layout/content/page-test/page-test.component';
 
 register();
 @NgModule({
@@ -130,6 +131,7 @@ register();
         CodCallbackComponent,
         OrdersComponent,
         OrderDetailModalComponent,
+        PageTestComponent,
     ],
     imports: [
         CommonModule,

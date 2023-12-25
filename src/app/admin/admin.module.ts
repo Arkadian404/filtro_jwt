@@ -72,6 +72,7 @@ import { SubBottomWidgetFirstComponent } from './layout/content/admin-home/botto
 import { SubBottomWidgetMidFirstComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-mid-first/sub-bottom-widget-mid-first.component';
 import { SubBottomWidgetMidSecondComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-mid-second/sub-bottom-widget-mid-second.component';
 import { SubBottomWidgetEndComponent } from './layout/content/admin-home/bottom-widgets/sub-bototm-widget-end/sub-bottom-widget-end.component';
+import { AdminTestComponent } from './layout/content/admin-test/admin-test.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -117,6 +118,7 @@ import { SubBottomWidgetEndComponent } from './layout/content/admin-home/bottom-
     SubBottomWidgetMidFirstComponent,
     SubBottomWidgetMidSecondComponent,
     SubBottomWidgetEndComponent,
+    AdminTestComponent,
 
   ],
   exports: [
