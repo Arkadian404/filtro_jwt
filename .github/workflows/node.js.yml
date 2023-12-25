@@ -60,7 +60,7 @@ jobs:
         context: .
         dockerfile: Dockerfile
         push: false
-        tags: zafuog/angualar-cicd:latest
+        tags: zafuog/angualar-filtro:latest
 
     - name: Push Docker Image
       uses: docker/build-push-action@v3
@@ -68,5 +68,5 @@ jobs:
         context: .
         dockerfile: Dockerfile
         push: true
-        tags: zafuog/angular-cicd:latest
+        tags: zafuog/angular-filtro:latest
 
