@@ -13,7 +13,7 @@ import {UtilService} from "../../../../service/util.service";
 import {validatePassword} from "../../../../shared/validators/validate-password.validator";
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
-const NAME_PATTERN = /^[a-zA-Z]+$/;
+const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/;
 const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/
 
 @Component({
@@ -108,14 +108,16 @@ export class AdminProfileComponent implements OnInit{
 
   onSubmit(){
     if(this.profileForm.valid){
+      const rawValue = this.profileForm.getRawValue();
       const convertDate = new Date(this.profileForm.value.dob).toISOString();
-      this.profileForm.value.dob = convertDate.slice(0,10);
-      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
+      rawValue.dob = convertDate.slice(0,10);
+      this.userService.updateUser(this.user.id, rawValue).subscribe({
         next:(data)=>{
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
           console.log(data);
         },
         error:(err)=>{
+          this.utilService.openSnackBar(err, 'Đóng');
           console.log(err);
         }
       })

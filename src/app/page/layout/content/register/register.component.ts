@@ -7,7 +7,7 @@ import {NoSpaceWhiteValidator} from "../../../../shared/validators/no-space-whit
 
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
-const NAME_PATTERN = /^[a-zA-Z]+$/;
+const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/;
 
 const validatePassword = (firstControl: string, secondControl: string) => {
   return function (formGroup: FormGroup) {
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit{
 
 
   public registerUser(register:Register){
-    let resp = this.jwtService.register(register);
+    const resp = this.jwtService.register(register);
     resp.subscribe({
       next: (data) => {
         console.log(data);

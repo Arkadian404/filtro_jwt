@@ -13,7 +13,7 @@ import {Ward} from "../../../../../shared/models/ward";
 import {Observable, of} from "rxjs";
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
-const NAME_PATTERN = /^[a-zA-Z]+$/;
+const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/;
 const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/
 
 @Component({
@@ -76,9 +76,10 @@ export class AdminUserDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
+        const rawValue = this.form.getRawValue();
         const convertDate = new Date(this.form.value.dob).toISOString();
-        this.form.value.dob = convertDate.slice(0,10);
-        this.userService.updateUser(this.data.id, this.form.value).subscribe({
+        rawValue.dob = convertDate.slice(0,10);
+        this.userService.updateUser(this.data.id, rawValue).subscribe({
           next:(data)=>{
             this.utilService.openSnackBar(data.message, 'Đóng')
             this.matDialog.close(true);

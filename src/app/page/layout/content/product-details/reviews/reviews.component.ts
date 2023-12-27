@@ -139,8 +139,10 @@ export class ReviewsComponent implements OnInit, OnChanges{
        this.getReviewsRating(this.product?.id);
        this.getProductDto(this.product?.id);
        this.activeReview = null;
+       this.utilService.openSnackBar(data.message, 'Đóng');
       },
       error: err => {
+        this.utilService.openSnackBar(err, 'Đóng');
         console.log(err);
       }
     })
@@ -157,8 +159,12 @@ export class ReviewsComponent implements OnInit, OnChanges{
         this.getProductDto(this.product?.id);
         console.log(`calling in handle`);
         this.activeReview = null;
+        this.utilService.openSnackBar(data.message, 'Đóng');
       },
-      error: err => {}
+      error: err => {
+        this.utilService.openSnackBar(err, 'Đóng');
+        console.log(err);
+      }
     });
   }
 
@@ -172,8 +178,12 @@ export class ReviewsComponent implements OnInit, OnChanges{
         console.log(`calling in handle`);
         this.getProductDto(this.product?.id);
         this.activeReview = null;
+        this.utilService.openSnackBar(data.message, 'Đóng');
       },
-      error: err => {}
+      error: err => {
+        this.utilService.openSnackBar(err, 'Đóng');
+        console.log(err);
+      }
     });
   }
 

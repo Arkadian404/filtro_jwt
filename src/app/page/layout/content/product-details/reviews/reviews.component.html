@@ -46,6 +46,7 @@
           <div class="col-sm-12">
             <app-review-form *ngIf="isReview()"
                              submitLabel="Gửi"
+                             [isParent]="false"
                              [hasCancelButton]="true"
                              (onCancel)="handleActiveReview(null)"
                              (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"
@@ -65,6 +66,7 @@
             <div class="col-sm-12">
               <app-review-form *ngIf="isReview()"
                                submitLabel="Gửi"
+                                [isParent]="false"
                                [hasCancelButton]="true"
                                (onCancel)="handleActiveReview(null)"
                                (onReviewSubmitForm)="handleSubmitReview({content :$event, parentId:null})"

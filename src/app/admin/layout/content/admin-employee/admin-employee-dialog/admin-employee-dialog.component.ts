@@ -5,7 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {EmployeeService} from "../../../../../service/user/employee.service";
 import {TokenService} from "../../../../../service/token.service";
 
-const NAME_PATTERN =/^[a-zA-Z]+$/;
+const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/;
 const PHONE_PATTERN = /^\d{10,11}$|^0\d{9,10}$/
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
 
@@ -15,9 +15,7 @@ const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
   styleUrls: ['./admin-employee-dialog.component.scss' ,'../../reusable/dialog.scss']
 })
 export class AdminEmployeeDialogComponent implements OnInit{
-  // @ts-ignore
   form:FormGroup<any>;
-  // @ts-ignore
   isEmployee: boolean;
   roles = ['EMPLOYEE', 'ADMIN']
   constructor(private formBuilder:FormBuilder,

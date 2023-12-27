@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, map, throwError} from "rxjs";
 import {ReviewDto} from "../../shared/dto/review-dto";
 import {ReviewRating} from "../../shared/models/statistic/review-rating";
+import {SuccessMessage} from "../../shared/models/success-message";
 
 const API_URL = 'http://localhost:8080/api/v1/user/review';
 
@@ -65,7 +66,7 @@ export class ReviewService{
   }
 
   createReview(content:any, parentId:number, product:any, user:any){
-    return this.http.post<ReviewDto>(`${API_URL}/create`,
+    return this.http.post<SuccessMessage>(`${API_URL}/create`,
       {
         user:user,
         product:product,
@@ -83,7 +84,7 @@ export class ReviewService{
   }
 
   updateReview(content:any, id:number){
-    return this.http.put(`${API_URL}/update/${id}`, {
+    return this.http.put<SuccessMessage>(`${API_URL}/update/${id}`, {
       rating: content?.rating??null,
       comment: content.comment,
     })
@@ -96,7 +97,7 @@ export class ReviewService{
   }
 
   deleteReview(id:number){
-    return this.http.delete(`${API_URL}/delete/${id}`)
+    return this.http.delete<SuccessMessage>(`${API_URL}/delete/${id}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)

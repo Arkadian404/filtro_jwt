@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <form [formGroup]="form" (ngSubmit)="onReviewForm()">
     <div class="rating mb-3">
-      <div *ngIf="submitLabel!=='Phản hồi' && (submitLabel == 'Sửa' && !isParent)" class="d-flex align-items-end pb-2">
+      <div *ngIf="submitLabel==='Gửi' || (submitLabel === 'Sửa' && !isParent)" class="d-flex align-items-end pb-2">
         <span>Đánh giá của bạn về sản phẩm: </span>
         <p-rating [cancel]="false" formControlName="rating"></p-rating>
       </div>
