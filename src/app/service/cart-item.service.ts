@@ -53,6 +53,7 @@ export class CartItemService{
     if(existingItemIndex != -1){
       cartItems[existingItemIndex].quantity ++;
       cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * cartItems[existingItemIndex].price;
+      // cartItems[existingItemIndex] = cartItem;
     }else{
       cartItems.push(cartItem);
       console.log("cart items: ", this.addCartItemsBehavior.value);
@@ -68,7 +69,7 @@ export class CartItemService{
       .pipe(
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
-          return throwError(()=>new Error(err.message))
+          return throwError(()=>new Error(err.error.message))
         })
       );
   }

@@ -8,7 +8,7 @@ import {faCheckSquare, faSquare} from "@fortawesome/free-regular-svg-icons";
 import {faGithub, faMedium, faStackOverflow} from "@fortawesome/free-brands-svg-icons";
 import {faCartShopping, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {ProductDetailDto} from "../../../../shared/dto/product-detail-dto";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {TokenService} from "../../../../service/token.service";
 import {UserService} from "../../../../service/user/user.service";
@@ -85,7 +85,7 @@ export class ProductDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.getUser();
     this.form = this.formBuilder.group({
-      quantity:1,
+      quantity:[1, [Validators.min(1), Validators.required]],
     })
     this.wishlistItemForm = this.formBuilder.group({})
     this.activatedRoute.params.subscribe({
@@ -151,6 +151,7 @@ export class ProductDetailsComponent implements OnInit{
       },
       error:(err)=>{
         console.log(err);
+        this.utilService.openSnackBar(err, "Đóng");
       }
     })
   }

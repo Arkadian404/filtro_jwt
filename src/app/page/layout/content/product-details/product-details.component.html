@@ -101,7 +101,7 @@
                       <button (click)="decreaseQuantity()" title="Decrease" type="button" class="btn btn-link-dark">
                         <fa-icon [icon]="['fas', 'minus']"> </fa-icon>
                       </button>
-                      <input type="text" name="quantity" [value]="selectedQuantity" title="total" class="w-35 text-center border-0 m-0 form-control rounded-0 shadow-none">
+                      <input type="text" name="quantity" [(ngModel)]="selectedQuantity" [ngModelOptions]="{standalone: true}" title="total" class="w-50 text-center border-0 m-0 form-control rounded-0 shadow-none">
                       <button (click)="increaseQuantity()" title="Increase" type="button" class="btn btn-link-dark">
                         <fa-icon [icon]="['fas', 'plus']"> </fa-icon>
                       </button>
@@ -111,7 +111,7 @@
                 <div class="row mt-4">
                   <div class="col-md-12">
                     <div class="d-grid">
-                      <button [disabled]="productDetail.stock <=0" type="submit" class="btn btn-outline-secondary">
+                      <button [disabled]="productDetail.stock <=0 || form.invalid" type="submit" class="btn btn-outline-secondary">
                         <fa-icon [icon]="['fas', 'shopping-cart']"> </fa-icon>
                         Thêm vào giỏ hàng</button>
                     </div>
