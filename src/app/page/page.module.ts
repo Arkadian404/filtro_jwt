@@ -84,6 +84,8 @@ import {ButtonModule} from "primeng/button";
 import {TableModule} from "primeng/table";
 import { OrderDetailModalComponent } from './layout/content/orders/order-detail-modal/order-detail-modal.component';
 import { PageTestComponent } from './layout/content/page-test/page-test.component';
+import { UserConfirmationDialogComponent } from './layout/content/reusable/user-confirmation-dialog/user-confirmation-dialog.component';
+import { WishlistComponent } from './layout/content/wishlist/wishlist.component';
 
 register();
 @NgModule({
@@ -132,6 +134,8 @@ register();
         OrdersComponent,
         OrderDetailModalComponent,
         PageTestComponent,
+        UserConfirmationDialogComponent,
+        WishlistComponent,
     ],
     imports: [
         CommonModule,

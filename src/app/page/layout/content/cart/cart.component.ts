@@ -4,6 +4,12 @@ import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {UtilService} from "../../../../service/util.service";
 
 import {TokenService} from "../../../../service/token.service";
+import {MatDialog} from "@angular/material/dialog";
+import {UserDialogService} from "../reusable/user-dialog.service";
+import {ComponentType} from "@angular/cdk/overlay";
+import {OrderDto} from "../../../../shared/dto/order-dto";
+import {OrderDetailModalComponent} from "../orders/order-detail-modal/order-detail-modal.component";
+import {UserConfirmationDialogComponent} from "../reusable/user-confirmation-dialog/user-confirmation-dialog.component";
 
 @Component({
   selector: 'app-cart',
@@ -15,10 +21,13 @@ export class CartComponent implements OnInit{
   isLoading: boolean = true;
   cartItems: CartItemDto[];
   selectedCartItem:CartItemDto;
+  currentQuantity: number;
   subTotal: number= 0;
   totalSum: number = 0;
   constructor(private cartItemService: CartItemService,
               private tokenService: TokenService,
+              private dialog:MatDialog,
+              private dialogService:UserDialogService,
               private utilService:UtilService) {
   }
   ngOnInit(): void {
@@ -127,5 +136,13 @@ export class CartComponent implements OnInit{
       this.getCartItemList();
       return this.getCartItemList() ? this.getCartItemList() : [];
     }
+  }
+
+  openDeleteCartItemDialog(data:CartItemDto){
+    this.dialogService.confirmDialog("Xóa sản phẩm", "Bạn có chắc muốn xóa sản phẩm khỏi giỏ hàng?").subscribe(res=>{
+      if(data !=null){
+        this.deleteCartItem(data);
+      }
+    });
   }
 }
