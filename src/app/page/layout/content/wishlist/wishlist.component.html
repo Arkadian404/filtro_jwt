@@ -13,3 +13,106 @@
     </nav>
   </div>
 </section>
+
+
+
+<div class="container">
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <ng-container *ngIf="wishlistItems.length >0 && wishlistItems; else noWishlistItems">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table class="table text-center mb-0">
+              <thead>
+              <tr>
+                <th class="fw-20">
+                  <span>#</span>
+                </th>
+                <th class="fw-20">
+                  <span>Ảnh</span>
+                </th>
+                <th class="fw-20">
+                  <span>Sản phẩm</span>
+                </th>
+                <th class="fw-20">
+                  <span>Giá</span>
+                </th>
+                <th class="fw-20">
+                  <span>Tình trạng</span>
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let w of wishlistItems; let i=index;">
+                <td>
+                  <span class="fw-18">
+                    {{i+1}}
+                  </span>
+                </td>
+                <td>
+                  <a [routerLink]="['/product', w.product.slug]">
+                    <img [ngSrc]="w.product.images[0].url" [alt]="w.product.name" height="80" width="80" class="img-fluid">
+                  </a>
+                </td>
+                <td>
+                  <a [routerLink]="['/product', w.product.slug]" class="text-decoration-none">
+                    <span class="fw-18">{{w.product.name}}</span>
+                  </a>
+                </td>
+                <td>
+                  <span class="fw-18">
+                    {{w.product.productDetails[0].price | currencyVND}}
+                  </span>
+                </td>
+                <td>
+                  <span class="fw-18">
+                    <div *ngIf="w.product.productDetails[0].stock > 0;else outOfStock" class="badge text-bg-success">
+                      CÒN HÀNG
+                    </div>
+                    <ng-template #outOfStock>
+                    <div class="badge text-bg-danger mb-3">
+                      HẾT HÀNG
+                    </div>
+                </ng-template>
+                  </span>
+                </td>
+                <td>
+                  <div class="d-flex flex-column">
+                    <span *ngIf="username">Thêm vào ngày {{w.addDate | date:'dd-MM-yyyy'}}</span>
+                    <span *ngIf="!username">Nếu bạn thích sản phẩm, hãy thêm vào giỏ hàng!</span>
+                    <form [formGroup]="cartItemForm" (ngSubmit)="addCart(w.product)">
+                      <button type="submit" class="btn btn-success">Thêm vào giỏ</button>
+                    </form>
+                  </div>
+                </td>
+                <td>
+                  <form [formGroup]="wishlistItemForm" (ngSubmit)="openDeleteWishlistItem(w.product.id)">
+                    <button mat-icon-button type="submit" color="warn">
+                      <mat-icon fontIcon="delete"></mat-icon>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noWishlistItems>
+      <div class="col-lg-12 center-image mt-3">
+        <img src="assets/images/shopping-cart.png" alt="" style="height: 256px; width: 256px!important;">
+      </div>
+      <div class="col-lg-12 text-center mt-3">
+        <h3 class="fw-20">Bạn chưa có sản phẩm yêu thích nào</h3>
+        <a [routerLink]="['/home']" class="btn btn-primary">Tiếp tục mua sắm</a>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

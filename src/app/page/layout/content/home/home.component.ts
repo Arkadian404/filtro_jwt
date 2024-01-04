@@ -292,9 +292,6 @@ export class HomeComponent implements OnInit{
 
   deleteFromWishlist(productId:number){
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
-    console.log(wishlistItem);
-    console.log(productId);
-    console.log(this.wishlistItems);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, "Đóng");

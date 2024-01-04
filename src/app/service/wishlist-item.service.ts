@@ -93,13 +93,13 @@ export class WishlistItemService {
     }
   }
 
-  deleteWishlistItemNotLogin(wishlistItemId:number){
+  deleteWishlistItemNotLogin(productId:number){
     this.wishlistItems = this.getWishlistItemsFromLocalStorage();
     for (let i = 0; i < this.wishlistItems.length; i++) {
-      if (this.wishlistItems[i].product?.id === wishlistItemId) {
+      if (this.wishlistItems[i].product?.id === productId) {
         this.wishlistItems.splice(i, 1);
-        console.log(wishlistItemId);
-        this.deleteWishlistItemsBehavior.next(wishlistItemId);
+        console.log(productId);
+        this.deleteWishlistItemsBehavior.next(productId);
         this.saveWishlistItemsToLocalStorage(this.wishlistItems);
         break;
       }

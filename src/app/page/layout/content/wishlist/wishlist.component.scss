@@ -1,3 +1,13 @@
+.fw-20{
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.fw-18{
+  font-weight: 500;
+  font-size: 18px;
+}
+
 .bread-crumb{
   overflow: hidden;
   background-position: center center;
@@ -27,4 +37,12 @@
       }
     }
   }
+}
+
+
+.center-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

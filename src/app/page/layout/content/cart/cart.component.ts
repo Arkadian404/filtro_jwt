@@ -6,11 +6,6 @@ import {UtilService} from "../../../../service/util.service";
 import {TokenService} from "../../../../service/token.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UserDialogService} from "../reusable/user-dialog.service";
-import {ComponentType} from "@angular/cdk/overlay";
-import {OrderDto} from "../../../../shared/dto/order-dto";
-import {OrderDetailModalComponent} from "../orders/order-detail-modal/order-detail-modal.component";
-import {UserConfirmationDialogComponent} from "../reusable/user-confirmation-dialog/user-confirmation-dialog.component";
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

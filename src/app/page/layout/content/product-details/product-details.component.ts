@@ -167,7 +167,6 @@ export class ProductDetailsComponent implements OnInit{
       this.form.value.quantity = this.selectedQuantity;
       this.form.value.total = this.form.value.quantity  * this.form.value.price;
     }
-    console.log(this.form.value)
     if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
       this.cartItemService.addToCartNotLogin(this.form.value)
     }else{
@@ -266,9 +265,6 @@ export class ProductDetailsComponent implements OnInit{
 
   deleteFromWishlist(productId:number){
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
-    console.log(wishlistItem);
-    console.log(productId);
-    console.log(this.wishlistItems);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, "Đóng");

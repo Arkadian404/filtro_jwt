@@ -1,20 +1,19 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from "../../../../service/order.service";
 import {OrderDto} from "../../../../shared/dto/order-dto";
-import {TokenService} from "../../../../service/token.service";
+
 import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort, MatSortable} from "@angular/material/sort";
+import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 
 import {ComponentType, Overlay} from "@angular/cdk/overlay";
-import {DialogService} from "../../../../admin/layout/content/reusable/dialog.service";
 import {OrderDetailModalComponent} from "./order-detail-modal/order-detail-modal.component";
-import {user} from "@angular/fire/auth";
 import {Order} from "../../../../shared/models/order";
 import {UtilService} from "../../../../service/util.service";
+import {UserDialogService} from "../reusable/user-dialog.service";
 
 @Component({
   selector: 'app-orders',
@@ -34,7 +33,7 @@ export class OrdersComponent implements OnInit{
 
   constructor(private orderService:OrderService,
               private dialog:MatDialog,
-              private dialogService:DialogService,
+              private dialogService:UserDialogService,
               private utilService: UtilService,
               private authenticationService:AuthenticationService){}
   ngOnInit(): void {
@@ -47,7 +46,7 @@ export class OrdersComponent implements OnInit{
       this.orderService.getAllOrderByUserId(this.user?.id).subscribe(orders=>{
         this.orders = orders;
         this.dataSource = new MatTableDataSource(orders);
-        this.sort.sort(({id: 'orderDate', start: 'desc', disableClear: false}));
+        // this.sort.sort(({id: 'orderDate', start: 'desc', disableClear: false}));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
@@ -84,7 +83,7 @@ export class OrdersComponent implements OnInit{
   }
 
   openCancelDialog(data:Order){
-    this.dialogService.confirmDialog().subscribe(res=>{
+    this.dialogService.confirmDialog("Hủy đơn hàng", "Bạn có chắc muốn hủy bỏ đơn hàng này?").subscribe(res=>{
       if(data.id !=null){
         this.cancelOrder(data.id);
       }

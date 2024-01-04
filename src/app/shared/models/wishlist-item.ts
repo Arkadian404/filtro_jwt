@@ -5,5 +5,5 @@ export interface WishlistItem{
   id?:number,
   wishlist?:Wishlist,
   product?:Product,
-  addedAt?:Date
+  addDate?:Date
 }

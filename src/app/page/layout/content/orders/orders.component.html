@@ -70,7 +70,7 @@
                     <button class="me-3" mat-mini-fab color="primary" (click)="openOrderDetailsDialog(row)">
                       <mat-icon fontIcon="visibility"></mat-icon>
                     </button>
-                    <button *ngIf="row.status!= 'CANCELED'" mat-mini-fab color="warn" (click)="openCancelDialog(row)">
+                    <button *ngIf="row.status != 'CANCELED' && row.status!= 'CONFIRMED' && row.status != 'FAILED'" mat-mini-fab color="warn" (click)="openCancelDialog(row)">
                       <mat-icon fontIcon="close"></mat-icon>
                     </button>
                   </td>

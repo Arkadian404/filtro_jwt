@@ -2,6 +2,10 @@
   font-weight: 600;
 }
 
+.fw-bold{
+  font-weight: 700;
+}
+
 .fw-normal{
   font-weight: 400;
 }
@@ -20,6 +24,10 @@
 
 .fs-16{
   font-size: 16px;
+}
+
+.fs-24{
+  font-size: 24px;
 }
 
 span{
@@ -51,4 +59,8 @@ span{
 
 .bg-success-subtle{
   background-color: #cdf7ec;
+}
+
+.bg-danger-subtle{
+  background-color: #fde2e6;
 }

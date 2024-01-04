@@ -7,6 +7,6 @@ export interface WishlistItemDto{
   id?:number,
   wishlist?:WishlistDto,
   product?:ProductDto,
-  addedAt?:Date,
+  addDate?:Date,
   isAdded?:boolean
 }
