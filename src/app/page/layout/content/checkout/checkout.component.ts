@@ -16,6 +16,7 @@ import {OrderService} from "../../../../service/order.service";
 import {Router} from "@angular/router";
 import {OrderDto} from "../../../../shared/dto/order-dto";
 import {ShippingMethodDto} from "../../../../shared/dto/shipping-method-dto";
+import {UtilService} from "../../../../service/util.service";
 
 @Component({
   selector: 'app-checkout',
@@ -66,6 +67,7 @@ export class CheckoutComponent implements OnInit{
               private userService: UserService,
               private cartItemService:CartItemService,
               private orderService:OrderService,
+              private utilService: UtilService,
               private router:Router){
   }
 
@@ -171,14 +173,9 @@ export class CheckoutComponent implements OnInit{
   }
 
   onProvinceChange(event: any) {
-    console.log(this.cartItems);
     const province = event.source._value;
     this.selectedProvince = this.provinces.find(p => p.name === province);
     this.shippingFee = this.calculateShippingFee(this.selectedProvince, this.cartItems.reduce((sum, item)=> sum+ item.productDetail.weight * item.quantity, 0));
-    console.log(this.selectedProvince);
-    console.log(this.cartItems.reduce((sum, item)=> sum+ item.productDetail.weight * item.quantity, 0));
-    console.log(this.shippingFee);
-    console.log(province);
     this.districts = this.provinces.find(p => p.name === province)?.districts || []
   }
 
@@ -270,7 +267,10 @@ export class CheckoutComponent implements OnInit{
                 window.location.href = data.payUrl;
                 this.cartItemService.cartItemsBehavior.next([]);
               },
-              error:err=>{console.log(err)}
+              error:err=>{
+                this.utilService.openSnackBar(err, "Đóng");
+                console.log(err)
+              }
             })
           }else if(this.selectedPaymentMethod === 'VNPAY'){
             this.orderService.placeVNPayOrder(this.order).subscribe({
@@ -279,11 +279,17 @@ export class CheckoutComponent implements OnInit{
                 window.location.href = data.paymentUrl;
                 this.cartItemService.cartItemsBehavior.next([]);
               },
-              error:err=>{console.log(err)}
+              error:err=>{
+                this.utilService.openSnackBar(err, "Đóng");
+                console.log(err)
+              }
             })
           }
         },
-        error:err=>{console.log(err)}
+        error:err=>{
+          this.utilService.openSnackBar(err, "Đóng");
+          console.log(err);
+        }
       })
     }
   }

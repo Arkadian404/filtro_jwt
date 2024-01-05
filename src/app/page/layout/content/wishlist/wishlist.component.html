@@ -75,7 +75,7 @@
                       CÒN HÀNG
                     </div>
                     <ng-template #outOfStock>
-                    <div class="badge text-bg-danger mb-3">
+                    <div class="badge text-bg-danger">
                       HẾT HÀNG
                     </div>
                 </ng-template>
@@ -83,9 +83,9 @@
                 </td>
                 <td>
                   <div class="d-flex flex-column">
-                    <span *ngIf="username">Thêm vào ngày {{w.addDate | date:'dd-MM-yyyy'}}</span>
-                    <span *ngIf="!username">Nếu bạn thích sản phẩm, hãy thêm vào giỏ hàng!</span>
-                    <form [formGroup]="cartItemForm" (ngSubmit)="addCart(w.product)">
+                    <span *ngIf="username" class="mb-1">Thêm vào ngày {{w.addDate | date:'dd-MM-yyyy'}}</span>
+                    <span *ngIf="!username" class="mb-1">Nếu bạn thích sản phẩm, hãy thêm vào giỏ hàng!</span>
+                    <form *ngIf="w.product.productDetails[0].stock > 0" [formGroup]="cartItemForm" (ngSubmit)="addCart(w.product)">
                       <button type="submit" class="btn btn-success">Thêm vào giỏ</button>
                     </form>
                   </div>
