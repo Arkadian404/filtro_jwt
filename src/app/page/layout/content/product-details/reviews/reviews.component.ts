@@ -31,6 +31,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
     {rating: 4, count: 0},
     {rating: 5, count: 0}
   ];
+  hasBoughtProduct = false;
 
   constructor(private reviewService:ReviewService,
               private productService:ProductService,
@@ -129,23 +130,29 @@ export class ReviewsComponent implements OnInit, OnChanges{
 
 
   handleSubmitReview({content, parentId}: {content: any, parentId:number}){
-    console.log(content, parentId);
-    console.log(`handleSubmit:  ${parentId}`)
-    this.reviewService.createReview(content, parentId, this.product, this.user).subscribe({
-      next: data => {
-        console.log(`calling in handle`);
-       this.getAllReviewsByProductId(this.product?.id);
-       this.getReviewCount(this.product?.id);
-       this.getReviewsRating(this.product?.id);
-       this.getProductDto(this.product?.id);
-       this.activeReview = null;
-       this.utilService.openSnackBar(data.message, 'Đóng');
-      },
-      error: err => {
-        this.utilService.openSnackBar(err, 'Đóng');
-        console.log(err);
+    const productId = this.product?.id;
+    const userId = this.user?.id;
+    this.reviewService.hasUserBoughtProduct(userId, productId).subscribe(data=>{
+      if(data){
+        this.hasBoughtProduct = true;
+        this.reviewService.createReview(content, parentId, this.product, this.user).subscribe({
+          next: data => {
+            this.getAllReviewsByProductId(this.product?.id);
+            this.getReviewCount(this.product?.id);
+            this.getReviewsRating(this.product?.id);
+            this.getProductDto(this.product?.id);
+            this.activeReview = null;
+            this.utilService.openSnackBar(data.message, 'Đóng');
+          },
+          error: err => {
+            this.utilService.openSnackBar(err, 'Đóng');
+            console.log(err);
+          }
+        })
+      }else{
+        this.hasBoughtProduct = false;
       }
-    })
+    });
   }
 
   handleEditReview({content, reviewId}: {content: any, reviewId:number}){

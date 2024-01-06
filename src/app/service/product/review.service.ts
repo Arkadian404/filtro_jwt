@@ -106,6 +106,8 @@ export class ReviewService{
       );
   }
 
-
+  hasUserBoughtProduct(userId:number, productId:number){
+    return this.http.get<boolean>(`${API_URL}/check/user/${userId}/${productId}`);
+  }
 
 }

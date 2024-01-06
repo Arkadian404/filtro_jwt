@@ -24,7 +24,12 @@
                 </ng-template>
 
             </div>
-            <button *ngIf="user;else noUser" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+            <div *ngIf="user;else noUser">
+              <button *ngIf="hasBoughtProduct; else notBoughtProduct" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+              <ng-template #notBoughtProduct>
+                <strong><h2 class="f-w-600"><i>Bạn cần mua sản phẩm này để có thể bình luận!</i></h2></strong>
+              </ng-template>
+            </div>
             <ng-template #noUser>
               <strong><h2 class="f-w-600"><i>Bạn cần đăng nhập để có thể bình luận!</i></h2></strong>
             </ng-template>
