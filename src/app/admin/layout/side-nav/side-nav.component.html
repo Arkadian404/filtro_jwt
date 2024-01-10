@@ -20,18 +20,23 @@
     <mat-icon fontIcon="edit"></mat-icon>
     <span>Hương vị</span>
   </a>
-  <a mat-list-item [routerLink]="['sale']" routerLinkActive="list-item-active">
-    <mat-icon fontIcon="event_list"></mat-icon>
-    <span>Sự kiện</span>
-  </a>
-  <a mat-list-item [routerLink]="['brand']" routerLinkActive="list-item-active">
-    <mat-icon fontIcon="branding_watermark"></mat-icon>
-    <span>Thương hiệu</span>
-  </a>
-  <a mat-list-item [routerLink]="['order']" routerLinkActive="list-item-active">
-    <mat-icon fontIcon="receipt_long"></mat-icon>
-    <span>Đơn hàng</span>
-  </a>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Quản lý
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+      <ng-container *ngIf="!isEmployee">
+        <a mat-list-item [routerLink]="['employee']" routerLinkActive="list-item-active">
+          <mat-icon fontIcon="edit"></mat-icon>
+          <span>Nhân viên</span>
+        </a>
+      </ng-container>
+      <a mat-list-item [routerLink]="['user']" routerLinkActive="list-item-active">
+        <mat-icon fontIcon="supervised_user_circle"></mat-icon>
+        <span>Người dùng</span>
+      </a>
+    </mat-nav-list>
+  </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       Sản phẩm
@@ -59,23 +64,26 @@
       </a>
     </mat-nav-list>
   </mat-expansion-panel>
-
-
   <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      Quản lý
-    </mat-expansion-panel-header>
+    <mat-expansion-panel-header>Hoạt động</mat-expansion-panel-header>
     <mat-nav-list>
-      <ng-container *ngIf="!isEmployee">
-        <a mat-list-item [routerLink]="['employee']" routerLinkActive="list-item-active">
-          <mat-icon fontIcon="edit"></mat-icon>
-          <span>Nhân viên</span>
-        </a>
-        </ng-container>
-      <a mat-list-item [routerLink]="['user']" routerLinkActive="list-item-active">
-        <mat-icon fontIcon="supervised_user_circle"></mat-icon>
-        <span>Người dùng</span>
+      <a mat-list-item [routerLink]="['sale']" routerLinkActive="list-item-active">
+        <mat-icon fontIcon="event_list"></mat-icon>
+        <span>Sự kiện</span>
+      </a>
+      <a mat-list-item [routerLink]="['voucher']" routerLinkActive="list-item-active">
+        <mat-icon fontIcon="sell"></mat-icon>
+        <span>Voucher</span>
       </a>
     </mat-nav-list>
   </mat-expansion-panel>
+  <a mat-list-item [routerLink]="['brand']" routerLinkActive="list-item-active">
+    <mat-icon fontIcon="branding_watermark"></mat-icon>
+    <span>Thương hiệu</span>
+  </a>
+  <a mat-list-item [routerLink]="['order']" routerLinkActive="list-item-active">
+    <mat-icon fontIcon="receipt_long"></mat-icon>
+    <span>Đơn hàng</span>
+  </a>
+
 </mat-nav-list>

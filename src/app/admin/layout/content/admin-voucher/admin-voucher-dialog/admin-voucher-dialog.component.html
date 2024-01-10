@@ -1,0 +1,67 @@
+<div class="" mat-dialog-title>
+  <h1>Thêm voucher</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="content" mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Tên voucher</mat-label>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
+          <span *ngIf="form.get('name').hasError('required')">Không được để trống</span>
+        </mat-error>
+        <mat-form-field appearance="outline">
+          <mat-label>Giảm giá (%)</mat-label>
+          <input type="number" matInput formControlName="discount">
+        </mat-form-field>
+        <mat-error *ngIf="form.get('discount').touched && !form.get('discount').valid">
+          <span *ngIf="form.get('discount').hasError('required')">Không được để trống</span>
+        </mat-error>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Ngày hết hạn</mat-label>
+          <input [matDatepicker]="Picker" matInput formControlName="expirationDate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
+          <mat-datepicker #Picker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Hủy</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Danh mục</mat-label>
+          <mat-select
+            [compareWith]="compareObjectFunction"
+            formControlName="category"
+            (selectionChange)="onCategoryChange($event)">
+            <mat-option [value]="''">Tất cả</mat-option>
+            <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Trạng thái</mat-label>-->
+<!--        <mat-select formControlName="status">-->
+<!--          <mat-option [value]="true">Mở</mat-option>-->
+<!--          <mat-option [value]="false">Đóng</mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Mô tả</mat-label>
+        <textarea type="text" matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="action" mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button [disabled]="form.invalid" mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+  </div>
+</form>

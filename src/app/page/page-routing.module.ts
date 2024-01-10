@@ -36,6 +36,7 @@ import {MomoCallbackComponent} from "./layout/content/payment/momo-callback/momo
 import {VnpayCallbackComponent} from "./layout/content/payment/vnpay-callback/vnpay-callback.component";
 import {OrdersComponent} from "./layout/content/orders/orders.component";
 import {WishlistComponent} from "./layout/content/wishlist/wishlist.component";
+import {PageTestComponent} from "./layout/content/page-test/page-test.component";
 
 const routes: Routes = [
   {path:'', component:PageComponent ,children:[
@@ -74,7 +75,8 @@ const routes: Routes = [
       {path: 'wishlist', component:WishlistComponent},
       {path:'orders', component:OrdersComponent},
       {path:'contact', component:ContactComponent},
-      {path:'introduce', component: IntroduceComponent}
+      {path:'introduce', component: IntroduceComponent},
+      {path:'test', component: PageTestComponent}
     ]
   }
 ];

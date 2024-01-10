@@ -1,1 +1,6 @@
 <p>page-test works!</p>
+
+<quill-editor [modules]="modules" [(ngModel)]="html" (onEditorCreated)="onEditorCreated($event)" (onContentChanged)="onContentChange($event)"></quill-editor>
+
+
+<quill-view-html [content]="html"></quill-view-html>

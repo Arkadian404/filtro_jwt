@@ -22,7 +22,8 @@
               "date-format",
               "ng-apexcharts",
               "apexcharts",
-              "moment"
+              "moment",
+              "quill"
             ],
             "outputPath": "dist/jwt-ng-client",
             "index": "src/index.html",

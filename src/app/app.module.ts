@@ -19,6 +19,7 @@ import * as firebase from '@firebase/app';
 import {AdminModule} from "./admin/admin.module";
 import {PageModule} from "./page/page.module";
 import {RouterModule} from "@angular/router";
+import {QuillModule} from "ngx-quill";
 
 
 
@@ -38,6 +39,7 @@ firebase.initializeApp(environment.firebaseConfig) //firebase
     AppRoutingModule,
     AdminModule,
     PageModule,
+    QuillModule
   ],
   providers: [
     // {

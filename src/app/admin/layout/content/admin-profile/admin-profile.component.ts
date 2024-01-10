@@ -108,9 +108,7 @@ export class AdminProfileComponent implements OnInit{
 
   onSubmit(){
     if(this.profileForm.valid){
-      const rawValue = this.profileForm.getRawValue();
-      const convertDate = new Date(this.profileForm.value.dob).toISOString();
-      rawValue.dob = convertDate.slice(0,10);
+      const rawValue = this.profileForm.getRawValue(); // get full fields include diasbled fields
       this.userService.updateUser(this.user.id, rawValue).subscribe({
         next:(data)=>{
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
@@ -127,10 +125,6 @@ export class AdminProfileComponent implements OnInit{
 
   onSubmitPassword(){
     if(this.passwordForm.valid){
-      console.log(this.passwordForm.value);
-      console.log(this.user.id);
-      console.log(this.passwordForm.value.oldPassword);
-      console.log(this.passwordForm.value.newPassword);
       this.userService.changePassword(this.user.id,
         this.passwordForm.value.oldPassword,
         this.passwordForm.value.newPassword)

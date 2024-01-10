@@ -110,8 +110,6 @@ export class UserInfoComponent implements OnInit{
   onSubmit() {
     if (this.profileForm.valid) {
       const rawValue = this.profileForm.getRawValue();
-      const convertDate = new Date(this.profileForm.value.dob).toISOString();
-      rawValue.dob = convertDate.slice(0,10);
       this.userService.updateUserInfo(this.user.id, rawValue).subscribe({
         next: (data) => {
           this.utilService.openSnackBar('Cập nhật thành công', 'Đóng')
@@ -128,10 +126,6 @@ export class UserInfoComponent implements OnInit{
 
   onSubmitPassword() {
     if (this.passwordForm.valid) {
-      console.log(this.passwordForm.value);
-      console.log(this.user.id);
-      console.log(this.passwordForm.value.oldPassword);
-      console.log(this.passwordForm.value.newPassword);
       this.userService.changeUserPassword(this.user.id,
         this.passwordForm.value.oldPassword,
         this.passwordForm.value.newPassword)

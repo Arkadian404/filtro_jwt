@@ -19,6 +19,7 @@ import {AdminProductOriginComponent} from "./layout/content/admin-product-origin
 import {AdminProductDetailComponent} from "./layout/content/admin-product-detail/admin-product-detail.component";
 import {AdminBrandComponent} from "./layout/content/admin-brand/admin-brand.component";
 import {AdminOrderComponent} from "./layout/content/admin-order/admin-order.component";
+import {AdminVoucherComponent} from "./layout/content/admin-voucher/admin-voucher.component";
 
 const routes: Routes = [
   {path: '', component: AdminComponent,  children:[
@@ -38,6 +39,7 @@ const routes: Routes = [
       {path: 'product-detail', component: AdminProductDetailComponent, canActivate:[authGuard]},
       {path: 'brand', component: AdminBrandComponent, canActivate:[authGuard]},
       {path: 'order', component: AdminOrderComponent, canActivate:[authGuard]},
+      {path: 'voucher', component: AdminVoucherComponent, canActivate:[authGuard]}
     ]}
 ];
 

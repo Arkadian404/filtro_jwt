@@ -73,6 +73,8 @@ import { SubBottomWidgetMidFirstComponent } from './layout/content/admin-home/bo
 import { SubBottomWidgetMidSecondComponent } from './layout/content/admin-home/bottom-widgets/sub-bottom-widget-mid-second/sub-bottom-widget-mid-second.component';
 import { SubBottomWidgetEndComponent } from './layout/content/admin-home/bottom-widgets/sub-bototm-widget-end/sub-bottom-widget-end.component';
 import { AdminTestComponent } from './layout/content/admin-test/admin-test.component';
+import { AdminVoucherComponent } from './layout/content/admin-voucher/admin-voucher.component';
+import { AdminVoucherDialogComponent } from './layout/content/admin-voucher/admin-voucher-dialog/admin-voucher-dialog.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -119,6 +121,8 @@ import { AdminTestComponent } from './layout/content/admin-test/admin-test.compo
     SubBottomWidgetMidSecondComponent,
     SubBottomWidgetEndComponent,
     AdminTestComponent,
+    AdminVoucherComponent,
+    AdminVoucherDialogComponent,
 
   ],
   exports: [
