@@ -1,4 +1,5 @@
 import {UserDto} from "./user-dto";
+import {Voucher} from "../models/voucher";
 
 
 export interface CartDto{
@@ -8,4 +9,5 @@ export interface CartDto{
   updatedAt?:Date;
   total?:number;
   status?:boolean;
+  voucher?:Voucher;
 }

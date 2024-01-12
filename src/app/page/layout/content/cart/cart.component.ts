@@ -6,6 +6,9 @@ import {UtilService} from "../../../../service/util.service";
 import {TokenService} from "../../../../service/token.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UserDialogService} from "../reusable/user-dialog.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {VoucherService} from "../../../../service/voucher.service";
+import {Voucher} from "../../../../shared/models/voucher";
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -16,16 +19,21 @@ export class CartComponent implements OnInit{
   isLoading: boolean = true;
   cartItems: CartItemDto[];
   selectedCartItem:CartItemDto;
-  currentQuantity: number;
   subTotal: number= 0;
   totalSum: number = 0;
+  voucherForm: FormGroup<any>;
+  voucher:Voucher;
   constructor(private cartItemService: CartItemService,
               private tokenService: TokenService,
-              private dialog:MatDialog,
+              private formBuilder: FormBuilder,
               private dialogService:UserDialogService,
+              private voucherService:VoucherService,
               private utilService:UtilService) {
   }
   ngOnInit(): void {
+    this.voucherForm = this.formBuilder.group({
+      code:['']
+    });
     this.username = this.tokenService.getUsername();
     this.getCartItemList();
   }
@@ -34,9 +42,9 @@ export class CartComponent implements OnInit{
     if(this.username){
       return this.cartItemService.getCart(this.username).subscribe({
         next:(data) =>{
+          this.voucher = data.voucher;
           this.cartItemService.getCartItems(data.id).subscribe(items=>{
             this.cartItems = items;
-            console.log(items)
             this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
             this.totalSum = this.subTotal;
             this.isLoading = false;
@@ -140,4 +148,20 @@ export class CartComponent implements OnInit{
       }
     });
   }
+
+  applyVoucher(){
+    if(this.voucherForm.valid) {
+      this.voucherService.applyVoucher(this.voucherForm.value.code).subscribe({
+        next: (data) => {
+          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.getCartItemList();
+        },
+        error: (err) => {
+          this.utilService.openSnackBar(err, 'Đóng');
+        }
+      });
+      console.log(this.voucherForm.value);
+    }
+  }
+
 }

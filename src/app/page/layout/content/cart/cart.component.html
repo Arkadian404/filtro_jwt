@@ -47,7 +47,10 @@
                 </div>
               </td>
               <td class="align-middle">{{ item.productDetail.weight | convertUnit: item.productDetail.categoryId}}</td>
-              <td class="align-middle">{{ item.price | currencyVND}}</td>
+              <td class="align-middle">
+                <span>{{ item.price | currencyVND}}</span>
+                <p *ngIf="voucher!=null" class="mb-0 fs-14"><s>{{item.price / (1 -  voucher.discount/100) | currencyVND }}</s></p>
+              </td>
               <td class="align-middle">
                 <div class="input-group quantity mx-auto btn-group-quantity">
                   <div class="input-group-btn">
@@ -85,11 +88,11 @@
         </table>
       </div>
       <div class="col-lg-4">
-        <form class="mb-5" action="">
+        <form class="mb-5" [formGroup]="voucherForm" (ngSubmit)="applyVoucher()">
           <div class="input-group">
-            <input type="text" class="form-control p-4" placeholder="Coupon Code">
+            <input type="text" formControlName ="code" class="form-control p-4" placeholder="Coupon Code">
             <div class="input-group-append">
-              <button class="btn btn-primary">Nhập mã coupon</button>
+              <button type="submit" class="btn btn-primary">Nhập mã coupon</button>
             </div>
           </div>
         </form>
@@ -100,11 +103,14 @@
           <div class="card-body">
             <div class="d-flex justify-content-between mb-3 pt-1">
               <h3 class="font-weight-medium">Tạm tính</h3>
-              <h3 class="font-weight-medium">{{subTotal | currencyVND}}</h3>
+              <h3 *ngIf="voucher!=null" class="font-weight-medium">{{subTotal | currencyVND}}</h3>
             </div>
             <div class="d-flex justify-content-between">
               <h3 class="font-weight-medium">Giảm giá (%)</h3>
-              <h3 class="font-weight-medium">-----</h3>
+              <h3 *ngIf="voucher!=null;else noVoucher" class="font-weight-medium">{{voucher.discount}}</h3>
+              <ng-template #noVoucher>
+                <h3 class="font-weight-medium">-----</h3>
+              </ng-template>
             </div>
           </div>
           <div class="card-footer border-secondary bg-transparent">
