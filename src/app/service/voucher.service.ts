@@ -68,4 +68,14 @@ export class VoucherService {
       );
   }
 
+  removeVoucher(id:number){
+    return this.http.delete<SuccessMessage>(`${VOUCHER_API}/remove/${id}`)
+      .pipe(
+        catchError(err => {
+          console.log('Error handled by Service...' + err.status);
+          return throwError(() => new Error(err.error.message))
+        })
+      );
+  }
+
 }

@@ -6,7 +6,7 @@ import {UtilService} from "../../../../service/util.service";
 import {TokenService} from "../../../../service/token.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UserDialogService} from "../reusable/user-dialog.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {VoucherService} from "../../../../service/voucher.service";
 import {Voucher} from "../../../../shared/models/voucher";
 @Component({
@@ -32,7 +32,7 @@ export class CartComponent implements OnInit{
   }
   ngOnInit(): void {
     this.voucherForm = this.formBuilder.group({
-      code:['']
+      code:['', Validators.required]
     });
     this.username = this.tokenService.getUsername();
     this.getCartItemList();
@@ -162,6 +162,26 @@ export class CartComponent implements OnInit{
       });
       console.log(this.voucherForm.value);
     }
+  }
+
+  removeVoucher(id:number){
+    this.voucherService.removeVoucher(id).subscribe({
+      next: (data) => {
+        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.getCartItemList();
+      },
+      error: (err) => {
+        this.utilService.openSnackBar(err, 'Đóng');
+      }
+    });
+  }
+
+  openChangeVoucher(data:Voucher){
+    this.dialogService.confirmDialog("Thay đổi voucher", "Bạn có chắc muốn đổi voucher hiện tại?").subscribe(res=>{
+      if(data !=null){
+        this.removeVoucher(data.id);
+      }
+    });
   }
 
 }
