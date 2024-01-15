@@ -20,6 +20,7 @@ export class CartComponent implements OnInit{
   cartItems: CartItemDto[];
   selectedCartItem:CartItemDto;
   subTotal: number= 0;
+  subTotalDiscount: number= 0;
   totalSum: number = 0;
   voucherForm: FormGroup<any>;
   voucher:Voucher;
@@ -46,8 +47,10 @@ export class CartComponent implements OnInit{
           this.cartItemService.getCartItems(data.id).subscribe(items=>{
             this.cartItems = items;
             this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
+            this.subTotalDiscount = this.cartItems.filter(item => item.productDetail.categoryId === this.voucher?.category.id).reduce((sum, item) => sum + item.total, 0);
             this.totalSum = this.subTotal;
             this.isLoading = false;
+            console.log(this.subTotalDiscount);
           });
         },
         error: (err) => {
@@ -128,7 +131,7 @@ export class CartComponent implements OnInit{
         .subscribe({
           next:(data) =>{
             this.utilService.openSnackBar(data.message, 'Đóng');
-            this.getCartItems();
+            this.getCartItemList();
           },
           error: (err) => {
             console.log(err)
