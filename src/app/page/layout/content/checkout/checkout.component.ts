@@ -17,6 +17,9 @@ import {Router} from "@angular/router";
 import {OrderDto} from "../../../../shared/dto/order-dto";
 import {ShippingMethodDto} from "../../../../shared/dto/shipping-method-dto";
 import {UtilService} from "../../../../service/util.service";
+import {Voucher} from "../../../../shared/models/voucher";
+import {UserDialogService} from "../reusable/user-dialog.service";
+import {VoucherService} from "../../../../service/voucher.service";
 
 @Component({
   selector: 'app-checkout',
@@ -41,6 +44,8 @@ export class CheckoutComponent implements OnInit{
   provinces: Province[];
   districts: District[];
   wards: Ward[];
+  voucher:Voucher;
+  voucherForm:FormGroup;
 
 
   baseFees = [{
@@ -68,6 +73,8 @@ export class CheckoutComponent implements OnInit{
               private cartItemService:CartItemService,
               private orderService:OrderService,
               private utilService: UtilService,
+              private userDialogService:UserDialogService,
+              private voucherService:VoucherService,
               private router:Router){
   }
 
@@ -100,6 +107,9 @@ export class CheckoutComponent implements OnInit{
       shippingMethod:'',
       shippingFee: '',
       total: '',
+    });
+    this.voucherForm = this.formBuilder.group({
+      code:['']
     });
     this.getShippingMethods();
     this.getUser();
@@ -208,6 +218,7 @@ export class CheckoutComponent implements OnInit{
             });
             this.cartItemService.getCart(data.username).subscribe(cart=>{
               this.cart = cart;
+              this.voucher = cart.voucher;
               this.cartItemService.getCartItems(this.cart.id).subscribe(cartItems=>{
                 this.cartItems = cartItems;
                 this.isLoading = false;
@@ -293,5 +304,42 @@ export class CheckoutComponent implements OnInit{
       })
     }
   }
+
+
+  applyVoucher(){
+    if(this.voucherForm.valid) {
+      this.voucherService.applyVoucher(this.voucherForm.value.code).subscribe({
+        next: (data) => {
+          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.getUser();
+        },
+        error: (err) => {
+          this.utilService.openSnackBar(err, 'Đóng');
+        }
+      });
+      console.log(this.voucherForm.value);
+    }
+  }
+
+  removeVoucher(id:number){
+    this.voucherService.removeVoucher(id).subscribe({
+      next: (data) => {
+        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.getUser();
+      },
+      error: (err) => {
+        this.utilService.openSnackBar(err, 'Đóng');
+      }
+    });
+  }
+
+  openChangeVoucher(data:Voucher){
+    this.userDialogService.confirmDialog("Thay đổi voucher", "Bạn có chắc muốn đổi voucher hiện tại?").subscribe(res=>{
+      if(data !=null){
+        this.removeVoucher(data.id);
+      }
+    });
+  }
+
 
 }

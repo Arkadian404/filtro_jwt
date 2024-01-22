@@ -95,8 +95,8 @@
       <div class="col-lg-4">
         <form class="mb-5" [formGroup]="voucherForm" (ngSubmit)="applyVoucher()">
           <div class="input-group">
-            <input *ngIf="voucher!==null;else displayVoucher" type="text" [value]="voucher.code" class="form-control p-4" [disabled]="true">
-            <ng-template #displayVoucher>
+            <input *ngIf="voucher!==null;else inputVoucher" type="text" [value]="voucher.code" class="form-control p-4" [disabled]="true">
+            <ng-template #inputVoucher>
               <input type="text" formControlName ="code" class="form-control p-4" placeholder="Coupon Code">
             </ng-template>
             <div class="input-group-append">
