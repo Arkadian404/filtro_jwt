@@ -214,7 +214,7 @@
           </div>
         </div>
         <div class="col-xl-4">
-          <div [formGroup]="voucherForm" (ngSubmit)="applyVoucher()" class="card mb-3">
+          <form [formGroup]="voucherForm" (ngSubmit)="applyVoucher()" class="card mb-3">
             <div class="card-body">
               <p>Mã giảm giá</p>
               <div *ngIf="voucher!== null; else inputVoucher" class="input-group my-2">
@@ -230,7 +230,7 @@
                 </div>
               </ng-template>
             </div>
-          </div>
+          </form>
           <div class="card mb-3">
             <div class="card-body py-2">
               <ul class="list-group list-group-flush">
@@ -247,30 +247,40 @@
                         <span class="mx-2 f-14 text-muted f-w-400">{{ci.quantity}} sản phẩm</span>
                       </h5>
                     </div>
-                    <h3><strong>{{ci.total | currencyVND}}</strong></h3>
+                    <div class="d-flex flex-column">
+                      <h3 class="mb-0"><strong>{{(ci.total | currencyVND)}}</strong></h3>
+                      <p *ngIf="voucher!==null && voucher.category?.id === ci.productDetail.categoryId" class="text-muted"><s>{{ci.total / (1 -  voucher.discount/100) | currencyVND }}</s></p>
+                      <p *ngIf="voucher!==null && voucher.category===null" class="text-muted"><s>{{ci.total / (1 -  voucher.discount/100) | currencyVND }}</s></p>
+                    </div>
                   </div>
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">{{cart.total | currencyVND}}</h4>
+                    <h4 class="mb-0">{{cart.total - discountFee +(discountFee / (1-voucher.discount/100)) | currencyVND}}</h4>
                   </div>
                   <span class="text-muted">Tạm tính</span>
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">{{this.shippingFee + this.selectedShipping?.surcharge == null ? '-' : this.shippingFee + this.selectedShipping?.surcharge | currencyVND}}</h4>
+                    <h4 class="mb-0">{{this.shippingFee + this.selectedShipping?.surcharge === null ? '-' : this.shippingFee + this.selectedShipping?.surcharge | currencyVND}}</h4>
                   </div>
                   <span class="text-muted">Chi phí vận chuyển</span>
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">-</h4>
+                    <h4 *ngIf="voucher!==null;else noDiscount" class="mb-0">{{discountFee / (1-voucher.discount /100) - discountFee | currencyVND}}</h4>
+                    <ng-template #noDiscount>
+                      <h4 class="mb-0">---</h4>
+                    </ng-template>
                   </div>
-                  <span class="text-muted">Giảm giá (%)</span>
+                  <span class="text-muted">Giảm giá {{voucher!==null ? '('+ voucher.discount + '%)' : '(%)'}}</span>
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">-</h4>
+                    <h4 *ngIf="voucher!==null;else noVoucher"  class="mb-0">{{voucher.code}}</h4>
+                    <ng-template #noVoucher>
+                      <h4 class="mb-0">---</h4>
+                    </ng-template>
                   </div>
                   <span class="text-muted">Voucher</span>
                 </li>

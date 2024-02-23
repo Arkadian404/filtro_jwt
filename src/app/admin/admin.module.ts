@@ -75,6 +75,7 @@ import { SubBottomWidgetEndComponent } from './layout/content/admin-home/bottom-
 import { AdminTestComponent } from './layout/content/admin-test/admin-test.component';
 import { AdminVoucherComponent } from './layout/content/admin-voucher/admin-voucher.component';
 import { AdminVoucherDialogComponent } from './layout/content/admin-voucher/admin-voucher-dialog/admin-voucher-dialog.component';
+import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -160,7 +161,9 @@ import { AdminVoucherDialogComponent } from './layout/content/admin-voucher/admi
         NgOptimizedImage,
         MatCardModule,
         MatTabsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        QuillEditorComponent,
+        QuillViewHTMLComponent
     ]
 })
 export class AdminModule { }

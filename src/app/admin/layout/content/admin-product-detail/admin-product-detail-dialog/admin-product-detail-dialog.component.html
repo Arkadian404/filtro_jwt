@@ -21,24 +21,24 @@
         <input type="number" matInput formControlName="weight">
       </mat-form-field>
       <mat-error *ngIf="form.get('weight').touched && !form.get('weight').valid">
-        <p *ngIf="form.get('weight').hasError('required')">Không được để trống</p>
-        <p *ngIf="form.get('weight').hasError('pattern')">Chỉ được nhập số</p>
+        <span *ngIf="form.get('weight').hasError('required')">Không được để trống</span>
+        <span *ngIf="form.get('weight').hasError('pattern')">Chỉ được nhập số</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Số lượng</mat-label>
         <input type="number" matInput formControlName="stock">
       </mat-form-field>
       <mat-error *ngIf="form.get('stock').touched && !form.get('stock').valid">
-        <p *ngIf="form.get('stock').hasError('required')">Không được để trống</p>
-        <p *ngIf="form.get('stock').hasError('pattern')">Chỉ được nhập số</p>
+        <span *ngIf="form.get('stock').hasError('required')">Không được để trống</span>
+        <span *ngIf="form.get('stock').hasError('pattern')">Chỉ được nhập số</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Giá tiền</mat-label>
         <input type="number" matInput formControlName="price">
       </mat-form-field>
       <mat-error *ngIf="form.get('price').touched && !form.get('price').valid">
-        <p *ngIf="form.get('price').hasError('required')">Không được để trống</p>
-        <p *ngIf="form.get('price').hasError('pattern')">Chỉ được nhập số</p>
+        <span *ngIf="form.get('price').hasError('required')">Không được để trống</span>
+        <span *ngIf="form.get('price').hasError('pattern')">Chỉ được nhập số</span>
       </mat-error>
       <mat-form-field appearance="fill">
         <mat-label>Trạng thái</mat-label>

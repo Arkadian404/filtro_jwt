@@ -57,7 +57,7 @@ export class AuthInterceptor implements HttpInterceptor {
     console.log("CALLING HANDLE")
     console.log('1'+this.isRefresh)
     console.log('rt expired:'+ this.tokenService.isRefreshTokenExpired())
-    if(!this.tokenService.getRefreshToken() || !this.tokenService.getAccessToken()){
+    if(!this.tokenService.getRefreshToken() || !this.tokenService.getAccessToken() || this.tokenService.isRefreshTokenExpired()){
       // this.router.navigate(['/login']);
       // this.tokenService.clearToken();
       this.authenticationService.logout();

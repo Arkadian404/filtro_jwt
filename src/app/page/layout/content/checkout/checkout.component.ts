@@ -46,6 +46,7 @@ export class CheckoutComponent implements OnInit{
   wards: Ward[];
   voucher:Voucher;
   voucherForm:FormGroup;
+  discountFee:number = 0;
 
 
   baseFees = [{
@@ -221,6 +222,11 @@ export class CheckoutComponent implements OnInit{
               this.voucher = cart.voucher;
               this.cartItemService.getCartItems(this.cart.id).subscribe(cartItems=>{
                 this.cartItems = cartItems;
+                if (this.voucher?.category!=null){
+                  this.discountFee = this.cartItems.filter(item => item.productDetail.categoryId === this.voucher?.category?.id).reduce((sum, item) => sum + item.total, 0);
+                }else{
+                  this.discountFee = this.cartItems.reduce((sum, item) => sum + item.total, 0);
+                }
                 this.isLoading = false;
                 this.onProvinceChange({source: {_value: data.province}});
                 this.onDistrictChange({source: {_value: data.district}});

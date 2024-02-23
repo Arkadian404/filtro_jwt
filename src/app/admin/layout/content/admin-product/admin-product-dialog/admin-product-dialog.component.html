@@ -10,7 +10,7 @@
           <input type="text" matInput formControlName="name">
         </mat-form-field>
         <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
-          <p *ngIf="form.get('name').hasError('required')">Không được để trống</p>
+          <span class="mb-0" *ngIf="form.get('name').hasError('required')">Không được để trống</span>
         </mat-error>
         <mat-form-field appearance="fill">
           <mat-label>Nguồn gốc</mat-label>
@@ -98,10 +98,12 @@
       </div>
     </div>
     <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Mô tả</mat-label>
-        <textarea type="text" matInput formControlName="description"></textarea>
-      </mat-form-field>
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Mô tả</mat-label>-->
+<!--        <textarea type="text" matInput formControlName="description"></textarea>-->
+<!--      </mat-form-field>-->
+      <label class="ms-2" for="editor">Mô tả</label>
+      <quill-editor id="editor" formControlName="description" [modules]="modules"></quill-editor>
     </div>
   </div>
   <div class="action" mat-dialog-actions>

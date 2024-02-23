@@ -11,10 +11,7 @@ import {Flavor} from "../../../../../shared/models/product/flavor";
 import {Sale} from "../../../../../shared/models/product/sale";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ProductOriginService} from "../../../../../service/product/product-origin.service";
-import {ProductDetailService} from "../../../../../service/product/product-detail.service";
 
-
-import {ProductImage} from "../../../../../shared/models/product/product-image";
 import {Vendor} from "../../../../../shared/models/product/vendor";
 import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
 import {Brand} from "../../../../../shared/models/product/brand";
@@ -29,7 +26,6 @@ import {BrandService} from "../../../../../service/product/brand.service";
   styleUrls: ['./admin-product-dialog.component.scss', '../../reusable/dialog.scss']
 })
 export class AdminProductDialogComponent implements OnInit{
-  // @ts-ignore
   form: FormGroup;
   brands: Brand[] = [];
   categories:Category[] = [];
@@ -37,6 +33,7 @@ export class AdminProductDialogComponent implements OnInit{
   sales:Sale[] = [];
   vendors:Vendor[] = [];
   origins:ProductOrigin[] = [];
+
 
   constructor(private formBuilder:FormBuilder,
               private brandService: BrandService,
@@ -75,7 +72,6 @@ export class AdminProductDialogComponent implements OnInit{
     });
     if (this.data){
       this.form.patchValue(this.data);
-      console.log(this.data);
     }
   }
 
@@ -83,7 +79,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.brandService.getAdminBrandList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.brands = data;
         },
         error:(err)=>{
@@ -96,7 +91,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.categoryService.getAdminCategoryList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.categories = data;
         },
         error:(err)=>{
@@ -109,7 +103,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.flavorService.getAdminFlavorList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.flavors = data;
         },
         error:(err)=>{
@@ -122,7 +115,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.saleService.getAdminSaleList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.sales = data;
         },
         error:(err)=>{
@@ -135,7 +127,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.vendorService.getAdminVendorList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.vendors = data;
         },
         error:(err)=>{
@@ -148,7 +139,6 @@ export class AdminProductDialogComponent implements OnInit{
     return this.productOriginService.getAdminProductOriginList()
       .subscribe({
         next:(data)=>{
-          console.log(data);
           this.origins = data;
         },
         error:(err)=>{
@@ -161,6 +151,7 @@ export class AdminProductDialogComponent implements OnInit{
   onSubmit(){
     if(this.form.valid){
       if(this.data){
+        console.log(this.form.value);
           this.updateProduct();
       }else{
           console.log(this.form.value);
@@ -172,11 +163,13 @@ export class AdminProductDialogComponent implements OnInit{
 
 
   createProduct(){
+    if(this.form.value.sale === ''){
+      this.form.patchValue({sale: null});
+    } // temporary fix for sale
     this.productService.createProduct(this.form.value).subscribe({
       next:(data)=>{
         this.utilService.openSnackBar(data.message, 'Đóng')
         this.matDialog.close(true);
-        console.log(this.form);
       },
       error:(err)=>{
         this.utilService.openSnackBar(err, 'Đóng');
@@ -220,7 +213,6 @@ export class AdminProductDialogComponent implements OnInit{
   }
 
 
-
   onOriginChange(event:any){
     const origin = event.source._value;
     if(origin === "''" || origin === ""){
@@ -248,4 +240,22 @@ export class AdminProductDialogComponent implements OnInit{
     }
     return object.id === value.id;
   }
+
+
+  modules = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'direction': 'rtl' }],                         // text direction
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean'],                                         // remove formatting button
+        ['link', 'image']
+      ],
+    },
+  };
 }
