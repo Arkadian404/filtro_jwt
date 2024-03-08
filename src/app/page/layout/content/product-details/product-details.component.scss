@@ -14,8 +14,20 @@
   font-size: 15px;
 }
 
+.f-18{
+  font-size: 18px;
+}
+
 .f-20{
   font-size: 20px;
+}
+
+.f-24{
+  font-size: 24px;
+}
+
+.f-28{
+  font-size: 28px;
 }
 
 .f-w-400{
@@ -24,6 +36,14 @@
 
 .f-w-500{
   font-weight: 500;
+}
+
+.f-w-600{
+  font-weight: 600;
+}
+
+.f-w-700{
+  font-weight: 700 ;
 }
 
 .mat-mdc-tab-body.mat-mdc-tab-body-active {
@@ -110,6 +130,11 @@
   color: #52c41a;
   border-color: #dcf3d1;
 }
+
+.light-blue{
+  color: #096dd9;
+}
+
 .form-group{
   margin-bottom: 1rem;
   .list{

@@ -65,8 +65,15 @@
               <h1 class="mb-3">
                 <b>Chưa có đánh giá</b>
               </h1>
-              <p class="mb-2 text-muted">Hãy là người đầu tiên đánh giá sản phẩm này</p>
-              <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+<!--              <p class="mb-2 text-muted">Hãy là người đầu tiên đánh giá sản phẩm này</p>-->
+<!--              <button *ngIf="user" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>-->
+              <div *ngIf="user">
+                <p class="mb-2 text-muted">Hãy là người đầu tiên đánh giá sản phẩm này</p>
+                <button *ngIf="hasBoughtProduct; else notBoughtProduct" (click)="onActiveReview({id: null, type: activeReviewTypeEnum.review})" type="button" class="btn btn-primary btn-review">Đánh giá sản phẩm</button>
+                <ng-template #notBoughtProduct>
+                  <strong><h2 class="f-w-600"><i>Bạn cần mua sản phẩm này để có thể bình luận!</i></h2></strong>
+                </ng-template>
+              </div>
             </div>
             <div class="col-sm-12">
               <app-review-form *ngIf="isReview()"

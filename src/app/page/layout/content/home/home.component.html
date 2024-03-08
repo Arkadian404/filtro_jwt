@@ -158,6 +158,86 @@
   </div>
 </div>
 
+<ng-container *ngIf="recommendProducts.length > 0">
+  <div class="container">
+    <div class="product-main">
+      <div class="row group-title">
+        <div class="col-lg-6 col-md-12 col-12">
+          <a class="title-3" [routerLink]="'/collection/all' | spaceToDash" >
+            <img src="assets/images/recommended.png" alt="colombia">
+<!--            <mat-icon fontIcon="recommend"></mat-icon>-->
+           Đề xuất cho bạn
+          </a>
+          <p>Dựa trên lịch sử mua hàng của bạn và những người khác!</p>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12 menu"></div>
+      </div>
+
+      <div *ngIf="isRecommendProductsLoading" class="d-flex justify-content-center">
+        <mat-spinner color="primary"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!isRecommendProductsLoading" class="texture">
+        <swiper-container class="texture"
+                          navigation="true"
+                          [slidesPerView]="slidesPerView"
+        >
+          <swiper-slide *ngFor="let p of recommendProducts; let i = index" class="col-lg-15 col-md-15 col-sm 4 col-6 px-3">
+            <div class="block-item">
+              <button (click)="handleWishlist(p)" class="btn-wishlist" #btnWishlist>
+                <mat-icon *ngIf="checkExist(isWishlist, p); else unFavorite" class="active-wishlist" fontIcon="favorite"></mat-icon>
+                <ng-template #unFavorite>
+                  <mat-icon fontIcon="favorite_border"></mat-icon>
+                </ng-template>
+              </button>
+              <form [formGroup]="cartItemForm" (ngSubmit)="addToCart(p)">
+                <a [routerLink]="['/product', p.slug]" class="product-transition">
+                  <img [src]="p.images[0].url" alt="">
+                </a>
+                <div class="product-info">
+                  <a [routerLink]="['/product', p.slug]" class="product-name">
+                    {{p.name}}
+                  </a>
+                  <div class="product-reviews">
+                    <div class="product-reviews-star">
+                      <ng-container *ngIf="p.rating > 0; else starsOff">
+                        <i *ngFor="let star of calcStars(p.rating)" class="fas fa-star text-warning star-off"></i>
+                        <i *ngFor="let star of calcStars(5-p.rating)" class="far fa-star text-warning star-off"></i>
+                      </ng-container>
+                      <ng-template #starsOff>
+                        <ng-container *ngIf="p.rating > 0; else starsOff">
+                          <i *ngFor="let star of calcStars(p.rating)" class="fas fa-star text-warning star-off"></i>
+                          <i *ngFor="let star of calcStars(5-p.rating)" class="far fa-star text-warning star-off"></i>
+                        </ng-container>
+                        <ng-template #starsOff>
+                          <i class="far fa-star text-warning star-off"></i>
+                          <i class="far fa-star text-warning star-off"></i>
+                          <i class="far fa-star text-warning star-off"></i>
+                          <i class="far fa-star text-warning star-off"></i>
+                          <i class="far fa-star text-warning star-off"></i>
+                        </ng-template>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <div class="product-price mt-1">
+                    <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
+                    <!--                      <span class="old-price">{{p.productDetails[0].price * 1.5 | currencyVND}}</span>-->
+                  </div>
+                </div>
+                <button class="cart-button" type="submit">Thêm vào giỏ</button>
+              </form>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </ng-container>
+    </div>
+  </div>
+
+</ng-container>
+
+
+
+
+
 <div class="container">
   <div class="product-main">
     <div class="row group-title">
@@ -218,7 +298,7 @@
                     </div>
                     <div class="product-price mt-1">
                       <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
-                      <span class="old-price">1.200.000đ</span>
+<!--                      <span class="old-price">{{p.productDetails[0].price * 1.5 | currencyVND}}</span>-->
                     </div>
                   </div>
                   <button class="cart-button" type="submit">Thêm vào giỏ</button>

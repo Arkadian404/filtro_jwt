@@ -41,6 +41,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
 
   ngOnInit(){
     this.canReview = !!this.user;
+    this.checkHasBoughtProduct(this.user?.id, this.product?.id);
     this.getAllReviewsByProductId(this.product?.id);
     this.getReviewCount(this.product?.id);
     this.getReviewsRating(this.product?.id);
@@ -110,6 +111,13 @@ export class ReviewsComponent implements OnInit, OnChanges{
     });
   }
 
+  checkHasBoughtProduct(userId:number, productId:number){
+    this.reviewService.hasUserBoughtProduct(userId, productId).subscribe(data=>{
+      console.log(data)
+      this.hasBoughtProduct = data;
+    });
+  }
+
   getReplies(id:number){
     return this.replies
       .filter(r=> r.parentId === id)
@@ -130,27 +138,18 @@ export class ReviewsComponent implements OnInit, OnChanges{
 
 
   handleSubmitReview({content, parentId}: {content: any, parentId:number}){
-    const productId = this.product?.id;
-    const userId = this.user?.id;
-    this.reviewService.hasUserBoughtProduct(userId, productId).subscribe(data=>{
-      if(data){
-        this.hasBoughtProduct = true;
-        this.reviewService.createReview(content, parentId, this.product, this.user).subscribe({
-          next: data => {
-            this.getAllReviewsByProductId(this.product?.id);
-            this.getReviewCount(this.product?.id);
-            this.getReviewsRating(this.product?.id);
-            this.getProductDto(this.product?.id);
-            this.activeReview = null;
-            this.utilService.openSnackBar(data.message, 'Đóng');
-          },
-          error: err => {
-            this.utilService.openSnackBar(err, 'Đóng');
-            console.log(err);
-          }
-        })
-      }else{
-        this.hasBoughtProduct = false;
+    this.reviewService.createReview(content, parentId, this.product, this.user).subscribe({
+      next: data => {
+        this.getAllReviewsByProductId(this.product?.id);
+        this.getReviewCount(this.product?.id);
+        this.getReviewsRating(this.product?.id);
+        this.getProductDto(this.product?.id);
+        this.activeReview = null;
+        this.utilService.openSnackBar(data.message, 'Đóng');
+      },
+      error: err => {
+        this.utilService.openSnackBar(err, 'Đóng');
+        console.log(err);
       }
     });
   }

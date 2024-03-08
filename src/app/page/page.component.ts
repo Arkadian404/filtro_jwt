@@ -53,7 +53,10 @@ export class PageComponent implements OnInit{
         this.cartItemService.cartItemsBehavior.next([]);
         this.wishlistItemService.wishlistItemsBehavior.next([]);
         this.utilService.openSnackBar('Đăng xuất thành công', 'Đóng');
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
+        this.router.navigateByUrl('/logout', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/home']);
+        });
       },
       error: (err) => {
         console.log(err);

@@ -18,6 +18,8 @@ import {CartItemService} from "../../../../service/cart-item.service";
 import {UtilService} from "../../../../service/util.service";
 import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
 import {WishlistItemService} from "../../../../service/wishlist-item.service";
+import {Voucher} from "../../../../shared/models/voucher";
+import {VoucherService} from "../../../../service/voucher.service";
 
 
 @Component({
@@ -43,7 +45,7 @@ export class ProductDetailsComponent implements OnInit{
   isWishlist:ProductDto[] = [];
   slidesPerView=5;
   screenWidth:number;
-
+  availableVouchers: Voucher[] = [];
 
   @HostListener('window:resize')
   getScreenWidth() {
@@ -68,6 +70,7 @@ export class ProductDetailsComponent implements OnInit{
               private activatedRoute:ActivatedRoute,
               private cartItemService:CartItemService,
               private wishlistItemService:WishlistItemService,
+              private voucherService: VoucherService,
               private utilService:UtilService,
               library: FaIconLibrary) {
     library.addIcons(
@@ -98,7 +101,17 @@ export class ProductDetailsComponent implements OnInit{
     })
   }
 
-
+  getAvailableVouchers(productId:number){
+    return this.voucherService.getAvailableVoucher(productId).subscribe({
+      next: data => {
+        this.availableVouchers = data;
+        console.log(this.availableVouchers);
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
 
   getProduct(slug:string){
     this.productService.getProductDtoBySlug(slug).subscribe({
@@ -110,7 +123,7 @@ export class ProductDetailsComponent implements OnInit{
         this.selectedImage = data.images[0].url;
         this.productDetails = data.productDetails;
         this.getRelatedProducts(data.id, data.flavor.id);
-        console.log(this.product);
+        this.getAvailableVouchers(data.id);
         this.isLoading = false;
       },
       error: err => {

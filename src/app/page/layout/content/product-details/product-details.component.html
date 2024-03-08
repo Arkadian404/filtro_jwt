@@ -120,6 +120,20 @@
               </form>
               </div>
             </div>
+            <div class="row mt-4">
+              <div class="col">
+                <mat-icon class="light-blue" fontIcon="local_activity" style="vertical-align: middle"></mat-icon>
+                <b><i><span class="f-20 f-w-700 light-blue" style="vertical-align: middle">
+                   ƯU ĐÃI LIÊN QUAN
+                </span></i></b>
+                <ol class="mt-3">
+                  <span class="f-18 f-w-700" *ngIf="availableVouchers">Không có</span>
+                  <li *ngFor="let v of availableVouchers">
+                    <span class="f-18 f-w-700">{{v.code}}</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row mb-4">

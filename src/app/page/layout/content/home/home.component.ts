@@ -8,6 +8,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {UtilService} from "../../../../service/util.service";
 import {WishlistItemService} from "../../../../service/wishlist-item.service";
 import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
+import {RecommenderService} from "../../../../service/recommender.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {UserService} from "../../../../service/user/user.service";
+import {switchMap} from "rxjs";
 
 
 @Component({
@@ -40,7 +44,8 @@ export class HomeComponent implements OnInit{
   cartItemForm:FormGroup;
   wishlistItemForm:FormGroup;
   // @ViewChildren('btnWishlist') wishlistButton: QueryList<ElementRef>
-
+  recommendProducts: ProductDto[] = [];
+  isRecommendProductsLoading = true;
 
 
   @HostListener('window:resize')
@@ -62,6 +67,8 @@ export class HomeComponent implements OnInit{
               private tokenService:TokenService,
               private cartItemService: CartItemService,
               private wishlistItemService:WishlistItemService,
+              private userService:UserService,
+              private recommenderService:RecommenderService,
               private utilService:UtilService) {
   }
 
@@ -83,6 +90,7 @@ export class HomeComponent implements OnInit{
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
+    this.recommendProductsForUser();
   }
 
   getLatestProducts(){
@@ -338,5 +346,29 @@ export class HomeComponent implements OnInit{
   calcStars(starCount:number){
     return this.utilService.calcStars(starCount);
   }
+
+  recommendProductsForUser(){
+    console.log("CALLING RECOMMEND PRODUCTS");
+    if(this.username && this.tokenService.getUsername()){
+      this.userService.currentUser()
+        .pipe(switchMap(user => this.recommenderService.recommendProductsForUser(user.id)))
+        .subscribe({
+          next:(data)=>{
+            if(data.length > 0){
+              this.recommendProducts = data;
+            }else{
+              this.recommendProducts = [];
+            }
+            this.isRecommendProductsLoading = false;
+          },
+          error:(err)=>{
+            console.log(err);
+            this.recommendProducts = [];
+            this.isRecommendProductsLoading = false;
+          }
+        })
+    }
+  }
+
 
 }
