@@ -14,6 +14,9 @@ import {CartItemService} from "../../../service/cart-item.service";
 import {CartItemDto} from "../../../shared/dto/cart-item-dto";
 import {WishlistItemService} from "../../../service/wishlist-item.service";
 import {WishlistItemDto} from "../../../shared/dto/wishlist-item-dto";
+import {ProductDto} from "../../../shared/dto/product-dto";
+import {ProductService} from "../../../service/product/product.service";
+import {map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -38,6 +41,8 @@ export class HeaderComponent implements OnInit{
   flavors:FlavorDto [] = []
   origins:ProductOriginDto[] = [];
   vendors:VendorDto[] = [];
+  products: ProductDto[] = [];
+  filteredProducts: Observable<ProductDto[] | null>;
   constructor(private formBuilder:FormBuilder,
               private cartItemService:CartItemService,
               private categoryService:CategoryService,
@@ -46,10 +51,12 @@ export class HeaderComponent implements OnInit{
               private vendorService:VendorService,
               private searchService:SearchService,
               private wishlistItemService:WishlistItemService,
+              private productService:ProductService,
               private router:Router){
   }
 
   ngOnInit(): void {
+    this.getProducts();
     this.getCategories();
     this.getFlavors();
     this.getOrigins();
@@ -63,6 +70,13 @@ export class HeaderComponent implements OnInit{
     this.getWishlistInformation(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
     this.getWishlistInformationAfterAdd(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
     this.getWishlistInformationAfterDelete(); // cap nhat so luong san pham trong wishlist trong header khong lien quan den database
+    this.filteredProducts = this.form.get("search").valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value.name;
+        return name ? this.filterName(name) : this.products.slice();
+      })
+    )
   }
 
   getCartItemInformation(){
@@ -234,6 +248,18 @@ export class HeaderComponent implements OnInit{
   }
 
 
+  getProducts(){
+    return this.productService.getProductDtoList()
+      .subscribe({
+        next:(data)=>{
+          this.products = data;
+        },
+        error:(err)=>{
+          console.log(err)
+        }
+      });
+  }
+
   getCategories(){
     return this.categoryService.getCategoryList()
       .subscribe({
@@ -300,4 +326,14 @@ export class HeaderComponent implements OnInit{
     this.searchService.searchResults.next(this.searchValue);
     this.router.navigate(['/search'], {queryParams: {query: this.searchValue}});
   }
+
+  getOptionText(option: ProductDto){
+    return option!=null ? option.name : '';
+  }
+
+  filterName(name:string):ProductDto[]{
+    const filterValue = name.toLowerCase();
+    return this.products.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
 }

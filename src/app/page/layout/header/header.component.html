@@ -156,7 +156,20 @@
         <div class="col-lg-4 col-md-12 col-12">
           <form [formGroup]="form" (ngSubmit)="onSearch()" class="d-flex ml-2" role="search">
             <div class="search-container">
-              <input matInput formControlName="search" class="form-control me-2" style="width: 100%;" type="search" placeholder="Search" aria-label="Search">
+              <input
+                matInput
+                formControlName="search"
+                class="form-control me-2"
+                style="width: 100%;"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                #trigger="matAutocompleteTrigger"
+                (keydown.enter)="trigger.closePanel()"
+                [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let p of filteredProducts | async;" [value]="p.name">{{p.name}}</mat-option>
+              </mat-autocomplete>
               <button mat-icon-button type="submit" class="search-button">
                 <mat-icon fontIcon="search"></mat-icon>
               </button>

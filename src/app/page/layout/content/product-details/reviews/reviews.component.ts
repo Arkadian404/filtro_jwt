@@ -32,7 +32,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
     {rating: 5, count: 0}
   ];
   hasBoughtProduct = false;
-
+  isUserReviewed = false;
   constructor(private reviewService:ReviewService,
               private productService:ProductService,
               private utilService:UtilService) {
@@ -42,10 +42,12 @@ export class ReviewsComponent implements OnInit, OnChanges{
   ngOnInit(){
     this.canReview = !!this.user;
     this.checkHasBoughtProduct(this.user?.id, this.product?.id);
+    this.checkUserReviewed(this.user?.id, this.product?.id);
     this.getAllReviewsByProductId(this.product?.id);
     this.getReviewCount(this.product?.id);
     this.getReviewsRating(this.product?.id);
     this.getProductDto(this.product?.id);
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -79,6 +81,19 @@ export class ReviewsComponent implements OnInit, OnChanges{
         console.log(err);
       }
     })
+  }
+
+  checkUserReviewed(userId:number, productId:number){
+    if(this.user!==null){
+      this.reviewService.isUserReviewed(userId, productId).subscribe({
+        next: data => {
+          this.isUserReviewed = data;
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    }
   }
 
   calculateRating(rating:number){

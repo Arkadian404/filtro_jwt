@@ -86,6 +86,7 @@ import { OrderDetailModalComponent } from './layout/content/orders/order-detail-
 import { UserConfirmationDialogComponent } from './layout/content/reusable/user-confirmation-dialog/user-confirmation-dialog.component';
 import { WishlistComponent } from './layout/content/wishlist/wishlist.component';
 import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 register();
 @NgModule({
@@ -180,6 +181,7 @@ register();
     TableModule,
     QuillEditorComponent,
     QuillViewHTMLComponent,
+    MatAutocompleteModule,
 
   ],
   exports: [

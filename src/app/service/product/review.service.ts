@@ -65,6 +65,10 @@ export class ReviewService{
       );
   }
 
+  isUserReviewed(userId:number, productId:number){
+    return this.http.get<boolean>(`${API_URL}/check/user/${userId}/review/${productId}`);
+  }
+
   createReview(content:any, parentId:number, product:any, user:any){
     return this.http.post<SuccessMessage>(`${API_URL}/create`,
       {

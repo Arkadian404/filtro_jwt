@@ -41,6 +41,16 @@ export class ProductService {
       );
   }
 
+  getProductDtoList(){
+    return this.http.get<ProductDto[]>(`${USER_API}/get/all`)
+      .pipe(
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
+  }
+
   getProductDtoBySlug(slug:string){
     return this.http.get<ProductDto>(`${USER_API}/get/${slug}`)
       .pipe(
