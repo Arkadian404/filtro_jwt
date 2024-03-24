@@ -76,6 +76,7 @@ import { AdminTestComponent } from './layout/content/admin-test/admin-test.compo
 import { AdminVoucherComponent } from './layout/content/admin-voucher/admin-voucher.component';
 import { AdminVoucherDialogComponent } from './layout/content/admin-voucher/admin-voucher-dialog/admin-voucher-dialog.component';
 import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
+import { AdminTestDialogComponent } from './layout/content/admin-test/admin-test-dialog/admin-test-dialog.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -124,6 +125,7 @@ import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
     AdminTestComponent,
     AdminVoucherComponent,
     AdminVoucherDialogComponent,
+    AdminTestDialogComponent,
 
   ],
   exports: [

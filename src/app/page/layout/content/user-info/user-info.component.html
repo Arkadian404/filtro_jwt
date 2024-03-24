@@ -135,27 +135,27 @@
                         <div class="col-md-4">
                           <mat-form-field appearance="fill">
                             <mat-label>Thành phố/Tỉnh</mat-label>
-                            <mat-select (selectionChange)="onProvinceChange($event)" formControlName="province">
+                            <mat-select (selectionChange)="onPChange($event.value)" formControlName="province" >
                               <mat-option>Chọn thành phố/Tỉnh</mat-option>
-                              <mat-option  *ngFor="let p of provinces" [value]="p.name" >{{p.name}}</mat-option  >
+                              <mat-option  *ngFor="let p of _province" [value]="p" >{{p.ProvinceName}}</mat-option  >
                             </mat-select>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field>
                             <mat-label >Quận/Huyện</mat-label>
-                            <mat-select (selectionChange)="onDistrictChange($event)" formControlName="district">
+                            <mat-select (selectionChange)="onDChange($event.value)" formControlName="district" >
                               <mat-option>Chọn Quận/Huyện</mat-option>
-                              <mat-option *ngFor="let d of districts" [value]="d.name">{{d.name}}</mat-option>
+                              <mat-option *ngFor="let d of _district" [value]="d">{{d.DistrictName}}</mat-option>
                             </mat-select>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field>
                             <mat-label>Xã/Phường</mat-label>
-                            <mat-select (selectionChange)="onWardChange($event)" formControlName="ward">
+                            <mat-select (selectionChange)="onWChange($event.value)" formControlName="ward">
                               <mat-option>Chọn Xã/Phường</mat-option>
-                              <mat-option *ngFor="let w of wards" [value]="w.name">{{w.name}}</mat-option>
+                              <mat-option *ngFor="let w of _ward" [value]="w">{{w.WardName}}</mat-option>
                             </mat-select>
                           </mat-form-field>
                         </div>
@@ -234,3 +234,7 @@
       </div>
     </div>
 </div>
+
+
+
+

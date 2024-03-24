@@ -1,6 +1,6 @@
 [
   {
-    "name": "Thành phố Hà Nội",
+    "name": "Hà Nội",
     "code": 1,
     "codename": "thanh_pho_ha_noi",
     "division_type": "thành phố trung ương",
@@ -4333,7 +4333,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hà Giang",
+    "name": "Hà Giang",
     "code": 2,
     "codename": "tinh_ha_giang",
     "division_type": "tỉnh",
@@ -5793,7 +5793,7 @@
     ]
   },
   {
-    "name": "Tỉnh Cao Bằng",
+    "name": "Cao Bằng",
     "code": 4,
     "codename": "tinh_cao_bang",
     "division_type": "tỉnh",
@@ -7020,7 +7020,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bắc Kạn",
+    "name": "Bắc Kạn",
     "code": 6,
     "codename": "tinh_bac_kan",
     "division_type": "tỉnh",
@@ -7858,7 +7858,7 @@
     ]
   },
   {
-    "name": "Tỉnh Tuyên Quang",
+    "name": "Tuyên Quang",
     "code": 8,
     "codename": "tinh_tuyen_quang",
     "division_type": "tỉnh",
@@ -8897,7 +8897,7 @@
     ]
   },
   {
-    "name": "Tỉnh Lào Cai",
+    "name": "Lào Cai",
     "code": 10,
     "codename": "tinh_lao_cai",
     "division_type": "tỉnh",
@@ -10052,7 +10052,7 @@
     ]
   },
   {
-    "name": "Tỉnh Điện Biên",
+    "name": "Điện Biên",
     "code": 11,
     "codename": "tinh_dien_bien",
     "division_type": "tỉnh",
@@ -11055,7 +11055,7 @@
     ]
   },
   {
-    "name": "Tỉnh Lai Châu",
+    "name": "Lai Châu",
     "code": 12,
     "codename": "tinh_lai_chau",
     "division_type": "tỉnh",
@@ -11879,7 +11879,7 @@
     ]
   },
   {
-    "name": "Tỉnh Sơn La",
+    "name": "Sơn La",
     "code": 14,
     "codename": "tinh_son_la",
     "division_type": "tỉnh",
@@ -13425,7 +13425,7 @@
     ]
   },
   {
-    "name": "Tỉnh Yên Bái",
+    "name": "Yên Bái",
     "code": 15,
     "codename": "tinh_yen_bai",
     "division_type": "tỉnh",
@@ -14727,7 +14727,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hoà Bình",
+    "name": "Hoà Bình",
     "code": 17,
     "codename": "tinh_hoa_binh",
     "division_type": "tỉnh",
@@ -15884,7 +15884,7 @@
     ]
   },
   {
-    "name": "Tỉnh Thái Nguyên",
+    "name": "Thái Nguyên",
     "code": 19,
     "codename": "tinh_thai_nguyen",
     "division_type": "tỉnh",
@@ -17214,7 +17214,7 @@
     ]
   },
   {
-    "name": "Tỉnh Lạng Sơn",
+    "name": "Lạng Sơn",
     "code": 20,
     "codename": "tinh_lang_son",
     "division_type": "tỉnh",
@@ -18723,7 +18723,7 @@
     ]
   },
   {
-    "name": "Tỉnh Quảng Ninh",
+    "name": "Quảng Ninh",
     "code": 22,
     "codename": "tinh_quang_ninh",
     "division_type": "tỉnh",
@@ -20089,7 +20089,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bắc Giang",
+    "name": "Bắc Giang",
     "code": 24,
     "codename": "tinh_bac_giang",
     "division_type": "tỉnh",
@@ -21652,7 +21652,7 @@
     ]
   },
   {
-    "name": "Tỉnh Phú Thọ",
+    "name": "Phú Thọ",
     "code": 25,
     "codename": "tinh_phu_tho",
     "division_type": "tỉnh",
@@ -23354,7 +23354,7 @@
     ]
   },
   {
-    "name": "Tỉnh Vĩnh Phúc",
+    "name": "Vĩnh Phúc",
     "code": 26,
     "codename": "tinh_vinh_phuc",
     "division_type": "tỉnh",
@@ -24397,7 +24397,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bắc Ninh",
+    "name": "Bắc Ninh",
     "code": 27,
     "codename": "tinh_bac_ninh",
     "division_type": "tỉnh",
@@ -25361,7 +25361,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hải Dương",
+    "name": "Hải Dương",
     "code": 30,
     "codename": "tinh_hai_duong",
     "division_type": "tỉnh",
@@ -28787,7 +28787,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hưng Yên",
+    "name": "Hưng Yên",
     "code": 33,
     "codename": "tinh_hung_yen",
     "division_type": "tỉnh",
@@ -30014,7 +30014,7 @@
     ]
   },
   {
-    "name": "Tỉnh Thái Bình",
+    "name": "Thái Bình",
     "code": 34,
     "codename": "tinh_thai_binh",
     "division_type": "tỉnh",
@@ -31916,7 +31916,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hà Nam",
+    "name": "Hà Nam",
     "code": 35,
     "codename": "tinh_ha_nam",
     "division_type": "tỉnh",
@@ -32743,7 +32743,7 @@
     ]
   },
   {
-    "name": "Tỉnh Nam Định",
+    "name": "Nam Định",
     "code": 36,
     "codename": "tinh_nam_dinh",
     "division_type": "tỉnh",
@@ -34425,7 +34425,7 @@
     ]
   },
   {
-    "name": "Tỉnh Ninh Bình",
+    "name": "Ninh Bình",
     "code": 37,
     "codename": "tinh_ninh_binh",
     "division_type": "tỉnh",
@@ -35508,7 +35508,7 @@
     ]
   },
   {
-    "name": "Tỉnh Thanh Hóa",
+    "name": "Thanh Hóa",
     "code": 38,
     "codename": "tinh_thanh_hoa",
     "division_type": "tỉnh",
@@ -39674,7 +39674,7 @@
     ]
   },
   {
-    "name": "Tỉnh Nghệ An",
+    "name": "Nghệ An",
     "code": 40,
     "codename": "tinh_nghe_an",
     "division_type": "tỉnh",
@@ -43093,7 +43093,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hà Tĩnh",
+    "name": "Hà Tĩnh",
     "code": 42,
     "codename": "tinh_ha_tinh",
     "division_type": "tỉnh",
@@ -44732,7 +44732,7 @@
     ]
   },
   {
-    "name": "Tỉnh Quảng Bình",
+    "name": "Quảng Bình",
     "code": 44,
     "codename": "tinh_quang_binh",
     "division_type": "tỉnh",
@@ -45871,7 +45871,7 @@
     ]
   },
   {
-    "name": "Tỉnh Quảng Trị",
+    "name": "Quảng Trị",
     "code": 45,
     "codename": "tinh_quang_tri",
     "division_type": "tỉnh",
@@ -46845,7 +46845,7 @@
     ]
   },
   {
-    "name": "Tỉnh Thừa Thiên Huế",
+    "name": "Thừa Thiên Huế",
     "code": 46,
     "codename": "tinh_thua_thien_hue",
     "division_type": "tỉnh",
@@ -48396,7 +48396,7 @@
     ]
   },
   {
-    "name": "Tỉnh Quảng Nam",
+    "name": "Quảng Nam",
     "code": 49,
     "codename": "tinh_quang_nam",
     "division_type": "tỉnh",
@@ -50255,7 +50255,7 @@
     ]
   },
   {
-    "name": "Tỉnh Quảng Ngãi",
+    "name": "Quảng Ngãi",
     "code": 51,
     "codename": "tinh_quang_ngai",
     "division_type": "tỉnh",
@@ -51592,7 +51592,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bình Định",
+    "name": "Bình Định",
     "code": 52,
     "codename": "tinh_binh_dinh",
     "division_type": "tỉnh",
@@ -52814,7 +52814,7 @@
     ]
   },
   {
-    "name": "Tỉnh Phú Yên",
+    "name": "Phú Yên",
     "code": 54,
     "codename": "tinh_phu_yen",
     "division_type": "tỉnh",
@@ -53675,7 +53675,7 @@
     ]
   },
   {
-    "name": "Tỉnh Khánh Hòa",
+    "name": "Khánh Hòa",
     "code": 56,
     "codename": "tinh_khanh_hoa",
     "division_type": "tỉnh",
@@ -54739,7 +54739,7 @@
     ]
   },
   {
-    "name": "Tỉnh Ninh Thuận",
+    "name": "Ninh Thuận",
     "code": 58,
     "codename": "tinh_ninh_thuan",
     "division_type": "tỉnh",
@@ -55267,7 +55267,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bình Thuận",
+    "name": "Bình Thuận",
     "code": 60,
     "codename": "tinh_binh_thuan",
     "division_type": "tỉnh",
@@ -56235,7 +56235,7 @@
     ]
   },
   {
-    "name": "Tỉnh Kon Tum",
+    "name": "Kon Tum",
     "code": 62,
     "codename": "tinh_kon_tum",
     "division_type": "tỉnh",
@@ -57049,7 +57049,7 @@
     ]
   },
   {
-    "name": "Tỉnh Gia Lai",
+    "name": "Gia Lai",
     "code": 64,
     "codename": "tinh_gia_lai",
     "division_type": "tỉnh",
@@ -58752,7 +58752,7 @@
     ]
   },
   {
-    "name": "Tỉnh Đắk Lắk",
+    "name": "Đắk Lắk",
     "code": 66,
     "codename": "tinh_dak_lak",
     "division_type": "tỉnh",
@@ -60185,7 +60185,7 @@
     ]
   },
   {
-    "name": "Tỉnh Đắk Nông",
+    "name": "Đắk Nông",
     "code": 67,
     "codename": "tinh_dak_nong",
     "division_type": "tỉnh",
@@ -60764,7 +60764,7 @@
     ]
   },
   {
-    "name": "Tỉnh Lâm Đồng",
+    "name": "Lâm Đồng",
     "code": 68,
     "codename": "tinh_lam_dong",
     "division_type": "tỉnh",
@@ -61876,7 +61876,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bình Phước",
+    "name": "Bình Phước",
     "code": 70,
     "codename": "tinh_binh_phuoc",
     "division_type": "tỉnh",
@@ -62762,7 +62762,7 @@
     ]
   },
   {
-    "name": "Tỉnh Tây Ninh",
+    "name": "Tây Ninh",
     "code": 72,
     "codename": "tinh_tay_ninh",
     "division_type": "tỉnh",
@@ -63511,7 +63511,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bình Dương",
+    "name": "Bình Dương",
     "code": 74,
     "codename": "tinh_binh_duong",
     "division_type": "tỉnh",
@@ -64239,7 +64239,7 @@
     ]
   },
   {
-    "name": "Tỉnh Đồng Nai",
+    "name": "Đồng Nai",
     "code": 75,
     "codename": "tinh_dong_nai",
     "division_type": "tỉnh",
@@ -65538,7 +65538,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bà Rịa - Vũng Tàu",
+    "name": "Bà Rịa - Vũng Tàu",
     "code": 77,
     "codename": "tinh_ba_ria_vung_tau",
     "division_type": "tỉnh",
@@ -68585,7 +68585,7 @@
     ]
   },
   {
-    "name": "Tỉnh Long An",
+    "name": "Long An",
     "code": 80,
     "codename": "tinh_long_an",
     "division_type": "tỉnh",
@@ -70046,7 +70046,7 @@
     ]
   },
   {
-    "name": "Tỉnh Tiền Giang",
+    "name": "Tiền Giang",
     "code": 82,
     "codename": "tinh_tien_giang",
     "division_type": "tỉnh",
@@ -71359,7 +71359,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bến Tre",
+    "name": "Bến Tre",
     "code": 83,
     "codename": "tinh_ben_tre",
     "division_type": "tỉnh",
@@ -72549,7 +72549,7 @@
     ]
   },
   {
-    "name": "Tỉnh Trà Vinh",
+    "name": "Trà Vinh",
     "code": 84,
     "codename": "tinh_tra_vinh",
     "division_type": "tỉnh",
@@ -73382,7 +73382,7 @@
     ]
   },
   {
-    "name": "Tỉnh Vĩnh Long",
+    "name": "Vĩnh Long",
     "code": 86,
     "codename": "tinh_vinh_long",
     "division_type": "tỉnh",
@@ -74213,7 +74213,7 @@
     ]
   },
   {
-    "name": "Tỉnh Đồng Tháp",
+    "name": "Đồng Tháp",
     "code": 87,
     "codename": "tinh_dong_thap",
     "division_type": "tỉnh",
@@ -75332,7 +75332,7 @@
     ]
   },
   {
-    "name": "Tỉnh An Giang",
+    "name": "An Giang",
     "code": 89,
     "codename": "tinh_an_giang",
     "division_type": "tỉnh",
@@ -76533,7 +76533,7 @@
     ]
   },
   {
-    "name": "Tỉnh Kiên Giang",
+    "name": "Kiên Giang",
     "code": 91,
     "codename": "tinh_kien_giang",
     "division_type": "tỉnh",
@@ -78358,7 +78358,7 @@
     ]
   },
   {
-    "name": "Tỉnh Hậu Giang",
+    "name": "Hậu Giang",
     "code": 93,
     "codename": "tinh_hau_giang",
     "division_type": "tỉnh",
@@ -78965,7 +78965,7 @@
     ]
   },
   {
-    "name": "Tỉnh Sóc Trăng",
+    "name": "Sóc Trăng",
     "code": 94,
     "codename": "tinh_soc_trang",
     "division_type": "tỉnh",
@@ -79837,7 +79837,7 @@
     ]
   },
   {
-    "name": "Tỉnh Bạc Liêu",
+    "name": "Bạc Liêu",
     "code": 95,
     "codename": "tinh_bac_lieu",
     "division_type": "tỉnh",
@@ -80358,7 +80358,7 @@
     ]
   },
   {
-    "name": "Tỉnh Cà Mau",
+    "name": "Cà Mau",
     "code": 309,
     "codename": "tinh_ca_mau",
     "division_type": "tỉnh",

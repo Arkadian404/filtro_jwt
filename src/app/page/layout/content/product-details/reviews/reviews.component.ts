@@ -84,7 +84,7 @@ export class ReviewsComponent implements OnInit, OnChanges{
   }
 
   checkUserReviewed(userId:number, productId:number){
-    if(this.user!==null){
+    if(this.user!=null){
       this.reviewService.isUserReviewed(userId, productId).subscribe({
         next: data => {
           this.isUserReviewed = data;
@@ -127,10 +127,11 @@ export class ReviewsComponent implements OnInit, OnChanges{
   }
 
   checkHasBoughtProduct(userId:number, productId:number){
-    this.reviewService.hasUserBoughtProduct(userId, productId).subscribe(data=>{
-      console.log(data)
-      this.hasBoughtProduct = data;
-    });
+    if(this.user!=null){
+      this.reviewService.hasUserBoughtProduct(userId, productId).subscribe(data=>{
+        this.hasBoughtProduct = data;
+      });
+    }
   }
 
   getReplies(id:number){
