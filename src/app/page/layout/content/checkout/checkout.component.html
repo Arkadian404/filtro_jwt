@@ -58,27 +58,27 @@
                             <div class="col-md-4">
                               <mat-form-field appearance="fill">
                                 <mat-label>Thành phố/Tỉnh</mat-label>
-                                <mat-select (selectionChange)="onProvinceChange($event)" formControlName="province">
+                                <mat-select (selectionChange)="onPChange($event.value)" formControlName="province">
                                   <mat-option>Chọn thành phố/Tỉnh</mat-option>
-                                  <mat-option *ngFor="let p of provinces" [value]="p.name" >{{p.name}}</mat-option  >
+                                  <mat-option *ngFor="let p of _provinces" [value]="p" >{{p.ProvinceName}}</mat-option  >
                                 </mat-select>
                               </mat-form-field>
                             </div>
                             <div class="col-md-4">
                               <mat-form-field>
                                 <mat-label >Quận/Huyện</mat-label>
-                                <mat-select (selectionChange)="onDistrictChange($event)" formControlName="district">
+                                <mat-select (selectionChange)="onDChange($event.value)" formControlName="district">
                                   <mat-option>Chọn Quận/Huyện</mat-option>
-                                  <mat-option *ngFor="let d of districts" [value]="d.name">{{d.name}}</mat-option>
+                                  <mat-option *ngFor="let d of _districts" [value]="d">{{d.DistrictName}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
                             <div class="col-md-4">
                               <mat-form-field>
                                 <mat-label>Xã/Phường</mat-label>
-                                <mat-select (selectionChange)="onWardChange($event)" formControlName="ward">
+                                <mat-select (selectionChange)="onWChange($event.value)" formControlName="ward">
                                   <mat-option>Chọn Xã/Phường</mat-option>
-                                  <mat-option *ngFor="let w of wards" [value]="w.name">{{w.name}}</mat-option>
+                                  <mat-option *ngFor="let w of _wards" [value]="w">{{w.WardName}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
@@ -94,6 +94,7 @@
                           </div>
                         </div>
                       </form>
+
                     </mat-step>
                     <mat-step [stepControl]="moneyForm" state="delivery">
                       <form [formGroup]="moneyForm">
@@ -102,20 +103,19 @@
                           <div class="row">
                             <div class="col-12">
                               <h3>Phương thức vận chuyển</h3>
-                              <p>Phí vận chuyển: <b>{{this.shippingFee | currencyVND}}</b></p>
+                              <p>Phí vận chuyển: <b>{{this.shippingFee??0 | currencyVND}}</b></p>
                             </div>
                             <div class="row">
                               <div class="col-12">
-                                <mat-radio-group (change)="onShippingChange($event)" formControlName="shippingMethod" class="radio-group" aria-label="Select an option">
-                                    <ul class="list-group list-group-flush align-items-center">
-                                      <div class="">
-                                      <li class="list-group-item d-flex" *ngFor="let s of shippingMethods; let i = index">
-                                        <mat-radio-button class="pe-3" [value]="s"> {{s.name + ' ('+ s.duration +')'}}</mat-radio-button>
-                                        <span class="text-muted align-self-center ms-auto">+{{s.surcharge | currencyVND}}</span>
+                                <mat-radio-group (change)="onServiceChange($event)"  class="radio-group" aria-label="Select an option">
+                                  <ul class="list-group list-group-flush align-items-center">
+                                    <div class="">
+                                      <li class="list-group-item d-flex" *ngFor="let s of deliveryServices; let i = index">
+                                        <mat-radio-button class="pe-3" [value]="s"> {{s.short_name}}</mat-radio-button>
                                       </li>
-                                      </div>
+                                    </div>
 
-                                    </ul>
+                                  </ul>
                                 </mat-radio-group>
                               </div>
                               <div class="col-12"></div>
@@ -177,7 +177,7 @@
 
                         <mat-list-item class="mat-list-item-word-wrap">
                           <strong>Địa chỉ giao hàng:</strong>
-                          <span matLine> {{ this.infoForm.value.address + ', '+ this.infoForm.value.ward + ', '+ this.infoForm.value.district + ', ' + this.infoForm.value.province  }}</span>
+                          <span matLine> {{ this.infoForm.value.address + ', '+ this.infoForm.value.ward.WardName + ', '+ this.infoForm.value.district.DistrictName + ', ' + this.infoForm.value.province.ProvinceName  }}</span>
                         </mat-list-item
                         >
                         <mat-list-item>
@@ -187,7 +187,7 @@
 
                         <mat-list-item>
                           <strong>Phuơng thức vận chuyển:</strong>
-                          {{ this.selectedShipping?.name }}</mat-list-item
+                          {{ this.selectedService?.short_name }}</mat-list-item
                         >
 
                         <mat-list-item>
@@ -256,13 +256,13 @@
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">{{cart.total - discountFee +(discountFee / (1-voucher.discount/100)) | currencyVND}}</h4>
+                    <h4 class="mb-0">{{cart.total - discountFee +(discountFee / (1-voucher?.discount/100)) | currencyVND}}</h4>
                   </div>
                   <span class="text-muted">Tạm tính</span>
                 </li>
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h4 class="mb-0">{{this.shippingFee + this.selectedShipping?.surcharge === null ? '-' : this.shippingFee + this.selectedShipping?.surcharge | currencyVND}}</h4>
+                    <h4 class="mb-0">{{this.shippingFee  === null ? '-' : this.shippingFee  | currencyVND}}</h4>
                   </div>
                   <span class="text-muted">Chi phí vận chuyển</span>
                 </li>
@@ -292,7 +292,7 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item px-0">
                   <div class="float-end">
-                    <h3 class="mb-0"><strong>{{(cart.total + this.shippingFee + this.selectedShipping?.surcharge?? 0) | currencyVND}}</strong></h3>
+                    <h3 class="mb-0"><strong>{{(cart.total + this.shippingFee ?? 0) | currencyVND}}</strong></h3>
                   </div>
                   <h3 class="mb-0 d-inline-block">Tổng cộng</h3>
                 </li>

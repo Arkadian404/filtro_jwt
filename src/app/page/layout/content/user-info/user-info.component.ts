@@ -11,12 +11,12 @@ import {UserService} from "../../../../service/user/user.service";
 import {UtilService} from "../../../../service/util.service";
 import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {validatePassword} from "../../../../shared/validators/validate-password.validator";
-import {filter, switchMap, tap} from "rxjs";
+import {filter, of, startWith, switchMap, tap} from "rxjs";
 import {GhnService} from "../../../../service/ghn.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {GhnProvince} from "../../../../shared/models/ghn-province";
-import {GhnDistrict} from "../../../../shared/models/ghn-district";
-import {GhnWard} from "../../../../shared/models/ghn-ward";
+import {GhnProvince} from "../../../../shared/models/ghn/ghn-province";
+import {GhnDistrict} from "../../../../shared/models/ghn/ghn-district";
+import {GhnWard} from "../../../../shared/models/ghn/ghn-ward";
 import {MatSelectChange} from "@angular/material/select";
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
@@ -41,6 +41,7 @@ export class UserInfoComponent implements OnInit{
   wards: Ward[];
   passwordType = true;
   hours = new Date().getHours();
+  isLoading = false;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -49,10 +50,8 @@ export class UserInfoComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getProv().subscribe(data=>{
-      this._province = data;
-      console.log(this._province);
-    });
+    // this.getProv();
+    this.getUser();
     this.profileForm = this.formBuilder.group({
       firstname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
       lastname: ['', [Validators.required, Validators.pattern(NAME_PATTERN)]],
@@ -72,7 +71,6 @@ export class UserInfoComponent implements OnInit{
       },
       {validators: validatePassword('newPassword', 'confirmPassword')}
     )
-    this.getUser();
   }
 
 
@@ -82,55 +80,120 @@ export class UserInfoComponent implements OnInit{
     this.provinces = Object.values(<Province[]>this.dataJson).slice(0, 63);
   }
 
+  // getUser() {
+  //   this.userService.currentUser().pipe(
+  //     tap(user => {
+  //         this.isLoading = true;
+  //         this.user = user
+  //       }
+  //     ),
+  //     switchMap(user=>{
+  //       if(user){
+  //         const province = this._province.find(p => p.ProvinceName === user.province);
+  //         return this.getDist(province.ProvinceID).pipe(
+  //           switchMap((districts)=>{
+  //             this._district = districts;
+  //             const district = this._district.find((d => d.DistrictName == user.district));
+  //             return this.getWard(district.DistrictID);
+  //           })
+  //         )
+  //       }else{
+  //         return null;
+  //       }
+  //     })
+  //   ).subscribe(
+  //     {
+  //       next: (data) => {
+  //         if (data) {
+  //           this._ward = data;
+  //           this.profileForm.patchValue({
+  //             firstname: this.user.firstname,
+  //             lastname: this.user.lastname,
+  //             username: this.user.username,
+  //             email: this.user.email,
+  //             dob: this.user.dob,
+  //             phone: this.user.phone,
+  //             address: this.user.address,
+  //             province: this._province.find(p => p.ProvinceName === this.user.province),
+  //             district: this._district.find(d => d.DistrictName === this.user.district),
+  //             ward: this._ward.find(w => w.WardName === this.user.ward),
+  //           });
+  //             this.profileForm.get('username').disable();
+  //             this.isLoading = false;
+  //         }
+  //       },
+  //       error: (err) => {
+  //         this.utilService.openSnackBar(err, 'Đóng');
+  //         this.isLoading = false;
+  //         console.log(err)
+  //       }
+  //     }
+  //   );
+  // }
+
+
   getUser() {
-    this.userService.currentUser().pipe(
-      tap(user => {
-          this.user = user
-        }
-      ),
-      switchMap(user=>{
-        if(user){
+    this.isLoading = true;
+    this.getProv().pipe(
+      tap(prov=> this._province = prov),
+      switchMap(() => this.userService.currentUser()),
+      tap(user => this.user = user),
+      switchMap(user => {
+        if (user) {
           const province = this._province.find(p => p.ProvinceName === user.province);
           return this.getDist(province.ProvinceID).pipe(
-            switchMap((districts)=>{
+            switchMap((districts) => {
               this._district = districts;
-              const district = this._district.find((d => d.DistrictName == user.district));
+              const district = this._district.find(d => d.DistrictName === user.district);
               return this.getWard(district.DistrictID);
             })
-          )
-        }else{
-          return null;
+          );
+        } else {
+          return of(null); // Return a null observable if user is null
         }
       })
-    ).subscribe(
-      {
-        next: (data) => {
-          if (data) {
-            this._ward = data;
-            this.profileForm.patchValue({
-              firstname: this.user.firstname,
-              lastname: this.user.lastname,
-              username: this.user.username,
-              email: this.user.email,
-              dob: this.user.dob,
-              phone: this.user.phone,
-              address: this.user.address,
-              province: this._province.find(p => p.ProvinceName === this.user.province),
-              district: this._district.find(d => d.DistrictName === this.user.district),
-              ward: this._ward.find(w => w.WardName === this.user.ward),
-            });
-              this.profileForm.get('username').disable();
-          }
-        },
-        error: (err) => {
-          console.log(err)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this._ward = data;
+          this.profileForm.patchValue({
+            firstname: this.user.firstname,
+            lastname: this.user.lastname,
+            username: this.user.username,
+            email: this.user.email,
+            dob: this.user.dob,
+            phone: this.user.phone,
+            address: this.user.address,
+            province: this._province.find(p => p.ProvinceName === this.user.province),
+            district: this._district.find(d => d.DistrictName === this.user.district),
+            ward: this._ward.find(w => w.WardName === this.user.ward),
+          });
+          this.profileForm.get('username').disable();
+          this.isLoading = false;
         }
+      },
+      error: (err) => {
+        this.utilService.openSnackBar(err, 'Đóng');
+        this.isLoading = false;
+        console.log(err);
       }
-    );
+    });
   }
 
+
   getProv(){
-    return this.ghnService.getProvinces();
+    return this.ghnService.getProvinces().pipe(
+      tap((data) => {
+        this._province = data.map((item) => {
+          return {
+            Code: item.Code,
+            ProvinceID: item.ProvinceID,
+            ProvinceName: item.ProvinceName,
+          };
+        });
+      })
+
+    );
   }
 
   getDist(provinceId: number) {

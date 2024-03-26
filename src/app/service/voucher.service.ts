@@ -59,6 +59,16 @@ export class VoucherService {
       );
   }
 
+  checkVoucherExpirationDate(voucherId:number){
+    return this.http.get<boolean> (`${VOUCHER_API}/check/${voucherId}`)
+      .pipe(
+        catchError(err => {
+          console.log('Error handled by Service...' + err.status);
+          return throwError(() => new Error(err.error.message))
+        })
+      );
+  }
+
   deleteVoucher(id:number){
     return this.http.delete<SuccessMessage>(`${VOUCHER_API_ADMIN}/delete/${id}`)
       .pipe(
