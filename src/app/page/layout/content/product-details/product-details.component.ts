@@ -45,7 +45,8 @@ export class ProductDetailsComponent implements OnInit{
   isWishlist:ProductDto[] = [];
   slidesPerView=5;
   screenWidth:number;
-  availableVouchers: Voucher[] = [];
+  availableVouchersByProductId: Voucher[] = [];
+  availableVouchersToAll: Voucher[] = [];
 
   @HostListener('window:resize')
   getScreenWidth() {
@@ -101,17 +102,31 @@ export class ProductDetailsComponent implements OnInit{
     })
   }
 
-  getAvailableVouchers(productId:number){
-    return this.voucherService.getAvailableVoucher(productId).subscribe({
+  getAvailableVouchersByProductId(productId:number){
+    return this.voucherService.getAvailableVoucherByProductId(productId).subscribe({
       next: data => {
-        this.availableVouchers = data;
-        console.log(this.availableVouchers);
+        this.availableVouchersByProductId = data;
+        console.log(this.availableVouchersByProductId);
       },
       error: err => {
         console.log(err);
       }
     })
   }
+
+
+  getAvailableVoucherToAllProducts(){
+    return this.voucherService.getAvailableVoucherToAllProducts().subscribe({
+      next: data => {
+        this.availableVouchersToAll = data;
+        console.log(this.availableVouchersByProductId);
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
 
   getProduct(slug:string){
     this.productService.getProductDtoBySlug(slug).subscribe({
@@ -123,7 +138,8 @@ export class ProductDetailsComponent implements OnInit{
         this.selectedImage = data.images[0].url;
         this.productDetails = data.productDetails;
         this.getRelatedProducts(data.id, data.flavor.id);
-        this.getAvailableVouchers(data.id);
+        this.getAvailableVouchersByProductId(data.id);
+        this.getAvailableVoucherToAllProducts();
         this.isLoading = false;
       },
       error: err => {

@@ -29,8 +29,19 @@ export class VoucherService {
   }
 
 
-  getAvailableVoucher(productId:number){
+  getAvailableVoucherByProductId(productId:number){
     return this.http.get<Voucher[]>(`${VOUCHER_API}/availableVouchers/${productId}`)
+      .pipe(
+        catchError(err => {
+          console.log('Error handled by Service...' + err.status);
+          return throwError(() => new Error(err.error.message))
+        })
+      );
+  }
+
+
+  getAvailableVoucherToAllProducts(){
+    return this.http.get<Voucher[]>(`${VOUCHER_API}/availableVouchers/all`)
       .pipe(
         catchError(err => {
           console.log('Error handled by Service...' + err.status);

@@ -127,10 +127,17 @@
                    ƯU ĐÃI LIÊN QUAN
                 </span></i></b>
                 <ol class="mt-3">
-                  <span class="f-18 f-w-700" *ngIf="availableVouchers">Không có</span>
-                  <li *ngFor="let v of availableVouchers">
-                    <span class="f-18 f-w-700">{{v.code}}</span>
-                  </li>
+                  <span class="f-18 f-w-700" *ngIf="availableVouchersByProductId.length === 0 && availableVouchersToAll.length === 0;else showVouchers">Không có</span>
+                 <ng-template #showVouchers>
+                   <li *ngFor="let v of availableVouchersByProductId">
+                     <span class="f-18 f-w-700">{{v.code}}</span>
+                     <span class="ms-1 fs-16 f-w-600" style="color: red">{{"giảm "+  v.discount + "% cho sản phẩm này"}}</span>
+                   </li>
+                   <li *ngFor="let v of availableVouchersToAll">
+                     <span class="f-18 f-w-700">{{v.code}}</span>
+                     <span class="ms-1 fs-16 f-w-600" style="color: red">{{"giảm "+  v.discount + "% cho toàn bộ sản phẩm"}}</span>
+                   </li>
+                 </ng-template>
                 </ol>
               </div>
             </div>
