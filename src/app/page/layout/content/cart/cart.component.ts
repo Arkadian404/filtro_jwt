@@ -47,7 +47,7 @@ export class CartComponent implements OnInit{
           this.cartItemService.getCartItems(data.id).subscribe(items=>{
             this.cartItems = items;
             if(this.voucher){
-              if(this.voucher.category!=null){
+              if(this.voucher?.category!=null){
                 this.subTotalDiscount = this.cartItems.filter(item => item.productDetail.categoryId === this.voucher?.category?.id).reduce((sum, item) => sum + item.total, 0);
               }else{
                 this.subTotalDiscount = this.cartItems.reduce((sum, item) => sum + item.total, 0);

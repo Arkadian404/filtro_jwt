@@ -49,8 +49,8 @@
               <td class="align-middle">{{ item.productDetail.weight | convertUnit: item.productDetail.categoryId}}</td>
               <td class="align-middle">
                 <span>{{ item.price | currencyVND}}</span>
-                <p *ngIf="voucher!==null && voucher.category?.id === item.productDetail.categoryId" class="mb-0 fs-14"><s>{{item.price / (1 -  voucher.discount/100) | currencyVND }}</s></p>
-                <p *ngIf="voucher!==null && voucher.category===null" class="mb-0 fs-14"><s>{{item.price / (1 -  voucher.discount/100) | currencyVND }}</s></p>
+                <p *ngIf="voucher!=null && voucher?.category?.id === item.productDetail.categoryId" class="mb-0 fs-14"><s>{{item.price / (1 -  voucher.discount/100) | currencyVND }}</s></p>
+                <p *ngIf="voucher!=null && voucher.category===null" class="mb-0 fs-14"><s>{{item.price / (1 -  voucher?.discount/100) | currencyVND }}</s></p>
               </td>
               <td class="align-middle">
                 <div class="input-group quantity mx-auto btn-group-quantity">
@@ -79,8 +79,8 @@
               </td>
               <td class="align-middle">
                 <span>{{ item.total | currencyVND}}</span>
-                <p *ngIf="voucher!==null && voucher.category?.id === item.productDetail.categoryId" class="mb-0 fs-14"><s> {{ item.total / (1-voucher.discount/100) | currencyVND}} </s></p>
-                <p *ngIf="voucher!==null && voucher.category===null" class="mb-0 fs-14"><s> {{ item.total / (1-voucher.discount/100) | currencyVND}} </s></p>
+                <p *ngIf="voucher!=null && voucher?.category?.id === item.productDetail.categoryId" class="mb-0 fs-14"><s> {{ item.total / (1-voucher.discount/100) | currencyVND}} </s></p>
+                <p *ngIf="voucher!=null && voucher?.category===null" class="mb-0 fs-14"><s> {{ item.total / (1-voucher?.discount/100) | currencyVND}} </s></p>
               </td>
               <td class="align-middle">
                 <button class="btn btn-sm btn-primary" (click) = "openDeleteCartItemDialog(item)">
@@ -95,12 +95,12 @@
       <div class="col-lg-4">
         <form class="mb-5" [formGroup]="voucherForm" (ngSubmit)="applyVoucher()">
           <div class="input-group">
-            <input *ngIf="voucher!==null;else inputVoucher" type="text" [value]="voucher.code" class="form-control p-4" [disabled]="true">
+            <input *ngIf="voucher!=null;else inputVoucher" type="text" [value]="voucher.code" class="form-control p-4" [disabled]="true">
             <ng-template #inputVoucher>
               <input type="text" formControlName ="code" class="form-control p-4" placeholder="Coupon Code">
             </ng-template>
             <div class="input-group-append">
-              <button type="button" *ngIf="voucher!==null; else enterVoucher" (click)="openChangeVoucher(voucher)" class="btn btn-primary">
+              <button type="button" *ngIf="voucher!=null; else enterVoucher" (click)="openChangeVoucher(voucher)" class="btn btn-primary">
                 <span> <mat-icon fontIcon="change_circle" style="vertical-align: middle"></mat-icon></span>
               </button>
               <ng-template #enterVoucher>
