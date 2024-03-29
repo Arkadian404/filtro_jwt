@@ -177,7 +177,7 @@
 
                         <mat-list-item class="mat-list-item-word-wrap">
                           <strong>Địa chỉ giao hàng:</strong>
-                          <span matLine> {{ this.infoForm.value.address + ', '+ this.infoForm.value.ward.WardName + ', '+ this.infoForm.value.district.DistrictName + ', ' + this.infoForm.value.province.ProvinceName  }}</span>
+                          <span matLine *ngIf="infoForm.value.province && infoForm.value.district && infoForm.value.ward"> {{ this.infoForm.value.address + ', '+ this.infoForm.value.ward.WardName + ', '+ this.infoForm.value.district.DistrictName + ', ' + this.infoForm.value.province.ProvinceName  }}</span>
                         </mat-list-item
                         >
                         <mat-list-item>

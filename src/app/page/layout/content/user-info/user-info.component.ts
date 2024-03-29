@@ -140,21 +140,28 @@ export class UserInfoComponent implements OnInit{
       tap(user => this.user = user),
       switchMap(user => {
         if (user) {
-          const province = this._province.find(p => p.ProvinceName === user.province);
-          return this.getDist(province.ProvinceID).pipe(
-            switchMap((districts) => {
-              this._district = districts;
-              const district = this._district.find(d => d.DistrictName === user.district);
-              return this.getWard(district.DistrictID);
-            })
-          );
+          const province = this._province.find(p => p.ProvinceName === user.province) ?? null;
+          if(province){
+            return this.getDist(province.ProvinceID).pipe(
+              switchMap((districts) => {
+                this._district = districts;
+                const district = this._district.find(d => d.DistrictName === user.district) ?? null;
+                if(district){
+                  return this.getWard(district.DistrictID);
+                }else{
+                  return of(null);
+                }
+              })
+            );
+          }else{
+            return of(null);
+          }
         } else {
           return of(null); // Return a null observable if user is null
         }
       })
     ).subscribe({
       next: (data) => {
-        if (data) {
           this._ward = data;
           this.profileForm.patchValue({
             firstname: this.user.firstname,
@@ -164,13 +171,12 @@ export class UserInfoComponent implements OnInit{
             dob: this.user.dob,
             phone: this.user.phone,
             address: this.user.address,
-            province: this._province.find(p => p.ProvinceName === this.user.province),
-            district: this._district.find(d => d.DistrictName === this.user.district),
-            ward: this._ward.find(w => w.WardName === this.user.ward),
+            province: this._province.find(p => p.ProvinceName === this.user.province) ?? null,
+            district: this._district.find(d => d.DistrictName === this.user.district) ?? null,
+            ward: this._ward !=null ? this._ward.find(w => w.WardName === this.user.ward) : null,
           });
           this.profileForm.get('username').disable();
           this.isLoading = false;
-        }
       },
       error: (err) => {
         this.utilService.openSnackBar(err, 'Đóng');

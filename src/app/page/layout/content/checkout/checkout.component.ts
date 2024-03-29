@@ -184,36 +184,43 @@ export class CheckoutComponent implements OnInit{
       tap(user => this.user = user),
       switchMap(user => {
         if (user) {
-          const province = this._provinces.find(p => p.ProvinceName === user.province);
-          return this.getDist(province.ProvinceID).pipe(
-            switchMap((districts) => {
-              this._districts = districts;
-              const district = this._districts.find(d => d.DistrictName === user.district);
-              return this.getWard(district.DistrictID).pipe(
-                switchMap((wards) => {
-                  this._wards = wards;
-                  return this.ghnService.getDeliveryService(district.DistrictID);
+          const province = this._provinces.find(p => p.ProvinceName === user.province) ?? null;
+          if(province){
+            return this.getDist(province.ProvinceID).pipe(
+              switchMap((districts) => {
+                this._districts = districts;
+                const district = this._districts.find(d => d.DistrictName === user.district) ?? null;
+                if(district){
+                  return this.getWard(district.DistrictID).pipe(
+                    switchMap((wards) => {
+                        this._wards = wards;
+                        return this.ghnService.getDeliveryService(district.DistrictID);
+                      }
+                    )
+                  )
+                }else{
+                  return of(null);
                 }
-              )
-            )})
-          );
+              })
+            )
+          }else{
+            return of(null);
+          }
         } else {
           return of(null); // Return a null observable if user is null
         }
       })
     ).subscribe({
       next: (data) => {
-        if (data) {
-          // this._wards = data;
           this.deliveryServices = data;
           this.infoForm.patchValue({
             fullName: this.user.firstname + ' ' + this.user.lastname,
             email: this.user.email,
             phone: this.user.phone,
             address: this.user.address,
-            province: this._provinces.find(p => p.ProvinceName === this.user.province),
-            district: this._districts.find(d => d.DistrictName === this.user.district),
-            ward: this._wards.find(w => w.WardName === this.user.ward),
+            province: this._provinces.find(p => p.ProvinceName === this.user.province)??null,
+            district: this._districts.find(d => d.DistrictName === this.user.district)??null,
+            ward: this._wards.find(w => w.WardName === this.user.ward)??null,
           });
           this.cartItemService.getCart(this.user.username).subscribe(cart => {
             this.cart = cart;
@@ -227,8 +234,7 @@ export class CheckoutComponent implements OnInit{
               }
               this.isLoading = false;
             })
-          })
-        }
+          });
       },
       error: (err) => {
         console.log(err)
