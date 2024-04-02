@@ -10,7 +10,7 @@
               <span class="counter-value">{{currentMonthRevenue?.revenue | currency:'VND'}}</span>
             </h4>
             <div class="d-flex align-items-center gap-2">
-              <h5 class="badge bg-success-subtle text-success  mb-0" *ngIf="revenueRatio > 0;else lossRevenue">
+              <h5 class="badge bg-success-subtle text-success mb-0" *ngIf="revenueRatio > 0;else lossRevenue">
                 <i class="fa-solid fa-arrow-up"></i> {{revenueRatio}}%
               </h5>
               <ng-template #lossRevenue>
@@ -41,7 +41,7 @@
               <span class="counter-value">{{currentMonthOrder?.count}}</span>
             </h4>
             <div class="d-flex align-items-center gap-2">
-              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="orderRatio > 0; else lossOrder">
+              <h5 class="badge bg-success-subtle text-success mb-0" *ngIf="orderRatio > 0; else lossOrder">
                 <i class="fa-solid fa-arrow-up"></i> {{orderRatio}}%
               </h5>
               <ng-template #lossOrder>
@@ -72,7 +72,7 @@
               <span class="counter-value">{{currentMonthUser?.count}}</span>
             </h4>
             <div class="d-flex align-items-center gap-2">
-              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="userRatio > 0; else lossUser">
+              <h5 class="badge bg-success-subtle text-success mb-0" *ngIf="userRatio > 0; else lossUser">
                 <i class="fa-solid fa-arrow-up"></i> {{userRatio}}%
               </h5>
               <ng-template #lossUser>
@@ -102,7 +102,7 @@
             <h4 class="fs-22 fw-semibold mb-3">
               <span class="counter-value">{{currentMonthProduct?.count}}</span> </h4>
             <div class="d-flex align-items-center gap-2">
-              <h5 class="badge bg-danger-subtle text-danger mb-0" *ngIf="productRatio > 0; else lossProduct">
+              <h5 class="badge bg-success-subtle text-success mb-0" *ngIf="productRatio > 0; else lossProduct">
                 <i class="fa-solid fa-arrow-up"></i> {{isNaN(productRatio) ? '0' : productRatio}}%
               </h5>
               <ng-template #lossProduct>

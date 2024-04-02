@@ -1,4 +1,4 @@
-.<section>
+<section>
   <div mat-dialog-title class="d-flex justify-content-between align-items-center">
     <h2 class="mb-0 fs-24 fw-bold" >Chi tiết đơn hàng: #{{data.orderCode}}</h2>
     <button mat-icon-button aria-label="close dialog" mat-dialog-close>
@@ -97,7 +97,7 @@
                   <tr *ngFor="let pd of orderDetails; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td class="text-start">
-                      <span class="fw-medium">{{pd.productName}}</span>
+                      <a [routerLink]="['/product', pd.productSlug]" class="fw-medium" style="text-decoration: none">{{pd.productName}}</a>
                       <p class="text-muted mb-0">{{pd.productDetail.weight | convertUnit:pd.productDetail.categoryId}}</p>
                     </td>
                     <td>{{pd.price | currencyVND}}</td>

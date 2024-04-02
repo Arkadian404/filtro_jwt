@@ -6,6 +6,7 @@ export interface OrderDetailDto{
   id?: number;
   order?: OrderDto;
   productName?: string;
+  productSlug?:string,
   productImage?: ProductImageDto;
   productDetail?: ProductDetailDto;
   quantity?: number;

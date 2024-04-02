@@ -1,91 +1,96 @@
-<div class="col-lg-12">
-  <div class="card-body p-4">
-    <div class="table-responsive">
-      <table class="table table-borderless text-center table-nowrap align-middle mb-0">
-        <thead>
-        <tr class="table-active">
-          <th scope="col" style="width: 50px;">#</th>
-          <th scope="col">Chi tiết sản phẩm</th>
-          <th scope="col">Giá tiền</th>
-          <th scope="col">Số lượng</th>
-          <th scope="col" class="text-end">Tổng tiền</th>
-        </tr>
-        </thead>
-        <tbody id="products-list">
-        <tr *ngFor="let pd of orderDetails; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td class="text-start">
-            <span class="fw-medium">{{pd.productDetail.product?.name}}</span>
-            <p class="text-muted mb-0">{{pd.productDetail.weight }}</p>
-          </td>
-          <td>{{pd.price | currency: 'VND'}}</td>
-          <td>{{pd.quantity}}</td>
-          <td class="text-end">{{pd.total | currency: 'VND'}}</td>
-        </tr>
-        </tbody>
-      </table><!--end table-->
-    </div>
-    <div class="border-top border-top-dashed mt-2">
-      <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto" style="width:250px">
-        <tbody>
-        <tr>
-          <td>Tạm tính</td>
-          <td class="text-end">{{(data.total - data.shippingFee??0 )| currency:'VND'}}</td>
-        </tr>
-        <!--                  <tr>-->
-        <!--                    <td>Estimated Tax (12.5%)</td>-->
-        <!--                    <td class="text-end">$172.04</td>-->
-        <!--                  </tr>-->
-        <tr>
-          <td>Giảm giá (%)
-            <!--                      <small class="text-muted"></small>-->
-          </td>
-          <td class="text-end">---</td>
-        </tr>
-        <tr>
-          <td>Phí vận chuyển</td>
-          <td class="text-end">{{data.shippingFee??0 | currency:'VND'}}</td>
-        </tr>
-        <tr class="border-top border-top-dashed fs-15">
-          <th scope="row">Tổng tiền</th>
-          <th class="text-end">{{data.total | currency:'VND'}}</th>
-        </tr>
-        </tbody>
-      </table>
-      <!--end table-->
-    </div>
-    <div class="mt-3">
-      <h4 class="text-muted text-uppercase fw-semibold mb-3">Chi tiết thanh toán</h4>
-      <p class="text-muted mb-1 fs-14">Họ và tên: <span class="fw-medium" id="card-holder-name">{{data.fullName}}</span></p>
-      <p class="text-muted mb-1 fs-14">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{'Thanh toán bằng '+ data.paymentMethod}}</span></p>
-      <p class="text-muted fs-14">Tổng tiền: <span id="card-total-amount">{{data.total | currency:'VND'}}</span></p>
-    </div>
-    <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-          <mat-label>Trạng thái đơn hàng</mat-label>
-          <mat-select
-            [compareWith]="compareObjectFunction"
-            formControlName="status"
-            (selectionChange)="onStatusChange($event)">
-            <mat-option *ngFor="let s of status" [value]="s.value" [disabled]="onDisabled(s.value)">{{s.viewValue}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="action" mat-dialog-actions>
-          <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
-          <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+<section>
+  <div mat-dialog-title class="d-flex justify-content-between align-items-center">
+    <h2 class="mb-0 fs-24 fw-bold" >Chi tiết đơn hàng: #{{data.orderCode}}</h2>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <div class="card-body p-4">
+      <div class="table-responsive">
+        <table class="table table-borderless text-center table-nowrap align-middle mb-0">
+          <thead>
+          <tr class="table-active">
+            <th scope="col" style="width: 50px;">#</th>
+            <th scope="col">Chi tiết sản phẩm</th>
+            <th scope="col">Giá tiền</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col" class="text-end">Tổng tiền</th>
+          </tr>
+          </thead>
+          <tbody id="products-list">
+          <tr *ngFor="let pd of orderDetails; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td class="text-start">
+              <span class="fw-medium">{{pd.productDetail.product?.name}}</span>
+              <p class="text-muted mb-0">{{pd.productDetail.weight }}</p>
+              <p>{{250 | convertUnit: pd.productDetail.product.category.id}}</p>
+            </td>
+            <td>{{pd.price | currency: 'VND'}}</td>
+            <td>{{pd.quantity}}</td>
+            <td class="text-end">{{pd.total | currency: 'VND'}}</td>
+          </tr>
+          </tbody>
+        </table><!--end table-->
+      </div>
+      <div class="border-top border-top-dashed mt-2">
+        <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto" style="width:250px">
+          <tbody>
+          <tr>
+            <td>Tạm tính</td>
+            <td class="text-end">{{(data.total - data.shippingFee??0 )| currency:'VND'}}</td>
+          </tr>
+          <!--                  <tr>-->
+          <!--                    <td>Estimated Tax (12.5%)</td>-->
+          <!--                    <td class="text-end">$172.04</td>-->
+          <!--                  </tr>-->
+          <tr>
+            <td>Giảm giá (%)
+              <!--                      <small class="text-muted"></small>-->
+            </td>
+            <td class="text-end">---</td>
+          </tr>
+          <tr>
+            <td>Phí vận chuyển</td>
+            <td class="text-end">{{data.shippingFee??0 | currency:'VND'}}</td>
+          </tr>
+          <tr class="border-top border-top-dashed fs-15">
+            <th scope="row">Tổng tiền</th>
+            <th class="text-end">{{data.total | currency:'VND'}}</th>
+          </tr>
+          </tbody>
+        </table>
+        <!--end table-->
+      </div>
+      <div class="mt-3">
+        <h4 class="text-muted text-uppercase fw-semibold mb-3">Chi tiết thanh toán</h4>
+        <p class="text-muted mb-1 fs-14">Họ và tên: <span class="fw-medium" id="card-holder-name">{{data.fullName}}</span></p>
+        <p class="text-muted mb-1 fs-14">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{'Thanh toán bằng '+ data.paymentMethod}}</span></p>
+        <p class="text-muted fs-14">Tổng tiền: <span id="card-total-amount">{{data.total | currency:'VND'}}</span></p>
+      </div>
+      <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill">
+            <mat-label>Trạng thái đơn hàng</mat-label>
+            <mat-select
+              [compareWith]="compareObjectFunction"
+              formControlName="status"
+              (selectionChange)="onStatusChange($event)">
+              <mat-option *ngFor="let s of status" [value]="s.value" [disabled]="onDisabled(s.value)">{{s.viewValue}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="action" mat-dialog-actions>
+            <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
+            <button mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+          </div>
+        </form>
+        <div *ngIf="isLoading" class="loading">
+          <mat-spinner color="primary"></mat-spinner>
         </div>
-      </form>
-      <div *ngIf="isLoading" class="loading">
-        <mat-spinner color="primary"></mat-spinner>
       </div>
     </div>
-  </div>
-</div>
-
-
-
-
+  </mat-dialog-content>
+</section>
 
 
 

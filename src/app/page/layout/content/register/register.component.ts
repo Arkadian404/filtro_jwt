@@ -7,7 +7,7 @@ import {NoSpaceWhiteValidator} from "../../../../shared/validators/no-space-whit
 
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
-const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/;
+const NAME_PATTERN = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵýỷỹ\s|_]+$/;
 
 const validatePassword = (firstControl: string, secondControl: string) => {
   return function (formGroup: FormGroup) {
@@ -29,7 +29,7 @@ const validatePassword = (firstControl: string, secondControl: string) => {
 export class RegisterComponent implements OnInit{
   form:FormGroup;
   submitted = false;
-  passwordType = true;
+  passwordType = false;
   constructor(private formBuilder:FormBuilder,
               private jwtService: AuthenticationService,
               private utilService:UtilService) {
