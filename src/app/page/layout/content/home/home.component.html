@@ -61,7 +61,7 @@
     <section class="section-1">
       <div class="container">
         <div class="collection">
-          <a href="">
+          <a [routerLink]="['/collection/all']">
             <picture>
               <source media="(min-width: 768px)" srcset="//bizweb.dktcdn.net/100/440/464/themes/839921/assets/feature_banner.jpg?1693361597588">
               <source media="(max-width: 767px)" srcset="//bizweb.dktcdn.net/100/440/464/themes/839921/assets/feature_banner_mb.jpg?1693361597588">
@@ -76,7 +76,7 @@
         <div class="bg-white">
           <div class="row">
             <div class="d-none d-lg-block col-lg-3 col-md-6">
-              <a href="">
+              <a [routerLink]="['/collection/all']">
                 <picture>
                   <source media="(min-width: 768px)" srcset="/assets/images/coffee_1.jpg">
                   <source media="(max-width: 767px)" srcset="/assets/images/coffee_1.jpg">
@@ -371,7 +371,7 @@
                   </div>
                   <div class="product-price mt-1">
                     <span class="price">{{p.productDetails[0].price | currencyVND}}</span>
-                    <span class="old-price">1.200.000đ</span>
+<!--                    <span class="old-price">1.200.000đ</span>-->
                   </div>
                 </div>
                 <button class="cart-button" type="submit">Thêm vào giỏ</button>

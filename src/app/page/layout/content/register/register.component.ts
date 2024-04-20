@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, NgForm, Validators} from "@angu
 import {AuthenticationService} from "../../../../service/user/authentication.service";
 import {UtilService} from "../../../../service/util.service";
 import {NoSpaceWhiteValidator} from "../../../../shared/validators/no-space-white.validator";
+import {Router} from "@angular/router";
 
 
 const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]/;
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit{
   passwordType = false;
   constructor(private formBuilder:FormBuilder,
               private jwtService: AuthenticationService,
+              private router: Router,
               private utilService:UtilService) {
   }
 
@@ -63,6 +65,8 @@ export class RegisterComponent implements OnInit{
         this.utilService.openSnackBar('Đăng ký thành công', 'Đóng')
         this.form.reset();
         this.form.markAsPristine();
+        this.form.markAsUntouched();
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         this.utilService.openSnackBar(error, 'Đóng');

@@ -4,6 +4,7 @@ import {ProductDto} from "../shared/dto/product-dto";
 
 
 const API = 'http://localhost:8080/api/v1/user/recommender';
+const FastAPI = 'http://localhost:8000/'
 
 
 @Injectable({
@@ -15,6 +16,10 @@ export class RecommenderService {
 
   recommendProductsForUser(userId: number){
     return this.http.get<ProductDto[]>(`${API}/recommend/${userId}`);
+  }
+
+  testApi(){
+    return this.http.get<string>(`${FastAPI}`);
   }
 
 }
