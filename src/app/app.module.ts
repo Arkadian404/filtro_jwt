@@ -21,6 +21,7 @@ import {PageModule} from "./page/page.module";
 import {RouterModule} from "@angular/router";
 import {QuillModule} from "ngx-quill";
 import {ScrollStrategyOptions} from "@angular/cdk/overlay";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 
 
 
@@ -43,6 +44,7 @@ firebase.initializeApp(environment.firebaseConfig) //firebase
     QuillModule
   ],
   providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } },
     // {
     //   provide: ErrorHandler,
     //   useClass: GlobalErrorHandlerService

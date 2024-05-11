@@ -25,7 +25,7 @@
                     <input matInput type="text" placeholder="Tài khoản" formControlName="username">
                   </mat-form-field>
                   <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
-                    <p *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</p>
+                    <span *ngIf="form.get('username').hasError('required')">Tài khoản không được để trống</span>
                   </mat-error>
 <!--                  <pre>{{form.controls.username.errors | json}}</pre>-->
                 </div>
@@ -47,7 +47,7 @@
                     </mat-icon>
                   </mat-form-field>
                   <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
-                    <p *ngIf="form.get('password').hasError('required')">Tên không được để trống</p>
+                    <span *ngIf="form.get('password').hasError('required')">Mật khẩu không được để trống</span>
                   </mat-error>
 <!--                  <pre>{{form.controls.password.errors | json}}</pre>-->
                 </div>

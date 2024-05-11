@@ -1,0 +1,24 @@
+@import '../colors';
+
+.chat-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 5%;
+  right: 3%;
+  background-color: $black;
+
+  .button-icon {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+
+    &.chat {
+      width: 70%;
+    }
+
+    &.bot {
+      width: 75%;
+    }
+  }
+}

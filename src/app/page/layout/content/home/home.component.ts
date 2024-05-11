@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit{
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
-    this.recommendProductsForUser();
+    // this.recommendProductsForUser();
   }
 
   getLatestProducts(){
@@ -348,7 +348,6 @@ export class HomeComponent implements OnInit{
   }
 
   recommendProductsForUser(){
-    console.log("CALLING RECOMMEND PRODUCTS");
     if(this.username && this.tokenService.getUsername()){
       this.userService.currentUser()
         .pipe(switchMap(user => this.recommenderService.recommendProductsForUser(user.id)))

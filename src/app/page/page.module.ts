@@ -87,6 +87,8 @@ import { UserConfirmationDialogComponent } from './layout/content/reusable/user-
 import { WishlistComponent } from './layout/content/wishlist/wishlist.component';
 import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { ChatbotComponent } from './layout/content/chat/chatbot/chatbot.component';
+import { CollapsibleChatboxComponent } from './layout/content/chat/collapsible-chatbox/collapsible-chatbox.component';
 
 register();
 @NgModule({
@@ -136,6 +138,8 @@ register();
         OrderDetailModalComponent,
         UserConfirmationDialogComponent,
         WishlistComponent,
+        ChatbotComponent,
+        CollapsibleChatboxComponent,
     ],
   imports: [
     CommonModule,

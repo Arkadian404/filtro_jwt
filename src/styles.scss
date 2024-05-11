@@ -10,8 +10,6 @@
   display: none;
 }
 
-
-
 .cdk-global-scrollblock {
   overflow-y: hidden;
 }
@@ -28,6 +26,42 @@ td, th {
 .mat-sort-header-container {
   justify-content: center !important;
 
+}
+
+.mat-button-toggle-checked {
+  background-color: #729CA2 !important;
+  color: white !important;
+}
+
+.mat-card-header-text {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.mat-mdc-form-field-wrapper {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field-flex {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.mat-form-field-infix {
+  padding: 0 !important;
+  border: 0 !important;
+  margin-left: 16px !important;
+}
+
+.mat-card {
+  padding: 0 !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 //mat-header-cell, mat-cell {
@@ -49,3 +83,4 @@ td, th {
   //font-family: Roboto, "Helvetica Neue", sans-serif;
   font-family: 'Lora', serif;
 }
+
