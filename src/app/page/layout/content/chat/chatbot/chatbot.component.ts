@@ -1,5 +1,8 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ChatbotService} from "../../../../../service/chatbot.service";
+import {UserService} from "../../../../../service/user/user.service";
+import {delay, switchMap} from "rxjs";
 
 class Message {
   text?: string;
@@ -23,15 +26,22 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
 
   public form: FormGroup;
   public messages: Array<Message> = [];
-  private canSendMessage = true;
+  public canSendMessage = true;
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private chatbotService: ChatbotService){}
 
   ngOnInit(): void {
+    this.getUser();
     this.form = this.formBuilder.group({
       message: ['']
     });
     this.getBotMessage();
+  }
+
+  getUser(){
+    return this.userService.currentUser();
   }
 
   ngAfterViewChecked(): void {
@@ -42,26 +52,34 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     const message = this.form.get('message').value;
 
     if (message && this.canSendMessage) {
-      const userMessage: Message = {text: message, type: MessageType.User};
-      this.messages.push(userMessage);
-
-      this.form.get('message').setValue('');
-      this.form.updateValueAndValidity();
-      this.getBotMessage();
+      this.getUser().pipe(
+        switchMap(user => {
+          const result = this.invokeChatbot(user.id, this.form.value);
+          this.form.disable();
+          return result;
+        })
+      ).subscribe(data=>{
+        const userMessage: Message = {text: message, type: MessageType.User};
+        this.messages.push(userMessage);
+        this.form.get('message').setValue('');
+        this.form.updateValueAndValidity();
+        this.getBotMessage(data);
+      })
     }
   }
 
-  private getBotMessage(): void {
+  private getBotMessage(responseMessage ?:string): void {
     this.canSendMessage = false;
     const waitMessage: Message = {type: MessageType.Loading};
     this.messages.push(waitMessage);
 
     setTimeout(() => {
       this.messages.pop();
-      const botMessage: Message = {text: 'Hello! How can I help you? This is too long for you boiz?? No, absolutely no, just a half baby', type: MessageType.Bot};
+      const botMessage: Message = {text: responseMessage !=null ? responseMessage : 'Xin chào bạn!!!' , type: MessageType.Bot};
       this.messages.push(botMessage);
       this.canSendMessage = true;
-    }, 2000);
+      this.form.enable();
+    }, 1000);
   }
 
   public onClickEnter(event: Event): void {
@@ -71,6 +89,11 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
 
   private scrollToBottom(): void {
     this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+  }
+
+  public invokeChatbot(user_id:number, message:string){
+    return this.chatbotService.agent_invoke(user_id, message);
+
   }
 
 }
