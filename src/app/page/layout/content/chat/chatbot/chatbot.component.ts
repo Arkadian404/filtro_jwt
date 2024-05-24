@@ -2,7 +2,8 @@ import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from 
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ChatbotService} from "../../../../../service/chatbot.service";
 import {UserService} from "../../../../../service/user/user.service";
-import {delay, switchMap} from "rxjs";
+import {TokenService} from "../../../../../service/token.service";
+import {switchMap} from "rxjs";
 
 class Message {
   text?: string;
@@ -30,6 +31,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private tokenService: TokenService,
               private chatbotService: ChatbotService){}
 
   ngOnInit(): void {
@@ -48,13 +50,13 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
   }
 
-  public onClickSendMessage(): void {
+  public onClickSendMessageLogin(): void {
     const message = this.form.get('message').value;
 
     if (message && this.canSendMessage) {
       this.getUser().pipe(
         switchMap(user => {
-          const result = this.invokeChatbot(user.id, this.form.value);
+          const result = this.invokeChatbot(user.id.toString(), this.form.value);
           this.form.disable();
           return result;
         })
@@ -65,6 +67,31 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         this.form.updateValueAndValidity();
         this.getBotMessage(data);
       })
+    }
+  }
+
+  public sendMessageNoLogin(uid: string){
+    const message = this.form.get('message').value;
+    if(message && this.canSendMessage){
+      this.invokeChatbot(uid, this.form.value).subscribe(data=> {
+        const userMessage: Message = {text: message, type: MessageType.User};
+        this.messages.push(userMessage);
+        this.form.get('message').setValue('');
+        this.form.updateValueAndValidity();
+        this.getBotMessage(data);
+      });
+    }
+  }
+
+  public onClickSendMessage(){
+    const username = this.tokenService.getUsername();
+    if(!username){
+      const uuid = crypto.randomUUID();
+      localStorage.setItem("chatId", uuid);
+      if(localStorage.getItem("chatId"))
+        this.sendMessageNoLogin(uuid);
+    }else{
+      this.onClickSendMessageLogin()
     }
   }
 
@@ -91,7 +118,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
   }
 
-  public invokeChatbot(user_id:number, message:string){
+  public invokeChatbot(user_id:string, message:string){
     return this.chatbotService.agent_invoke(user_id, message);
 
   }
