@@ -9,7 +9,6 @@ import {UtilService} from "../../../../service/util.service";
 import {WishlistItemService} from "../../../../service/wishlist-item.service";
 import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
 import {RecommenderService} from "../../../../service/recommender.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {UserService} from "../../../../service/user/user.service";
 import {switchMap} from "rxjs";
 
