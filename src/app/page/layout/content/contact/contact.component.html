@@ -1,1 +1,102 @@
-<p>contac works!</p>
+<section class="bread-crumb">
+  <div class="container">
+    <div class="bread-crumb-title text-center">
+      LIÊN HỆ
+    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb justify-content-center">
+        <li class="breadcrumb-item"><a [routerLink]="'/home'">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><strong>
+          Liên hệ cửa hàng
+        </strong> </li>
+      </ol>
+    </nav>
+  </div>
+</section>
+<div class="container">
+ <div class="row">
+   <div class="col-lg-4 col-md-6 col-sm-12">
+     <h3 class="f-20">Thông tin liên hệ</h3>
+     <br>
+     <div class="contact-box">
+       <p class="f-location">
+         <strong>ĐỊA CHỈ: </strong>
+         HCM, Center District, VN
+       </p>
+       <p class="f-phone">
+         <strong>ĐIỆN THOẠI: </strong>
+         <a href="tel:0772113120" title="0772113120">0772113120</a>
+       </p>
+       <p class="f-mail">
+         <strong>EMAIL: </strong>
+         <a href="mailto:phutv1990@gmail.com" title="filtrocoffee@gmail.com">filtrocoffee@gmail.com</a>
+       </p>
+     </div>
+     <div id="contact-maps">
+     </div>
+   </div>
+   <div class="col-lg-8 col-md-6 col-sm-12">
+     <h3 class="f-20">Bạn có bất kỳ câu hỏi nào?</h3>
+     <p class="p-description">
+       Bạn có câu hỏi, nhận xét hoặc ý tưởng tuyệt vời muốn chia sẻ? Gửi cho chúng tôi một ghi chú nhỏ bên dưới - chúng tôi muốn nghe ý kiến của bạn và sẽ luôn trả lời!
+     </p>
+     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+       <div class="row mb-3">
+         <div class="col-md-6">
+           <div class="form-group">
+             <mat-form-field>
+               <mat-label>Họ và tên</mat-label>
+               <input type="text" matInput formControlName="name" placeholder="Nhập họ và tên">
+             </mat-form-field>
+             <mat-error *ngIf="contactForm.get('name').touched && !contactForm.get('name').valid">
+               <span *ngIf="contactForm.get('name').hasError('required')">Họ và tên không được để trống</span>
+             </mat-error>
+           </div>
+         </div>
+         <div class="col-md-6">
+           <mat-form-field>
+             <mat-label>Email</mat-label>
+             <input type="text" matInput formControlName="email" placeholder="Nhập email của bạn">
+           </mat-form-field>
+           <mat-error *ngIf="contactForm.get('email').touched && !contactForm.get('email').valid">
+             <span *ngIf="contactForm.get('email').hasError('required')">Email không được để trống</span>
+           </mat-error>
+         </div>
+       </div>
+       <div class="row mb-3">
+         <div class="col-md-12">
+           <div class="form-group">
+             <mat-form-field>
+               <mat-label>Số điện thoại</mat-label>
+               <input maxlength="10" type="text" matInput formControlName="phone" placeholder="Nhập số điện thoại của bạn">
+             </mat-form-field>
+             <mat-error *ngIf="contactForm.get('phone').touched && !contactForm.get('phone').valid">
+               <span *ngIf="contactForm.get('phone').hasError('required')">Số điện thoại không được để trống</span>
+               <span *ngIf="contactForm.get('phone').hasError('pattern')">Chỉ chứa số</span>
+             </mat-error>
+           </div>
+         </div>
+       </div>
+       <div class="row mb-3">
+         <div class="col-md-12">
+           <div class="form-group">
+             <mat-form-field>
+               <mat-label>Nội dung</mat-label>
+               <textarea rows="6" matInput formControlName="content" placeholder="Nội dung liên hệ"></textarea>
+             </mat-form-field>
+              <mat-error *ngIf="contactForm.get('content').touched && !contactForm.get('content').valid">
+                <span *ngIf="contactForm.get('content').hasError('required')">Nội dung không được để trống</span>
+              </mat-error>
+           </div>
+         </div>
+       </div>
+       <button [disabled]="contactForm.invalid"
+               [style.pointer-events]="spin?'none':''"
+               type="submit" class="full-width" color="primary" mat-raised-button>
+         <i class="fa fa-spinner fa-spin"  *ngIf="spin"> </i>
+         &nbsp; {{spin? 'Đang gửi' : 'Gửi'}} &nbsp;
+       </button>
+     </form>
+   </div>
+ </div>
+</div>

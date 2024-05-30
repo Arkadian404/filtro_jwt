@@ -66,7 +66,7 @@
                               <input matInput formControlName="username" placeholder="Username">
                             </mat-form-field>
                             <mat-error *ngIf="profileForm.get('username').touched && !profileForm.get('username').valid">
-                              <p *ngIf="profileForm.get('username').hasError('required')">Không được để trống</p>
+                              <span *ngIf="profileForm.get('username').hasError('required')">Không được để trống</span>
                             </mat-error>
                           </div>
                           <div class="col-md-6">
@@ -75,8 +75,8 @@
                               <input matInput formControlName="email" placeholder="Email address" type="email">
                             </mat-form-field>
                             <mat-error *ngIf="profileForm.get('email').touched && !profileForm.get('email').valid">
-                              <p *ngIf="profileForm.get('email').hasError('required')">Không được để trống</p>
-                              <p *ngIf="profileForm.get('email').hasError('email')">Email sai format</p>
+                              <span *ngIf="profileForm.get('email').hasError('required')">Không được để trống</span>
+                              <span *ngIf="profileForm.get('email').hasError('email')">Email sai format</span>
                             </mat-error>
                           </div>
                         </div>
@@ -87,8 +87,8 @@
                               <input matInput formControlName="firstname" placeholder="Fist Name" type="text">
                             </mat-form-field>
                             <mat-error *ngIf="profileForm.get('firstname').touched && !profileForm.get('firstname').valid">
-                              <p *ngIf="profileForm.get('firstname').hasError('required')">Không được để trống</p>
-                              <p *ngIf="profileForm.get('firstname').hasError('pattern')">Không chứa số và kí tự đặc biệt</p>
+                              <span *ngIf="profileForm.get('firstname').hasError('required')">Không được để trống</span>
+                              <span *ngIf="profileForm.get('firstname').hasError('pattern')">Không chứa số và kí tự đặc biệt</span>
                             </mat-error>
                           </div>
                           <div class="col-md-6">
@@ -97,8 +97,8 @@
                               <input matInput formControlName="lastname" placeholder="Last Name" type="text">
                             </mat-form-field>
                             <mat-error *ngIf="profileForm.get('lastname').touched && !profileForm.get('lastname').valid">
-                              <p *ngIf="profileForm.get('lastname').hasError('required')">Không được để trống</p>
-                              <p *ngIf="profileForm.get('lastname').hasError('pattern')">Không chứa số và kí tự đặc biệt</p>
+                              <span *ngIf="profileForm.get('lastname').hasError('required')">Không được để trống</span>
+                              <span *ngIf="profileForm.get('lastname').hasError('pattern')">Không chứa số và kí tự đặc biệt</span>
                             </mat-error>
                           </div>
                         </div>
@@ -123,8 +123,8 @@
                               <input maxlength="10" matInput formControlName="phone" placeholder="Phone" type="text">
                             </mat-form-field>
                             <mat-error *ngIf="profileForm.get('phone').touched && !profileForm.get('phone').valid">
-                              <p *ngIf="profileForm.get('phone').hasError('required')">Không được để trống</p>
-                              <p *ngIf="profileForm.get('phone').hasError('pattern')">Chỉ chứa số</p>
+                              <span *ngIf="profileForm.get('phone').hasError('required')">Không được để trống</span>
+                              <span *ngIf="profileForm.get('phone').hasError('pattern')">Chỉ chứa số</span>
                             </mat-error>
                           </div>
                         </div>
@@ -134,7 +134,7 @@
                             <input matInput formControlName="address" placeholder="Address" type="text">
                           </mat-form-field>
                           <mat-error *ngIf="profileForm.get('address').touched && !profileForm.get('address').valid">
-                            <p *ngIf="profileForm.get('address').hasError('required')">Không được để trống</p>
+                            <span *ngIf="profileForm.get('address').hasError('required')">Không được để trống</span>
                           </mat-error>
                         </div>
                         <div class="row">

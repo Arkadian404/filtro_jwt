@@ -1,0 +1,44 @@
+.bread-crumb{
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/assets/images/coffee_bean_pattern.jpg");
+  background-color: #cecdcd;
+  padding: 40px 0;
+  margin: 0 0 25px;
+  .container{
+    .bread-crumb-title{
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .breadcrumb{
+      padding-top: 10px;
+      color: #fff;
+      text-align: center;
+      background-color: transparent;
+      font-size: 14px;
+      .breadcrumb-item{
+        a{
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.title-head{
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.content-page{
+  p{
+    font-size: 16px;
+  }
+  strong{
+    font-size: 18px;
+  }
+}

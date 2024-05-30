@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, throwError} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {SuccessMessage} from "../shared/models/success-message";
+import {FeedbackMail} from "../shared/models/feedback-mail";
 
 const RESET_API = 'http://localhost:8080/api/v1/auth/forgot-password';
 const API = 'http://localhost:8080/api/v1/mail';
@@ -38,6 +39,16 @@ export class EmailService {
 
   public sendOrderMail(email:string, template:string){
     return this.http.post<SuccessMessage>(`${API}/send-order-mail?email=${email}`, template)
+      .pipe(
+        catchError(err=> {
+          console.log("Error handled by Service: ", err.status);
+          return throwError(()=> new Error(err.error.message));
+        })
+      )
+  }
+
+  public sendFeedbackMail(feedback: FeedbackMail){
+    return this.http.post<SuccessMessage>(`${API}/send-feedback-mail`, feedback)
       .pipe(
         catchError(err=> {
           console.log("Error handled by Service: ", err.status);

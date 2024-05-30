@@ -36,6 +36,9 @@ import {MomoCallbackComponent} from "./layout/content/payment/momo-callback/momo
 import {VnpayCallbackComponent} from "./layout/content/payment/vnpay-callback/vnpay-callback.component";
 import {OrdersComponent} from "./layout/content/orders/orders.component";
 import {WishlistComponent} from "./layout/content/wishlist/wishlist.component";
+import {InstructionComponent} from "./layout/content/instruction/instruction.component";
+import {PrivacyComponent} from "./layout/content/privacy/privacy.component";
+import {MaintenanceComponent} from "./layout/content/maintenance/maintenance.component";
 
 
 const routes: Routes = [
@@ -75,7 +78,10 @@ const routes: Routes = [
       {path: 'wishlist', component:WishlistComponent},
       {path:'orders', component:OrdersComponent},
       {path:'contact', component:ContactComponent},
-      {path:'introduce', component: IntroduceComponent}
+      {path:'introduce', component: IntroduceComponent},
+      {path:'instruction', component: InstructionComponent},
+      {path:'privacy', component: PrivacyComponent},
+      {path:'maintenance', component: MaintenanceComponent},
     ]
   }
 ];

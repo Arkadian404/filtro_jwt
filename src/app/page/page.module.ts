@@ -89,6 +89,9 @@ import {QuillEditorComponent, QuillViewHTMLComponent} from "ngx-quill";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { ChatbotComponent } from './layout/content/chat/chatbot/chatbot.component';
 import { CollapsibleChatboxComponent } from './layout/content/chat/collapsible-chatbox/collapsible-chatbox.component';
+import { InstructionComponent } from './layout/content/instruction/instruction.component';
+import { PrivacyComponent } from './layout/content/privacy/privacy.component';
+import { MaintenanceComponent } from './layout/content/maintenance/maintenance.component';
 
 register();
 @NgModule({
@@ -140,6 +143,9 @@ register();
         WishlistComponent,
         ChatbotComponent,
         CollapsibleChatboxComponent,
+        InstructionComponent,
+        PrivacyComponent,
+        MaintenanceComponent,
     ],
   imports: [
     CommonModule,
