@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit{
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
-    // this.recommendProductsForUser();
+    this.recommendProductsForUser();
   }
 
   getLatestProducts(){
