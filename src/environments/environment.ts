@@ -1,6 +1,10 @@
 // //For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+import * as process from "node:process";
+
 export const environment = {
+  springboot_url: window["env"]["springboot_url"] || "http://localhost:8080",
+  fastapi_url: window["env"]["fastapi_url"] || "http://localhost:8000",
   production: false,
     firebaseConfig : {
     apiKey: "AIzaSyCoMgX0mOuEYOCF8UCbqAb5JF4voJNW38w",
@@ -10,7 +14,7 @@ export const environment = {
     messagingSenderId: "1079814615925",
     appId: "1:1079814615925:web:139366b9a0145c7f99d93c",
     measurementId: "G-2YKB97XGKZ"
-  }
+  },
 }
 
 
