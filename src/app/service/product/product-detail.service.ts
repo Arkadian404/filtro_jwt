@@ -4,8 +4,9 @@ import {ProductDetail} from "../../shared/models/product/product-detail";
 import {catchError, map, Observable, switchMap, throwError} from "rxjs";
 import {Cart} from "../../shared/models/cart";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const API = 'http://localhost:8080/api/v1/admin/product-detail';
+const API = `${environment.springboot_url}/api/v1/admin/product-detail`;
 
 @Injectable({
   providedIn: 'root'

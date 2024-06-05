@@ -9,9 +9,10 @@ import {AuthenticationResponse} from "../../shared/models/auth/authentication-re
 import {Employee} from "../../shared/models/employee";
 import {Cart} from "../../shared/models/cart";
 import {CartItemService} from "../cart-item.service";
+import {environment} from "../../../environments/environment";
 
 
-const AUTH_API:string = 'http://localhost:8080/api/v1';
+const AUTH_API:string = `${environment.springboot_url}/api/v1`;
 
 @Injectable({
   providedIn: 'root'

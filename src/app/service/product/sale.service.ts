@@ -3,9 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {Sale} from "../../shared/models/product/sale";
 import {catchError, throwError} from "rxjs";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/sale';
-const USER_API:string = 'http://localhost:8080/api/v1/user/sale';
+const ADMIN_API:string = `${environment.springboot_url}/api/v1/admin/sale`;
+const USER_API:string = `${environment.springboot_url}/api/v1/user/sale`;
 
 @Injectable({
   providedIn: 'root'

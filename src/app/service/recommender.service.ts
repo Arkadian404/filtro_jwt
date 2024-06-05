@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductDto} from "../shared/dto/product-dto";
+import {environment} from "../../environments/environment";
 
 
-const API = 'http://localhost:8080/api/v1/user/recommender';
-const FastAPI = 'http://localhost:8000/'
+const API = `${environment.springboot_url}/api/v1/user/recommender`;
+const FastAPI = `${environment.fastapi_url}/`
 
 
 @Injectable({

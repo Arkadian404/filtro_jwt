@@ -9,10 +9,11 @@ import {OrderDetail} from "../shared/models/order-detail";
 import {OrderDetailDto} from "../shared/dto/order-detail-dto";
 import {Order} from "../shared/models/order";
 import {SuccessMessage} from "../shared/models/success-message";
+import {environment} from "../../environments/environment";
 
 
-const Order_API = 'http://localhost:8080/api/v1/user/order';
-const Order_API_ADMIN = 'http://localhost:8080/api/v1/admin/order';
+const Order_API = `${environment.springboot_url}/api/v1/user/order`;
+const Order_API_ADMIN = `${environment.springboot_url}/api/v1/admin/order`;
 @Injectable({
   providedIn: 'root'
 })

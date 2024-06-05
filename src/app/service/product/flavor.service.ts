@@ -4,9 +4,10 @@ import {Flavor} from "../../shared/models/product/flavor";
 import {catchError, throwError} from "rxjs";
 import {FlavorDto} from "../../shared/dto/flavor-dto";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const ADMIN_API:string ="http://localhost:8080/api/v1/admin/flavor"
-const USER_API:string ="http://localhost:8080/api/v1/user/flavor"
+const ADMIN_API:string =`${environment.springboot_url}/api/v1/admin/flavor`
+const USER_API:string =`${environment.springboot_url}/api/v1/user/flavor`
 
 @Injectable({
   providedIn: 'root'

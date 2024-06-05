@@ -4,8 +4,9 @@ import {Employee} from "../../shared/models/employee";
 import {catchError, throwError} from "rxjs";
 import {Flavor} from "../../shared/models/product/flavor";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const EMPLOYEE_API = 'http://localhost:8080/api/v1/admin/employee'
+const EMPLOYEE_API = `${environment.springboot_url}/api/v1/admin/employee`
 
 @Injectable({
   providedIn: 'root'

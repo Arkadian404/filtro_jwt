@@ -4,9 +4,10 @@ import {Vendor} from "../shared/models/product/vendor";
 import {catchError, throwError} from "rxjs";
 import {VendorDto} from "../shared/dto/vendor-dto";
 import {SuccessMessage} from "../shared/models/success-message";
+import {environment} from "../../environments/environment";
 
-const ADMIN_API = 'http://localhost:8080/api/v1/admin/vendor';
-const USER_API = 'http://localhost:8080/api/v1/user/vendor';
+const ADMIN_API = `${environment.springboot_url}/api/v1/admin/vendor`;
+const USER_API = `${environment.springboot_url}/api/v1/user/vendor`;
 
 @Injectable({
   providedIn: 'root'

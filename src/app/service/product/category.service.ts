@@ -4,9 +4,10 @@ import {Category} from "../../shared/models/product/category";
 import {catchError, throwError} from "rxjs";
 import {CategoryDto} from "../../shared/dto/category-dto";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/category';
-const USER_API:string = 'http://localhost:8080/api/v1/user/category';
+const ADMIN_API:string = `${environment.springboot_url}/api/v1/admin/category`;
+const USER_API:string = `${environment.springboot_url}/api/v1/user/category`;
 
 @Injectable({
   providedIn: 'root'

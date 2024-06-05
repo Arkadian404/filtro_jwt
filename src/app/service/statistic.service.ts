@@ -8,8 +8,9 @@ import {CategoryStatistic} from "../shared/models/statistic/category-statistic";
 import {FlavorStatistic} from "../shared/models/statistic/flavor-statistic";
 import {BrandStatistic} from "../shared/models/statistic/brand-statistic";
 import {OriginStatistic} from "../shared/models/statistic/origin-statistic";
+import {environment} from "../../environments/environment";
 
-const API = 'http://localhost:8080/api/v1/user/statistic';
+const API = `${environment.springboot_url}/api/v1/user/statistic`;
 
 @Injectable({
   providedIn: 'root'

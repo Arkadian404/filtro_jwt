@@ -4,8 +4,9 @@ import {catchError, map, throwError} from "rxjs";
 import {ReviewDto} from "../../shared/dto/review-dto";
 import {ReviewRating} from "../../shared/models/statistic/review-rating";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const API_URL = 'http://localhost:8080/api/v1/user/review';
+const API_URL = `${environment.springboot_url}/api/v1/user/review`;
 
 @Injectable({
   providedIn: 'root'

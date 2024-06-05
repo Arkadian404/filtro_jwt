@@ -3,9 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {Voucher} from "../shared/models/voucher";
 import {catchError, throwError} from "rxjs";
 import {SuccessMessage} from "../shared/models/success-message";
+import {environment} from "../../environments/environment";
 
-const VOUCHER_API_ADMIN = 'http://localhost:8080/api/v1/admin/voucher';
-const VOUCHER_API = 'http://localhost:8080/api/v1/user/voucher';
+const VOUCHER_API_ADMIN = `${environment.springboot_url}/api/v1/admin/voucher`;
+const VOUCHER_API = `${environment.springboot_url}/api/v1/user/voucher`;
 
 @Injectable({
   providedIn: 'root'

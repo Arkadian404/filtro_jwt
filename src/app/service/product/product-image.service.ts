@@ -3,8 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, map, switchMap, throwError} from "rxjs";
 import {ProductImage} from "../../shared/models/product/product-image";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const PRODUCT_IMAGE_API:string = 'http://localhost:8080/api/v1/admin/product-image';
+const PRODUCT_IMAGE_API:string = `${environment.springboot_url}/api/v1/admin/product-image`;
 
 @Injectable({
   providedIn: 'root'

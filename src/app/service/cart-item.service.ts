@@ -6,9 +6,10 @@ import {CartItemDto} from "../shared/dto/cart-item-dto";
 import {SuccessMessage} from "../shared/models/success-message";
 import {CartDto} from "../shared/dto/cart-dto";
 import {UtilService} from "./util.service";
+import {environment} from "../../environments/environment";
 
 
-const CART_ITEM_API:string = 'http://localhost:8080/api/v1/user/cart';
+const CART_ITEM_API:string = `${environment.springboot_url}/api/v1/user/cart`;
 
 @Injectable({
   providedIn: 'root'

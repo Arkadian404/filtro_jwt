@@ -6,9 +6,10 @@ import {ProductDto} from "../../shared/dto/product-dto";
 import {Page} from "../../shared/models/page";
 import {SuccessMessage} from "../../shared/models/success-message";
 import {PageContext} from "../../shared/utils/page-context";
+import {environment} from "../../../environments/environment";
 
-const ADMIN_API:string = 'http://localhost:8080/api/v1/admin/product';
-const USER_API:string = 'http://localhost:8080/api/v1/user/product';
+const ADMIN_API:string = `${environment.springboot_url}/api/v1/admin/product`;
+const USER_API:string = `${environment.springboot_url}/api/v1/user/product`;
 
 @Injectable({
   providedIn: 'root'

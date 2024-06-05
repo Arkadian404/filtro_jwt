@@ -4,9 +4,10 @@ import {catchError, throwError} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {SuccessMessage} from "../shared/models/success-message";
 import {FeedbackMail} from "../shared/models/feedback-mail";
+import {environment} from "../../environments/environment";
 
-const RESET_API = 'http://localhost:8080/api/v1/auth/forgot-password';
-const API = 'http://localhost:8080/api/v1/mail';
+const RESET_API = `${environment.springboot_url}/api/v1/auth/forgot-password`;
+const API = `${environment.springboot_url}/api/v1/mail`;
 
 @Injectable({
   providedIn: 'root'

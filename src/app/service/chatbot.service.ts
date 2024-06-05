@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 
-const API_URL = "http://localhost:8000/chatbot";
+const API_URL = `${environment.fastapi_url}/chatbot`;
 
 @Injectable({
   providedIn: 'root'

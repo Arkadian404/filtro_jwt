@@ -3,8 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {Product} from "../../shared/models/product/product";
 import {ProductDto} from "../../shared/dto/product-dto";
+import {environment} from "../../../environments/environment";
 
-const API_URL = 'http://localhost:8080/api/v1/user/search';
+const API_URL = `${environment.springboot_url}/api/v1/user/search`;
 
 @Injectable({
   providedIn: 'root'

@@ -5,10 +5,11 @@ import {BehaviorSubject, catchError, throwError} from "rxjs";
 import {WishlistItemDto} from "../shared/dto/wishlist-item-dto";
 import {SuccessMessage} from "../shared/models/success-message";
 import {UtilService} from "./util.service";
+import {environment} from "../../environments/environment";
 
 
 
-const WISHLIST_API = 'http://localhost:8080/api/v1/user/wishlist';
+const WISHLIST_API = `${environment.springboot_url}/api/v1/user/wishlist`;
 
 @Injectable({
   providedIn: 'root'

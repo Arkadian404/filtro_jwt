@@ -4,9 +4,10 @@ import {ProductOrigin} from "../../shared/models/product/product-origin";
 import {catchError, throwError} from "rxjs";
 import {ProductOriginDto} from "../../shared/dto/product-origin-dto";
 import {SuccessMessage} from "../../shared/models/success-message";
+import {environment} from "../../../environments/environment";
 
-const ADMIN_API = 'http://localhost:8080/api/v1/admin/product-origin';
-const USER_API = 'http://localhost:8080/api/v1/user/product-origin';
+const ADMIN_API = `${environment.springboot_url}/api/v1/admin/product-origin`;
+const USER_API = `${environment.springboot_url}/api/v1/user/product-origin`;
 
 @Injectable({
   providedIn: 'root'
