@@ -5,7 +5,7 @@ import {environment} from "../../environments/environment";
 
 
 const API = `${environment.springboot_url}/api/v1/user/recommender`;
-const FastAPI = `${environment.fastapi_url}/`
+const FastAPI = `${environment.fastapi_url}`
 
 
 @Injectable({

@@ -1,10 +1,10 @@
 // //For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-import * as process from "node:process";
+
 
 export const environment = {
-  springboot_url: window["env"]["springboot_url"] || "http://127.0.0.1:8080",
-  fastapi_url: window["env"]["fastapi_url"] || "http://127.0.0.1:8000",
+  springboot_url: "/springboot",
+  fastapi_url: "/fastapi",
   production: false,
     firebaseConfig : {
     apiKey: "AIzaSyCoMgX0mOuEYOCF8UCbqAb5JF4voJNW38w",
