@@ -4,7 +4,7 @@ import {ChatbotService} from "../../../../../service/chatbot.service";
 import {UserService} from "../../../../../service/user/user.service";
 import {TokenService} from "../../../../../service/token.service";
 import {switchMap} from "rxjs";
-import {randomUUID} from "crypto";
+import {v4 as uuidv4} from 'uuid';
 
 class Message {
   text?: string;
@@ -87,7 +87,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   public onClickSendMessage(){
     const username = this.tokenService.getUsername();
     if(!username){
-      const uuid = randomUUID();
+      const uuid = uuidv4();
       localStorage.setItem("chatId", uuid);
       if(localStorage.getItem("chatId"))
         this.sendMessageNoLogin(uuid);

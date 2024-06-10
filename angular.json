@@ -23,7 +23,11 @@
               "ng-apexcharts",
               "apexcharts",
               "moment",
-              "quill"
+              "quill",
+              "jspdf-autotable",
+              "raf",
+              "core-js",
+              "crypto"
             ],
             "outputPath": "dist/jwt-ng-client",
             "index": "src/index.html",
