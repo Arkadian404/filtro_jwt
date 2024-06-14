@@ -26,6 +26,7 @@
           (keydown.enter) = onClickEnter($event)
         ></textarea>
         <button
+          *ngIf="!isLoading;else loading"
           class="send-button"
           matSuffix
           mat-icon-button
@@ -35,6 +36,9 @@
         >
           <mat-icon class="send-icon">send</mat-icon>
         </button>
+        <ng-template #loading>
+            <mat-spinner matSuffix color="accent" [diameter]="20" style="float:right; margin-right: 8px;"></mat-spinner>
+        </ng-template>
       </mat-form-field>
     </mat-card-actions>
   </mat-card>

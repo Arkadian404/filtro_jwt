@@ -25,6 +25,7 @@ enum MessageType {
 export class ChatbotComponent implements OnInit, AfterViewChecked {
   @ViewChild('messageContainer') private messageContainer: ElementRef;
   @Input() public display: string;
+  isLoading: boolean = false;
 
   public form: FormGroup;
   public messages: Array<Message> = [];
@@ -57,7 +58,8 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     if (message && this.canSendMessage) {
       this.getUser().pipe(
         switchMap(user => {
-          const result = this.invokeChatbot(user.id.toString(), this.form.value);
+          const result = this.invokeChatbot(user.id.toString(), message);
+          this.isLoading = true;
           this.form.disable();
           return result;
         })
@@ -67,6 +69,8 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         this.form.get('message').setValue('');
         this.form.updateValueAndValidity();
         this.getBotMessage(data);
+        this.form.enable();
+        this.isLoading = false;
       })
     }
   }
@@ -74,12 +78,16 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   public sendMessageNoLogin(uid: string){
     const message = this.form.get('message').value;
     if(message && this.canSendMessage){
-      this.invokeChatbot(uid, this.form.value).subscribe(data=> {
+      this.isLoading = true;
+      this.form.disable();
+      this.invokeChatbot(uid, message).subscribe(data=> {
         const userMessage: Message = {text: message, type: MessageType.User};
         this.messages.push(userMessage);
         this.form.get('message').setValue('');
         this.form.updateValueAndValidity();
         this.getBotMessage(data);
+        this.isLoading = false;
+        this.form.enable();
       });
     }
   }
