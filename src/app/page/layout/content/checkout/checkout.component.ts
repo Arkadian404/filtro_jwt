@@ -60,25 +60,25 @@ export class CheckoutComponent implements OnInit{
   isVoucherExpired = false;
 
 
-  baseFees = [{
-    weight: 100,
-    fees: [8000, 12000, 13000, 14000]
-  },{
-    weight: 250,
-    fees: [10000, 16000, 18000, 23000]
-  },{
-    weight: 500,
-    fees: [12000, 23000, 25000, 30000]
-  },{
-    weight: 1000,
-    fees: [16000, 33000, 35000, 44000]
-  },{
-    weight: 1500,
-    fees: [19000, 40000, 42000, 57000]
-  },{
-    weight: 2000,
-    fees: [22000, 47000, 49000, 70000]
-  }]
+  // baseFees = [{
+  //   weight: 100,
+  //   fees: [8000, 12000, 13000, 14000]
+  // },{
+  //   weight: 250,
+  //   fees: [10000, 16000, 18000, 23000]
+  // },{
+  //   weight: 500,
+  //   fees: [12000, 23000, 25000, 30000]
+  // },{
+  //   weight: 1000,
+  //   fees: [16000, 33000, 35000, 44000]
+  // },{
+  //   weight: 1500,
+  //   fees: [19000, 40000, 42000, 57000]
+  // },{
+  //   weight: 2000,
+  //   fees: [22000, 47000, 49000, 70000]
+  // }]
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
