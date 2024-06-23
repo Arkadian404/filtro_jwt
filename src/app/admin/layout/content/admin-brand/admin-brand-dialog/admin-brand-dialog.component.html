@@ -9,7 +9,7 @@
         <input type="text" matInput formControlName="name">
       </mat-form-field>
       <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
-        <p *ngIf="form.get('name').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('name').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Ghi chú</mat-label>

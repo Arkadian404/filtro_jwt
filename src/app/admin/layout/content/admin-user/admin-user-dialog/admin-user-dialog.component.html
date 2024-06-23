@@ -5,87 +5,102 @@
   <div class="content" mat-dialog-content>
     <div class="row">
       <div class="col">
-        <mat-form-field appearance="outline">
-          <mat-label>Tài khoản</mat-label>
-          <input type="text" matInput formControlName="username">
-        </mat-form-field>
-        <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
-          <p *ngIf="form.get('username').hasError('required')">Username không được để trống</p>
-        </mat-error>
-        <mat-form-field appearance="outline">
-          <mat-label>Họ</mat-label>
-          <input type="text" matInput formControlName="firstname">
-        </mat-form-field>
-        <mat-error *ngIf="form.get('firstname').touched && !form.get('firstname').valid">
-          <p *ngIf="form.get('firstname').hasError('required')">Họ không được để trống</p>
-          <p *ngIf="form.get('firstname').hasError('pattern')">Họ không chứa số và kí tự đặc biệt</p>
-        </mat-error>
-        <mat-form-field appearance="outline">
-          <mat-label>Tên</mat-label>
-          <input type="text" matInput formControlName="lastname">
-        </mat-form-field>
-        <mat-error *ngIf="form.get('lastname').touched && !form.get('lastname').valid">
-          <p *ngIf="form.get('lastname').hasError('required')">Tên không được để trống</p>
-          <p *ngIf="form.get('lastname').hasError('pattern')">Tên không chứa số và kí tự đặc biệt</p>
-        </mat-error>
-        <mat-form-field appearance="outline" id="password">
-          <mat-label>Mật khẩu</mat-label>
-          <input type="text" matInput formControlName="password">
-          <mat-hint>Mật khẩu chứa ít nhất 1 số, chữ in hoa và kí tự đặc biệt </mat-hint>
-        </mat-form-field>
-        <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
-          <p *ngIf="form.get('password').hasError('required')">Mật khẩu không được để trống</p>
-          <p *ngIf="form.get('password').hasError('pattern')">Mật khẩu sai format</p>
-        </mat-error>
+       <div class="mb-3">
+         <mat-form-field appearance="outline">
+           <mat-label>Tài khoản</mat-label>
+           <input type="text" matInput formControlName="username">
+         </mat-form-field>
+         <mat-error *ngIf="form.get('username').touched && !form.get('username').valid">
+           <span *ngIf="form.get('username').hasError('required')">Username không được để trống</span>
+         </mat-error>
+       </div>
+        <div class="mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Họ</mat-label>
+            <input type="text" matInput formControlName="firstname">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('firstname').touched && !form.get('firstname').valid">
+            <span *ngIf="form.get('firstname').hasError('required')">Họ không được để trống</span>
+            <span *ngIf="form.get('firstname').hasError('pattern')">Họ không chứa số và kí tự đặc biệt</span>
+          </mat-error>
+        </div>
+        <div class="mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Tên</mat-label>
+            <input type="text" matInput formControlName="lastname">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('lastname').touched && !form.get('lastname').valid">
+            <span *ngIf="form.get('lastname').hasError('required')">Tên không được để trống</span>
+            <span *ngIf="form.get('lastname').hasError('pattern')">Tên không chứa số và kí tự đặc biệt</span>
+          </mat-error>
+        </div>
+        <div class="mb-3">
+          <mat-form-field appearance="outline" id="password">
+            <mat-label>Mật khẩu</mat-label>
+            <input type="text" matInput formControlName="password">
+            <mat-hint>Mật khẩu chứa ít nhất 1 số, chữ in hoa và kí tự đặc biệt </mat-hint>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('password').touched && !form.get('password').valid">
+            <span *ngIf="form.get('password').hasError('required')">Mật khẩu không được để trống</span>
+            <span *ngIf="form.get('password').hasError('pattern')">Mật khẩu sai format</span>
+          </mat-error>
+        </div>
       </div>
       <div class="col">
-        <mat-form-field appearance="outline">
-          <mat-label>Ngày sinh</mat-label>
-          <input [matDatepicker]="Picker" matInput formControlName="dob">
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
-          <mat-datepicker #Picker>
-            <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Hủy</button>
-              <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
-            </mat-datepicker-actions>
-          </mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input type="mail" matInput formControlName="email">
-        </mat-form-field>
-        <mat-error *ngIf="form.get('email').touched && !form.get('email').valid">
-          <p *ngIf="form.get('email').hasError('required')">Email không được để trống</p>
-          <p *ngIf="form.get('email').hasError('email')">Email sai format</p>
-        </mat-error>
-        <mat-form-field appearance="outline">
-          <mat-label>Số điện thoại</mat-label>
-          <input maxlength="10" type="text" matInput formControlName="phone">
-        </mat-form-field>
-        <mat-error *ngIf="form.get('phone').touched && !form.get('phone').valid">
-          <p *ngIf="form.get('phone').hasError('required')">Số điện thoại không được để trống</p>
-          <p *ngIf="form.get('phone').hasError('pattern')">Số điện thoại chỉ chứa số và dài 10 kí tự</p>
-        </mat-error>
-        <mat-form-field appearance="fill">
-          <mat-label>Trạng thái</mat-label>
-          <mat-select formControlName="enabled">
-            <mat-option [value]="true">Mở</mat-option>
-            <mat-option [value]="false">Đóng</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Ngày sinh</mat-label>
+            <input [matDatepicker]="Picker" matInput formControlName="dob">
+            <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
+            <mat-datepicker #Picker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Hủy</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="mail" matInput formControlName="email">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('email').touched && !form.get('email').valid">
+            <span *ngIf="form.get('email').hasError('required')">Email không được để trống</span>
+            <span *ngIf="form.get('email').hasError('email')">Email sai format</span>
+          </mat-error>
+        </div>
+       <div class="mb-3">
+         <mat-form-field appearance="outline">
+           <mat-label>Số điện thoại</mat-label>
+           <input maxlength="10" type="text" matInput formControlName="phone">
+         </mat-form-field>
+         <mat-error *ngIf="form.get('phone').touched && !form.get('phone').valid">
+           <span *ngIf="form.get('phone').hasError('required')">Số điện thoại không được để trống</span>
+           <span *ngIf="form.get('phone').hasError('pattern')">Số điện thoại chỉ chứa số và dài 10 kí tự</span>
+         </mat-error>
+       </div>
+       <div>
+         <mat-form-field appearance="fill">
+           <mat-label>Trạng thái</mat-label>
+           <mat-select formControlName="enabled">
+             <mat-option [value]="true">Mở</mat-option>
+             <mat-option [value]="false">Đóng</mat-option>
+           </mat-select>
+         </mat-form-field>
+       </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
       <mat-form-field appearance="outline">
         <mat-label>Địa chỉ</mat-label>
         <input type="text" matInput formControlName="address">
       </mat-form-field>
       <mat-error *ngIf="form.get('address').touched && !form.get('address').valid">
-        <p *ngIf="form.get('address').hasError('required')">Địa chỉ không được để trống</p>
+        <span *ngIf="form.get('address').hasError('required')">Địa chỉ không được để trống</span>
       </mat-error>
     </div>
-    <div class="row ">
+    <div class="row mb-3">
       <div class="col-sm">
         <mat-form-field appearance="outline">
           <mat-label>Thành phố/Tỉnh</mat-label>

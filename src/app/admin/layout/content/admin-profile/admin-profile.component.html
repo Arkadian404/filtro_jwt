@@ -4,14 +4,14 @@
       <div class="col-md-8">
         <mat-tab-group>
           <mat-tab label="Hồ sơ">
-              <div class="card">
+              <div class="card mt-3">
                 <div class="card-header card-header-danger">
                   <h4 class="card-title">Hồ sơ cá nhân</h4>
                   <p class="card-category">Chỉnh sửa hồ sơ của bạn</p>
                 </div>
                 <div class="card-body">
                   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
+                    <div class="row mb-3">
                       <div class="col-md-6">
                         <mat-form-field>
                           <mat-label>Username</mat-label>
@@ -29,7 +29,7 @@
                         </mat-error>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                       <div class="col-md-6">
                         <mat-form-field>
                           <mat-label>Họ</mat-label>
@@ -51,7 +51,7 @@
                         </mat-error>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                       <div class="col-md-6">
                         <mat-form-field appearance="fill">
                           <mat-label>Ngày sinh</mat-label>
@@ -66,7 +66,7 @@
                           </mat-datepicker>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6 mb-3">
                         <mat-form-field>
                           <mat-label>Số điện thoại</mat-label>
                           <input maxlength="10" matInput formControlName="phone" placeholder="Phone" type="text">
@@ -77,7 +77,7 @@
                         </mat-error>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                       <mat-form-field>
                         <mat-label>Địa chỉ</mat-label>
                         <input matInput formControlName="address" placeholder="Address" type="text">
@@ -115,13 +115,13 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <button [disabled]="profileForm.invalid" mat-raised-button type="submit" class="btn btn-danger pull-right">Cập nhật hồ sơ</button>
+                    <button [disabled]="profileForm.invalid" mat-raised-button type="submit" class="mt-3 btn btn-danger pull-right">Cập nhật hồ sơ</button>
                   </form>
                 </div>
               </div>
           </mat-tab>
           <mat-tab label="Mật khẩu">
-            <div class="card">
+            <div class="card mt-3">
               <div class="card-header card-header-danger">
                 <h4 class="card-title">Mật khẩu</h4>
                 <p class="card-category">Thay đổi mật khẩu của bạn của bạn</p>
@@ -167,7 +167,7 @@
 <!--                      <pre>{{passwordForm.errors | json}}</pre>-->
                     </div>
                   </div>
-                  <button [disabled]="passwordForm.invalid" mat-raised-button type="submit" class="btn btn-danger pull-right">Đổi mật khẩu</button>
+                  <button [disabled]="passwordForm.invalid" mat-raised-button type="submit" class="mt-3 btn btn-danger pull-right">Đổi mật khẩu</button>
                 </form>
               </div>
             </div>

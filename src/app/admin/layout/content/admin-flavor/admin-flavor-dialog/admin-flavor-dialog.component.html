@@ -9,14 +9,14 @@
         <input type="text" matInput formControlName="name">
       </mat-form-field>
       <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
-        <p *ngIf="form.get('name').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('name').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Mô tả</mat-label>
         <textarea type="text" matInput formControlName="description"></textarea>
       </mat-form-field>
       <mat-error *ngIf="form.get('description').touched && !form.get('description').valid">
-        <p *ngIf="form.get('description').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('description').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="fill">
         <mat-label>Trạng thái</mat-label>

@@ -9,28 +9,28 @@
         <input type="text" matInput formControlName="name">
       </mat-form-field>
       <mat-error *ngIf="form.get('name').touched && !form.get('name').valid">
-        <p *ngIf="form.get('name').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('name').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input type="text" matInput formControlName="email">
       </mat-form-field>
       <mat-error *ngIf="form.get('email').touched && !form.get('email').valid">
-        <p *ngIf="form.get('email').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('email').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Số điện thoại</mat-label>
         <input type="text" matInput formControlName="phone">
       </mat-form-field>
       <mat-error *ngIf="form.get('phone').touched && !form.get('phone').valid">
-        <p *ngIf="form.get('phone').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('phone').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Địa chỉ</mat-label>
         <input type="text" matInput formControlName="address">
       </mat-form-field>
       <mat-error *ngIf="form.get('address').touched && !form.get('address').valid">
-        <p *ngIf="form.get('address').hasError('required')">Không được để trống</p>
+        <span *ngIf="form.get('address').hasError('required')">Không được để trống</span>
       </mat-error>
       <mat-form-field appearance="outline">
         <mat-label>Ghi chú</mat-label>

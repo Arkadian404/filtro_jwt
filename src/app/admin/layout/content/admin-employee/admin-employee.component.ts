@@ -89,7 +89,7 @@ export class AdminEmployeeComponent implements OnInit{
   private openDialog(dialog:ComponentType<any> ,data?:Employee) {
     const dialogRef = this.dialog.open(dialog, {data,
       height:'750px',
-      width:'600px'});
+      width:'650px'});
     dialogRef.afterClosed().subscribe({
       next: (data) => {
         if (data) {
