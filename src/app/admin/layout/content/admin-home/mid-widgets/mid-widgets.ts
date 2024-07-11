@@ -1,9 +1,7 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Chart} from "angular-highcharts";
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {StatisticService} from "../../../../../service/statistic.service";
 
 import {
-  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
@@ -13,12 +11,12 @@ import {
   ApexYAxis,
   ApexGrid,
   ApexTitleSubtitle,
-  ApexLegend, ApexTooltip, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive
+  ApexLegend,
 } from "ng-apexcharts";
 import {OrderStatistic} from "../../../../../shared/models/statistic/order-statistic";
 import {Revenue} from "../../../../../shared/models/statistic/revenue";
 import {forkJoin, map, Observable} from "rxjs";
-import {OrderLocationStatistic} from "../../../../../shared/models/statistic/order-location-statistic";
+import {MatButtonToggleChange} from "@angular/material/button-toggle";
 
 
 export type LineChartOptions = {
@@ -35,19 +33,12 @@ export type LineChartOptions = {
   title: ApexTitleSubtitle;
 };
 
-
-
 @Component({
   selector: 'app-mid-widgets',
   templateUrl: './mid-widgets.html',
   styleUrls: ['../admin-home.component.scss']
 })
 export class MidWidgets implements OnInit{
-  activeBtn = false;
-  @ViewChild("1Month") chart1Month: ElementRef;
-  @ViewChild("6Month") chart6Month: ElementRef;
-  @ViewChild("1Year") chart1Year: ElementRef;
-
   currentMonth = new Date().getMonth()+1;
 
   orders?:OrderStatistic;
@@ -142,22 +133,66 @@ export class MidWidgets implements OnInit{
     this.processData(revenue$, order$, failedOrder$);
   }
 
-  onLastMonth(){
-    this.activeBtn = !this.activeBtn;
-    if(this.activeBtn){
-      this.render.addClass(this.chart1Month.nativeElement,"active-btn-secondary");
-      const revenue$ = this.statisticService.getRevenueByLastMonth();
-      const order$ = this.statisticService.getOrderStatisticByLastMonth();
-      const failedOrder$ = this.statisticService.getFailedOrderStatisticByLastMonth();
-      this.currentMonth = new Date().getMonth();
-      this.processData(revenue$, order$, failedOrder$);
+  onChosenMonth(month:number, event:MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
+      const revenue$ = this.statisticService.getRevenueByChosenMonth(month);
+      const order$ = this.statisticService.getOrderStatisticByChosenMonth(month);
+      const failedOrder$ = this.statisticService.getFailedOrderStatisticByChosenMonth(month);
+      this.processDateRange(revenue$, order$, failedOrder$);
     }else{
-      this.render.removeClass(this.chart1Month.nativeElement,"active-btn-secondary");
       this.getCurrentMonth();
     }
   }
 
+  onLastMonth(event: MatButtonToggleChange){
+      const checked = event.source.checked;
+      if(checked){
+        const revenue$ = this.statisticService.getRevenueByLastMonth();
+        const order$ = this.statisticService.getOrderStatisticByLastMonth();
+        const failedOrder$ = this.statisticService.getFailedOrderStatisticByLastMonth();
+        this.currentMonth = new Date().getMonth();
+        this.processData(revenue$, order$, failedOrder$);
+      }else{
+        this.getCurrentMonth();
+      }
+  }
+
+  processDateRange(revenue$:Observable<Revenue[]>, order$:Observable<OrderStatistic[]>, failedOrder$:Observable<OrderStatistic[]>){
+    let tempOrders:OrderStatistic[] = [];
+    let tempFailedOrders:OrderStatistic[] = [];
+    let tempOrdersCounts = 0;
+    let tempFailedOrdersCounts = 0;
+    forkJoin([revenue$, order$, failedOrder$]).subscribe(([revenue, order, failedOrder])=>{
+      this.revenue = revenue;
+      tempOrders = order;
+      tempFailedOrders = failedOrder;
+      tempOrdersCounts = Number(tempOrders.map(o=>o.count??0).reduce((a,b)=>a+b,0));
+      tempFailedOrdersCounts = Number(tempFailedOrders.map(o=>o.count??0).reduce((a,b)=>a+b,0));
+      this.ratioOrders = Number(((tempOrdersCounts - tempFailedOrdersCounts)/tempOrdersCounts*100).toFixed(2));
+      this.totalRevenue = this.revenue.map(r=>r.revenue??0).reduce((a,b)=>a+b,0);
+      this.initializeChart();
+      this.lineChartOptions.series = [{name:"Doanh thu", data: this.revenue.map(r=>r.revenue??0)}];
+      this.lineChartOptions.xaxis.categories = this.revenue.map(r=>r.day+"/"+r.month);
+      this.orders = {count: tempOrdersCounts}
+      this.failedOrders = {count: tempFailedOrdersCounts}
+    });
+  }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement){
+    const dateStart = dateRangeStart.value;
+    const dateEnd = dateRangeEnd.value;
+    const revenue$ = this.statisticService.getRevenueByDateRange(dateStart, dateEnd);
+    const order$ = this.statisticService.getOrderStatisticByDateRange(dateStart, dateEnd);
+    const failedOrder$ = this.statisticService.getFailedOrderStatisticByDateRange(dateStart, dateEnd);
+    this.processDateRange(revenue$, order$, failedOrder$);
+  }
 
 
-
+  toggleChange(event: MatButtonToggleChange) {
+    const toggle = event.source;
+    if (toggle && event.value.some(item => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [toggle.value];
+    }
+  }
 }

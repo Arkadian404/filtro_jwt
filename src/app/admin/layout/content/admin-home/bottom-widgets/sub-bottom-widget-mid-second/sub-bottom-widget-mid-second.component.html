@@ -2,18 +2,11 @@
     <div class="card-header align-items-center d-flex">
       <h3 class="card-title mb-0 flex-grow-1"><strong>Hương vị</strong></h3>
       <div>
-        <button type="button" class="btn btn-soft-secondary btn-sm me-1" #allPieBtn>
-          ALL
-        </button>
-        <button (click)="onLastMonth()" type="button" class="btn btn-soft-secondary btn-sm me-1" #1PieMonthBtn>
-          1M
-        </button>
-        <button type="button" class="btn btn-soft-secondary btn-sm me-1" #6PieMonthBtn>
-          6M
-        </button>
-        <button type="button" class="btn btn-soft-primary btn-sm" #1PieYearBtn>
-          1Y
-        </button>
+        <mat-button-toggle-group multiple (change)="toggleChange($event)">
+          <mat-button-toggle (change)="onLastMonth($event)" value="1M">1M</mat-button-toggle>
+          <mat-button-toggle (change)="onChosenMonth(3, $event)" value="3M">3M</mat-button-toggle>
+          <mat-button-toggle (change)="onChosenMonth(6, $event)" value="6M">6M</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
     <div class="card-body" >

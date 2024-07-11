@@ -1,7 +1,8 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {ApexChart, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive } from 'ng-apexcharts';
 import {OriginStatistic} from "../../../../../../shared/models/statistic/origin-statistic";
 import {StatisticService} from "../../../../../../service/statistic.service";
+import {MatButtonToggleChange} from "@angular/material/button-toggle";
 
 
 export type DonutChartOptions = {
@@ -19,16 +20,8 @@ export type DonutChartOptions = {
   styleUrls: ['../../admin-home.component.scss']
 })
 export class SubBottomWidgetEndComponent implements OnInit{
-  activeBtn = false;
-  @ViewChild("allDonutBtn") allDonutBtn: ElementRef;
-  @ViewChild("1DonutMonthBtn") chart1DonutMonthBtn: ElementRef;
-  @ViewChild("6DonutMonthBtn") chart6DonutMonthBtn: ElementRef;
-  @ViewChild("1DonutYearBtn") chart1DonutYearBtn: ElementRef;
-
   donutChartOptions: Partial<DonutChartOptions> | any;
-
   originStatistic:OriginStatistic[] = [];
-
   constructor(private statisticService:StatisticService,
               private render: Renderer2) {
   }
@@ -91,10 +84,23 @@ export class SubBottomWidgetEndComponent implements OnInit{
     });
   }
 
-  onLastMonth(){
-    this.activeBtn = !this.activeBtn;
-    if(this.activeBtn){
-      this.render.addClass(this.chart1DonutMonthBtn.nativeElement,"active-btn-secondary");
+  onChosenMonth(month: number, event: MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
+      this.statisticService.getOriginStatisticByChosenMonth(month).subscribe(data=>{
+        this.originStatistic = data;
+        this.initializeDonutChart();
+        this.donutChartOptions.series = this.originStatistic.map(value => value.count);
+        this.donutChartOptions.labels = this.originStatistic.map(value => value.name);
+      });
+    }else{
+      this.getCurrentMonth();
+    }
+  }
+
+  onLastMonth(event: MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
       this.statisticService.getOriginStatisticByLastMonth().subscribe(data=>{
         this.originStatistic = data;
         this.initializeDonutChart();
@@ -102,8 +108,15 @@ export class SubBottomWidgetEndComponent implements OnInit{
         this.donutChartOptions.labels = this.originStatistic.map(value => value.name);
       });
     }else{
-      this.render.removeClass(this.chart1DonutMonthBtn.nativeElement,"active-btn-secondary");
       this.getCurrentMonth();
+    }
+  }
+
+
+  toggleChange(event: MatButtonToggleChange) {
+    const toggle = event.source;
+    if (toggle && event.value.some(item => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [toggle.value];
     }
   }
 

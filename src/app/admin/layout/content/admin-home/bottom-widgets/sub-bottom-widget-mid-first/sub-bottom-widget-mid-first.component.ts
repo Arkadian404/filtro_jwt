@@ -1,7 +1,8 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {ApexChart, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive } from 'ng-apexcharts';
 import {StatisticService} from "../../../../../../service/statistic.service";
 import {BrandStatistic} from "../../../../../../shared/models/statistic/brand-statistic";
+import {MatButtonToggleChange} from "@angular/material/button-toggle";
 
 
 
@@ -22,11 +23,6 @@ export type RadialBarChartOptions = {
   styleUrls: ['../../admin-home.component.scss']
 })
 export class SubBottomWidgetMidFirstComponent implements OnInit {
-  activeBtn = false;
-  @ViewChild("allRadialBtn") allRadialBtn: ElementRef;
-  @ViewChild("1RadialMonthBtn") chart1RadialMonthBtn: ElementRef;
-  @ViewChild("6RadialMonthBtn") chart6RadialMonthBtn: ElementRef;
-  @ViewChild("1RadialYearBtn") chart1RadialYearBtn: ElementRef;
   radialBarChartOptions: Partial<RadialBarChartOptions> | any;
 
   brandStatistic:BrandStatistic[] = [];
@@ -116,10 +112,24 @@ export class SubBottomWidgetMidFirstComponent implements OnInit {
     });
   }
 
-  onLastMonth(){
-    this.activeBtn = !this.activeBtn;
-    if(this.activeBtn){
-      this.render.addClass(this.chart1RadialMonthBtn.nativeElement, "active-btn-secondary");
+  onChosenMonth(month:number, event:MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
+      this.statisticService.getBrandStatisticByChosenMonth(month).subscribe((data)=>{
+        this.brandStatistic = data;
+        const total = this.brandStatistic.reduce((a,b)=>{return a+b.count},0);
+        this.initializeRadialBarChart();
+        this.radialBarChartOptions.series = this.brandStatistic.map((item:BrandStatistic)=>(item.count/total*100).toFixed(1));
+        this.radialBarChartOptions.labels = this.brandStatistic.map((item:BrandStatistic)=>item.name);
+      });
+    }else{
+      this.getCurrentMonth();
+    }
+  }
+
+  onLastMonth(event: MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
       this.statisticService.getBrandStatisticByLastMonth().subscribe((data)=>{
         this.brandStatistic = data;
         const total = this.brandStatistic.reduce((a,b)=>{return a+b.count},0);
@@ -128,9 +138,14 @@ export class SubBottomWidgetMidFirstComponent implements OnInit {
         this.radialBarChartOptions.labels = this.brandStatistic.map((item:BrandStatistic)=>item.name);
       });
     }else{
-      this.render.removeClass(this.chart1RadialMonthBtn.nativeElement, "active-btn-secondary");
       this.getCurrentMonth();
     }
   }
 
+  toggleChange(event: MatButtonToggleChange) {
+    const toggle = event.source;
+    if (toggle && event.value.some(item => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [toggle.value];
+    }
+  }
 }

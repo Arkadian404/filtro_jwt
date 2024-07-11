@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {ApexChart, ApexLegend, ApexNonAxisChartSeries, ApexResponsive, ApexTheme, ApexTitleSubtitle } from 'ng-apexcharts';
 import {StatisticService} from "../../../../../../service/statistic.service";
 import {CategoryStatistic} from "../../../../../../shared/models/statistic/category-statistic";
+import {MatButtonToggleChange} from "@angular/material/button-toggle";
 
 
 export type MonochromePieChartOptions = {
@@ -20,12 +21,6 @@ export type MonochromePieChartOptions = {
   styleUrls: ['../../admin-home.component.scss']
 })
 export class SubBottomWidgetFirstComponent implements OnInit{
-  activeBtn = false;
-  @ViewChild("allMonoPieBtn") allMonoPieBtn: ElementRef;
-  @ViewChild("1MonoPieMonthBtn") chart1MonoPieMonthBtn: ElementRef;
-  @ViewChild("6MonoPieMonthBtn") chart6MonoPieMonthBtn: ElementRef;
-  @ViewChild("1MonoPieYearBtn") chart1MonoPieYearBtn: ElementRef;
-
   monochromePieChartOptions: Partial<MonochromePieChartOptions> | any;
   categoryStatistic:CategoryStatistic[] = [];
 
@@ -82,20 +77,38 @@ export class SubBottomWidgetFirstComponent implements OnInit{
     })
   }
 
-  onLastMonth(){
-    this.activeBtn = !this.activeBtn;
-    if(this.activeBtn){
-      this.render.addClass(this.chart1MonoPieMonthBtn.nativeElement, "active-btn-secondary");
-      this.statisticService.getCategoryStatisticByLastMonth().subscribe((data)=>{
+  onChosenMonth(month:number, event:MatButtonToggleChange){
+    const checked = event.source.checked;
+    if(checked){
+      this.statisticService.getCategoryStatisticByChosenMonth(month).subscribe((data)=>{
         this.categoryStatistic = data;
         this.initializeMonochromePieChart();
         this.monochromePieChartOptions.series = this.categoryStatistic.map((item:CategoryStatistic)=>item.count);
         this.monochromePieChartOptions.labels = this.categoryStatistic.map((item:CategoryStatistic)=>item.name);
       });
     }else{
-      this.render.removeClass(this.chart1MonoPieMonthBtn.nativeElement, "active-btn-secondary");
-      this.getCurrentMonth();
+      this.getCurrentMonth()
     }
   }
 
+  onLastMonth(event:MatButtonToggleChange){
+      const checked = event.source.checked;
+      if(checked){
+        this.statisticService.getCategoryStatisticByLastMonth().subscribe((data)=>{
+          this.categoryStatistic = data;
+          this.initializeMonochromePieChart();
+          this.monochromePieChartOptions.series = this.categoryStatistic.map((item:CategoryStatistic)=>item.count);
+          this.monochromePieChartOptions.labels = this.categoryStatistic.map((item:CategoryStatistic)=>item.name);
+        });
+      }else{
+        this.getCurrentMonth();
+      }
+  }
+
+  toggleChange(event: MatButtonToggleChange) {
+    const toggle = event.source;
+    if (toggle && event.value.some(item => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [toggle.value];
+    }
+  }
 }
