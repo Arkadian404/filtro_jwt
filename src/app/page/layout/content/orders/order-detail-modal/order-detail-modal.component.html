@@ -97,7 +97,7 @@
                   <tr *ngFor="let pd of orderDetails; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td class="text-start">
-                      <a [routerLink]="['/product', pd.productSlug]" target="_blank" class="fw-medium" style="text-decoration: none">{{pd.productName}}</a>
+                      <a [routerLink]="['/product', pd.productSlug]" target="_blank" class="fw-medium" style="text-decoration: none; color: #000000;">{{pd.productName}}</a>
                       <p class="text-muted mb-0">{{pd.productDetail.weight | convertUnit:pd.productDetail.categoryId}}</p>
                     </td>
                     <td>{{pd.price | currencyVND}}</td>
