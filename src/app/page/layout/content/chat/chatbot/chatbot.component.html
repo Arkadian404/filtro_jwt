@@ -11,7 +11,7 @@
     <mat-card-content class="chat-content" #messageContainer>
       <div *ngFor="let message of messages" class="messages">
         <div [ngClass]="'message ' + message.type">
-          {{ message.text }}
+          <div [innerHTML]="message.text"></div>
         </div>
       </div>
     </mat-card-content>

@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/* temp for chatbot render a tag*/
+a{
+  text-decoration:none;
+  color: #ffffff;
+}
+/* temp for chatbot render a tag*/
+a:hover{
+    color: #FFD4A6;
+    text-decoration: none;
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -6,6 +17,16 @@
   box-sizing: border-box;
   font-size: 100%;
 }
+
+
+.clean{
+  a{
+    text-decoration: none !important;
+    color: #787878 !important;
+  }
+}
+
+
 .mat-drawer-inner-container::-webkit-scrollbar {
   display: none;
 }
