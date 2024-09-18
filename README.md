@@ -16,24 +16,24 @@ Xây dựng trang web bán cà phê bằng Angular
 1. Xem chi tiết [ở đây](https://github.com/Arkadian404/filtro_jwt_backend)
 2. Một vài hình ảnh demo
   - Trang chủ
-    ![img.png](img.png)
+    ![img.png](src/assets/demo_images/img.png)
   - Danh sách các sản phẩm
-    ![img_1.png](img_1.png)
+    ![img_1.png](src/assets/demo_images/img_1.png)
   - Chi tiết sản phẩm
-    ![img_3.png](img_3.png)
-    ![img_4.png](img_4.png)
+    ![img_3.png](src/assets/demo_images/img_3.png)
+    ![img_4.png](src/assets/demo_images/img_4.png)
   - Giỏ hàng
-    ![img_5.png](img_5.png)
+    ![img_5.png](src/assets/demo_images/img_5.png)
   - Đặt hàng
-    ![img_6.png](img_6.png)
+    ![img_6.png](src/assets/demo_images/img_6.png)
   - Lịch sử đơn hàng
-    ![img_7.png](img_7.png)
+    ![img_7.png](src/assets/demo_images/img_7.png)
   - Chi tiết đơn hàng
-    ![img_8.png](img_8.png)
+    ![img_8.png](src/assets/demo_images/img_8.png)
   - Admin - thống kê
-    ![img_10.png](img_10.png)
+    ![img_10.png](src/assets/demo_images/img_10.png)
   - Admin - quản lý sản phẩm
-    ![img_11.png](img_11.png)
+    ![img_11.png](src/assets/demo_images/img_11.png)
 
 ## Công nghệ
 
@@ -53,7 +53,7 @@ Xây dựng trang web bán cà phê bằng Angular
 git clone https://github.com/Arkadian404/filtro_jwt
  ```
 2. Mở project bằng IDE(VSCode, WebStorm, ...) hoặc cmd
-3. Cài đặt các thư viện cần thiết được liệt kê trong file package.json
+3. Cài đặt các thư viện cần thiết được liệt kê trong file `package.json`
 ```bash
 npm install
 ```
