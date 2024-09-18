@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ChatbotService} from "../../../../../service/chatbot.service";
 import {UserService} from "../../../../../service/user/user.service";
 import {TokenService} from "../../../../../service/token.service";
-import {switchMap} from "rxjs";
+import {catchError, switchMap, throwError, timeout} from "rxjs";
 import {v4 as uuidv4} from 'uuid';
 
 class Message {
@@ -61,17 +61,33 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
           const result = this.invokeChatbot(user.id.toString(), message);
           this.isLoading = true;
           this.form.disable();
-          return result;
+          return result.pipe(
+            timeout(30000),
+            catchError(err=>{
+              this.handleChatbotError();
+              return throwError(()=> err);
+            })
+          );
         })
-      ).subscribe(data=>{
-        const userMessage: Message = {text: message, type: MessageType.User};
-        this.messages.push(userMessage);
-        this.form.get('message').setValue('');
-        this.form.updateValueAndValidity();
-        this.getBotMessage(data);
-        this.form.enable();
-        this.isLoading = false;
-      })
+      ).subscribe({
+        next:data=>{
+          const userMessage: Message = {text: message, type: MessageType.User};
+          this.messages.push(userMessage);
+          this.form.get('message').setValue('');
+          this.form.updateValueAndValidity();
+          this.getBotMessage(data);
+          this.form.enable();
+          this.isLoading = false;
+        },
+        error:err=>{
+          console.error("Error handled by Component: "+err);
+        },
+        complete:()=>{
+          this.form.enable();
+          this.isLoading = false;
+        }
+      }
+      )
     }
   }
 
@@ -80,15 +96,30 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     if(message && this.canSendMessage){
       this.isLoading = true;
       this.form.disable();
-      this.invokeChatbot(uid, message).subscribe(data=> {
-        const userMessage: Message = {text: message, type: MessageType.User};
-        this.messages.push(userMessage);
-        this.form.get('message').setValue('');
-        this.form.updateValueAndValidity();
-        this.getBotMessage(data);
-        this.isLoading = false;
-        this.form.enable();
-      });
+      this.invokeChatbot(uid, message)
+        .pipe(
+          timeout(10000),
+          catchError(err=>{
+            this.handleChatbotError();
+            return throwError(()=> err);
+          })
+        )
+        .subscribe({
+          next: (data) => {
+            const userMessage: Message = { text: message, type: MessageType.User };
+            this.messages.push(userMessage);
+            this.form.get('message').setValue('');
+            this.form.updateValueAndValidity();
+            this.getBotMessage(data);
+          },
+          error: (error) => {
+            console.error('Chatbot failed to respond (No Login):', error);
+          },
+          complete: () => {
+            this.isLoading = false;
+            this.form.enable();
+          }
+        });
     }
   }
 
@@ -102,6 +133,14 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     }else{
       this.onClickSendMessageLogin()
     }
+  }
+
+  public handleChatbotError(){
+    const errorMessage: Message = {text: 'Có lỗi xảy ra, vui lòng thử lại sau', type: MessageType.Bot};
+    this.messages.push(errorMessage);
+    this.canSendMessage = true;
+    this.form.enable();
+    this.isLoading = false;
   }
 
   private getBotMessage(responseMessage ?:string): void {
