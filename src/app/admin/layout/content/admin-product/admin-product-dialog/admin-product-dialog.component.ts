@@ -4,18 +4,17 @@ import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProductService} from "../../../../../service/product/product.service";
 import {CategoryService} from "../../../../../service/product/category.service";
-import {FlavorService} from "../../../../../service/product/flavor.service";
-import {SaleService} from "../../../../../service/product/sale.service";
-import {Category} from "../../../../../shared/models/product/category";
-import {Flavor} from "../../../../../shared/models/product/flavor";
-import {Sale} from "../../../../../shared/models/product/sale";
+import {FlavorService} from "../../../../../service/product/flavor.service";;
 import {VendorService} from "../../../../../service/vendor.service";
 import {ProductOriginService} from "../../../../../service/product/product-origin.service";
-
-import {Vendor} from "../../../../../shared/models/product/vendor";
-import {ProductOrigin} from "../../../../../shared/models/product/product-origin";
 import {Brand} from "../../../../../shared/models/product/brand";
 import {BrandService} from "../../../../../service/product/brand.service";
+import {CategoryResponse} from "../../../../../shared/response/category-response";
+import {FlavorResponse} from "../../../../../shared/response/flavor-response";
+import {VendorResponse} from "../../../../../shared/response/vendor-response";
+import {ProductOriginResponse} from "../../../../../shared/response/product-origin-response";
+import {BrandResponse} from "../../../../../shared/response/brand-response";
+import {ProductResponse} from "../../../../../shared/response/product-response";
 
 
 
@@ -27,12 +26,11 @@ import {BrandService} from "../../../../../service/product/brand.service";
 })
 export class AdminProductDialogComponent implements OnInit{
   form: FormGroup;
-  brands: Brand[] = [];
-  categories:Category[] = [];
-  flavors:Flavor[] = [];
-  sales:Sale[] = [];
-  vendors:Vendor[] = [];
-  origins:ProductOrigin[] = [];
+  brands: BrandResponse[] = [];
+  categories:CategoryResponse[] = [];
+  flavors:FlavorResponse[] = [];
+  vendors:VendorResponse[] = [];
+  origins:ProductOriginResponse[] = [];
 
 
   constructor(private formBuilder:FormBuilder,
@@ -40,12 +38,11 @@ export class AdminProductDialogComponent implements OnInit{
               private productService:ProductService,
               private categoryService:CategoryService,
               private flavorService:FlavorService,
-              private saleService:SaleService,
               private vendorService:VendorService,
               private productOriginService:ProductOriginService,
               private utilService:UtilService,
               private matDialog:MatDialogRef<AdminProductDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data:any
+              @Inject(MAT_DIALOG_DATA) public data:ProductResponse
   ){
   }
 
@@ -54,24 +51,33 @@ export class AdminProductDialogComponent implements OnInit{
     this.getBrands();
     this.getCategories();
     this.getFlavors();
-    this.getSales();
     this.getOrigins();
     this.getVendors();
     this.form = this.formBuilder.group({
       name : ['', Validators.required],
-      brand:['', Validators.required],
-      flavor:['', Validators.required],
+      brandId:['', Validators.required],
+      flavorId:['', Validators.required],
       description : ['', Validators.required],
       isSpecial: [false],
       isLimited:[false],
-      origin: ['', Validators.required],
+      originId: ['', Validators.required],
       status: [true],
-      sale: [''],
-      category: ['', Validators.required],
-      vendor: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      vendorId: ['', Validators.required]
     });
     if (this.data){
-      this.form.patchValue(this.data);
+      this.form.patchValue({
+        name: this.data.name,
+        brandId: this.data.brand.id,
+        flavorId: this.data.flavor.id,
+        description: this.data.description,
+        isSpecial: this.data.isSpecial,
+        isLimited: this.data.isLimited,
+        originId: this.data.productOrigin.id,
+        status: this.data.status,
+        categoryId: this.data.category.id,
+        vendorId: this.data.vendor.id
+      });
     }
   }
 
@@ -111,17 +117,6 @@ export class AdminProductDialogComponent implements OnInit{
       });
   }
 
-  getSales(){
-    return this.saleService.getAdminSaleList()
-      .subscribe({
-        next:(data)=>{
-          this.sales = data;
-        },
-        error:(err)=>{
-          console.log(err)
-        }
-      });
-  }
 
   getVendors(){
     return this.vendorService.getAdminVendorList()
@@ -163,12 +158,9 @@ export class AdminProductDialogComponent implements OnInit{
 
 
   createProduct(){
-    if(this.form.value.sale === ''){
-      this.form.patchValue({sale: null});
-    } // temporary fix for sale
     this.productService.createProduct(this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng')
+        this.utilService.openSnackBar(data, 'Đóng')
         this.matDialog.close(true);
       },
       error:(err)=>{
@@ -180,7 +172,7 @@ export class AdminProductDialogComponent implements OnInit{
   updateProduct(){
     this.productService.updateProduct(this.data.id, this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng')
+        this.utilService.openSnackBar(data, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form);
       },
@@ -193,7 +185,7 @@ export class AdminProductDialogComponent implements OnInit{
   onBrandChange(event:any){
     const brand = event.source._value;
     if(brand === "''" || brand === ""){
-      this.form.patchValue({brand: null});
+      this.form.patchValue({brandId: null});
     }
   }
 
@@ -201,36 +193,30 @@ export class AdminProductDialogComponent implements OnInit{
   onFlavorChange(event:any){
     const flavor = event.source._value;
     if(flavor === "''" || flavor === ""){
-      this.form.patchValue({flavor: null});
+      this.form.patchValue({flavorId: null});
     }
   }
 
-  onSaleChange(event:any){
-    const sale = event.source._value;
-    if(sale === "''" || sale === ""){
-      this.form.patchValue({sale: null});
-    }
-  }
 
 
   onOriginChange(event:any){
     const origin = event.source._value;
     if(origin === "''" || origin === ""){
-      this.form.patchValue({origin: null});
+      this.form.patchValue({originId: null});
     }
   }
 
   onCategoryChange(event:any){
     const category = event.source._value;
     if(category === "''" || category === ""){
-      this.form.patchValue({category: null});
+      this.form.patchValue({categoryId: null});
     }
   }
 
   onVendorChange(event:any){
     const vendor = event.source._value;
     if(vendor == "''" || vendor === ""){
-      this.form.patchValue({vendor: null});
+      this.form.patchValue({vendorId: null});
     }
   }
 
@@ -238,7 +224,7 @@ export class AdminProductDialogComponent implements OnInit{
     if (object == null || value == null){
       return !!"''"
     }
-    return object.id === value.id;
+    return object === value;
   }
 
 

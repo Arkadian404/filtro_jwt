@@ -6,14 +6,14 @@
     <div class="row">
       <mat-form-field appearance="fill">
         <mat-label>Loại sản phẩm</mat-label>
-        <mat-select [compareWith]="compareObjectFn" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange($event)">
-          <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+        <mat-select [compareWith]="compareObjectFn" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedCategoryId" (ngModelChange)="onCategoryChange($event)">
+          <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Sản phẩm</mat-label>
-        <mat-select [compareWith]="compareObjectFn" formControlName="product">
-          <mat-option *ngFor="let p of products" [value]="p">{{p.name}}</mat-option>
+        <mat-select [compareWith]="compareObjectFn" formControlName="productId">
+          <mat-option *ngFor="let p of products" [value]="p.id">{{p.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">

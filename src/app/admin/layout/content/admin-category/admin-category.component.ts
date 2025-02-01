@@ -9,6 +9,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {UtilService} from "../../../../service/util.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {DialogService} from "../reusable/dialog.service";
+import {CategoryResponse} from "../../../../shared/response/category-response";
 
 @Component({
   selector: 'app-category',
@@ -17,7 +18,7 @@ import {DialogService} from "../reusable/dialog.service";
 })
 export class AdminCategoryComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'status', 'action'];
-  dataSource!: MatTableDataSource<Category>;
+  dataSource!: MatTableDataSource<CategoryResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -52,7 +53,7 @@ export class AdminCategoryComponent implements OnInit{
   deleteCategory(id:number){
     this.categoryService.deleteCategory(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getCategories();
       },
       error:(err)=>{

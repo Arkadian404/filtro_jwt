@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {UtilService} from "../../../../service/util.service";
 import {AdminFlavorDialogComponent} from "./admin-flavor-dialog/admin-flavor-dialog.component";
+import {FlavorResponse} from "../../../../shared/response/flavor-response";
 
 @Component({
   selector: 'app-flavor',
@@ -17,7 +18,7 @@ import {AdminFlavorDialogComponent} from "./admin-flavor-dialog/admin-flavor-dia
 })
 export class AdminFlavorComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'description', 'status', 'action'];
-  dataSource!: MatTableDataSource<Flavor>;
+  dataSource!: MatTableDataSource<FlavorResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,7 +36,7 @@ export class AdminFlavorComponent implements OnInit{
       .subscribe({
         next:(data)=>{
           console.log(data);
-          this.dataSource = new MatTableDataSource<Flavor>(data);
+          this.dataSource = new MatTableDataSource<FlavorResponse>(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataSource.filterPredicate = (data, filter) =>{
@@ -77,7 +78,7 @@ export class AdminFlavorComponent implements OnInit{
   deleteFlavor(id:number){
     this.flavorService.deleteFlavor(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getFlavors();
       },
       error:(err)=>{

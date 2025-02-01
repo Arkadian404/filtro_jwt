@@ -18,7 +18,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy{
   }
 
   startCountdown() {
-    const countDay = new Date('August 15, 2024 00:00:00').getTime();
+    const countDay = new Date('August 15, 2025 00:00:00').getTime();
 
     this.interval = setInterval(() => {
       const now = new Date().getTime();

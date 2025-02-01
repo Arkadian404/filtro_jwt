@@ -10,6 +10,7 @@ import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {AdminProductDialogComponent} from "../admin-product/admin-product-dialog/admin-product-dialog.component";
 import {AdminTestDialogComponent} from "./admin-test-dialog/admin-test-dialog.component";
+import {ProductResponse} from "../../../../shared/response/product-response";
 
 @Component({
   selector: 'app-admin-test',
@@ -34,7 +35,7 @@ export class AdminTestComponent implements OnInit{
     'status',
     'action',
   ];
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<ProductResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,7 +71,7 @@ export class AdminTestComponent implements OnInit{
   deleteProduct(id:number){
     this.productService.deleteProduct(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getProductList();
       },
       error:(err)=>{

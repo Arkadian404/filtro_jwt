@@ -5,6 +5,9 @@ import {catchError, map, Observable, switchMap, throwError} from "rxjs";
 import {Cart} from "../../shared/models/cart";
 import {SuccessMessage} from "../../shared/models/success-message";
 import {environment} from "../../../environments/environment";
+import {ApiResponse} from "../../shared/api-response";
+import {ProductDetailResponse} from "../../shared/response/product-detail-response";
+import {ProductDetailRequest} from "../../shared/request/product-detail-request";
 
 const API = `${environment.springboot_url}/api/v1/admin/product-detail`;
 
@@ -16,8 +19,9 @@ export class ProductDetailService {
   constructor(private http:HttpClient) { }
 
   getAdminProductDetails(){
-    return this.http.get<ProductDetail[]>(`${API}/getList`)
+    return this.http.get<ApiResponse<ProductDetailResponse[]>>(`${API}`)
       .pipe(
+        map(response => response.result),
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
           return throwError(()=> new Error(err.error.message));
@@ -25,9 +29,10 @@ export class ProductDetailService {
       )
   }
 
-  getById(id:number){
-    return this.http.get<ProductDetail>(`${API}/find/${id}`)
+  create(productDetail:ProductDetailRequest) {
+    return this.http.post<ApiResponse<ProductDetailResponse>>(`${API}`, productDetail)
       .pipe(
+        map(response => response.message),
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
           return throwError(()=> new Error(err.error.message));
@@ -35,29 +40,10 @@ export class ProductDetailService {
       )
   }
 
-  getByProductId(id:number){
-    return this.http.get<ProductDetail[]>(`${API}/getListByProduct/${id}`)
+  update(id:number, productDetail:ProductDetailRequest) {
+    return this.http.put<ApiResponse<ProductDetailResponse>>(`${API}/${id}`, productDetail)
       .pipe(
-        catchError(err => {
-          console.log("Error handled by Service: ", err.status);
-          return throwError(()=> new Error(err.error.message));
-        })
-      )
-  }
-
-  create(productDetail:ProductDetail) {
-    return this.http.post<SuccessMessage>(`${API}/create`, productDetail)
-      .pipe(
-        catchError(err => {
-          console.log("Error handled by Service: ", err.status);
-          return throwError(()=> new Error(err.error.message));
-        })
-      )
-  }
-
-  update(id:number, productDetail:ProductDetail) {
-    return this.http.put<SuccessMessage>(`${API}/update/${id}`, productDetail)
-      .pipe(
+        map(response => response.message),
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
           return throwError(()=> new Error(err.error.message));
@@ -66,20 +52,13 @@ export class ProductDetailService {
   }
 
   delete(id:number) {
-    return this.http.delete<SuccessMessage>(`${API}/delete/${id}`)
+    return this.http.delete<ApiResponse<string>>(`${API}/${id}`)
       .pipe(
+        map(response => response.message),
         catchError(err => {
           console.log("Error handled by Service: ", err.status);
           return throwError(()=> new Error(err.error.message));
         })
       )
   }
-
-  getSampleProductDetailFromLocalStorage(): ProductDetail{
-    const sampleProductDetailJson = localStorage.getItem('sampleProductDetail');
-    console.log("sampleProductDetailJson: ", sampleProductDetailJson);
-    return sampleProductDetailJson ? JSON.parse(sampleProductDetailJson): "";
-  }
-
-
 }

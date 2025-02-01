@@ -39,7 +39,7 @@ export class AdminProductOriginDialogComponent implements OnInit{
       if(this.data){
         this.productOriginService.update(this.data.id, this.form.value).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar(data.message, 'Đóng')
+            this.utilService.openSnackBar(data, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -50,7 +50,7 @@ export class AdminProductOriginDialogComponent implements OnInit{
       }else{
         this.productOriginService.create(this.form.value).subscribe({
           next:(data) => {
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

@@ -10,6 +10,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {AdminProductDialogComponent} from "./admin-product-dialog/admin-product-dialog.component";
+import {ProductResponse} from "../../../../shared/response/product-response";
 
 @Component({
   selector: 'app-product',
@@ -24,7 +25,6 @@ export class AdminProductComponent implements OnInit{
     'sold',
     'flavor',
     'category',
-    'sale',
     'createdAt',
     'updatedAt',
     'isSpecial',
@@ -34,7 +34,7 @@ export class AdminProductComponent implements OnInit{
     'status',
     'action',
   ];
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<ProductResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,7 +70,7 @@ export class AdminProductComponent implements OnInit{
   deleteProduct(id:number){
     this.productService.deleteProduct(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getProductList();
       },
       error:(err)=>{
@@ -89,7 +89,7 @@ export class AdminProductComponent implements OnInit{
   }
 
 
-  private openDialog(dialog:ComponentType<any> ,data?:Product) {
+  private openDialog(dialog:ComponentType<any> ,data?:ProductResponse) {
     const dialogRef = this.dialog.open(dialog, {data,
       width: '850px',
       height: '650px'});
@@ -105,11 +105,11 @@ export class AdminProductComponent implements OnInit{
     this.openDialog(AdminProductDialogComponent);
   }
 
-  openUpdateDialog(data:Product){
+  openUpdateDialog(data:ProductResponse){
     this.openDialog(AdminProductDialogComponent, data);
   }
 
-  openDeleteDialog(data:Product){
+  openDeleteDialog(data:ProductResponse){
     this.dialogService.confirmDialog().subscribe(res=>{
       if (data.id != null) {
         this.deleteProduct(data.id);

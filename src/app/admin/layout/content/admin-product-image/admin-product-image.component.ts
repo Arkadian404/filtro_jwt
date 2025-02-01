@@ -9,6 +9,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {ProductImage} from "../../../../shared/models/product/product-image";
 import {ProductImageService} from "../../../../service/product/product-image.service";
 import {AdminProductImageDialogComponent} from "./admin-product-image-dialog/admin-product-image-dialog.component";
+import {ProductImageResponse} from "../../../../shared/response/product-image-response";
 
 @Component({
   selector: 'app-product-image',
@@ -26,7 +27,7 @@ export class AdminProductImageComponent implements OnInit{
     'status',
     'action',
   ];
-  dataSource!: MatTableDataSource<ProductImage>;
+  dataSource!: MatTableDataSource<ProductImageResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -50,7 +51,7 @@ export class AdminProductImageComponent implements OnInit{
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataSource.filterPredicate = (data, filter) =>{
-            return data.product.name.toLowerCase().includes(filter)
+            return data.imageName.toLowerCase().includes(filter)
           }
         },
         error:(err)=>{
@@ -62,7 +63,7 @@ export class AdminProductImageComponent implements OnInit{
   deleteProduct(id:number){
     this.productImageService.deleteProductImage(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getProductImageList();
       },
       error:(err)=>{
@@ -81,7 +82,7 @@ export class AdminProductImageComponent implements OnInit{
   }
 
 
-  private openDialog(dialog:ComponentType<any> ,data?:ProductImage) {
+  private openDialog(dialog:ComponentType<any> ,data?:ProductImageResponse) {
     const dialogRef = this.dialog.open(dialog, {data,
       width: '850px',
       height: '700px'});
@@ -97,7 +98,7 @@ export class AdminProductImageComponent implements OnInit{
     this.openDialog(AdminProductImageDialogComponent);
   }
 
-  openUpdateDialog(data:ProductImage){
+  openUpdateDialog(data:ProductImageResponse){
     console.log(data);
     this.openDialog(AdminProductImageDialogComponent, data);
   }

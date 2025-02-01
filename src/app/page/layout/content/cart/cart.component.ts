@@ -1,14 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CartItemService} from "../../../../service/cart-item.service";
-import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {UtilService} from "../../../../service/util.service";
 
 import {TokenService} from "../../../../service/token.service";
-import {MatDialog} from "@angular/material/dialog";
 import {UserDialogService} from "../reusable/user-dialog.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {VoucherService} from "../../../../service/voucher.service";
-import {Voucher} from "../../../../shared/models/voucher";
+import {VoucherResponse} from "../../../../shared/response/voucher-response";
+import {CartItemResponse} from "../../../../shared/response/cart-item-response";
+import {CartResponse} from "../../../../shared/response/cart-response";
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -16,20 +17,20 @@ import {Voucher} from "../../../../shared/models/voucher";
 })
 export class CartComponent implements OnInit{
   username: string;
-  isLoading: boolean = true;
-  cartItems: CartItemDto[];
-  selectedCartItem:CartItemDto;
-  subTotal: number= 0;
-  subTotalDiscount: number= 0;
-  totalSum: number = 0;
+  isLoading = true;
+  cartItems: CartItemResponse[];
+  selectedCartItem:CartItemResponse;
+  subTotal= 0;
+  subTotalDiscount= 0;
+  totalSum = 0;
   voucherForm: FormGroup<any>;
-  voucher:Voucher;
-  constructor(private cartItemService: CartItemService,
-              private tokenService: TokenService,
-              private formBuilder: FormBuilder,
-              private dialogService:UserDialogService,
-              private voucherService:VoucherService,
-              private utilService:UtilService) {
+  voucher:VoucherResponse;
+  constructor(private readonly cartItemService: CartItemService,
+              private readonly tokenService: TokenService,
+              private readonly formBuilder: FormBuilder,
+              private readonly dialogService:UserDialogService,
+              private readonly voucherService:VoucherService,
+              private readonly utilService:UtilService) {
   }
   ngOnInit(): void {
     this.voucherForm = this.formBuilder.group({
@@ -43,9 +44,11 @@ export class CartComponent implements OnInit{
     if(this.username){
       return this.cartItemService.getCart(this.username).subscribe({
         next:(data) =>{
+          console.log(data);
           this.voucher = data.voucher;
           this.cartItemService.getCartItems(data.id).subscribe(items=>{
             this.cartItems = items;
+            console.log(this.cartItems);
             if(this.voucher){
               if(this.voucher?.category!=null){
                 this.subTotalDiscount = this.cartItems.filter(item => item.productDetail.categoryId === this.voucher?.category?.id).reduce((sum, item) => sum + item.total, 0);
@@ -74,7 +77,7 @@ export class CartComponent implements OnInit{
     }
   }
 
-  incrementQuantity(item: CartItemDto): void {
+  incrementQuantity(item: CartItemResponse): void {
     item.quantity += 1;
     item.total = item.quantity * item.price;
     this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
@@ -83,7 +86,7 @@ export class CartComponent implements OnInit{
     this.cartItemService.addCartItemsBehavior.next(item);
   }
 
-  decrementQuantity(item: CartItemDto): void {
+  decrementQuantity(item: CartItemResponse): void {
     if (item.quantity > 1) {
       item.quantity -= 1;
       item.total = item.quantity * item.price;
@@ -104,7 +107,7 @@ export class CartComponent implements OnInit{
     if(currentQuantity + amount > 0){
         this.cartItemService.updateCartItemQuantity(id, amount).subscribe({
         next:(data)=>{
-          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.utilService.openSnackBar(data, 'Đóng');
           this.subTotal = this.cartItems.reduce((sum, item) => sum + item.total, 0);
           this.getCartItemList();
         },
@@ -136,7 +139,7 @@ export class CartComponent implements OnInit{
       return this.cartItemService.deleteWithLogin(event.id)
         .subscribe({
           next:(data) =>{
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.getCartItemList();
           },
           error: (err) => {
@@ -150,7 +153,7 @@ export class CartComponent implements OnInit{
     }
   }
 
-  openDeleteCartItemDialog(data:CartItemDto){
+  openDeleteCartItemDialog(data:CartResponse){
     this.dialogService.confirmDialog("Xóa sản phẩm", "Bạn có chắc muốn xóa sản phẩm khỏi giỏ hàng?").subscribe(res=>{
       if(data !=null){
         this.deleteCartItem(data);
@@ -162,7 +165,7 @@ export class CartComponent implements OnInit{
     if(this.voucherForm.valid) {
       this.voucherService.applyVoucher(this.voucherForm.value.code).subscribe({
         next: (data) => {
-          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.utilService.openSnackBar(data, 'Đóng');
           this.getCartItemList();
         },
         error: (err) => {
@@ -176,7 +179,7 @@ export class CartComponent implements OnInit{
   removeVoucher(id:number){
     this.voucherService.removeVoucher(id).subscribe({
       next: (data) => {
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getCartItemList();
       },
       error: (err) => {
@@ -185,7 +188,7 @@ export class CartComponent implements OnInit{
     });
   }
 
-  openChangeVoucher(data:Voucher){
+  openChangeVoucher(data:VoucherResponse){
     this.dialogService.confirmDialog("Thay đổi voucher", "Bạn có chắc muốn đổi voucher hiện tại?").subscribe(res=>{
       if(data !=null){
         this.removeVoucher(data.id);

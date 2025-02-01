@@ -6,6 +6,7 @@ import {AdminCategoryDialogComponent} from "../../admin-category/admin-category-
 import {OrderService} from "../../../../../service/order.service";
 import {OrderDetail} from "../../../../../shared/models/order-detail";
 import {EmailService} from "../../../../../service/email.service";
+import {OrderDetailResponse} from "../../../../../shared/response/order-detail-response";
 
 
 interface status{
@@ -21,8 +22,8 @@ interface status{
 
 export class AdminOrderDialogComponent implements OnInit{
   form:FormGroup<any>;
-  isLoading:boolean = false;
-  orderDetails: OrderDetail[] = [];
+  isLoading = false;
+  orderDetails: OrderDetailResponse[] = [];
   status: status[] =[{
     value: 'PENDING',
     viewValue: 'Đang chờ xử lý'
@@ -104,11 +105,11 @@ export class AdminOrderDialogComponent implements OnInit{
     }
   }
 
-  getOrderQuantity(orderDetails:OrderDetail[]){
+  getOrderQuantity(orderDetails:OrderDetailResponse[]){
     return orderDetails.map(orderDetail => orderDetail.quantity).reduce((a,b)=> a+b, 0);
   }
 
-  getTotalPrice(orderDetails:OrderDetail[]){
+  getTotalPrice(orderDetails:OrderDetailResponse[]){
     return orderDetails.map(orderDetail => orderDetail.total).reduce((a,b)=> a+b, 0);
   }
 

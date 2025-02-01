@@ -25,6 +25,11 @@ import {GhnDistrict} from "../../../../shared/models/ghn/ghn-district";
 import {GhnWard} from "../../../../shared/models/ghn/ghn-ward";
 import {GhnService} from "../../../../service/ghn.service";
 import {GhnDeliveryService} from "../../../../shared/models/ghn/ghn-delivery-service";
+import {CartResponse} from "../../../../shared/response/cart-response";
+import {CartItemResponse} from "../../../../shared/response/cart-item-response";
+import {VoucherResponse} from "../../../../shared/response/voucher-response";
+import {OrderResponse} from "../../../../shared/response/order-response";
+import {UserResponse} from "../../../../shared/response/user-response";
 
 @Component({
   selector: 'app-checkout',
@@ -36,27 +41,22 @@ export class CheckoutComponent implements OnInit{
   moneyForm:FormGroup;
   orderForm:FormGroup;
   isLoading = true;
-  cart:CartDto;
-  cartItems: CartItemDto[] =[];
-  order:OrderDto;
-  selectedShipping:ShippingMethodDto;
+  cart: CartResponse;
+  cartItems: CartItemResponse[] =[];
+  order:OrderResponse;
   selectedPaymentMethod = "";
-  selectedProvince:Province;
-  shippingMethods:ShippingMethodDto[] = [];
   deliveryServices:GhnDeliveryService[] = [];
   selectedService:GhnDeliveryService;
   shippingFee = 0;
-  user:UserDto;
-  dataJson = data;
-  provinces: Province[];
+  user:UserResponse;
   districts: District[];
   wards: Ward[];
   _provinces: GhnProvince[] = [];
   _districts: GhnDistrict[] = [];
   _wards: GhnWard[] = [];
-  voucher:Voucher;
+  voucher:VoucherResponse;
   voucherForm:FormGroup;
-  discountFee:number = 0;
+  discountFee = 0;
   isVoucherExpired = false;
 
 
@@ -80,15 +80,15 @@ export class CheckoutComponent implements OnInit{
   //   fees: [22000, 47000, 49000, 70000]
   // }]
 
-  constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
-              private cartItemService:CartItemService,
-              private orderService:OrderService,
-              private utilService: UtilService,
-              private userDialogService:UserDialogService,
-              private voucherService:VoucherService,
-              private ghnService:GhnService,
-              private router:Router){
+  constructor(private readonly formBuilder: FormBuilder,
+              private readonly userService: UserService,
+              private readonly cartItemService:CartItemService,
+              private readonly orderService:OrderService,
+              private readonly utilService: UtilService,
+              private readonly userDialogService:UserDialogService,
+              private readonly voucherService:VoucherService,
+              private readonly ghnService:GhnService,
+              private readonly router:Router){
   }
 
   ngOnInit() {
@@ -340,7 +340,7 @@ export class CheckoutComponent implements OnInit{
     if(this.voucherForm.valid) {
       this.voucherService.applyVoucher(this.voucherForm.value.code).subscribe({
         next: (data) => {
-          this.utilService.openSnackBar(data.message, 'Đóng');
+          this.utilService.openSnackBar(data, 'Đóng');
           this.getUser();
         },
         error: (err) => {
@@ -354,7 +354,7 @@ export class CheckoutComponent implements OnInit{
   removeVoucher(id:number){
     this.voucherService.removeVoucher(id).subscribe({
       next: (data) => {
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getUser();
       },
       error: (err) => {
@@ -363,7 +363,7 @@ export class CheckoutComponent implements OnInit{
     });
   }
 
-  openChangeVoucher(data:Voucher){
+  openChangeVoucher(data:VoucherResponse){
     this.userDialogService.confirmDialog("Thay đổi voucher", "Bạn có chắc muốn đổi voucher hiện tại?").subscribe(res=>{
       if(data !=null){
         this.removeVoucher(data.id);

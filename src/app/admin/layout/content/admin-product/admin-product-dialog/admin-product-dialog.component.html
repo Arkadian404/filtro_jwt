@@ -19,10 +19,10 @@
             <mat-label>Nguồn gốc</mat-label>
             <mat-select
               [compareWith]="compareObjectFunction"
-              formControlName="origin"
+              formControlName="originId"
               (change)="onOriginChange($event)">
               <mat-option [value]="''">Không</mat-option>
-              <mat-option *ngFor="let o of origins" [value]="o">{{o.name}}</mat-option>
+              <mat-option *ngFor="let o of origins" [value]="o.id">{{o.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -31,10 +31,10 @@
             <mat-label>Nhà cung cấp</mat-label>
             <mat-select
               [compareWith]="compareObjectFunction"
-              formControlName="vendor"
+              formControlName="vendorId"
               (change)="onVendorChange($event)">
               <mat-option [value]="''">Không</mat-option>
-              <mat-option *ngFor="let v of vendors" [value]="v">{{v.name}}</mat-option>
+              <mat-option *ngFor="let v of vendors" [value]="v.id">{{v.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -43,25 +43,13 @@
            <mat-label>Thương hiệu</mat-label>
            <mat-select
              [compareWith]="compareObjectFunction"
-             formControlName="brand"
+             formControlName="brandId"
              (selectionChange)="onBrandChange($event)">
              <mat-option [value]="''">Không</mat-option>
-             <mat-option *ngFor="let b of brands" [value]="b">{{b.name}}</mat-option>
+             <mat-option *ngFor="let b of brands" [value]="b.id">{{b.name}}</mat-option>
            </mat-select>
          </mat-form-field>
        </div>
-        <div class="mb-3">
-          <mat-form-field appearance="fill">
-            <mat-label>Sự kiện giảm giá</mat-label>
-            <mat-select
-              [compareWith]="compareObjectFunction"
-              formControlName="sale"
-              (selectionChange)="onSaleChange($event)">
-              <mat-option [value]="''">Không</mat-option>
-              <mat-option *ngFor="let s of sales" [value]="s">{{s.name}} || {{s.discount}}% </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
       </div>
       <div class="col">
         <div class="mb-3">
@@ -69,10 +57,10 @@
           <mat-label>Hương vị</mat-label>
           <mat-select
             [compareWith]="compareObjectFunction"
-            formControlName="flavor"
+            formControlName="flavorId"
             (change)="onFlavorChange($event)">
             <mat-option [value]="''">Không</mat-option>
-            <mat-option *ngFor="let f of flavors" [value]="f">{{f.name}}</mat-option>
+            <mat-option *ngFor="let f of flavors" [value]="f.id">{{f.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -81,10 +69,10 @@
           <mat-label>Danh mục</mat-label>
           <mat-select
             [compareWith]="compareObjectFunction"
-            formControlName="category"
+            formControlName="categoryId"
             (selectionChange)="onCategoryChange($event)">
             <mat-option [value]="''">Không</mat-option>
-            <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+            <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -126,6 +114,6 @@
   </div>
   <div class="action" mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false">Hủy bỏ</button>
-    <button [disabled]="form.invalid" mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
+    <button [disabled]="form.invalid"  mat-raised-button color="primary" type="submit">{{data ? 'Cập nhật' :'Lưu'}}</button>
   </div>
 </form>

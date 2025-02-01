@@ -11,6 +11,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {ProductDetail} from "../../../../shared/models/product/product-detail";
 import {ProductDetailService} from "../../../../service/product/product-detail.service";
 import {AdminProductDetailDialogComponent} from "./admin-product-detail-dialog/admin-product-detail-dialog.component";
+import {ProductDetailResponse} from "../../../../shared/response/product-detail-response";
 
 @Component({
   selector: 'app-admin-product-detail',
@@ -20,7 +21,7 @@ import {AdminProductDetailDialogComponent} from "./admin-product-detail-dialog/a
 export class AdminProductDetailComponent implements OnInit{
 
   displayedColumns: string[] = ['id', 'product','weight','stock','price', 'status', 'action'];
-  dataSource!: MatTableDataSource<ProductDetail>;
+  dataSource!: MatTableDataSource<ProductDetailResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,7 +45,7 @@ export class AdminProductDetailComponent implements OnInit{
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataSource.filterPredicate = (data, filter) => {
-            return data.product.name.toLowerCase().includes(filter);
+            return data.productName.toLowerCase().includes(filter);
           }
         },
         error:(err)=>{
@@ -56,7 +57,7 @@ export class AdminProductDetailComponent implements OnInit{
   deleteProductDetail(id:number){
     this.productDetailService.delete(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getProductDetails();
       },
       error:(err)=>{
@@ -76,7 +77,7 @@ export class AdminProductDetailComponent implements OnInit{
   }
 
 
-  private openDialog(dialog:ComponentType<any> ,data?:ProductDetail){
+  private openDialog(dialog:ComponentType<any> ,data?:ProductDetailResponse){
     const dialogRef = this.dialog.open(dialog, {
       data,
       width: '650px',
@@ -94,11 +95,11 @@ export class AdminProductDetailComponent implements OnInit{
     this.openDialog(AdminProductDetailDialogComponent);
   }
 
-  openUpdateDialog(data:ProductDetail){
+  openUpdateDialog(data:ProductDetailResponse){
     this.openDialog(AdminProductDetailDialogComponent, data);
   }
 
-  openDeleteDialog(data:ProductDetail){
+  openDeleteDialog(data:ProductDetailResponse){
     this.dialogService.confirmDialog().subscribe(res=>{
       if (data.id != null) {
         this.deleteProductDetail(data.id);

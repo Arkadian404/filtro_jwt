@@ -11,6 +11,7 @@ import {VoucherService} from "../../../../service/voucher.service";
 import {AdminVoucherDialogComponent} from "./admin-voucher-dialog/admin-voucher-dialog.component";
 import {CategoryService} from "../../../../service/product/category.service";
 import {Category} from "../../../../shared/models/product/category";
+import {VoucherResponse} from "../../../../shared/response/voucher-response";
 
 @Component({
   selector: 'app-voucher',
@@ -28,7 +29,7 @@ export class AdminVoucherComponent implements OnInit{
     'expirationDate',
     'action'
   ]
-  dataSource: MatTableDataSource<Voucher>
+  dataSource: MatTableDataSource<VoucherResponse>
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort:MatSort;
@@ -64,7 +65,7 @@ export class AdminVoucherComponent implements OnInit{
   deleteVoucher(id:number){
     this.voucherService.deleteVoucher(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getVouchers();
       },
       error:err=>{
@@ -82,7 +83,7 @@ export class AdminVoucherComponent implements OnInit{
     }
   }
 
-  private openDialog(dialog:ComponentType<any>, data?:Voucher){
+  private openDialog(dialog:ComponentType<any>, data?:VoucherResponse){
     const dialogRef = this.dialog.open(dialog, {data});
     dialogRef.afterClosed().subscribe({
       next:(data)=>{
@@ -97,11 +98,11 @@ export class AdminVoucherComponent implements OnInit{
     this.openDialog(AdminVoucherDialogComponent);
   }
 
-  openUpdateDialog(data:Voucher){
+  openUpdateDialog(data:VoucherResponse){
     this.openDialog(AdminVoucherDialogComponent, data);
   }
 
-  openDeleteDialog(data:Voucher){
+  openDeleteDialog(data:VoucherResponse){
     this.dialogService.confirmDialog().subscribe(res=>{
       if(data.id !=null){
         this.deleteVoucher(data.id);

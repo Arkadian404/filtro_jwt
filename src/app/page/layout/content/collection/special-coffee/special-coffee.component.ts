@@ -21,6 +21,13 @@ import {CartItemService} from "../../../../../service/cart-item.service";
 import {CartItemDto} from "../../../../../shared/dto/cart-item-dto";
 import {WishlistItemDto} from "../../../../../shared/dto/wishlist-item-dto";
 import {WishlistItemService} from "../../../../../service/wishlist-item.service";
+import {CartResponse} from "../../../../../shared/response/cart-response";
+import {WishlistItemRequest} from "../../../../../shared/request/wishlist-item-request";
+import {ProductResponse} from "../../../../../shared/response/product-response";
+import {PageResponse} from "../../../../../shared/pageResponse";
+import {CartItemRequest} from "../../../../../shared/request/cart-item-request";
+import {CartItemResponse} from "../../../../../shared/response/cart-item-response";
+import {WishlistItemResponse} from "../../../../../shared/response/wishlist-item-response";
 
 @Component({
   selector: 'app-special-coffee',
@@ -36,9 +43,9 @@ export class SpecialCoffeeComponent implements OnInit {
   isVendorClose = true;
   isError = false;
   isLoading = true;
-  page: Page;
-  products: ProductDto[];
-  number = 0;
+  page: PageResponse<ProductResponse>;
+  products: ProductResponse[];
+  number = 1;
   sort = "";
   flavor = "";
   brand = "";
@@ -47,10 +54,12 @@ export class SpecialCoffeeComponent implements OnInit {
   vendor = "";
   totalPages: Array<number> = [];
 
+
+  cartItemRequest: CartItemRequest = {};
   product:ProductDto;
   form:FormGroup;
   wishlistItemForm:FormGroup;
-  isWishlist:ProductDto[] = [];
+  isWishlist:number[] = [];
   wishlistItems:WishlistItemDto[] = [];
 
   brands: BrandDto[] = [];
@@ -66,20 +75,21 @@ export class SpecialCoffeeComponent implements OnInit {
     originFilter: [],
     vendorFilter: [],
   }
+  private wishlistItemRequest: WishlistItemRequest = {};
 
-  constructor(private productService: ProductService,
-              private brandService: BrandService,
-              private categoryService: CategoryService,
-              private flavorService: FlavorService,
-              private originService: ProductOriginService,
-              private vendorService: VendorService,
-              private activatedRoute: ActivatedRoute,
-              private cartItemService:CartItemService,
-              private tokenService:TokenService,
-              private utilService:UtilService,
-              private formBuilder:FormBuilder,
-              private wishlistItemService:WishlistItemService,
-              private router: Router) {
+  constructor(private readonly productService: ProductService,
+              private readonly brandService: BrandService,
+              private readonly categoryService: CategoryService,
+              private readonly flavorService: FlavorService,
+              private readonly originService: ProductOriginService,
+              private readonly vendorService: VendorService,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly cartItemService:CartItemService,
+              private readonly tokenService:TokenService,
+              private readonly utilService:UtilService,
+              private readonly formBuilder:FormBuilder,
+              private readonly wishlistItemService:WishlistItemService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -112,7 +122,7 @@ export class SpecialCoffeeComponent implements OnInit {
   }
 
   assignParam(params: any) {
-    this.number = parseInt(params['page']) ? parseInt(params['page']) : 0;
+    this.number = parseInt(params['page']) ? parseInt(params['page']) : 1;
     this.sort = params['sort'] ? params['sort'] : "";
     this.flavor = params['flavor'] ? params['flavor'] : "";
     this.brand = params['brand'] ? params['brand'] : "";
@@ -127,42 +137,40 @@ export class SpecialCoffeeComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.page = data;
-          this.products = data.content;
+          this.products = data.data;
           this.totalPages = Array(data.totalPages).fill(0).map((x, i) => i + 1);
           this.isLoading = false;
           this.isError = false;
           const items = this.wishlistItemService.getWishlistItemsFromLocalStorage();
           if(this.tokenService.getUsername()){
             if(items.length > 0){
-              this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+              this.wishlistItemService.getWishlist().subscribe(wishlist=>{
                 this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(wishlistItems=>{
-                  wishlistItems.forEach(wi=>{
-                    wi.wishlist = wishlist;
-                    this.wishlistItemService.addWishlistItemToWishlist(wi).subscribe(item=>{
+                  items.forEach(wi=>{
+                    this.wishlistItemRequest = this.mapWishlistItemRequest(wi);
+                    this.wishlistItemService.addWishlistItemToWishlist(this.wishlistItemRequest).subscribe(item=>{
                       console.log(item);
                     });
                     this.wishlistItemService.wishlistItemsBehavior.next([...this.wishlistItemService.wishlistItemsBehavior.getValue(), wi]);
                   });
                   this.getWishlistItems();
-                  this.isWishlist = wishlistItems.map(item=>item.product);
+                  this.isWishlist = wishlistItems.map(item=>item.product.id);
                   localStorage.removeItem("wishlistItems");
                 });
               });
             }else{
-              this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+              this.wishlistItemService.getWishlist().subscribe(wishlist=>{
                 this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(wishlistItems=>{
                   this.getWishlistItems();
-                  this.isWishlist = wishlistItems.map(item=>item.product);
+                  this.isWishlist = wishlistItems.map(item=>item.product.id);
                 });
               });
             }
-          }else{
-            if(items.length > 0){
-              this.isWishlist = items.map(item=>item.product);
-              this.wishlistItemService.wishlistItemsBehavior.next(items);
-            }else{
-              this.wishlistItemService.wishlistItemsBehavior.next([]);
-            }
+          }else if (items.length > 0) {
+            this.isWishlist = items.map(item => item.product.id);
+            this.wishlistItemService.wishlistItemsBehavior.next(items);
+          } else {
+            this.wishlistItemService.wishlistItemsBehavior.next([]);
           }
         },
         error: (err) => {
@@ -174,8 +182,8 @@ export class SpecialCoffeeComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    let currentPage = parseInt(this.number.toString()); //bang 1 cach nao do cai cu lol nay la string????
-    if (currentPage > 0) {
+    const currentPage = parseInt(this.number.toString()); //bang 1 cach nao do cai cu lol nay la string????
+    if (currentPage > 1) {
       this.router.navigate(
         [], {
           relativeTo: this.activatedRoute,
@@ -186,8 +194,8 @@ export class SpecialCoffeeComponent implements OnInit {
   }
 
   goToNextPage() {
-    let currentPage = parseInt(this.number.toString()); //bang 1 cach nao do cai cu lol nay la string????
-    if (currentPage <= this.page.totalPages - 1) {
+    const currentPage = parseInt(this.number.toString()); //bang 1 cach nao do cai cu lol nay la string????
+    if (currentPage <= this.page.totalPages) {
       this.router.navigate(
         [], {
           relativeTo: this.activatedRoute,
@@ -386,34 +394,45 @@ export class SpecialCoffeeComponent implements OnInit {
     }
   }
 
-  addToCart(event:ProductDto){
+  mapCartToRequest(cart: CartItemResponse): CartItemRequest{
+    this.cartItemRequest.cartId = cart.cart.id;
+    this.cartItemRequest.productDetailId = cart.productDetail.id;
+    this.cartItemRequest.price = cart.productDetail.price;
+    this.cartItemRequest.quantity = cart.quantity;
+    this.cartItemRequest.total = cart.total;
+    return this.cartItemRequest;
+  }
+
+  addToCart(event:ProductResponse){
     this.product = event;
     if(this.form.valid){
-      this.form.value.productName = this.product.name;
+      this.form.value.prductName = this.product.name;
       this.form.value.slug = this.product.slug;
       this.form.value.productDetail =this.product.productDetails[0];
-      this.form.value.productImage =  this.product.images[0];
+      this.form.value.productImage = this.product.images[0];
       this.form.value.price = this.product.productDetails[0].price;
       this.form.value.total = this.form.value.quantity * this.form.value.price;
     }
-    console.log(this.form.value);
+    console.log(this.form.value)
     if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
-      this.cartItemService.addToCartNotLogin(this.form.value)
+      this.cartItemService.addToCartNotLogin(this.form.value);
     }else{
       this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
         next:(data)=>{
           this.form.value.cart = data;
-          this.addCartItemToCart(this.form.value);
+          this.cartItemRequest = this.mapCartToRequest(this.form.value);
+          console.log(this.cartItemRequest);
+          this.addCartItemToCart(this.cartItemRequest);
         }
       })
     }
   }
 
 
-  addCartItemToCart(cartItem:CartItemDto){
+  addCartItemToCart(cartItem: CartItemRequest){
     this.cartItemService.addCartItemToCart(cartItem).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.cartItemService.addCartItemsBehavior.next(cartItem);
       },
       error:(err)=>{
@@ -422,22 +441,10 @@ export class SpecialCoffeeComponent implements OnInit {
     })
   }
 
-  addToWishlist(wishlistItem:WishlistItemDto){
-    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
-      next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
-        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItem);
-        this.isWishlist.push(wishlistItem.product);
-        this.getWishlistItems();
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-  }
+
 
   getWishlistItems(){
-    this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+    this.wishlistItemService.getWishlist().subscribe(wishlist=>{
       this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
         this.wishlistItems = items;
       })
@@ -448,9 +455,9 @@ export class SpecialCoffeeComponent implements OnInit {
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.wishlistItemService.deleteWishlistItemsBehavior.next(productId);
-        const index = this.isWishlist.findIndex(item => item.id === productId);
+        const index = this.isWishlist.findIndex(item => item === productId);
         this.isWishlist.splice(index,1);
         this.getWishlistItems();
         console.log(this.wishlistItems);
@@ -461,32 +468,53 @@ export class SpecialCoffeeComponent implements OnInit {
     });
   }
 
-  handleWishlist(event:any){
+  mapWishlistItemRequest(wishlistItem: WishlistItemResponse): WishlistItemRequest{
+    this.wishlistItemRequest.wishlistId = wishlistItem.wishlist.id;
+    this.wishlistItemRequest.productId = wishlistItem.product.id;
+    return this.wishlistItemRequest;
+  }
+
+  handleWishlist(event:ProductResponse){
     this.product = event;
     if(this.wishlistItemForm.valid){
       this.wishlistItemForm.value.product = this.product;
     }
     if (!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null) {
       if(this.checkExist(this.isWishlist, this.product)){
-        this.isWishlist.splice(this.isWishlist.indexOf(this.product),1);
+        this.isWishlist = this.isWishlist.filter(item => item !== this.product.id);
       }else{
-        this.isWishlist.push(this.product);
+        this.isWishlist.push(this.product.id);
       }
       this.wishlistItemService.handleWishlistNotLogin(this.wishlistItemForm.value);
     }else{
-      this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+      this.wishlistItemService.getWishlist().subscribe(wishlist=>{
         this.wishlistItemForm.value.wishlist = wishlist;
+        this.wishlistItemRequest = this.mapWishlistItemRequest(this.wishlistItemForm.value);
         if(this.checkExist(this.isWishlist, this.product)){
           this.deleteFromWishlist(this.product.id);
         }else{
-          this.addToWishlist(this.wishlistItemForm.value);
+          this.addToWishlist(this.wishlistItemRequest, this.wishlistItemForm.value);
         }
       })
     }
   }
 
-  checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
-    return !!isWishlist.find(item => item.id === product.id);
+  addToWishlist(wishlistItem: WishlistItemRequest, wishlistItemForm: WishlistItemResponse){
+    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data, "Đóng");
+        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItemForm);
+        this.isWishlist.push(wishlistItem.productId);
+        this.getWishlistItems();
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  checkExist(isWishlist: number[], product: ProductResponse): boolean {
+    return !!isWishlist.find(item => item === product.id);
   }
 
   calcStars(starCount:number){

@@ -4,13 +4,14 @@ import {UtilService} from "../../../../../service/util.service";
 import {CategoryService} from "../../../../../service/product/category.service";
 import {ProductService} from "../../../../../service/product/product.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Category} from "../../../../../shared/models/product/category";
-import {Product} from "../../../../../shared/models/product/product";
+
 import {formatDate} from "@angular/common";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
 import {ProductImageService} from "../../../../../service/product/product-image.service";
 import {ProductImage} from "../../../../../shared/models/product/product-image";
 import {forkJoin} from "rxjs";
+import {CategoryResponse} from "../../../../../shared/response/category-response";
+import {ProductResponse} from "../../../../../shared/response/product-response";
 
 @Component({
   selector: 'app-product-image-dialog',
@@ -20,9 +21,9 @@ import {forkJoin} from "rxjs";
 export class AdminProductImageDialogComponent implements OnInit{
   isLoading = false;
   form!:FormGroup;
-  categories:Category[] = [];
-  products:Product[] = [];
-  selectedCategory:Category;
+  categories:CategoryResponse[] = [];
+  products:ProductResponse[] = [];
+  selectedCategoryId:number;
   selectedImages:File[] =[];
   uploadImagesObservable = [];
 
@@ -41,19 +42,19 @@ export class AdminProductImageDialogComponent implements OnInit{
   ngOnInit(): void {
     this.getCategories();
     this.form = this.formBuilder.group({
-      product: ['', Validators.required],
+      productId: ['', Validators.required],
       status: [true],
     })
     if(this.data){
       this.form.patchValue(this.data);
-      this.selectedCategory = this.data.product.category;
-      this.onCategoryChange(this.selectedCategory);
+      this.selectedCategoryId = this.data.categoryId;
+      this.onCategoryChange(this.selectedCategoryId);
     }
   }
 
 
-  onCategoryChange(selectedCategory:Category){
-    this.productService.getAdminProductsByCategory(selectedCategory.id).subscribe(
+  onCategoryChange(selectedCategoryId:number){
+    this.productService.getAdminProductsByCategory(selectedCategoryId).subscribe(
       {
         next:(data)=>{
           this.products = data
@@ -141,9 +142,9 @@ export class AdminProductImageDialogComponent implements OnInit{
   }
 
   uploadProductWithImage(image:File, pathName?:string){
-    let imgName = this.getCurrentDateTime() + image.name;
-    let storageRef = ref(this.storage, `coffee/${pathName}/${imgName}`);
-    let uploadTask = uploadBytesResumable(storageRef, image);
+    const imgName = this.getCurrentDateTime() + image.name;
+    const storageRef = ref(this.storage, `coffee/${pathName}/${imgName}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
     this.form.value.imageName = imgName;
     return new Promise((resolve, reject) => {
       uploadTask.on('state_changed', (snapshot)=>{
@@ -171,7 +172,7 @@ export class AdminProductImageDialogComponent implements OnInit{
   updateProductImage(id: number, image: ProductImage){
     return  this.productImageService.updateProductImage(id, image).subscribe({
       next:(data) => {
-        this.utilService.openSnackBar(data.message, 'Đóng')
+        this.utilService.openSnackBar(data, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form)
       },
@@ -183,9 +184,9 @@ export class AdminProductImageDialogComponent implements OnInit{
   }
 
   createProductImageWithImage(image:File, imagePath?:string){
-    let imgName = this.getCurrentDateTime() + image.name;
-    let storageRef = ref(this.storage, `coffee/${imagePath}/${imgName}`);
-    let  uploadTask = uploadBytesResumable(storageRef, image);
+    const imgName = this.getCurrentDateTime() + image.name;
+    const storageRef = ref(this.storage, `coffee/${imagePath}/${imgName}`);
+    const  uploadTask = uploadBytesResumable(storageRef, image);
     this.form.value.imageName = imgName;
     console.log('imageName from function() 1: '+ this.form.value.imageName);
     console.log(this.form.value)
@@ -229,7 +230,7 @@ export class AdminProductImageDialogComponent implements OnInit{
     if (object == null || value == null){
       return !![];
     }
-    return object.id === value.id;
+    return object === value;
   }
 
 

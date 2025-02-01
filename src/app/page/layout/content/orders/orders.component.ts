@@ -73,7 +73,7 @@ export class OrdersComponent implements OnInit{
   cancelOrder(id:number){
     this.orderService.cancelOrder(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getUserOrders();
       },
       error:err=>{

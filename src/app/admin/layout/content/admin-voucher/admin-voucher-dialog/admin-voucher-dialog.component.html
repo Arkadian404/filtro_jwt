@@ -28,24 +28,25 @@
         <div class="mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Ngày hết hạn</mat-label>
-            <input [matDatepicker]="Picker" matInput formControlName="expirationDate">
-            <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>
-            <mat-datepicker #Picker>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Hủy</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>
-              </mat-datepicker-actions>
-            </mat-datepicker>
+<!--            <input [matDatepicker]="Picker" matInput formControlName="expirationDate">-->
+<!--            <mat-datepicker-toggle matIconSuffix [for]="Picker"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker #Picker>-->
+<!--              <mat-datepicker-actions>-->
+<!--                <button mat-button matDatepickerCancel>Hủy</button>-->
+<!--                <button mat-raised-button color="primary" matDatepickerApply>Chọn</button>-->
+<!--              </mat-datepicker-actions>-->
+<!--            </mat-datepicker>-->
+            <input type="datetime-local" matInput formControlName="expirationDate">
           </mat-form-field>
         </div>
         <mat-form-field appearance="fill">
           <mat-label>Danh mục</mat-label>
           <mat-select
             [compareWith]="compareObjectFunction"
-            formControlName="category"
+            formControlName="categoryId"
             (selectionChange)="onCategoryChange($event)">
             <mat-option [value]="''">Tất cả</mat-option>
-            <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+            <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

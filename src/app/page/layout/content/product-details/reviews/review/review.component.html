@@ -3,7 +3,7 @@
     <div class="d-flex align-items-start">
       <div class="flex-grow-1 ms-3">
         <h4 class="mb-1">{{review.user?.username}}</h4>
-        <p class="text-muted text-sm mb-1">{{processDate()}}</p>
+        <p class="text-muted text-sm mb-1">{{review.created}}</p>
         <div *ngIf="!(!!parentId)" class="star">
           <ng-container *ngFor="let s of stars; index as i">
             <i class="fas fa-star text-warning"></i>

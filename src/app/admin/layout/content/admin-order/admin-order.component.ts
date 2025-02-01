@@ -9,6 +9,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {Order} from "../../../../shared/models/order";
 import {OrderService} from "../../../../service/order.service";
 import {AdminOrderDialogComponent} from "./admin-order-dialog/admin-order-dialog.component";
+import {OrderResponse} from "../../../../shared/response/order-response";
 
 @Component({
   selector: 'app-admin-order',
@@ -32,7 +33,7 @@ export class AdminOrderComponent {
     'status',
     'action'
   ]
-  dataSource: MatTableDataSource<Order>
+  dataSource: MatTableDataSource<OrderResponse>
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort:MatSort;
@@ -69,7 +70,7 @@ export class AdminOrderComponent {
   deleteOrder(id:number){
     this.orderService.deleteAdminOrder(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getOrders();
       },
       error:err=>{

@@ -11,6 +11,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {ProductOriginService} from "../../../../service/product/product-origin.service";
 import {ProductOrigin} from "../../../../shared/models/product/product-origin";
 import {AdminProductOriginDialogComponent} from "./admin-product-origin-dialog/admin-product-origin-dialog.component";
+import {ProductOriginResponse} from "../../../../shared/response/product-origin-response";
 
 @Component({
   selector: 'app-admin-product-origin',
@@ -19,7 +20,7 @@ import {AdminProductOriginDialogComponent} from "./admin-product-origin-dialog/a
 })
 export class AdminProductOriginComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'continent', 'description', 'status', 'action'];
-  dataSource!: MatTableDataSource<ProductOrigin>;
+  dataSource!: MatTableDataSource<ProductOriginResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -54,7 +55,7 @@ export class AdminProductOriginComponent implements OnInit{
   deleteProductOrigin(id:number){
     this.productOriginService.delete(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getOrigins();
       },
       error:(err)=>{

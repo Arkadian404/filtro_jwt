@@ -11,6 +11,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {Vendor} from "../../../../shared/models/product/vendor";
 import {VendorService} from "../../../../service/vendor.service";
 import {AdminVendorDialogComponent} from "./admin-vendor-dialog/admin-vendor-dialog.component";
+import {VendorResponse} from "../../../../shared/response/vendor-response";
 
 @Component({
   selector: 'app-admin-vendor',
@@ -19,7 +20,7 @@ import {AdminVendorDialogComponent} from "./admin-vendor-dialog/admin-vendor-dia
 })
 export class AdminVendorComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'description', 'email', 'phone', 'address', 'status', 'action'];
-  dataSource!: MatTableDataSource<Vendor>;
+  dataSource!: MatTableDataSource<VendorResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -54,7 +55,7 @@ export class AdminVendorComponent implements OnInit{
   deleteVendor(id:number){
     this.vendorService.delete(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getVendors() ;
       },
       error:(err)=>{

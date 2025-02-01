@@ -15,8 +15,6 @@ import {StatusConvertPipe} from "./pipe/status-convert.pipe";
 import {AdminConfirmationDialogComponent} from "./layout/content/reusable/admin-confirmation-dialog/admin-confirmation-dialog.component";
 import {AdminFlavorDialogComponent} from "./layout/content/admin-flavor/admin-flavor-dialog/admin-flavor-dialog.component";
 import {AdminProductDialogComponent} from "./layout/content/admin-product/admin-product-dialog/admin-product-dialog.component";
-import {AdminSaleComponent} from "./layout/content/admin-sale/admin-sale.component";
-import {AdminSaleDialogComponent} from "./layout/content/admin-sale/admin-sale-dialog/admin-sale-dialog.component";
 import {AdminUserComponent} from "./layout/content/admin-user/admin-user.component";
 import {AdminUserDialogComponent} from "./layout/content/admin-user/admin-user-dialog/admin-user-dialog.component";
 import {AdminEmployeeComponent} from "./layout/content/admin-employee/admin-employee.component";
@@ -97,8 +95,6 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     AdminConfirmationDialogComponent,
     AdminFlavorDialogComponent,
     AdminProductDialogComponent,
-    AdminSaleComponent,
-    AdminSaleDialogComponent,
     AdminUserComponent,
     AdminUserDialogComponent,
     AdminEmployeeComponent,

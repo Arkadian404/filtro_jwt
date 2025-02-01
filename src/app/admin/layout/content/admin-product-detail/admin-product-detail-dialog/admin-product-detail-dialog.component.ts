@@ -7,6 +7,9 @@ import {Category} from "../../../../../shared/models/product/category";
 import {ProductDetailService} from "../../../../../service/product/product-detail.service";
 import {Product} from "../../../../../shared/models/product/product";
 import {ProductService} from "../../../../../service/product/product.service";
+import {CategoryResponse} from "../../../../../shared/response/category-response";
+import {ProductDetailResponse} from "../../../../../shared/response/product-detail-response";
+import {ProductResponse} from "../../../../../shared/response/product-response";
 
 const NUMBER_PATTERN = '^[0-9]+$';
 
@@ -18,22 +21,22 @@ const NUMBER_PATTERN = '^[0-9]+$';
 })
 export class AdminProductDetailDialogComponent implements OnInit{
   form:FormGroup<any>;
-  categories:Category[] = [];
-  products:Product[] = []
-  selectedCategory:Category;
+  categories:CategoryResponse[] = [];
+  products:ProductResponse[] = []
+  selectedCategoryId:number;
   constructor(private formBuilder:FormBuilder,
               private productDetailService:ProductDetailService,
               private productService:ProductService,
               private categoryService:CategoryService,
               private utilService:UtilService,
               private matDialog:MatDialogRef<AdminProductDetailDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data:any) {
+              @Inject(MAT_DIALOG_DATA) public data:ProductDetailResponse) {
   }
 
   ngOnInit() {
     this.getCategories();
     this.form = this.formBuilder.group({
-      product: ['', Validators.required],
+      productId: ['', Validators.required],
       weight: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
       stock: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
       price: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
@@ -42,8 +45,8 @@ export class AdminProductDetailDialogComponent implements OnInit{
     if(this.data){
       this.form.reset();
       this.form.patchValue(this.data);
-      this.selectedCategory = this.data.product.category;
-      this.onCategoryChange(this.selectedCategory);
+      this.selectedCategoryId = this.data.categoryId;
+      this.onCategoryChange(this.selectedCategoryId);
       console.log(this.data);
     }
   }
@@ -61,8 +64,8 @@ export class AdminProductDetailDialogComponent implements OnInit{
       });
   }
 
-  onCategoryChange(selectedCategory:Category){
-    this.productService.getAdminProductsByCategory(selectedCategory.id).subscribe(
+  onCategoryChange(selectedCategoryId:number){
+    this.productService.getAdminProductsByCategory(selectedCategoryId).subscribe(
       {
         next:(data)=>{
           this.products = data
@@ -81,7 +84,7 @@ export class AdminProductDetailDialogComponent implements OnInit{
       if(this.data){
         this.productDetailService.update(this.data.id, this.form.value).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar(data.message, 'Đóng')
+            this.utilService.openSnackBar(data, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -92,7 +95,7 @@ export class AdminProductDetailDialogComponent implements OnInit{
       }else{
         this.productDetailService.create(this.form.value).subscribe({
           next:(data) => {
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },
@@ -104,6 +107,7 @@ export class AdminProductDetailDialogComponent implements OnInit{
     }
   }
   public compareObjectFn = function (object, value):boolean{
-    return object.id === value.id;
+    return object === value;
   }
+
 }

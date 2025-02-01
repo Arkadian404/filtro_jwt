@@ -38,7 +38,7 @@ export class AdminFlavorDialogComponent implements OnInit{
       if(this.data){
           this.flavorService.updateFlavor(this.data.id, this.form.value).subscribe({
             next: (data) => {
-              this.utilService.openSnackBar(data.message, 'Đóng')
+              this.utilService.openSnackBar(data, 'Đóng')
               this.matDialog.close(true);
               console.log(this.form);
             },
@@ -49,7 +49,7 @@ export class AdminFlavorDialogComponent implements OnInit{
       }else{
         this.flavorService.createFlavor(this.form.value).subscribe({
           next:(data) => {
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

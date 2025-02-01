@@ -9,6 +9,7 @@ import {ComponentType} from "@angular/cdk/overlay";
 import {User} from "../../../../shared/models/user";
 import {UserService} from "../../../../service/user/user.service";
 import {AdminUserDialogComponent} from "./admin-user-dialog/admin-user-dialog.component";
+import {UserResponse} from "../../../../shared/response/user-response";
 
 @Component({
   selector: 'app-user',
@@ -31,7 +32,7 @@ export class AdminUserComponent implements OnInit{
     'role',
     'enabled',
     'action'];
-  dataSource!: MatTableDataSource<User>;
+  dataSource!: MatTableDataSource<UserResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -66,7 +67,7 @@ export class AdminUserComponent implements OnInit{
   deleteEmployee(id:number){
     this.userService.deleteUser(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getUsers();
       },
       error:(err)=>{
@@ -85,7 +86,7 @@ export class AdminUserComponent implements OnInit{
   }
 
 
-  private openDialog(dialog:ComponentType<any> ,data?:User) {
+  private openDialog(dialog:ComponentType<any> ,data?:UserResponse) {
 
     const dialogRef = this.dialog.open(dialog, {data,
       height:'750px',
@@ -102,7 +103,7 @@ export class AdminUserComponent implements OnInit{
     this.openDialog(AdminUserDialogComponent);
   }
 
-  openUpdateDialog(data:User){
+  openUpdateDialog(data:UserResponse){
     console.log(data);
     this.openDialog(AdminUserDialogComponent, data);
   }

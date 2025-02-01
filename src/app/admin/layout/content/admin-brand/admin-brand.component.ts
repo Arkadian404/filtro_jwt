@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../reusable/dialog.service";
 import {ComponentType} from "@angular/cdk/overlay";
 import {AdminBrandDialogComponent} from "./admin-brand-dialog/admin-brand-dialog.component";
+import {BrandResponse} from "../../../../shared/response/brand-response";
 
 
 @Component({
@@ -24,7 +25,7 @@ export class AdminBrandComponent implements OnInit{
     'status',
     'action'
   ]
-  dataSource: MatTableDataSource<Brand>
+  dataSource: MatTableDataSource<BrandResponse>
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort:MatSort;
@@ -61,7 +62,7 @@ export class AdminBrandComponent implements OnInit{
   deleteBrand(id:number){
     this.brandService.deleteBrand(id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng');
+        this.utilService.openSnackBar(data, 'Đóng');
         this.getBrands();
       },
       error:err=>{

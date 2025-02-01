@@ -17,6 +17,10 @@ import {WishlistItemDto} from "../../../shared/dto/wishlist-item-dto";
 import {ProductDto} from "../../../shared/dto/product-dto";
 import {ProductService} from "../../../service/product/product.service";
 import {map, Observable, startWith} from "rxjs";
+import {CartItemResponse} from "../../../shared/response/cart-item-response";
+import {WishlistItemRequest} from "../../../shared/request/wishlist-item-request";
+import {WishlistItemResponse} from "../../../shared/response/wishlist-item-response";
+import {CartItemRequest} from "../../../shared/request/cart-item-request";
 
 @Component({
   selector: 'app-header',
@@ -30,10 +34,11 @@ export class HeaderComponent implements OnInit{
   @Output() onOrders = new EventEmitter();
 
   amountOfCartItem = 0;
-  cartItems:CartItemDto[] = [];
+  cartItems:CartItemResponse[] = [];
 
   amountOfWishlistItem = 0;
-  wishlistItems:WishlistItemDto[] = [];
+  wishlistItems: WishlistItemResponse[] = [];
+
 
   searchValue = '';
   form:FormGroup;
@@ -43,16 +48,16 @@ export class HeaderComponent implements OnInit{
   vendors:VendorDto[] = [];
   products: ProductDto[] = [];
   filteredProducts: Observable<ProductDto[] | null>;
-  constructor(private formBuilder:FormBuilder,
-              private cartItemService:CartItemService,
-              private categoryService:CategoryService,
-              private flavorService:FlavorService,
-              private originService:ProductOriginService,
-              private vendorService:VendorService,
-              private searchService:SearchService,
-              private wishlistItemService:WishlistItemService,
-              private productService:ProductService,
-              private router:Router){
+  constructor(private readonly formBuilder:FormBuilder,
+              private readonly cartItemService:CartItemService,
+              private readonly categoryService:CategoryService,
+              private readonly flavorService:FlavorService,
+              private readonly originService:ProductOriginService,
+              private readonly vendorService:VendorService,
+              private readonly searchService:SearchService,
+              private readonly wishlistItemService:WishlistItemService,
+              private readonly productService:ProductService,
+              private readonly router:Router){
   }
 
   ngOnInit(): void {
@@ -85,8 +90,8 @@ export class HeaderComponent implements OnInit{
         if(data.length > 0){
           this.cartItemService.getCart(this.username).subscribe(cart=>{
             this.cartItemService.getCartItems(cart.id).subscribe(items=>{
-              this.cartItems = items;
-              this.amountOfCartItem = this.cartItems.length;
+              this.cartItems = items??[];
+              this.amountOfCartItem = this.cartItems.length??0;
             })
           });
         }else{
@@ -148,17 +153,15 @@ export class HeaderComponent implements OnInit{
             })
           });
         }
-      }else {
-        if(data!=null){
-          const items = this.cartItemService.getCartItemsFromLocalStorage();
-          const index = items.findIndex(item=>item.productDetail.id === data);
-          items.splice(index, 1);
-          this.cartItems = items;
-          this.amountOfCartItem = this.cartItems.length;
-        }else{
-          this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
-          this.amountOfCartItem = this.cartItems.length;
-        }
+      }else if (data != null) {
+        const items = this.cartItemService.getCartItemsFromLocalStorage();
+        const index = items.findIndex(item => item.productDetail.id === data);
+        items.splice(index, 1);
+        this.cartItems = items;
+        this.amountOfCartItem = this.cartItems.length;
+      } else {
+        this.cartItems = this.cartItemService.getCartItemsFromLocalStorage();
+        this.amountOfCartItem = this.cartItems.length;
       }
     })
 
@@ -168,14 +171,14 @@ export class HeaderComponent implements OnInit{
     this.wishlistItemService.wishlistItems$.subscribe(data=>{
       if(this.username){
         if(data.length > 0){
-          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+          this.wishlistItemService.getWishlist().subscribe(wishlist=>{
             this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
             })
           });
         }else{
-          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+          this.wishlistItemService.getWishlist().subscribe(data=>{
             this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
@@ -193,14 +196,14 @@ export class HeaderComponent implements OnInit{
     this.wishlistItemService.addWishlistItems$.subscribe(data=>{
       if(this.username){
         if(data!=null){
-          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+          this.wishlistItemService.getWishlist().subscribe(wishlist=>{
             this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
             })
           });
         }else{
-          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+          this.wishlistItemService.getWishlist().subscribe(data=>{
             this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
@@ -218,38 +221,36 @@ export class HeaderComponent implements OnInit{
     this.wishlistItemService.deleteWishlistItems$.subscribe(data=>{
       if(this.username){
         if(data!=null){
-          this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+          this.wishlistItemService.getWishlist().subscribe(wishlist=>{
             this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
             })
           });
         }else{
-          this.wishlistItemService.getWishlist(this.username).subscribe(data=>{
+          this.wishlistItemService.getWishlist().subscribe(data=>{
             this.wishlistItemService.getWishlistItems(data.id).subscribe(items=>{
               this.wishlistItems = items;
               this.amountOfWishlistItem = this.wishlistItems.length;
             })
           });
         }
-      }else {
-        if(data!=null){
-          const items = this.wishlistItemService.getWishlistItemsFromLocalStorage();
-          const index = items.findIndex(item=>item.product.id === data);
-          items.splice(index, 1);
-          this.wishlistItems = items;
-          this.amountOfWishlistItem = this.wishlistItems.length;
-        }else{
-          this.wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
-          this.amountOfWishlistItem = this.wishlistItems.length;
-        }
+      }else if (data != null) {
+        const items = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+        const index = items.findIndex(item => item.product.id === data);
+        items.splice(index, 1);
+        this.wishlistItems = items;
+        this.amountOfWishlistItem = this.wishlistItems.length;
+      } else {
+        this.wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
+        this.amountOfWishlistItem = this.wishlistItems.length;
       }
     })
   }
 
 
   getProducts(){
-    return this.productService.getProductDtoList()
+    return this.productService.getProductList()
       .subscribe({
         next:(data)=>{
           this.products = data;

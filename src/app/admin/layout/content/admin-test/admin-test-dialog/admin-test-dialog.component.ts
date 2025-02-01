@@ -10,11 +10,14 @@ import {BrandService} from "../../../../../service/product/brand.service";
 import {ProductService} from "../../../../../service/product/product.service";
 import {CategoryService} from "../../../../../service/product/category.service";
 import {FlavorService} from "../../../../../service/product/flavor.service";
-import {SaleService} from "../../../../../service/product/sale.service";
 import {VendorService} from "../../../../../service/vendor.service";
 import {ProductOriginService} from "../../../../../service/product/product-origin.service";
 import {UtilService} from "../../../../../service/util.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {CategoryResponse} from "../../../../../shared/response/category-response";
+import {FlavorResponse} from "../../../../../shared/response/flavor-response";
+import {VendorResponse} from "../../../../../shared/response/vendor-response";
+import {ProductOriginResponse} from "../../../../../shared/response/product-origin-response";
 
 @Component({
   selector: 'app-admin-test-dialog',
@@ -24,11 +27,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 export class AdminTestDialogComponent implements OnInit{
   form: FormGroup;
   brands: Brand[] = [];
-  categories:Category[] = [];
-  flavors:Flavor[] = [];
+  categories:CategoryResponse[] = [];
+  flavors:FlavorResponse[] = [];
   sales:Sale[] = [];
-  vendors:Vendor[] = [];
-  origins:ProductOrigin[] = [];
+  vendors:VendorResponse[] = [];
+  origins:ProductOriginResponse[] = [];
   selectedImages:File[] =[];
 
 
@@ -37,7 +40,6 @@ export class AdminTestDialogComponent implements OnInit{
               private productService:ProductService,
               private categoryService:CategoryService,
               private flavorService:FlavorService,
-              private saleService:SaleService,
               private vendorService:VendorService,
               private productOriginService:ProductOriginService,
               private utilService:UtilService,
@@ -51,7 +53,6 @@ export class AdminTestDialogComponent implements OnInit{
     this.getBrands();
     this.getCategories();
     this.getFlavors();
-    this.getSales();
     this.getOrigins();
     this.getVendors();
     this.form = this.formBuilder.group({
@@ -108,17 +109,6 @@ export class AdminTestDialogComponent implements OnInit{
       });
   }
 
-  getSales(){
-    return this.saleService.getAdminSaleList()
-      .subscribe({
-        next:(data)=>{
-          this.sales = data;
-        },
-        error:(err)=>{
-          console.log(err)
-        }
-      });
-  }
 
   getVendors(){
     return this.vendorService.getAdminVendorList()
@@ -165,7 +155,7 @@ export class AdminTestDialogComponent implements OnInit{
     } // temporary fix for sale
     this.productService.createProduct(this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng')
+        this.utilService.openSnackBar(data, 'Đóng')
         this.matDialog.close(true);
       },
       error:(err)=>{
@@ -177,7 +167,7 @@ export class AdminTestDialogComponent implements OnInit{
   updateProduct(){
     this.productService.updateProduct(this.data.id, this.form.value).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, 'Đóng')
+        this.utilService.openSnackBar(data, 'Đóng')
         this.matDialog.close(true);
         console.log(this.form);
       },

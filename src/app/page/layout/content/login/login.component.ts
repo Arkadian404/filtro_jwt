@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit{
   }
 
   public login(authRequest:AuthenticationRequest){
-    let resp = this.authService.authenticate(authRequest);
+    const resp = this.authService.authenticate(authRequest);
     resp.subscribe({
       next: (data) => {
         console.log(data);

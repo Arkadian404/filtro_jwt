@@ -1,5 +1,4 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {ProductDto} from "../../../../shared/dto/product-dto";
 import {ProductService} from "../../../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductImageDto} from "../../../../shared/dto/product-image-dto";
@@ -11,15 +10,20 @@ import {ProductDetailDto} from "../../../../shared/dto/product-detail-dto";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserDto} from "../../../../shared/dto/user-dto";
 import {TokenService} from "../../../../service/token.service";
-import {UserService} from "../../../../service/user/user.service";
 import {AuthenticationService} from "../../../../service/user/authentication.service";
-import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {CartItemService} from "../../../../service/cart-item.service";
 import {UtilService} from "../../../../service/util.service";
 import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
 import {WishlistItemService} from "../../../../service/wishlist-item.service";
 import {Voucher} from "../../../../shared/models/voucher";
 import {VoucherService} from "../../../../service/voucher.service";
+import {CartResponse} from "../../../../shared/response/cart-response";
+import {ProductResponse} from "../../../../shared/response/product-response";
+import {WishlistItemResponse} from "../../../../shared/response/wishlist-item-response";
+import {WishlistItemRequest} from "../../../../shared/request/wishlist-item-request";
+import {CartItemRequest} from "../../../../shared/request/cart-item-request";
+import {CartItemResponse} from "../../../../shared/response/cart-item-response";
+import {VoucherResponse} from "../../../../shared/response/voucher-response";
 
 
 @Component({
@@ -28,8 +32,8 @@ import {VoucherService} from "../../../../service/voucher.service";
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit{
-  product:ProductDto;
-  relatedProducts:ProductDto[]=[];
+  product:ProductResponse;
+  relatedProducts:ProductResponse[]=[];
   user:UserDto;
   productDetail:ProductDetailDto;
   productDetails:ProductDetailDto[];
@@ -40,13 +44,15 @@ export class ProductDetailsComponent implements OnInit{
   isLoading = true;
   form:FormGroup;
   wishlistItemForm:FormGroup;
-  wishlistItems:WishlistItemDto[] = [];
+  wishlistItems:WishlistItemResponse[] = [];
   wishlistItem:WishlistItemDto;
-  isWishlist:ProductDto[] = [];
+  isWishlist:number[] = [];
   slidesPerView=5;
   screenWidth:number;
-  availableVouchersByProductId: Voucher[] = [];
-  availableVouchersToAll: Voucher[] = [];
+  availableVouchersByProductId: VoucherResponse[] = [];
+  availableVouchersToAll: VoucherResponse[] = [];
+  private wishlistItemRequest: WishlistItemRequest = {};
+  private cartItemRequest: CartItemRequest = {};
 
   @HostListener('window:resize')
   getScreenWidth() {
@@ -64,15 +70,15 @@ export class ProductDetailsComponent implements OnInit{
   }
 
 
-  constructor(private productService:ProductService,
-              private formBuilder:FormBuilder,
-              private authService:AuthenticationService,
-              private tokenService:TokenService,
-              private activatedRoute:ActivatedRoute,
-              private cartItemService:CartItemService,
-              private wishlistItemService:WishlistItemService,
-              private voucherService: VoucherService,
-              private utilService:UtilService,
+  constructor(private readonly productService:ProductService,
+              private readonly formBuilder:FormBuilder,
+              private readonly authService:AuthenticationService,
+              private readonly tokenService:TokenService,
+              private readonly activatedRoute:ActivatedRoute,
+              private readonly cartItemService:CartItemService,
+              private readonly wishlistItemService:WishlistItemService,
+              private readonly voucherService: VoucherService,
+              private readonly utilService:UtilService,
               library: FaIconLibrary) {
     library.addIcons(
       faSquare,
@@ -172,10 +178,10 @@ export class ProductDetailsComponent implements OnInit{
     this.selectedImage = event.target.src;
   }
 
-  addCartItemToCart(cartItem:CartItemDto){
+  addCartItemToCart(cartItem: CartResponse){
     this.cartItemService.addCartItemToCart(cartItem).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.cartItemService.addCartItemsBehavior.next(cartItem);
       },
       error:(err)=>{
@@ -185,24 +191,35 @@ export class ProductDetailsComponent implements OnInit{
     })
   }
 
-  addToCart(event:any){
+  mapCartToRequest(cart: CartItemResponse): CartItemRequest{
+    this.cartItemRequest.cartId = cart.cart.id;
+    this.cartItemRequest.productDetailId = cart.productDetail.id;
+    this.cartItemRequest.price = cart.productDetail.price;
+    this.cartItemRequest.quantity = cart.quantity;
+    this.cartItemRequest.total = cart.total;
+    return this.cartItemRequest;
+  }
+
+  addToCart(event:ProductResponse){
     this.product = event;
     if(this.form.valid){
-      this.form.value.productName = this.product.name;
+      this.form.value.prductName = this.product.name;
       this.form.value.slug = this.product.slug;
-      this.form.value.productDetail =this.productDetail;
-      this.form.value.productImage =  this.product.images[0];
-      this.form.value.price = this.productDetail.price;
-      this.form.value.quantity = this.selectedQuantity;
-      this.form.value.total = this.form.value.quantity  * this.form.value.price;
+      this.form.value.productDetail =this.product.productDetails[0];
+      this.form.value.productImage = this.product.images[0];
+      this.form.value.price = this.product.productDetails[0].price;
+      this.form.value.total = this.form.value.quantity * this.form.value.price;
     }
+    console.log(this.form.value)
     if(!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null){
-      this.cartItemService.addToCartNotLogin(this.form.value)
+      this.cartItemService.addToCartNotLogin(this.form.value);
     }else{
       this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
         next:(data)=>{
           this.form.value.cart = data;
-          this.addCartItemToCart(this.form.value);
+          this.cartItemRequest = this.mapCartToRequest(this.form.value);
+          console.log(this.cartItemRequest);
+          this.addCartItemToCart(this.cartItemRequest);
         }
       })
     }
@@ -229,37 +246,20 @@ export class ProductDetailsComponent implements OnInit{
         this.relatedProducts = data;
         const items = this.wishlistItemService.getWishlistItemsFromLocalStorage();
         if(this.tokenService.getUsername()){
-          if(items.length > 0){
-            this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
-              this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(wishlistItems=>{
-                wishlistItems.forEach(wi=>{
-                  wi.wishlist = wishlist;
-                  this.wishlistItemService.addWishlistItemToWishlist(wi).subscribe(item=>{
-                    console.log(item);
-                  });
-                  this.wishlistItemService.wishlistItemsBehavior.next([...this.wishlistItemService.wishlistItemsBehavior.getValue(), wi]);
-                });
-                this.getWishlistItems();
-                this.isWishlist = wishlistItems.map(item=>item.product);
-                localStorage.removeItem("wishlistItems");
+          this.wishlistItemService.getWishlist().subscribe(wishlist=>{
+            this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
+              this.wishlistItems = items;
+              this.isWishlist = items.map(item=>item.product.id);
+              this.wishlistItems.forEach(item=>{
+                this.wishlistItemService.wishlistItemsBehavior.next([...this.wishlistItemService.wishlistItemsBehavior.getValue(), item]);
               })
             })
-          }else{
-            this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
-              this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
-                this.wishlistItems = items;
-                this.isWishlist = items.map(item=>item.product);
-                this.wishlistItemService.wishlistItemsBehavior.next(items);
-              })
-            })
-          }
-        }else{
-          if(items.length > 0){
-            this.isWishlist = items.map(item=>item.product);
-            this.wishlistItemService.wishlistItemsBehavior.next(items);
-          }else{
-            this.wishlistItemService.wishlistItemsBehavior.next([]);
-          }
+          })
+        }else if (items.length > 0) {
+          this.isWishlist = items.map(item => item.product.id);
+          this.wishlistItemService.wishlistItemsBehavior.next(items);
+        } else {
+          this.wishlistItemService.wishlistItemsBehavior.next([]);
         }
       },
       error: err => {
@@ -270,22 +270,10 @@ export class ProductDetailsComponent implements OnInit{
   }
 
 
-  addToWishlist(wishlistItem:WishlistItemDto){
-    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
-      next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
-        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItem);
-        this.isWishlist.push(wishlistItem.product);
-        this.getWishlistItems();
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-  }
+
 
   getWishlistItems(){
-    this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+    this.wishlistItemService.getWishlist().subscribe(wishlist=>{
       this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
         this.wishlistItems = items;
       })
@@ -296,9 +284,9 @@ export class ProductDetailsComponent implements OnInit{
     const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.wishlistItemService.deleteWishlistItemsBehavior.next(productId);
-        const index = this.isWishlist.findIndex(item => item.id === productId);
+        const index = this.isWishlist.findIndex(item => item === productId);
         this.isWishlist.splice(index,1);
         this.getWishlistItems();
         console.log(this.wishlistItems);
@@ -309,36 +297,56 @@ export class ProductDetailsComponent implements OnInit{
     });
   }
 
-  handleWishlist(event:any){
+  mapWishlistItemRequest(wishlistItem: WishlistItemResponse): WishlistItemRequest{
+    this.wishlistItemRequest.wishlistId = wishlistItem.wishlist.id;
+    this.wishlistItemRequest.productId = wishlistItem.product.id;
+    return this.wishlistItemRequest;
+  }
+
+  handleWishlist(event:ProductResponse){
     this.product = event;
     if(this.wishlistItemForm.valid){
       this.wishlistItemForm.value.product = this.product;
     }
     if (!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null) {
       if(this.checkExist(this.isWishlist, this.product)){
-        this.isWishlist.splice(this.isWishlist.indexOf(this.product),1);
+        this.isWishlist = this.isWishlist.filter(item => item !== this.product.id);
       }else{
-        this.isWishlist.push(this.product);
+        this.isWishlist.push(this.product.id);
       }
       this.wishlistItemService.handleWishlistNotLogin(this.wishlistItemForm.value);
-      console.log(this.isWishlist);
     }else{
-      this.wishlistItemService.getWishlist(this.tokenService.getUsername()).subscribe(wishlist=>{
+      this.wishlistItemService.getWishlist().subscribe(wishlist=>{
         this.wishlistItemForm.value.wishlist = wishlist;
+        this.wishlistItemRequest = this.mapWishlistItemRequest(this.wishlistItemForm.value);
         if(this.checkExist(this.isWishlist, this.product)){
           this.deleteFromWishlist(this.product.id);
         }else{
-          this.addToWishlist(this.wishlistItemForm.value);
+          this.addToWishlist(this.wishlistItemRequest, this.wishlistItemForm.value);
         }
       })
     }
   }
 
-  checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
-    return !!isWishlist.find(item => item.id === product.id);
+  addToWishlist(wishlistItem: WishlistItemRequest, wishlistItemForm: WishlistItemResponse){
+    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data, "Đóng");
+        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItemForm);
+        this.isWishlist.push(wishlistItem.productId);
+        this.getWishlistItems();
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
   calcStars(starCount:number){
     return this.utilService.calcStars(starCount);
+  }
+
+  checkExist(isWishlist: number[], product: ProductResponse): boolean {
+    return !!isWishlist.find(item => item === product.id);
   }
 }

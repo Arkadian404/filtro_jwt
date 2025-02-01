@@ -9,6 +9,9 @@ import {CartItemService} from "../../../../service/cart-item.service";
 import {ProductDto} from "../../../../shared/dto/product-dto";
 import {CartItemDto} from "../../../../shared/dto/cart-item-dto";
 import {UserDialogService} from "../reusable/user-dialog.service";
+import {CartResponse} from "../../../../shared/response/cart-response";
+import {WishlistItemRequest} from "../../../../shared/request/wishlist-item-request";
+import {WishlistItemResponse} from "../../../../shared/response/wishlist-item-response";
 
 
 @Component({
@@ -18,18 +21,18 @@ import {UserDialogService} from "../reusable/user-dialog.service";
 })
 export class WishlistComponent implements OnInit{
   isLoading = true;
-  wishlistItems:WishlistItemDto[] = [];
+  wishlistItems:WishlistItemResponse[] = [];
   username:string = this.tokenService.getUsername();
   cartItemForm: FormGroup;
   wishlistItemForm: FormGroup;
   selectedProduct: ProductDto;
-  constructor(private wishlistService:WishlistItemService,
-              private tokenService:TokenService,
-              private cartItemService:CartItemService,
-              private wishlistItemService:WishlistItemService,
-              private formBuilder:FormBuilder,
-              private dialogService:UserDialogService,
-              private utilService:UtilService) {
+  constructor(private readonly wishlistService:WishlistItemService,
+              private readonly tokenService:TokenService,
+              private readonly cartItemService:CartItemService,
+              private readonly wishlistItemService:WishlistItemService,
+              private readonly formBuilder:FormBuilder,
+              private readonly dialogService:UserDialogService,
+              private readonly utilService:UtilService) {
   }
 
   ngOnInit(): void {
@@ -44,7 +47,7 @@ export class WishlistComponent implements OnInit{
 
   getWishlistItems(){
     if(this.username){
-      this.wishlistService.getWishlist(this.username).pipe(
+      this.wishlistService.getWishlist().pipe(
         switchMap(wl=> {
           return this.wishlistService.getWishlistItems(wl.id)
         })
@@ -65,10 +68,10 @@ export class WishlistComponent implements OnInit{
 
   }
 
-  addCartItemToCart(cartItem:CartItemDto){
+  addCartItemToCart(cartItem:CartResponse){
     this.cartItemService.addCartItemToCart(cartItem).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.cartItemService.addCartItemsBehavior.next(cartItem);
       },
       error:(err)=>{
@@ -102,11 +105,11 @@ export class WishlistComponent implements OnInit{
 
 
   deleteWishlist(productId:number){
-    const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
+    const wishlistItem = this.wishlistItems.find(item=>item.product.id  === productId);
     if(this.username){
-      this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
+      this.wishlistItemService.deleteWithLogin(wishlistItem.wishlist.id).subscribe({
         next:(data)=>{
-          this.utilService.openSnackBar(data.message, "Đóng");
+          this.utilService.openSnackBar(data, "Đóng");
           this.wishlistItemService.deleteWishlistItemsBehavior.next(productId);
           this.getWishlistItems();
           console.log(this.wishlistItems);

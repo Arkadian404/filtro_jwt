@@ -79,7 +79,7 @@ export class AdminUserDialogComponent implements OnInit{
         const rawValue = this.form.getRawValue(); // replace disable fields
         this.userService.updateUser(this.data.id, rawValue).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar(data.message, 'Đóng')
+            this.utilService.openSnackBar(data, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -90,7 +90,7 @@ export class AdminUserDialogComponent implements OnInit{
       }else{
         this.userService.createUser(this.form.value).subscribe({
           next:(data) => {
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

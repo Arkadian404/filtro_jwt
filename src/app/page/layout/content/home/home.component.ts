@@ -11,6 +11,12 @@ import {WishlistItemDto} from "../../../../shared/dto/wishlist-item-dto";
 import {RecommenderService} from "../../../../service/recommender.service";
 import {UserService} from "../../../../service/user/user.service";
 import {switchMap} from "rxjs";
+import {ProductResponse} from "../../../../shared/response/product-response";
+import {CartItemResponse} from "../../../../shared/response/cart-item-response";
+import {CartItemRequest} from "../../../../shared/request/cart-item-request";
+import {WishlistItemRequest} from "../../../../shared/request/wishlist-item-request";
+import {WishlistItemResponse} from "../../../../shared/response/wishlist-item-response";
+
 
 
 @Component({
@@ -29,21 +35,22 @@ export class HomeComponent implements OnInit{
   isTop10RoastedProductsLoading = true;
   isTop10BottledProductsLoading = true;
 
-  selectedProduct: ProductDto;
-  latestProducts: ProductDto[] = []
-  bestSellerProducts: ProductDto[] = []
-  specialProducts: ProductDto[] = []
-  top10ColombiaProducts: ProductDto[] = []
-  top10RoastedProducts: ProductDto[] = []
-  top10BottledProducts: ProductDto[] = []
-
-  isWishlist: ProductDto[] = [];
-  wishlistItems: WishlistItemDto[] = [];
+  selectedProduct: ProductResponse;
+  latestProducts: ProductResponse[] = []
+  bestSellerProducts: ProductResponse[] = []
+  specialProducts: ProductResponse[] = []
+  top10ColombiaProducts: ProductResponse[] = []
+  top10RoastedProducts: ProductResponse[] = []
+  top10BottledProducts: ProductResponse[] = []
+  cartItemRequest: CartItemRequest = {};
+  isWishlist: number[] = [];
+  wishlistItems: WishlistItemRequest[] = [];
+  wishlistItemsResponse: WishlistItemResponse[] = [];
 
   cartItemForm:FormGroup;
   wishlistItemForm:FormGroup;
   // @ViewChildren('btnWishlist') wishlistButton: QueryList<ElementRef>
-  recommendProducts: ProductDto[] = [];
+  recommendProducts: ProductResponse[] = [];
   isRecommendProductsLoading = true;
 
 
@@ -61,14 +68,16 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  constructor(private formBuilder:FormBuilder,
-              private productService:ProductService,
-              private tokenService:TokenService,
-              private cartItemService: CartItemService,
-              private wishlistItemService:WishlistItemService,
-              private userService:UserService,
-              private recommenderService:RecommenderService,
-              private utilService:UtilService) {
+  private wishlistItemRequest: WishlistItemRequest = {};
+
+  constructor(private readonly formBuilder:FormBuilder,
+              private readonly productService:ProductService,
+              private readonly tokenService:TokenService,
+              private readonly cartItemService: CartItemService,
+              private readonly wishlistItemService:WishlistItemService,
+              private readonly userService:UserService,
+              private readonly recommenderService:RecommenderService,
+              private readonly utilService:UtilService) {
   }
 
   ngOnInit(){
@@ -81,7 +90,7 @@ export class HomeComponent implements OnInit{
       quantity:1,
     });
     this.wishlistItemForm = this.formBuilder.group({
-      product: null,
+      productId: null,
     })
     this.getLatestProducts();
     this.getBestSellerProducts();
@@ -89,7 +98,7 @@ export class HomeComponent implements OnInit{
     this.getTop10ProductsInColombia();
     this.getTop10RoastedProducts();
     this.getTop10BottledProducts();
-    this.recommendProductsForUser();
+    // this.recommendProductsForUser();
   }
 
   getLatestProducts(){
@@ -173,7 +182,7 @@ export class HomeComponent implements OnInit{
   }
 
 
-  convertCartItemsToUserCart(cartItems: CartItemDto[], username:string){
+  convertCartItemsToUserCart(cartItems: CartItemResponse[], username:string){
     if(this.username){
       if(cartItems.length > 0){
         this.cartItemService.getCart(username).subscribe({
@@ -182,7 +191,8 @@ export class HomeComponent implements OnInit{
             console.log(cartItems);
             cartItems.forEach(ci=>{
               ci.cart = cart;
-              this.cartItemService.addCartItemToCart(ci).subscribe(item=>{
+              this.cartItemRequest = this.mapCartToRequest(ci);
+              this.cartItemService.addCartItemToCart(this.cartItemRequest).subscribe(item=>{
                 console.log(item);
               });
               this.cartItemService.cartItemsBehavior.next([...this.cartItemService.cartItemsBehavior.getValue(), ci]);
@@ -197,53 +207,62 @@ export class HomeComponent implements OnInit{
           })
         })
       }
-    }else{
-      if(cartItems.length > 0){
-        this.cartItemService.cartItemsBehavior.next(cartItems);
-      }else{
-        this.cartItemService.cartItemsBehavior.next([]);
-      }
+    }else if (cartItems.length > 0) {
+      this.cartItemService.cartItemsBehavior.next(cartItems);
+    } else {
+      this.cartItemService.cartItemsBehavior.next([]);
     }
   }
 
-  convertWishlistItemsToUserWishlist(wishlistItems: WishlistItemDto[], username:string){
+
+
+  convertWishlistItemsToUserWishlist(wishlistItems: WishlistItemResponse[], username:string){
     if(this.username){
       if(wishlistItems.length > 0){
-        this.wishlistItemService.getWishlist(username).subscribe(wishlist=>{
+        this.wishlistItemService.getWishlist().subscribe(wishlist=>{
           wishlistItems.forEach(wi=>{
             wi.wishlist = wishlist;
-            this.wishlistItemService.addWishlistItemToWishlist(wi).subscribe(item=>{
+            this.wishlistItemRequest = this.mapWishlistItemRequest(wi);
+            this.wishlistItemService.addWishlistItemToWishlist(this.wishlistItemRequest).subscribe(item=>{
               console.log(item);
             });
-            this.wishlistItemService.wishlistItemsBehavior.next([...this.wishlistItemService.wishlistItemsBehavior.getValue(), wi]);
+            this.wishlistItemService.wishlistItemsBehavior.next(
+              [...this.wishlistItemService.wishlistItemsBehavior.getValue(), wi]
+            );
           });
           this.getWishlistItems();
-          this.isWishlist = wishlistItems.map(item=>item.product);
+          this.isWishlist = wishlistItems.map(item => item.product.id);
           localStorage.removeItem("wishlistItems");
         });
       }else{
-        this.wishlistItemService.getWishlist(username).subscribe(wishlist=>{
+        this.wishlistItemService.getWishlist().subscribe(wishlist=>{
           this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
-            this.wishlistItems = items;
-            this.isWishlist = items.map(item=>item.product);
-            this.wishlistItemService.wishlistItemsBehavior.next(items);
+            this.wishlistItemsResponse = items;
+            this.isWishlist = items.map(item => item.product.id);
+            items.forEach(item => {
+              this.wishlistItemService.wishlistItemsBehavior.next({
+                ...this.wishlistItemService.wishlistItemsBehavior.getValue(),
+                ...item
+              })
+            })
           })
         })
       }
-    }else{
-      if(wishlistItems.length > 0){
-        this.isWishlist = wishlistItems.map(item=>item.product);
-        this.wishlistItemService.wishlistItemsBehavior.next(wishlistItems);
-      }else{
-        this.wishlistItemService.wishlistItemsBehavior.next([]);
-      }
+    }else if (wishlistItems.length > 0) {
+      this.isWishlist = wishlistItems.map(item => item.product.id);
+      this.wishlistItemService.wishlistItemsBehavior.next(wishlistItems);
+    } else {
+      this.wishlistItemService.wishlistItemsBehavior.next([]);
     }
   }
 
-  addCartItemToCart(cartItem:CartItemDto){
+
+
+  addCartItemToCart(cartItem:CartItemRequest){
+    console.log(cartItem);
     this.cartItemService.addCartItemToCart(cartItem).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.cartItemService.addCartItemsBehavior.next(cartItem);
       },
       error:(err)=>{
@@ -252,13 +271,22 @@ export class HomeComponent implements OnInit{
     })
   }
 
-  addToCart(event:any){
+  mapCartToRequest(cart: CartItemResponse): CartItemRequest{
+    this.cartItemRequest.cartId = cart.cart.id;
+    this.cartItemRequest.productDetailId = cart.productDetail.id;
+    this.cartItemRequest.price = cart.productDetail.price;
+    this.cartItemRequest.quantity = cart.quantity;
+    this.cartItemRequest.total = cart.total;
+    return this.cartItemRequest;
+  }
+
+  addToCart(event:ProductResponse){
     this.selectedProduct = event;
     if(this.cartItemForm.valid){
-      this.cartItemForm.value.productName = this.selectedProduct.name;
+      this.cartItemForm.value.prductName = this.selectedProduct.name;
       this.cartItemForm.value.slug = this.selectedProduct.slug;
       this.cartItemForm.value.productDetail =this.selectedProduct.productDetails[0];
-      this.cartItemForm.value.productImage =  this.selectedProduct.images[0];
+      this.cartItemForm.value.productImage = this.selectedProduct.images[0];
       this.cartItemForm.value.price = this.selectedProduct.productDetails[0].price;
       this.cartItemForm.value.total = this.cartItemForm.value.quantity * this.cartItemForm.value.price;
     }
@@ -269,41 +297,31 @@ export class HomeComponent implements OnInit{
       this.cartItemService.getCart(this.tokenService.getUsername()).subscribe({
         next:(data)=>{
           this.cartItemForm.value.cart = data;
-          this.addCartItemToCart(this.cartItemForm.value);
+          this.cartItemRequest = this.mapCartToRequest(this.cartItemForm.value);
+          console.log(this.cartItemRequest);
+          this.addCartItemToCart(this.cartItemRequest);
         }
       })
     }
   }
 
-  addToWishlist(wishlistItem:WishlistItemDto){
-    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
-      next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
-        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItem);
-        this.isWishlist.push(wishlistItem.product);
-        this.getWishlistItems();
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-  }
+
 
   getWishlistItems(){
-    this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+    this.wishlistItemService.getWishlist().subscribe(wishlist=>{
       this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
-        this.wishlistItems = items;
+        this.wishlistItemsResponse = items;
       })
     })
   }
 
   deleteFromWishlist(productId:number){
-    const wishlistItem = this.wishlistItems.find(item=>item.product.id === productId);
+    const wishlistItem = this.wishlistItemsResponse.find(item=>item.product.id === productId);
     this.wishlistItemService.deleteWithLogin(wishlistItem?.id).subscribe({
       next:(data)=>{
-        this.utilService.openSnackBar(data.message, "Đóng");
+        this.utilService.openSnackBar(data, "Đóng");
         this.wishlistItemService.deleteWishlistItemsBehavior.next(productId);
-        const index = this.isWishlist.findIndex(item => item.id === productId);
+        const index = this.isWishlist.findIndex(item => item === productId);
         this.isWishlist.splice(index,1);
         this.getWishlistItems();
         console.log(this.wishlistItems);
@@ -314,32 +332,53 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  handleWishlist(event:any){
+  mapWishlistItemRequest(wishlistItem: WishlistItemResponse): WishlistItemRequest{
+    this.wishlistItemRequest.wishlistId = wishlistItem.wishlist.id;
+    this.wishlistItemRequest.productId = wishlistItem.product.id;
+    return this.wishlistItemRequest;
+  }
+
+  handleWishlist(event:ProductResponse){
     this.selectedProduct = event;
     if(this.wishlistItemForm.valid){
       this.wishlistItemForm.value.product = this.selectedProduct;
     }
     if (!this.tokenService.getAccessToken() || this.tokenService.getUsername() == null) {
       if(this.checkExist(this.isWishlist, this.selectedProduct)){
-        this.isWishlist.splice(this.isWishlist.indexOf(this.selectedProduct),1);
+        this.isWishlist = this.isWishlist.filter(item => item !== this.selectedProduct.id);
       }else{
-        this.isWishlist.push(this.selectedProduct);
+        this.isWishlist.push(this.selectedProduct.id);
       }
       this.wishlistItemService.handleWishlistNotLogin(this.wishlistItemForm.value);
     }else{
-      this.wishlistItemService.getWishlist(this.username).subscribe(wishlist=>{
+      this.wishlistItemService.getWishlist().subscribe(wishlist=>{
         this.wishlistItemForm.value.wishlist = wishlist;
+        this.wishlistItemRequest = this.mapWishlistItemRequest(this.wishlistItemForm.value);
         if(this.checkExist(this.isWishlist, this.selectedProduct)){
           this.deleteFromWishlist(this.selectedProduct.id);
         }else{
-          this.addToWishlist(this.wishlistItemForm.value);
+          this.addToWishlist(this.wishlistItemRequest, this.wishlistItemForm.value);
         }
       })
     }
   }
 
-  checkExist(isWishlist: ProductDto[], product: ProductDto): boolean {
-    return !!isWishlist.find(item => item.id === product.id);
+  addToWishlist(wishlistItem: WishlistItemRequest, wishlistItemForm: WishlistItemResponse){
+    this.wishlistItemService.addWishlistItemToWishlist(wishlistItem).subscribe({
+      next:(data)=>{
+        this.utilService.openSnackBar(data, "Đóng");
+        this.wishlistItemService.addWishlistItemsBehavior.next(wishlistItemForm);
+        this.isWishlist.push(wishlistItem.productId);
+        this.getWishlistItems();
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  checkExist(isWishlist: number[], product: ProductResponse): boolean {
+    return !!isWishlist.find(item => item === product.id);
   }
 
   calcStars(starCount:number){

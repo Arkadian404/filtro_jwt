@@ -5,19 +5,22 @@ import {ReviewDto} from "../../shared/dto/review-dto";
 import {ReviewRating} from "../../shared/models/statistic/review-rating";
 import {SuccessMessage} from "../../shared/models/success-message";
 import {environment} from "../../../environments/environment";
+import {ApiResponse} from "../../shared/api-response";
+import {ReviewResponse} from "../../shared/response/review-response";
 
 const API_URL = `${environment.springboot_url}/api/v1/user/review`;
+// const API_URL = `${environment.springboot_url}/test/review`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService{
 
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
 
 
   getAllReviews(){
-    return this.http.get<ReviewDto[]>(`${API_URL}/all`)
+    return this.http.get<ReviewDto[]>(`${API_URL}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -27,7 +30,7 @@ export class ReviewService{
   }
 
   getReviewById(id:number){
-    return this.http.get<ReviewDto>(`${API_URL}/find/${id}`)
+    return this.http.get<ReviewDto>(`${API_URL}/${id}`)
       .pipe(
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
@@ -37,8 +40,9 @@ export class ReviewService{
   }
 
   getReviewsByProductId(id:number){
-    return this.http.get<ReviewDto[]>(`${API_URL}/product/${id}`)
+    return this.http.get<ApiResponse<ReviewResponse[]>>(`${API_URL}/product/${id}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -47,8 +51,9 @@ export class ReviewService{
   }
 
   getReviewProductCount(id:number){
-    return this.http.get<number>(`${API_URL}/get/countReviewProduct/${id}`)
+    return this.http.get<ApiResponse<number>>(`${API_URL}/count/product/${id}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -57,8 +62,9 @@ export class ReviewService{
   }
 
   getReviewRating(id:number){
-    return this.http.get<ReviewRating[]>(`${API_URL}/get/productReviewRating/${id}`)
+    return this.http.get<ApiResponse<ReviewRating[]>>(`${API_URL}/product/${id}/rating`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -67,20 +73,28 @@ export class ReviewService{
   }
 
   isUserReviewed(userId:number, productId:number){
-    return this.http.get<boolean>(`${API_URL}/check/user/${userId}/review/${productId}`);
+    return this.http.get<ApiResponse<boolean>>(`${API_URL}/check/user/${userId}/review/${productId}`)
+      .pipe(
+        map(response => response.result),
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
   }
 
-  createReview(content:any, parentId:number, product:any, user:any){
-    return this.http.post<SuccessMessage>(`${API_URL}/create`,
+  createReview(content:any, parentId:number, productId:any, userId:any){
+    return this.http.post<ApiResponse<string>>(`${API_URL}`,
       {
-        user:user,
-        product:product,
+        userId: userId,
+        productId: productId,
         rating: content?.rating??null,
         comment: content.comment,
         parentId: parentId
       }
     )
       .pipe(
+        map(response => response.message),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -89,11 +103,12 @@ export class ReviewService{
   }
 
   updateReview(content:any, id:number){
-    return this.http.put<SuccessMessage>(`${API_URL}/update/${id}`, {
+    return this.http.put<ApiResponse<string>>(`${API_URL}/${id}`, {
       rating: content?.rating??null,
       comment: content.comment,
     })
       .pipe(
+        map(response => response.message),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -102,8 +117,9 @@ export class ReviewService{
   }
 
   deleteReview(id:number){
-    return this.http.delete<SuccessMessage>(`${API_URL}/delete/${id}`)
+    return this.http.delete<ApiResponse<string>>(`${API_URL}/${id}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -112,7 +128,14 @@ export class ReviewService{
   }
 
   hasUserBoughtProduct(userId:number, productId:number){
-    return this.http.get<boolean>(`${API_URL}/check/user/${userId}/${productId}`);
+    return this.http.get<ApiResponse<boolean>>(`${API_URL}/check/user/${userId}/bought/${productId}`)
+      .pipe(
+        map(response => response.result),
+        catchError(err=>{
+          console.log("Error handled by Service: "+err.status)
+          return throwError(()=> new Error(err.error.message));
+        })
+      );
   }
 
 }

@@ -36,7 +36,7 @@ export class AdminBrandDialogComponent implements OnInit{
       if(this.data){
         this.brandService.updateBrand(this.data.id, this.form.value).subscribe({
           next:(data)=>{
-            this.utilService.openSnackBar(data.message, 'Đóng')
+            this.utilService.openSnackBar(data, 'Đóng')
             this.matDialog.close(true);
             console.log(this.form);
           },
@@ -47,7 +47,7 @@ export class AdminBrandDialogComponent implements OnInit{
       }else{
         this.brandService.createBrand(this.form.value).subscribe({
           next:(data) => {
-            this.utilService.openSnackBar(data.message, 'Đóng');
+            this.utilService.openSnackBar(data, 'Đóng');
             this.matDialog.close(true);
             console.log(this.form)
           },

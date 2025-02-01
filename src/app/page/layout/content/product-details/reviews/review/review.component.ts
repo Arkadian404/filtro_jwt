@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ReviewDto} from "../../../../../../shared/dto/review-dto";
-import {UserDto} from "../../../../../../shared/dto/user-dto";
-import {ProductDto} from "../../../../../../shared/dto/product-dto";
 import {ActiveReviewTypeEnum} from "../../../../../../shared/utils/active-review-type-enum";
 import {ActiveReview} from "../../../../../../shared/utils/active-review";
 import * as moment from 'moment';
+import {ProductResponse} from "../../../../../../shared/response/product-response";
+import {ReviewResponse} from "../../../../../../shared/response/review-response";
+import {UserResponse} from "../../../../../../shared/response/user-response";
 
 @Component({
   selector: 'app-review',
@@ -12,10 +12,10 @@ import * as moment from 'moment';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit{
-  @Input() review:ReviewDto;
-  @Input() user:UserDto;
-  @Input() product:ProductDto;
-  @Input() replies:ReviewDto[];
+  @Input() review:ReviewResponse;
+  @Input() user:UserResponse;
+  @Input() product:ProductResponse;
+  @Input() replies:ReviewResponse[];
   @Input() activeReview:ActiveReview | null;
   @Input() parentId:number | null;
   @Input() starCount = 1;
@@ -44,15 +44,6 @@ export class ReviewComponent implements OnInit{
     this.replyId = this.parentId ? this.parentId : this.review?.id;
     this.stars = Array(this.starCount).map((_,i)=>i+1);
     this.starsOff = Array(5-this.starCount).map((_,i)=>i+1);
-  }
-
-  processDate(){
-    this.duration = moment.duration(moment().diff(moment(this.review.createdAt)));
-    if(this.duration.asDays() > 1){
-      return this.review.createdAt;
-    }else{
-      return this.duration.humanize().toString() + ' ago';
-    }
   }
 
   onActiveReply(reply: ActiveReview){

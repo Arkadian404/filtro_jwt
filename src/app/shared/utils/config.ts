@@ -1,6 +1,6 @@
 export const MY_DATE_FORMAT = {
   parse: {
-    dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+    dateInput: 'YYYY-MM-DD', // this is how your date will be parsed from Input
   },
   display: {
     dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input

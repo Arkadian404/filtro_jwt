@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../../shared/models/product/product";
-import {BehaviorSubject, catchError, throwError} from "rxjs";
+import {BehaviorSubject, catchError, map, throwError} from "rxjs";
 import {ProductDto} from "../../shared/dto/product-dto";
 import {Page} from "../../shared/models/page";
 import {SuccessMessage} from "../../shared/models/success-message";
 import {PageContext} from "../../shared/utils/page-context";
 import {environment} from "../../../environments/environment";
+import {ProductResponse} from "../../shared/response/product-response";
+import {ApiResponse} from "../../shared/api-response";
+import {PageResponse} from "../../shared/pageResponse";
+import {ProductRequest} from "../../shared/request/product-request";
 
-const ADMIN_API:string = `${environment.springboot_url}/api/v1/admin/product`;
-const USER_API:string = `${environment.springboot_url}/api/v1/user/product`;
-
+const ADMIN_API = `${environment.springboot_url}/api/v1/admin/product`;
+// const ADMIN_API = `${environment.springboot_url}/test/product`;
+const USER_API = `${environment.springboot_url}/api/v1/user/product`;
+// const USER_API = `${environment.springboot_url}/test/product`;
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private data = new BehaviorSubject<Page>(null);
+  private readonly data = new BehaviorSubject<Page>(null);
   data$ = this.data.asObservable();
 
-  private context = new BehaviorSubject<PageContext>(null);
+  private readonly context = new BehaviorSubject<PageContext>(null);
   context$ = this.context.asObservable();
 
   setData(data:any){
@@ -30,11 +35,12 @@ export class ProductService {
   }
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
 
   getAdminProductList(){
-    return this.http.get<Product[]>(`${ADMIN_API}/getList`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${ADMIN_API}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -42,9 +48,10 @@ export class ProductService {
       );
   }
 
-  getProductDtoList(){
-    return this.http.get<ProductDto[]>(`${USER_API}/get/all`)
+  getProductList(){
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status);
           return throwError(()=> new Error(err.error.message));
@@ -53,8 +60,9 @@ export class ProductService {
   }
 
   getProductDtoBySlug(slug:string){
-    return this.http.get<ProductDto>(`${USER_API}/get/${slug}`)
+    return this.http.get<ApiResponse<ProductResponse>>(`${USER_API}/slug/${slug}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -65,8 +73,9 @@ export class ProductService {
   getProductListPaging(page:number, sort?:string,
                        flavor?:string, category?:string, brand?:string,
                        origin?:string, vendor?:string){
-    return this.http.get<Page>(`${USER_API}/all?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+    return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/all?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -77,12 +86,14 @@ export class ProductService {
   getInstantCoffeeListPaging(page:number, sort?:string,
                              flavor?:string, category?:string, brand?:string,
                              origin?:string, vendor?:string) {
-      return this.http.get<Page>(`${USER_API}/byInstantCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/instantCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
           .pipe(
-              catchError(err => {
-                  console.log("Error handled by Service: " + err.status)
-                  return throwError(() => new Error(err.error.message));
-              })
+            map(response => response.result),
+            catchError(err => {
+              console.log("Error handled by Service: " + err)
+              console.log("Error handled by Service: " + err.status)
+              return throwError(() => new Error(err.error.message));
+            })
           )
   }
 
@@ -90,9 +101,11 @@ export class ProductService {
   getRoastedBeanCoffeeListPaging(page:number, sort?:string,
                                flavor?:string, category?:string, brand?:string,
                                origin?:string, vendor?:string) {
-      return this.http.get<Page>(`${USER_API}/byRoastedBeanCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/roastedBeanCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
             .pipe(
+              map(response => response.result),
                 catchError(err => {
+                    console.log("Error handled by Service: " + err)
                     console.log("Error handled by Service: " + err.status)
                     return throwError(() => new Error(err.error.message));
                 })
@@ -103,9 +116,11 @@ export class ProductService {
   getCoffeeBallListPaging(page:number, sort?:string,
                                    flavor?:string, category?:string, brand?:string,
                                    origin?:string, vendor?:string) {
-      return this.http.get<Page>(`${USER_API}/byCoffeeBall?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/coffeeBall?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
             .pipe(
+              map(response => response.result),
                 catchError(err => {
+                    console.log("Error handled by Service: " + err)
                     console.log("Error handled by Service: " + err.status)
                     return throwError(() => new Error(err.error.message));
                 })
@@ -117,8 +132,9 @@ export class ProductService {
   getBottledCoffeeListPaging(page:number, sort?:string,
                          flavor?:string, category?:string, brand?:string,
                          origin?:string, vendor?:string){
-        return this.http.get<Page>(`${USER_API}/byBottledCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+        return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/bottledCoffee?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
             .pipe(
+              map(response => response.result),
                 catchError(err=>{
                     console.log("Error handled by Service: "+err.status)
                     return throwError(()=> new Error(err.error.message));
@@ -130,8 +146,9 @@ export class ProductService {
   getSpecialCoffeeListPaging(page:number, sort?:string,
                          flavor?:string, category?:string, brand?:string,
                          origin?:string, vendor?:string){
-      return this.http.get<Page>(`${USER_API}/byIsSpecial?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/special?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
           .pipe(
+            map(response => response.result),
                 catchError(err=>{
                     console.log("Error handled by Service: "+err.status)
                     return throwError(()=> new Error(err.error.message));
@@ -142,8 +159,9 @@ export class ProductService {
   getLimitedCoffeeListPaging(page:number, sort?:string,
                          flavor?:string, category?:string, brand?:string,
                          origin?:string, vendor?:string){
-      return this.http.get<Page>(`${USER_API}/byIsLimited?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+      return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/limited?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
           .pipe(
+            map(response => response.result),
                 catchError(err=>{
                     console.log("Error handled by Service: "+err.status)
                     return throwError(()=> new Error(err.error.message));
@@ -154,8 +172,9 @@ export class ProductService {
   getContinentCoffeeListPaging(name:string,page:number, sort?:string,
                                flavor?:string, category?:string, brand?:string,
                                origin?:string, vendor?:string){
-    return this.http.get<Page>(`${USER_API}/byContinent/${name}?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+    return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/continent/${name}?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -167,8 +186,9 @@ export class ProductService {
   getBestSellerCoffeeListPaging(page:number, sort?:string,
                                flavor?:string, category?:string, brand?:string,
                                origin?:string, vendor?:string){
-    return this.http.get<Page>(`${USER_API}/bestSeller?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
+    return this.http.get<ApiResponse<PageResponse<ProductResponse>>>(`${USER_API}/page/bestSeller?page=${page}&sort=${sort}&flavor=${flavor}&category=${category}&brand=${brand}&origin=${origin}&vendor=${vendor}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -176,19 +196,11 @@ export class ProductService {
       )
   }
 
-  getProductById(id:number){
-    return this.http.get<Product>(`${ADMIN_API}/find/${id}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      );
-  }
 
-  getProductDtoById(id:number){
-    return this.http.get<ProductDto>(`${USER_API}/find/dto/${id}`)
+  getProductResponseById(id:number){
+    return this.http.get<ApiResponse<ProductResponse>>(`${USER_API}/${id}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status);
           return throwError(()=> new Error(err.error.message));
@@ -197,8 +209,9 @@ export class ProductService {
   }
 
   getAdminProductsByCategory(categoryId:number){
-    return this.http.get<Product[]>(`${ADMIN_API}/getListByCategory/${categoryId}`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${ADMIN_API}/category/${categoryId}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -206,80 +219,11 @@ export class ProductService {
       );
   }
 
-  getProductsByCategory(categoryId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByCategory/${categoryId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message))
-        })
-      );
-  }
-
-  getProductsByBrand(brandId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByBrand/${brandId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      );
-  }
-
-
-  getProductsByVendor(vendorId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByVendor/${vendorId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      );
-  }
-
-  getProductsByOrigin(originId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByOrigin/${originId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      );
-  }
-
-  getProductsByIsSpecial(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByIsSpecial`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      )
-  }
-
-  getProductsByFlavor(flavorId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListByFlavor/${flavorId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      )
-  }
-
-  getProductsBySale(saleId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/getListBySale/${saleId}`)
-      .pipe(
-        catchError(err=>{
-          console.log("Error handled by Service: "+err.status)
-          return throwError(()=> new Error(err.error.message));
-        })
-      )
-  }
 
   getTop3LatestProducts(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop3LatestProducts`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/3LatestProducts`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -288,8 +232,9 @@ export class ProductService {
   }
 
   getTop3BestSellerProducts(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop3BestSellerProducts`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/3LatestProducts`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -298,8 +243,9 @@ export class ProductService {
   }
 
   getTop3SpecialProducts(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop3SpecialProducts`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/3Special`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -308,8 +254,9 @@ export class ProductService {
   }
 
   getTop10ProductsInColombia(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop10ProductsInColombia`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/10Colombia`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -318,8 +265,9 @@ export class ProductService {
   }
 
   getTop10ProductsByRoastedCoffeeBeans(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop10ProductsByRoastedCoffeeBeans`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/10RoastedBean`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status)
           return throwError(()=> new Error(err.error.message));
@@ -328,8 +276,9 @@ export class ProductService {
   }
 
   getTop10ProductsByBottledCoffee(){
-    return this.http.get<ProductDto[]>(`${USER_API}/getTop10ProductsByBottledCoffee`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/top/10BottledCoffee`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status);
           return throwError(()=> new Error(err.error.message));
@@ -338,8 +287,9 @@ export class ProductService {
   }
 
   getTop10RelatedProductsByFlavor(id:number, flavorId:number){
-    return this.http.get<ProductDto[]>(`${USER_API}/${id}/related/${flavorId}`)
+    return this.http.get<ApiResponse<ProductResponse[]>>(`${USER_API}/${id}/related/${flavorId}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log("Error handled by Service: "+err.status);
           return throwError(()=> new Error(err.error.message));
@@ -347,9 +297,10 @@ export class ProductService {
       )
   }
 
-  createProduct(product:Product){
-    return this.http.post<SuccessMessage>(`${ADMIN_API}/create`,product)
+  createProduct(product:ProductRequest){
+    return this.http.post<ApiResponse<ProductResponse>>(`${ADMIN_API}`,product)
       .pipe(
+        map(response => response.message),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
@@ -357,9 +308,10 @@ export class ProductService {
       );
   }
 
-  updateProduct(id:number, product:Product){
-    return this.http.put<SuccessMessage>(`${ADMIN_API}/update/${id}`,product)
+  updateProduct(id:number, product:ProductRequest){
+    return this.http.put<ApiResponse<ProductResponse>>(`${ADMIN_API}/${id}`,product)
       .pipe(
+        map(response => response.message),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
@@ -368,8 +320,9 @@ export class ProductService {
   }
 
   deleteProduct(id:number){
-    return this.http.delete<SuccessMessage>(`${ADMIN_API}/delete/${id}`)
+    return this.http.delete<ApiResponse<string>>(`${ADMIN_API}/${id}`)
       .pipe(
+        map(response => response.message),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))

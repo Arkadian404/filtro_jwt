@@ -1,43 +1,45 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, throwError} from "rxjs";
-import {CartItemDto} from "../shared/dto/cart-item-dto";
+import {BehaviorSubject, catchError, map, throwError} from "rxjs";
 
-import {SuccessMessage} from "../shared/models/success-message";
-import {CartDto} from "../shared/dto/cart-dto";
 import {UtilService} from "./util.service";
 import {environment} from "../../environments/environment";
+import {ApiResponse} from "../shared/api-response";
+import {CartItemResponse} from "../shared/response/cart-item-response";
+import {CartItemRequest} from "../shared/request/cart-item-request";
+import {CartResponse} from "../shared/response/cart-response";
 
 
-const CART_ITEM_API:string = `${environment.springboot_url}/api/v1/user/cart`;
+const CART_ITEM_API = `${environment.springboot_url}/api/v1/user/cart`;
+// const CART_ITEM_API = `${environment.springboot_url}/test/cart`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartItemService{
-  cartItems: CartItemDto[];
+  cartItems: CartItemResponse[];
 
-  cartItemsBehavior:BehaviorSubject<CartItemDto[]> = new BehaviorSubject([]);
+  cartItemsBehavior:BehaviorSubject<CartItemResponse[]> = new BehaviorSubject([]);
   cartItems$ = this.cartItemsBehavior.asObservable();
 
-  addCartItemsBehavior:BehaviorSubject<CartItemDto> = new BehaviorSubject(null);
+  addCartItemsBehavior:BehaviorSubject<CartItemResponse> = new BehaviorSubject(null);
   addCartItems$ = this.addCartItemsBehavior.asObservable();
 
   deleteCartItemsBehavior:BehaviorSubject<number> = new BehaviorSubject(null);
   deleteCartItems$ = this.deleteCartItemsBehavior.asObservable();
-  constructor(private  http:HttpClient,
-              private utilService:UtilService) {
+  constructor(private readonly http:HttpClient,
+              private readonly utilService:UtilService) {
 
   }
 
-  getCartItemsFromLocalStorage(): CartItemDto[] {
+  getCartItemsFromLocalStorage(): CartItemResponse[] {
     // Retrieve cart items from local storage, parse the JSON, and return them
     const cartItemsJSON = localStorage.getItem('cartItems');
     return cartItemsJSON ? JSON.parse(cartItemsJSON) : [];
   }
 
 
-  saveCartItemsFromLocalStorage(cartItems: CartItemDto[]){
+  saveCartItemsFromLocalStorage(cartItems: CartItemResponse[]){
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
@@ -48,13 +50,12 @@ export class CartItemService{
   }
 
 
-  addToCartNotLogin(cartItem: CartItemDto): void {
-    const cartItems: CartItemDto[] = this.getCartItemsFromLocalStorage();
+  addToCartNotLogin(cartItem: CartItemResponse): void {
+    const cartItems: CartItemResponse[] = this.getCartItemsFromLocalStorage();
     const existingItemIndex = cartItems.findIndex(item=> item.productDetail.id === cartItem.productDetail.id);
     if(existingItemIndex != -1){
       cartItems[existingItemIndex].quantity ++;
       cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * cartItems[existingItemIndex].price;
-      // cartItems[existingItemIndex] = cartItem;
     }else{
       cartItems.push(cartItem);
       console.log("cart items: ", this.addCartItemsBehavior.value);
@@ -65,9 +66,10 @@ export class CartItemService{
     this.utilService.openSnackBar("Thêm vào giỏ hàng thành công", "Đóng");
   }
 
-  addCartItemToCart(cartItem: CartItemDto){
-    return this.http.post<SuccessMessage>(`${CART_ITEM_API}/saveCartItem`,cartItem)
+  addCartItemToCart(cartItem: CartItemRequest){
+    return this.http.post<ApiResponse<string>>(`${CART_ITEM_API}/add`,cartItem)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
@@ -76,8 +78,9 @@ export class CartItemService{
   }
 
   getCart(username: string){
-    return this.http.get<CartDto>(`${CART_ITEM_API}/get/${username}`)
+    return this.http.get<ApiResponse<CartResponse>>(`${CART_ITEM_API}/myCart`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
@@ -86,8 +89,9 @@ export class CartItemService{
   }
 
   getCartItems(cartId:number){
-    return this.http.get<CartItemDto[]>(`${CART_ITEM_API}/${cartId}/getCartItems`)
+    return this.http.get<ApiResponse<CartItemResponse[]>>(`${CART_ITEM_API}/${cartId}/items`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
@@ -97,14 +101,16 @@ export class CartItemService{
 
   deleteWithLogin (cartItemID: number){
     this.deleteCartItemsBehavior.next(cartItemID);
-    return this.http.delete<SuccessMessage>(`${CART_ITEM_API}/delete/cart/items/${cartItemID}`)
+    return this.http.delete<ApiResponse<string>>(`${CART_ITEM_API}/items/${cartItemID}`)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
         })
       );
   }
+
   deleteWithoutLogin(productDetailId: number){
     console.log(productDetailId)
     this.cartItems =  this.getCartItemsFromLocalStorage();
@@ -122,8 +128,9 @@ export class CartItemService{
   }
 
   updateCartItemQuantity(cartItemId:number, amount:number){
-    return this.http.put<SuccessMessage>(`${CART_ITEM_API}/update/cart/items/${cartItemId}`, amount)
+    return this.http.put<ApiResponse<string>>(`${CART_ITEM_API}/items/${cartItemId}`, amount)
       .pipe(
+        map(response => response.result),
         catchError(err=>{
           console.log('Error handled by Service...' + err.status);
           return throwError(()=>new Error(err.error.message))
