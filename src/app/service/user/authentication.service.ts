@@ -109,4 +109,11 @@ export class AuthenticationService {
   //   return usernameJson ? JSON.parse(usernameJson): "";
   // }
 
+  login(): Observable<string> {
+    return this.http.get(`${AUTH_API}/auth/social-login`, {responseType: "text"});
+  }
+
+  exchangeCodeToToken(code: string): Observable<AuthenticationResponse>{
+    return this.http.get<AuthenticationResponse>(`${AUTH_API}/auth/social/callback`, {params: {'code': code}});
+  }
 }

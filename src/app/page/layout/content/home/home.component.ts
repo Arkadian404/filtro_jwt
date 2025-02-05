@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit{
     const wishlistItems = this.wishlistItemService.getWishlistItemsFromLocalStorage();
     this.username = this.tokenService.getUsername();
     this.convertCartItemsToUserCart(cartItems, this.username);
-    this.convertWishlistItemsToUserWishlist(wishlistItems, this.username);
+    this.convertWishlistItemsToUserWishlist(wishlistItems);
     this.cartItemForm = this.formBuilder.group({
       quantity:1,
     });
@@ -201,6 +201,7 @@ export class HomeComponent implements OnInit{
           }
         });
       }else{
+        console.log("Calling from cart: "+ username);
         this.cartItemService.getCart(username).subscribe(cart=>{
           this.cartItemService.getCartItems(cart.id).subscribe(items=>{
             this.cartItemService.cartItemsBehavior.next(items);
@@ -216,7 +217,7 @@ export class HomeComponent implements OnInit{
 
 
 
-  convertWishlistItemsToUserWishlist(wishlistItems: WishlistItemResponse[], username:string){
+  convertWishlistItemsToUserWishlist(wishlistItems: WishlistItemResponse[]){
     if(this.username){
       if(wishlistItems.length > 0){
         this.wishlistItemService.getWishlist().subscribe(wishlist=>{
@@ -235,6 +236,7 @@ export class HomeComponent implements OnInit{
           localStorage.removeItem("wishlistItems");
         });
       }else{
+        console.log("Calling from wishlist: "+ this.username);
         this.wishlistItemService.getWishlist().subscribe(wishlist=>{
           this.wishlistItemService.getWishlistItems(wishlist.id).subscribe(items=>{
             this.wishlistItemsResponse = items;

@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
               private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let accessToken = this.tokenService.getAccessToken();
+    const accessToken = this.tokenService.getAccessToken();
     if (accessToken){
       request = this.setHeaders(request, accessToken);
     }
@@ -80,7 +80,7 @@ export class AuthInterceptor implements HttpInterceptor {
           console.log('3'+this.isRefresh)
           this.refreshTokenSubject.next(res.accessToken);
           console.log("CALLING HANDLE SWITCHMAP")
-          return next.handle(this.setHeaders(request, res.accessToken));
+          return next.handle(this.  setHeaders(request, res.accessToken));
         })
       )
     }else{

@@ -54,9 +54,18 @@
 
                 <div class="d-grid">
                   <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Đăng nhập</button>
-                  <div class="d-flex">
-                    <a class="small text-decoration-none" routerLink="/forgot-password">Quên mật khẩu?</a>
-                    <a class="small text-decoration-none ms-auto" routerLink="/register">Tạo tài khoản</a>
+
+                  <button class="btn btn-light btn-lg d-flex align-items-center shadow-sm px-4 py-2"
+                          type="button"
+                          (click)="loginWithGoogle()"
+                  >
+                    <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Logo" class="me-2" width="24" height="24">
+                    <span class="fs-16">Đăng nhập với Google</span>
+                  </button>
+
+                  <div class="d-flex mt-3">
+                    <a class="small text-decoration-none text-dark" routerLink="/forgot-password">Quên mật khẩu?</a>
+                    <a class="small text-decoration-none ms-auto text-dark" routerLink="/register">Tạo tài khoản</a>
                   </div>
                 </div>
               </form>

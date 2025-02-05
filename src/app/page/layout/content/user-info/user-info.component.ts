@@ -117,6 +117,7 @@ export class UserInfoComponent implements OnInit{
             ward: this._ward !=null ? this._ward.find(w => w.WardName === this.user.ward) : null,
           });
           this.profileForm.get('username').disable();
+          this.user.accountId ? this.profileForm.get('email').disable() : this.profileForm.get('email').enable();
           this.isLoading = false;
       },
       error: (err) => {

@@ -13,4 +13,5 @@ export interface UserResponse{
   role?: string;
   createdDate?: Date;
   updatedDate?: Date;
+  accountId?: string;
 }

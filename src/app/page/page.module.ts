@@ -92,6 +92,7 @@ import { CollapsibleChatboxComponent } from './layout/content/chat/collapsible-c
 import { InstructionComponent } from './layout/content/instruction/instruction.component';
 import { PrivacyComponent } from './layout/content/privacy/privacy.component';
 import { MaintenanceComponent } from './layout/content/maintenance/maintenance.component';
+import { AppCallbackComponent } from './layout/content/app-callback/app-callback.component';
 
 register();
 @NgModule({
@@ -146,6 +147,7 @@ register();
         InstructionComponent,
         PrivacyComponent,
         MaintenanceComponent,
+        AppCallbackComponent,
     ],
   imports: [
     CommonModule,

@@ -39,6 +39,7 @@ import {WishlistComponent} from "./layout/content/wishlist/wishlist.component";
 import {InstructionComponent} from "./layout/content/instruction/instruction.component";
 import {PrivacyComponent} from "./layout/content/privacy/privacy.component";
 import {MaintenanceComponent} from "./layout/content/maintenance/maintenance.component";
+import {AppCallbackComponent} from "./layout/content/app-callback/app-callback.component";
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
       {path: 'user-info', component:UserInfoComponent, canActivate:[userInfoGuard]},
       {path:'search', component:SearchComponent},
       {path:'login', component:LoginComponent, canActivate: [userLoginGuard]},
+      {path: 'auth/google/callback', component: AppCallbackComponent},
       {path:'register', component:RegisterComponent},
       {path:'logout', component:LogoutComponent},
       {path: 'forgot-password', component: ForgotPasswordComponent},

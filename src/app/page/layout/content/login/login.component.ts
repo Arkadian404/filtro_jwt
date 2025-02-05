@@ -54,4 +54,14 @@ export class LoginComponent implements OnInit{
   }
 
 
+  loginWithGoogle() {
+    this.authService.login().subscribe({
+      next: (url:string) => {
+        window.location.href = url;
+      },
+      error: (error) =>{
+        console.log(error);
+      }
+    });
+  }
 }
